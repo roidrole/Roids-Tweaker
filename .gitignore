@@ -1,6 +1,22 @@
-# Project exclude paths
-/.gradle/
-/build/
-/build/classes/java/main/
-/libs/
-/libs/*.*
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+eclipse
+run

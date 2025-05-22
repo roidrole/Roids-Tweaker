@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ctintegration.iml" filepath="$PROJECT_DIR$/.idea/ctintegration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CraftTweakerIntegration.api.iml" filepath="$PROJECT_DIR$/.idea/modules/CraftTweakerIntegration.api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CraftTweakerIntegration.ideVirtualMain.iml" filepath="$PROJECT_DIR$/.idea/modules/CraftTweakerIntegration.ideVirtualMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CraftTweakerIntegration.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CraftTweakerIntegration.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CraftTweakerIntegration.patchedMc.iml" filepath="$PROJECT_DIR$/.idea/modules/CraftTweakerIntegration.patchedMc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CraftTweakerIntegration.test.iml" filepath="$PROJECT_DIR$/.idea/modules/CraftTweakerIntegration.test.iml" />
     </modules>
   </component>
 </project>
