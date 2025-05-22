@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.tcreopargh.ctintegration.cot.BaubleEventHandler;
 import xyz.tcreopargh.ctintegration.cot.BaubleItemRepresentation;
+import xyz.tcreopargh.ctintegration.cot.BaubleVanillaFactoryExpansion;
 import xyz.tcreopargh.ctintegration.gamestages.events.EventsExpansion;
 
 @Mod(
@@ -50,6 +51,7 @@ public class CTIntegrationMod {
             CraftTweakerAPI.registerClass(BaubleEventHandler.OnEquipped.class);
             CraftTweakerAPI.registerClass(BaubleEventHandler.OnUnequipped.class);
             CraftTweakerAPI.registerClass(BaubleEventHandler.WillAutoSync.class);
+            CraftTweakerAPI.registerClass(BaubleVanillaFactoryExpansion.class);
         }
     }
 

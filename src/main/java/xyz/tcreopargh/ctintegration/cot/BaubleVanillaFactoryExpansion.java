@@ -7,9 +7,7 @@ import net.minecraftforge.fml.common.Loader;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenMethodStatic;
 
-@ModOnly("contenttweaker")
 @ZenExpansion("mods.contenttweaker.VanillaFactory")
-@ZenRegister
 public class BaubleVanillaFactoryExpansion {
     @ZenMethodStatic
     public static BaubleItemRepresentation createBaubleItem(String unlocalizedName) {
