@@ -5,9 +5,9 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.player.IPlayer;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegrationMod;
+import xyz.tcreopargh.ctintegration.Tags;
 
-@ZenClass(CTIntegrationMod.CT_NAMESPACE + "thaumcraft.IPlayerKnowledge")
+@ZenClass(Tags.CT_NAMESPACE + "thaumcraft.IPlayerKnowledge")
 @ModOnly("thaumcraft")
 @ZenRegister
 public interface IPlayerKnowledge {

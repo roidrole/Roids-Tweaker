@@ -7,10 +7,10 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.api.player.IPlayer;
 import net.darkhax.gamestages.event.GameStageEvent;
 import stanhebben.zenscript.annotations.ZenClass;
-import xyz.tcreopargh.ctintegration.CTIntegrationMod;
+import xyz.tcreopargh.ctintegration.Tags;
 
 @ZenRegister
-@ZenClass(CTIntegrationMod.CT_NAMESPACE + "gamestages.GameStageRemoveEvent")
+@ZenClass(Tags.CT_NAMESPACE + "gamestages.GameStageRemoveEvent")
 @ModOnly("gamestages")
 public class CTGameStageRemoveEvent implements IEventCancelable, IGameStageEvent {
 

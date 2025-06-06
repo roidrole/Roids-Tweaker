@@ -3,13 +3,13 @@ package xyz.tcreopargh.ctintegration.vanilla.advancement;
 import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegrationMod;
+import xyz.tcreopargh.ctintegration.Tags;
 import xyz.tcreopargh.ctintegration.date.IDate;
 
 import java.util.List;
 
 @ZenRegister
-@ZenClass(CTIntegrationMod.CT_NAMESPACE + "advancement.IAdvancementProgress")
+@ZenClass(Tags.CT_NAMESPACE + "advancement.IAdvancementProgress")
 public interface IAdvancementProgress {
 
     Object getInternal();

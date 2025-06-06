@@ -15,7 +15,7 @@ import net.silentchaos512.scalinghealth.utils.SHPlayerDataHandler;
 import net.silentchaos512.scalinghealth.world.ScalingHealthSavedData;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegrationMod;
+import xyz.tcreopargh.ctintegration.Tags;
 import xyz.tcreopargh.ctintegration.date.IDate;
 import xyz.tcreopargh.ctintegration.date.CalendarDate;
 
@@ -23,7 +23,7 @@ import java.util.Objects;
 
 @ModOnly("scalinghealth")
 @ZenRegister
-@ZenClass(CTIntegrationMod.CT_NAMESPACE + "scalinghealth.DifficultyManager")
+@ZenClass(Tags.CT_NAMESPACE + "scalinghealth.DifficultyManager")
 public class DifficultyManager {
 
     @ZenMethod

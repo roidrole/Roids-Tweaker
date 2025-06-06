@@ -7,12 +7,12 @@ import crafttweaker.api.item.IItemStack;
 import stanhebben.zenscript.annotations.IterableSimple;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegrationMod;
+import xyz.tcreopargh.ctintegration.Tags;
 
 @ModOnly("baubles")
 @ZenRegister
 @IterableSimple("crafttweaker.item.IItemStack")
-@ZenClass(CTIntegrationMod.CT_NAMESPACE + "baubles.IBaubleInventory")
+@ZenClass(Tags.CT_NAMESPACE + "baubles.IBaubleInventory")
 public interface IBaublesInventory extends Iterable<IItemStack> {
 
     Object getInternal();

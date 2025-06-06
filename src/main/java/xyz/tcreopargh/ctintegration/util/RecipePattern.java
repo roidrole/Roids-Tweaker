@@ -10,14 +10,14 @@ import crafttweaker.mc1120.CraftTweaker;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegrationMod;
+import xyz.tcreopargh.ctintegration.Tags;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@ZenClass(CTIntegrationMod.CT_NAMESPACE + "util.RecipePattern")
+@ZenClass(Tags.CT_NAMESPACE + "util.RecipePattern")
 @ZenRegister
 public class RecipePattern {
     private final String[] pattern;

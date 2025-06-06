@@ -7,13 +7,13 @@ import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.util.ResourceLocation;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegrationMod;
+import xyz.tcreopargh.ctintegration.Tags;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @ZenRegister
-@ZenClass(CTIntegrationMod.CT_NAMESPACE + "advancement.AdvancementHelper")
+@ZenClass(Tags.CT_NAMESPACE + "advancement.AdvancementHelper")
 public class AdvancementHelper {
     @ZenMethod
     public static IAdvancement getAdvancementById(IServer server, String id) {

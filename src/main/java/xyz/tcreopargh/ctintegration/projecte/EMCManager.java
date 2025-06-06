@@ -12,13 +12,13 @@ import moze_intel.projecte.emc.EMCMapper;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegrationMod;
+import xyz.tcreopargh.ctintegration.Tags;
 
 import java.util.List;
 
 @ModOnly("projecte")
 @ZenRegister
-@ZenClass(CTIntegrationMod.CT_NAMESPACE + "projecte.EMCManager")
+@ZenClass(Tags.CT_NAMESPACE + "projecte.EMCManager")
 public class EMCManager {
 
     @ZenMethod

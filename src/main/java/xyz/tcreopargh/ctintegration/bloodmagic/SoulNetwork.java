@@ -7,9 +7,9 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.api.player.IPlayer;
 import crafttweaker.api.text.ITextComponent;
 import stanhebben.zenscript.annotations.*;
-import xyz.tcreopargh.ctintegration.CTIntegrationMod;
+import xyz.tcreopargh.ctintegration.Tags;
 
-@ZenClass(CTIntegrationMod.CT_NAMESPACE + "bloodmagic.SoulNetork")
+@ZenClass(Tags.CT_NAMESPACE + "bloodmagic.SoulNetork")
 @ModOnly("bloodmagic")
 @ZenRegister
 public class SoulNetwork {

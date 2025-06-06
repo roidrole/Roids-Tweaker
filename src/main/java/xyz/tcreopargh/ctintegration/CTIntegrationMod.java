@@ -17,8 +17,7 @@ import xyz.tcreopargh.ctintegration.gamestages.events.EventsExpansion;
         dependencies = CTIntegrationMod.DEPENDENCIES
 )
 public class CTIntegrationMod {
-
-    public static final String CT_NAMESPACE = "mods.ctintegration.";
+    
     public static final String DEPENDENCIES = "required-after:crafttweaker";
 
     @Mod.EventHandler
