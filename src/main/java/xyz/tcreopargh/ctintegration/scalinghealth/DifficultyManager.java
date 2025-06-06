@@ -59,13 +59,11 @@ public class DifficultyManager {
     @ZenMethod
     public static double getDifficulty(IPlayer player) {
         EntityPlayer entPlayer = CraftTweakerMC.getPlayer(player);
-        double val = Double.NaN;
-        if (SHPlayerDataHandler.get(entPlayer) != null) {
-            val = Objects.requireNonNull(SHPlayerDataHandler.get(entPlayer)).getDifficulty();
-        } else {
-            CraftTweakerAPI.logInfo("cannot get difficulty because the player's scaling health data is null");
+        if(entPlayer == null || SHPlayerDataHandler.get(entPlayer) == null){
+            CraftTweakerAPI.logInfo("cannot get difficulty because the player's scaling health data is null or player is null");
+            return Double.NaN;
         }
-        return val;
+        return SHPlayerDataHandler.get(entPlayer).getDifficulty();
     }
 
     @ZenMethod
