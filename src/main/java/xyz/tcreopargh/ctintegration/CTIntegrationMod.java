@@ -21,9 +21,6 @@ public class CTIntegrationMod {
     public static final String CT_NAMESPACE = "mods.ctintegration.";
     public static final String DEPENDENCIES = "required-after:crafttweaker";
 
-    @Mod.Instance(Tags.MOD_ID)
-    public static CTIntegrationMod INSTANCE;
-
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {
         if (Loader.isModLoaded("gamestages")) {
