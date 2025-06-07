@@ -171,15 +171,15 @@ public class RecipePattern {
     @ZenMethod
     public void build() {
         if (isShapeless) {
-            IIngredient[] shapelessRecipe = getShapelessIngredients();
-            if (shapelessRecipe.length == 0){
+            IIngredient[] grid = getShapelessIngredients();
+            if (grid.length == 0){
                 CraftTweakerAPI.logError("The pattern is empty", new IllegalArgumentException());
                 return;
             }
             if (name == null) {
-                CraftTweaker.INSTANCE.recipes.addShapeless(output, shapelessRecipe, recipeFunction, recipeAction);
+                CraftTweaker.INSTANCE.recipes.addShapeless(output, grid, recipeFunction, recipeAction);
             } else {
-                CraftTweaker.INSTANCE.recipes.addShapeless(name, output, shapelessRecipe, recipeFunction, recipeAction);
+                CraftTweaker.INSTANCE.recipes.addShapeless(name, output, grid, recipeFunction, recipeAction);
             }
         } else {
             IIngredient[][] grid = getIngredients();
