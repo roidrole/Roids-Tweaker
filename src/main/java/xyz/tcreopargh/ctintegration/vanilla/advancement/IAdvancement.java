@@ -11,7 +11,7 @@ import xyz.tcreopargh.ctintegration.CTIntegration;
 import java.util.List;
 
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "advancement.IAdvancement")
+@ZenClass(CTIntegration.CT_PACKAGE + "advancement.IAdvancement")
 public interface IAdvancement {
 
     Object getInternal();

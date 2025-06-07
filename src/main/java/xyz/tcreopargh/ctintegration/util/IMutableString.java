@@ -11,7 +11,7 @@ import xyz.tcreopargh.ctintegration.CTIntegration;
  * @author TCreopargh
  */
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "util.MutableString")
+@ZenClass(CTIntegration.CT_PACKAGE + "util.MutableString")
 public interface IMutableString {
     @ZenMethod
     IMutableString append(String s);

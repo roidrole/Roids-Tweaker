@@ -10,7 +10,7 @@ import stanhebben.zenscript.annotations.ZenClass;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "gamestages.GameStageClearedEvent")
+@ZenClass(CTIntegration.CT_PACKAGE + "gamestages.GameStageClearedEvent")
 @ModOnly("gamestages")
 public class CTGameStageClearedEvent implements IPlayerEvent {
 

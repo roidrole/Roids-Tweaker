@@ -5,7 +5,7 @@ import stanhebben.zenscript.annotations.*;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "date.IDate")
+@ZenClass(CTIntegration.CT_PACKAGE + "date.IDate")
 public interface IDate {
 
     @ZenMethod

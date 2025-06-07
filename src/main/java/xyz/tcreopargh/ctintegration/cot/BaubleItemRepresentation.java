@@ -7,7 +7,7 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenProperty;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
-@ZenClass(CTIntegration.CTI_PACKAGE + "cot.baubles.BaubleItemRepresentation")
+@ZenClass(CTIntegration.CT_PACKAGE + "cot.baubles.BaubleItemRepresentation")
 public class BaubleItemRepresentation extends ItemRepresentation {
 
     @ZenProperty

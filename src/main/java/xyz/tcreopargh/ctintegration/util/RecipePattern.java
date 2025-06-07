@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@ZenClass(CTIntegration.CTI_PACKAGE + "util.RecipePattern")
+@ZenClass(CTIntegration.CT_PACKAGE + "util.RecipePattern")
 @ZenRegister
 public class RecipePattern {
     private final String[] pattern;

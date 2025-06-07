@@ -9,7 +9,7 @@ import xyz.tcreopargh.ctintegration.cot.BaubleVanillaFactoryExpansion;
 import xyz.tcreopargh.ctintegration.gamestages.events.EventsExpansion;
 
 public class CTIntegration {
-    public static final String CTI_PACKAGE = "mods.ctintegration.";
+    public static final String CT_PACKAGE = "mods.ctintegration.";
 
     public static void preInit() {
         if (Loader.isModLoaded("gamestages")) {

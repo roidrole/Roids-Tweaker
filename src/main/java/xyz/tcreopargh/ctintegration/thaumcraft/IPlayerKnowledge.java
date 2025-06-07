@@ -7,7 +7,7 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
-@ZenClass(CTIntegration.CTI_PACKAGE + "thaumcraft.IPlayerKnowledge")
+@ZenClass(CTIntegration.CT_PACKAGE + "thaumcraft.IPlayerKnowledge")
 @ModOnly("thaumcraft")
 @ZenRegister
 public interface IPlayerKnowledge {

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "advancement.AdvancementHelper")
+@ZenClass(CTIntegration.CT_PACKAGE + "advancement.AdvancementHelper")
 public class AdvancementHelper {
     @ZenMethod
     public static IAdvancement getAdvancementById(IServer server, String id) {

@@ -14,7 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "util.DateUtil")
+@ZenClass(CTIntegration.CT_PACKAGE + "util.DateUtil")
 public class DateUtil {
 
     @ZenMethod

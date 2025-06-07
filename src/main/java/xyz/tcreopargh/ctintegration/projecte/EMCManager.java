@@ -18,7 +18,7 @@ import java.util.List;
 
 @ModOnly("projecte")
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "projecte.EMCManager")
+@ZenClass(CTIntegration.CT_PACKAGE + "projecte.EMCManager")
 public class EMCManager {
 
     @ZenMethod

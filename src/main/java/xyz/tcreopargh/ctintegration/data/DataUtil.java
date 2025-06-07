@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "data.DataUtil")
+@ZenClass(CTIntegration.CT_PACKAGE + "data.DataUtil")
 public class DataUtil {
 
     @ZenMethod

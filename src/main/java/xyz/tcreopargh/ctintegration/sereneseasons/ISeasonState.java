@@ -8,7 +8,7 @@ import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @ModOnly("sereneseasons")
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "sereneseasons.ISeasonState")
+@ZenClass(CTIntegration.CT_PACKAGE + "sereneseasons.ISeasonState")
 public interface ISeasonState {
 
     @ZenGetter("dayDuration")

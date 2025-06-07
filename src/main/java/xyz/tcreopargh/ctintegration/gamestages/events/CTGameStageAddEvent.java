@@ -10,7 +10,7 @@ import stanhebben.zenscript.annotations.ZenClass;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "gamestages.GameStageAddEvent")
+@ZenClass(CTIntegration.CT_PACKAGE + "gamestages.GameStageAddEvent")
 @ModOnly("gamestages")
 public class CTGameStageAddEvent implements IEventCancelable, IGameStageEvent {
 

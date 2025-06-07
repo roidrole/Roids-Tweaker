@@ -16,7 +16,7 @@ import java.util.List;
 @ModOnly("projecte")
 @ZenRegister
 //Registering under CTI package because other projecte methods are there
-@ZenClass(CTIntegration.CTI_PACKAGE + "projecte.FuelManager")
+@ZenClass(CTIntegration.CT_PACKAGE + "projecte.FuelManager")
 public class FuelManager {
     public static List<ItemStack> customFuels = new ArrayList<>(0);
     public static List<SimpleStack> fuelsToRemove = new ArrayList<>(0);

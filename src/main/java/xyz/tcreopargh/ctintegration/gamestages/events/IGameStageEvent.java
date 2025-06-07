@@ -8,7 +8,7 @@ import stanhebben.zenscript.annotations.ZenGetter;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "gamestages.IGameStageEvent")
+@ZenClass(CTIntegration.CT_PACKAGE + "gamestages.IGameStageEvent")
 @ModOnly("gamestages")
 public interface IGameStageEvent extends IPlayerEvent {
     @ZenGetter("gameStage")

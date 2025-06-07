@@ -2,12 +2,12 @@ package roidrole.roidtweaker.mods.minecraft.config;
 
 import crafttweaker.annotations.ZenRegister;
 import net.minecraftforge.common.config.Configuration;
+import roidrole.roidtweaker.RoidTweaker;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "config.IConfigFile")
+@ZenClass(RoidTweaker.CT_PACKAGE + "config.IConfigFile")
 public class Config {
     Configuration config;
 

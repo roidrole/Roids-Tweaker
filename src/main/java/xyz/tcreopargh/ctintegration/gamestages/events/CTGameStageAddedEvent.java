@@ -9,7 +9,7 @@ import stanhebben.zenscript.annotations.ZenClass;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "gamestages.GameStageAddedEvent")
+@ZenClass(CTIntegration.CT_PACKAGE + "gamestages.GameStageAddedEvent")
 @ModOnly("gamestages")
 public class CTGameStageAddedEvent implements IGameStageEvent {
 

@@ -20,9 +20,10 @@ public class RoidTweaker {
       + "required-after:crafttweaker;"
       + "required-after:mtlib;"
       + "required-after:mixinbooter;";
+    public static final String CT_PACKAGE = "mods.roidtweaker.";
 
     @Mod.EventHandler
-    public void preinit(FMLPreInitializationEvent event) {
+    public void preInit(FMLPreInitializationEvent event) {
         CTIntegration.preInit();
     }
 

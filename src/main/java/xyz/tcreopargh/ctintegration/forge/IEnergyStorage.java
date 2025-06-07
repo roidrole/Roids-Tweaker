@@ -7,7 +7,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "IEnergyStorage")
+@ZenClass(CTIntegration.CT_PACKAGE + "IEnergyStorage")
 public interface IEnergyStorage {
 
     Object getInternal();

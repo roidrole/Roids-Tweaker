@@ -9,7 +9,7 @@ import xyz.tcreopargh.ctintegration.date.IDate;
 import java.util.List;
 
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "advancement.IAdvancementProgress")
+@ZenClass(CTIntegration.CT_PACKAGE + "advancement.IAdvancementProgress")
 public interface IAdvancementProgress {
 
     Object getInternal();

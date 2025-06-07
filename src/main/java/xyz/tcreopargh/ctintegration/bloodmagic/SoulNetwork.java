@@ -9,7 +9,7 @@ import crafttweaker.api.text.ITextComponent;
 import stanhebben.zenscript.annotations.*;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
-@ZenClass(CTIntegration.CTI_PACKAGE + "bloodmagic.SoulNetork")
+@ZenClass(CTIntegration.CT_PACKAGE + "bloodmagic.SoulNetork")
 @ModOnly("bloodmagic")
 @ZenRegister
 public class SoulNetwork {

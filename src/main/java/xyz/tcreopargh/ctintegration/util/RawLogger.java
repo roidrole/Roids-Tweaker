@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "util.RawLogger")
+@ZenClass(CTIntegration.CT_PACKAGE + "util.RawLogger")
 public class RawLogger {
 
     private static final File logFile = new File("crafttweaker_raw.log");

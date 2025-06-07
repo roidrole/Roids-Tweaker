@@ -23,7 +23,7 @@ import java.util.Objects;
 
 @ModOnly("scalinghealth")
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "scalinghealth.DifficultyManager")
+@ZenClass(CTIntegration.CT_PACKAGE + "scalinghealth.DifficultyManager")
 public class DifficultyManager {
 
     @ZenMethod

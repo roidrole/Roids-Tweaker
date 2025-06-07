@@ -12,7 +12,7 @@ import xyz.tcreopargh.ctintegration.CTIntegration;
 @ModOnly("baubles")
 @ZenRegister
 @IterableSimple("crafttweaker.item.IItemStack")
-@ZenClass(CTIntegration.CTI_PACKAGE + "baubles.IBaubleInventory")
+@ZenClass(CTIntegration.CT_PACKAGE + "baubles.IBaubleInventory")
 public interface IBaublesInventory extends Iterable<IItemStack> {
 
     Object getInternal();

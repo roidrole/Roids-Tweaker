@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 @ZenRegister
-@ZenClass(CTIntegration.CTI_PACKAGE + "util.ArrayUtil")
+@ZenClass(CTIntegration.CT_PACKAGE + "util.ArrayUtil")
 public class ArrayUtil {
     @ZenMethod
     public static void sort(int[] array) {
