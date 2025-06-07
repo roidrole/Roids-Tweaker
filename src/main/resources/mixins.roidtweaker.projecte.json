@@ -1,11 +1,13 @@
 {
-	"package": "xyz.tcreopargh.ctintegration.mixins.projecte",
+	"package": "roidrole.roidtweaker.mixins.projecte",
 	"required": true,
 	"refmap": "mixins.ctintegration.refmap.json",
 	"target": "@env(DEFAULT)",
 	"minVersion": "0.8.5",
 	"compatibilityLevel": "JAVA_8",
-	"mixins": ["MixinFuelMapper"],
+	"mixins": [
+      "MixinFuelMapper"
+    ],
 	"server": [],
 	"client": []
 }

@@ -4,10 +4,10 @@ import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.Tags;
+import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @ZenRegister
-@ZenClass(Tags.CT_NAMESPACE + "IEnergyStorage")
+@ZenClass(CTIntegration.CTI_PACKAGE + "IEnergyStorage")
 public interface IEnergyStorage {
 
     Object getInternal();

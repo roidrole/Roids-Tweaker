@@ -67,6 +67,7 @@ dependencies {
     //     transitive = false
     // }
     implementation('curse.maven:crafttweaker-239197:6186559')
+    implementation('curse.maven:mtlib-253211:3308160')
 
     implementation('curse.maven:contenttweaker-237065:3331364')
     implementation('curse.maven:base-246996:3440963')
@@ -79,7 +80,7 @@ dependencies {
     compileOnly('curse.maven:ftb-money-306283:3010526')
     compileOnly('curse.maven:game-stages-268655:2951840')
     compileOnly('curse.maven:nyx-rotn-edition-437663:3840824')
-    implementation('curse.maven:projecte-226410:2702991')
+    compileOnly('curse.maven:projecte-226410:2702991')
     compileOnly('curse.maven:scaling-health-248027:2816920')
     compileOnly('curse.maven:serene-seasons-291874:2799213')
     compileOnly('curse.maven:thaumcraft-223628:2629023')

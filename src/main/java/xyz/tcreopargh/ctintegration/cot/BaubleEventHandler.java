@@ -3,40 +3,40 @@ package xyz.tcreopargh.ctintegration.cot;
 import crafttweaker.api.entity.IEntityLivingBase;
 import crafttweaker.api.item.IItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
-import xyz.tcreopargh.ctintegration.Tags;
+import xyz.tcreopargh.ctintegration.CTIntegration;
 
 public class BaubleEventHandler {
-    @ZenClass(Tags.CT_NAMESPACE + "cot.baubles.WornTick")
+    @ZenClass(CTIntegration.CTI_PACKAGE + "cot.baubles.WornTick")
     public interface OnWornTick {
         void handle(IItemStack bauble, IEntityLivingBase wearer);
     }
 
-    @ZenClass(Tags.CT_NAMESPACE + "cot.baubles.Equipped")
+    @ZenClass(CTIntegration.CTI_PACKAGE + "cot.baubles.Equipped")
     public interface OnEquipped {
         void handle(IItemStack bauble, IEntityLivingBase wearer);
     }
 
-    @ZenClass(Tags.CT_NAMESPACE + "cot.baubles.Unequipped")
+    @ZenClass(CTIntegration.CTI_PACKAGE + "cot.baubles.Unequipped")
     public interface OnUnequipped {
         void handle(IItemStack bauble, IEntityLivingBase wearer);
     }
 
-    @ZenClass(Tags.CT_NAMESPACE + "cot.baubles.CanEquip")
+    @ZenClass(CTIntegration.CTI_PACKAGE + "cot.baubles.CanEquip")
     public interface CanEquip {
         boolean handle(IItemStack bauble, IEntityLivingBase wearer);
     }
 
-    @ZenClass(Tags.CT_NAMESPACE + "cot.baubles.CanUnequip")
+    @ZenClass(CTIntegration.CTI_PACKAGE + "cot.baubles.CanUnequip")
     public interface canUnequip {
         boolean handle(IItemStack bauble, IEntityLivingBase wearer);
     }
 
-    @ZenClass(Tags.CT_NAMESPACE + "cot.baubles.WillAutoSync")
+    @ZenClass(CTIntegration.CTI_PACKAGE + "cot.baubles.WillAutoSync")
     public interface WillAutoSync {
         boolean handle(IItemStack bauble, IEntityLivingBase wearer);
     }
 
-    @ZenClass(Tags.CT_NAMESPACE + "cot.baubles.GetBaubleType")
+    @ZenClass(CTIntegration.CTI_PACKAGE + "cot.baubles.GetBaubleType")
     public interface GetBaubleType {
         String handle(IItemStack bauble);
     }

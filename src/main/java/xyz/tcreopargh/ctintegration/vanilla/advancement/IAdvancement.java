@@ -6,12 +6,12 @@ import crafttweaker.api.text.ITextComponent;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.Tags;
+import xyz.tcreopargh.ctintegration.CTIntegration;
 
 import java.util.List;
 
 @ZenRegister
-@ZenClass(Tags.CT_NAMESPACE + "advancement.IAdvancement")
+@ZenClass(CTIntegration.CTI_PACKAGE + "advancement.IAdvancement")
 public interface IAdvancement {
 
     Object getInternal();

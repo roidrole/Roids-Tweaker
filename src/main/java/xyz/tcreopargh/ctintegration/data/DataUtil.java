@@ -11,13 +11,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import org.apache.commons.lang3.StringEscapeUtils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.Tags;
+import xyz.tcreopargh.ctintegration.CTIntegration;
 
 import java.util.Iterator;
 import java.util.Map;
 
 @ZenRegister
-@ZenClass(Tags.CT_NAMESPACE + "data.DataUtil")
+@ZenClass(CTIntegration.CTI_PACKAGE + "data.DataUtil")
 public class DataUtil {
 
     @ZenMethod

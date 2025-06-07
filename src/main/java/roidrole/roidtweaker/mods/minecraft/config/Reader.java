@@ -1,16 +1,15 @@
-//Roidrole addition
-package xyz.tcreopargh.ctintegration.vanilla.config;
+package roidrole.roidtweaker.mods.minecraft.config;
 
 import crafttweaker.annotations.ZenRegister;
 import net.minecraftforge.common.config.Configuration;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.Tags;
+import xyz.tcreopargh.ctintegration.CTIntegration;
 
 import java.io.File;
 
 @ZenRegister
-@ZenClass(Tags.CT_NAMESPACE + "config.Reader")
+@ZenClass(CTIntegration.CTI_PACKAGE + "config.Reader")
 public class Reader {
     @ZenMethod
     public static Config getConfigFile(String path){

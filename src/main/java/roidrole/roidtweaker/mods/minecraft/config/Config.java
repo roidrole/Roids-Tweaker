@@ -1,14 +1,13 @@
-//Roidrole addition
-package xyz.tcreopargh.ctintegration.vanilla.config;
+package roidrole.roidtweaker.mods.minecraft.config;
 
 import crafttweaker.annotations.ZenRegister;
 import net.minecraftforge.common.config.Configuration;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.Tags;
+import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @ZenRegister
-@ZenClass(Tags.CT_NAMESPACE + "config.IConfigFile")
+@ZenClass(CTIntegration.CTI_PACKAGE + "config.IConfigFile")
 public class Config {
     Configuration config;
 
