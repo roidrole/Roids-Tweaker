@@ -68,17 +68,18 @@ dependencies {
     // }
     implementation('curse.maven:crafttweaker-239197:6186559')
 
-    //Supported mods
-    implementation('curse.maven:baubles-227083:2518667')
-    implementation('curse.maven:blood-magic-224791:2822288')
-    implementation('curse.maven:silent-lib-242998:2851111')
     implementation('curse.maven:contenttweaker-237065:3331364')
     implementation('curse.maven:base-246996:3440963')
-    implementation('curse.maven:ftb-money-306283:3010526')
-    implementation('curse.maven:game-stages-268655:2951840')
-    implementation('curse.maven:nyx-rotn-edition-437663:3840824')
-    implementation('curse.maven:projecte-226410:2702991')
-    implementation('curse.maven:scaling-health-248027:2816920')
-    implementation('curse.maven:serene-seasons-291874:2799213')
-    implementation('curse.maven:thaumcraft-223628:2629023')
+
+    //Supported mods
+    compileOnly('curse.maven:baubles-227083:2518667')
+    compileOnly('curse.maven:blood-magic-224791:2822288')
+    compileOnly('curse.maven:silent-lib-242998:2851111')
+    compileOnly('curse.maven:ftb-money-306283:3010526')
+    compileOnly('curse.maven:game-stages-268655:2951840')
+    compileOnly('curse.maven:nyx-rotn-edition-437663:3840824')
+    compileOnly('curse.maven:projecte-226410:2702991')
+    compileOnly('curse.maven:scaling-health-248027:2816920')
+    compileOnly('curse.maven:serene-seasons-291874:2799213')
+    compileOnly('curse.maven:thaumcraft-223628:2629023')
 }
