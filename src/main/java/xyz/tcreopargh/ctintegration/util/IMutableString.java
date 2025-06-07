@@ -5,13 +5,13 @@ import stanhebben.zenscript.annotations.OperatorType;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenOperator;
-import xyz.tcreopargh.ctintegration.Tags;
+import xyz.tcreopargh.ctintegration.CTIntegration;
 
 /**
  * @author TCreopargh
  */
 @ZenRegister
-@ZenClass(Tags.CT_NAMESPACE + "util.MutableString")
+@ZenClass(CTIntegration.CTI_PACKAGE + "util.MutableString")
 public interface IMutableString {
     @ZenMethod
     IMutableString append(String s);

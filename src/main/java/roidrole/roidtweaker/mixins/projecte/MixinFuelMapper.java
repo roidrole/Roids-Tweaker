@@ -1,5 +1,4 @@
-//Roidrole addition
-package xyz.tcreopargh.ctintegration.mixins.projecte;
+package roidrole.roidtweaker.mixins.projecte;
 
 import moze_intel.projecte.emc.EMCMapper;
 import moze_intel.projecte.emc.FuelMapper;
@@ -11,7 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.tcreopargh.ctintegration.projecte.FuelManager;
+import roidrole.roidtweaker.mods.projecte.FuelManager;
 
 import java.util.Comparator;
 import java.util.List;

@@ -4,11 +4,11 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenGetter;
-import xyz.tcreopargh.ctintegration.Tags;
+import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @ModOnly("sereneseasons")
 @ZenRegister
-@ZenClass(Tags.CT_NAMESPACE + "sereneseasons.ISeasonState")
+@ZenClass(CTIntegration.CTI_PACKAGE + "sereneseasons.ISeasonState")
 public interface ISeasonState {
 
     @ZenGetter("dayDuration")

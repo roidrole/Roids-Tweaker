@@ -5,9 +5,9 @@ import com.teamacronymcoders.contenttweaker.ContentTweaker;
 import com.teamacronymcoders.contenttweaker.modules.vanilla.items.ItemRepresentation;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenProperty;
-import xyz.tcreopargh.ctintegration.Tags;
+import xyz.tcreopargh.ctintegration.CTIntegration;
 
-@ZenClass(Tags.CT_NAMESPACE + "cot.baubles.BaubleItemRepresentation")
+@ZenClass(CTIntegration.CTI_PACKAGE + "cot.baubles.BaubleItemRepresentation")
 public class BaubleItemRepresentation extends ItemRepresentation {
 
     @ZenProperty

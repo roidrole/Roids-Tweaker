@@ -3,13 +3,13 @@ package xyz.tcreopargh.ctintegration.util;
 import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.Tags;
+import xyz.tcreopargh.ctintegration.CTIntegration;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 @ZenRegister
-@ZenClass(Tags.CT_NAMESPACE + "util.ArrayUtil")
+@ZenClass(CTIntegration.CTI_PACKAGE + "util.ArrayUtil")
 public class ArrayUtil {
     @ZenMethod
     public static void sort(int[] array) {
