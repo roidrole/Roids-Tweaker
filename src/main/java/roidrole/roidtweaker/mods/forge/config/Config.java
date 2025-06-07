@@ -1,4 +1,4 @@
-package roidrole.roidtweaker.mods.minecraft.config;
+package roidrole.roidtweaker.mods.forge.config;
 
 import crafttweaker.annotations.ZenRegister;
 import net.minecraftforge.common.config.Configuration;

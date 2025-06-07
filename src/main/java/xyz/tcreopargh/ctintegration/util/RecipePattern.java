@@ -170,31 +170,35 @@ public class RecipePattern {
 
     @ZenMethod
     public void build() {
-        IIngredient[][] grid = getIngredients();
-
-        if (grid.length == 0) {
-            CraftTweakerAPI.logError("The pattern is empty", new IllegalArgumentException());
-            return;
-        }
-
         if (isShapeless) {
             IIngredient[] shapelessRecipe = getShapelessIngredients();
+            if (shapelessRecipe.length == 0){
+                CraftTweakerAPI.logError("The pattern is empty", new IllegalArgumentException());
+                return;
+            }
             if (name == null) {
                 CraftTweaker.INSTANCE.recipes.addShapeless(output, shapelessRecipe, recipeFunction, recipeAction);
             } else {
                 CraftTweaker.INSTANCE.recipes.addShapeless(name, output, shapelessRecipe, recipeFunction, recipeAction);
             }
-        } else if (isMirrored) {
-            if (name == null) {
-                CraftTweaker.INSTANCE.recipes.addShapedMirrored(output, grid, recipeFunction, recipeAction);
-            } else {
-                CraftTweaker.INSTANCE.recipes.addShapedMirrored(name, output, grid, recipeFunction, recipeAction);
-            }
         } else {
-            if (name == null) {
-                CraftTweaker.INSTANCE.recipes.addShaped(output, grid, recipeFunction, recipeAction);
+            IIngredient[][] grid = getIngredients();
+            if (grid.length == 0) {
+                CraftTweakerAPI.logError("The pattern is empty", new IllegalArgumentException());
+                return;
+            }
+            if (isMirrored) {
+                if (name == null) {
+                    CraftTweaker.INSTANCE.recipes.addShapedMirrored(output, grid, recipeFunction, recipeAction);
+                } else {
+                    CraftTweaker.INSTANCE.recipes.addShapedMirrored(name, output, grid, recipeFunction, recipeAction);
+                }
             } else {
-                CraftTweaker.INSTANCE.recipes.addShaped(name, output, grid, recipeFunction, recipeAction);
+                if (name == null) {
+                    CraftTweaker.INSTANCE.recipes.addShaped(output, grid, recipeFunction, recipeAction);
+                } else {
+                    CraftTweaker.INSTANCE.recipes.addShaped(name, output, grid, recipeFunction, recipeAction);
+                }
             }
         }
     }
