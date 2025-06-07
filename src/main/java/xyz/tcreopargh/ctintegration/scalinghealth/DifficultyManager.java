@@ -16,8 +16,8 @@ import net.silentchaos512.scalinghealth.world.ScalingHealthSavedData;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import xyz.tcreopargh.ctintegration.Tags;
-import xyz.tcreopargh.ctintegration.date.IDate;
 import xyz.tcreopargh.ctintegration.date.CalendarDate;
+import xyz.tcreopargh.ctintegration.date.IDate;
 
 import java.util.Objects;
 

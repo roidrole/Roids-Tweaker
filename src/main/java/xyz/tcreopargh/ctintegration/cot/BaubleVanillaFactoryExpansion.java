@@ -1,8 +1,6 @@
 package xyz.tcreopargh.ctintegration.cot;
 
 import crafttweaker.CraftTweakerAPI;
-import crafttweaker.annotations.ModOnly;
-import crafttweaker.annotations.ZenRegister;
 import net.minecraftforge.fml.common.Loader;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenMethodStatic;

@@ -2,8 +2,8 @@ package xyz.tcreopargh.ctintegration.vanilla.advancement;
 
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.CriterionProgress;
-import xyz.tcreopargh.ctintegration.date.IDate;
 import xyz.tcreopargh.ctintegration.date.CalendarDate;
+import xyz.tcreopargh.ctintegration.date.IDate;
 
 import java.util.ArrayList;
 import java.util.Calendar;

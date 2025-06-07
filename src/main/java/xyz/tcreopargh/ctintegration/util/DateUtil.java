@@ -5,8 +5,8 @@ import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import xyz.tcreopargh.ctintegration.Tags;
-import xyz.tcreopargh.ctintegration.date.IDate;
 import xyz.tcreopargh.ctintegration.date.CalendarDate;
+import xyz.tcreopargh.ctintegration.date.IDate;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
