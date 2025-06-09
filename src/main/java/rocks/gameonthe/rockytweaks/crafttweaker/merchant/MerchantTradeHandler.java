@@ -1,7 +1,5 @@
 package rocks.gameonthe.rockytweaks.crafttweaker.merchant;
 
-import static com.blamejared.mtlib.helpers.InputHelper.toStack;
-
 import com.blamejared.mtlib.helpers.LogHelper;
 import com.blamejared.mtlib.utils.BaseListAddition;
 import com.google.common.base.Preconditions;
@@ -9,10 +7,13 @@ import com.google.common.collect.Lists;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
-import java.util.List;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.util.List;
+
+import static com.blamejared.mtlib.helpers.InputHelper.toStack;
 
 @ZenClass("mods.rockytweaks.Merchant")
 @ZenRegister

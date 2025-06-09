@@ -31,4 +31,6 @@ public class RoidTweaker {
     public void init(FMLInitializationEvent event) {
         CTChatCommand.registerCommand(new MerchantCommand());
     }
+
+    //TODO : add https://www.curseforge.com/minecraft/mc-mods/vanilla-anvil-repair
 }

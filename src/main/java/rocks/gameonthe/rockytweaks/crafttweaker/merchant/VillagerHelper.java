@@ -3,13 +3,14 @@ package rocks.gameonthe.rockytweaks.crafttweaker.merchant;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 public final class VillagerHelper {
 

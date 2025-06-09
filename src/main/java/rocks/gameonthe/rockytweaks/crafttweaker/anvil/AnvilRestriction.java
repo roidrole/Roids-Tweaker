@@ -1,9 +1,9 @@
 package rocks.gameonthe.rockytweaks.crafttweaker.anvil;
 
-import static crafttweaker.api.minecraft.CraftTweakerMC.getIItemStack;
-
 import crafttweaker.api.item.IIngredient;
 import net.minecraft.item.ItemStack;
+
+import static crafttweaker.api.minecraft.CraftTweakerMC.getIItemStack;
 
 public class AnvilRestriction {
 

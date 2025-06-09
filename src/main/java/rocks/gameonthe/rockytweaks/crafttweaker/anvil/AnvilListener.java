@@ -1,13 +1,13 @@
 package rocks.gameonthe.rockytweaks.crafttweaker.anvil;
 
-import java.util.Comparator;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.util.Comparator;
 
 public class AnvilListener {
 

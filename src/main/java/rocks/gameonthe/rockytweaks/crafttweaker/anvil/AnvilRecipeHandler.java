@@ -1,7 +1,5 @@
 package rocks.gameonthe.rockytweaks.crafttweaker.anvil;
 
-import static com.blamejared.mtlib.helpers.InputHelper.toStack;
-
 import com.blamejared.mtlib.helpers.LogHelper;
 import com.blamejared.mtlib.utils.BaseListAddition;
 import com.blamejared.mtlib.utils.BaseListRemoval;
@@ -11,11 +9,14 @@ import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import java.util.Arrays;
-import java.util.List;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static com.blamejared.mtlib.helpers.InputHelper.toStack;
 
 @ZenClass("mods.rockytweaks.Anvil")
 @ZenRegister

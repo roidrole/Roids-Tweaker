@@ -2,8 +2,9 @@ package rocks.gameonthe.rockytweaks.crafttweaker.anvil;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import java.util.List;
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 
 public class AnvilRecipeGroup {
