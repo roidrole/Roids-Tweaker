@@ -74,28 +74,28 @@ public class Config {
     }
 
     @ZenMethod
-    public boolean[] getBooleanArray(String category, String name, @Optional boolean[] defaultValue, @Optional String comment, @Optional boolean isListLengthFixed, @Optional("1") int maxListLength) {
+    public boolean[] getBooleanArray(String category, String name, @Optional boolean[] defaultValue, @Optional String comment, @Optional boolean isLengthFixed, @Optional("1") int maxLength) {
         if(defaultValue.length == 0){
             return this.config.getCategory(category).get(name).getBooleanList();
         }
-        return this.config.get(category, name, defaultValue, comment, isListLengthFixed, maxListLength).getBooleanList();
+        return this.config.get(category, name, defaultValue, comment, isLengthFixed, maxLength).getBooleanList();
     }
 
     @ZenMethod
-    public String[] getStringArray(String category, String name, @Optional String[] defaultValue, @Optional String comment, @Optional boolean isListLengthFixed, @Optional("1") int maxListLength) {
+    public String[] getStringArray(String category, String name, @Optional String[] defaultValue, @Optional String comment, @Optional boolean isLengthFixed, @Optional("1") int maxLength) {
         if(defaultValue.length == 0){
             return this.config.getCategory(category).get(name).getStringList();
         }
-        return this.config.get(category, name, defaultValue, comment, isListLengthFixed, maxListLength, null).getStringList();
+        return this.config.get(category, name, defaultValue, comment, isLengthFixed, maxLength, null).getStringList();
     }
 
     @ZenMethod
-    public int[] getIntArray(String category, String name, @Optional int[] defaultValue, @Optional String comment, @Optional Integer min, @Optional Integer max, @Optional boolean isListLengthFixed, @Optional("1") int maxListLength) {
+    public int[] getIntArray(String category, String name, @Optional int[] defaultValue, @Optional String comment, @Optional Integer min, @Optional Integer max, @Optional boolean isLengthFixed, @Optional("1") int maxLength) {
         if(defaultValue.length == 0){
             return this.config.getCategory(category).get(name).getIntList();
         }
         if(min != null && max != null){
-            this.config.get(category, name, defaultValue, comment, min, max, isListLengthFixed, maxListLength).getIntList();
+            this.config.get(category, name, defaultValue, comment, min, max, isLengthFixed, maxLength).getIntList();
         }
         return this.config.get(category, name, defaultValue, comment).getIntList();
     }
