@@ -1,10 +1,12 @@
 package roidrole.roidtweaker;
 
 import crafttweaker.mc1120.commands.CTChatCommand;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import rocks.gameonthe.rockytweaks.crafttweaker.merchant.MerchantCommand;
+import roidrole.roidtweaker.mods.minecraft.anvil.AnvilListener;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @Mod(
@@ -29,8 +31,7 @@ public class RoidTweaker {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        MinecraftForge.EVENT_BUS.register(new AnvilListener());
         CTChatCommand.registerCommand(new MerchantCommand());
     }
-
-    //TODO : add https://www.curseforge.com/minecraft/mc-mods/vanilla-anvil-repair
 }

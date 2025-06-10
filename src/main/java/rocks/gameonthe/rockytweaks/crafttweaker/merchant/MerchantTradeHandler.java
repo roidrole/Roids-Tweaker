@@ -54,14 +54,14 @@ public class MerchantTradeHandler {
             if(this.recipes.isEmpty()){return;}
             for (MerchantTrade trade : this.recipes) {
                 if(trade == null){
-                    LogHelper.logError(String.format("Error adding %s Recipe: null object", this.name));
+                    CraftTweakerAPI.logError(String.format("Error adding %s Recipe: null object", this.name));
                     continue;
                 }
                 if (MerchantTradeHandler.trades.add(trade)) {
                     this.successful.add(trade);
                     trade.register();
                 } else {
-                    LogHelper.logError(String.format("Error adding %s Recipe for %s", this.name, this.getRecipeInfo(trade)));
+                    CraftTweakerAPI.logError(String.format("Error adding %s Recipe for %s", this.name, this.getRecipeInfo(trade)));
                 }
             }
         }

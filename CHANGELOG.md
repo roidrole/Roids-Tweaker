@@ -15,3 +15,4 @@ First release
 
 **Changed**:
 - Slight optimization to RecipePattern.build();
+- Rewrote Anvil recipe handling entirely
