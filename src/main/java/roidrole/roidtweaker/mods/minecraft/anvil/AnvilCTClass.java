@@ -54,22 +54,22 @@ public class AnvilCTClass {
     }
 
     @ZenMethod
-    public static void addRepair(IIngredient repaired, IIngredient material, int repair, @Optional int repairCost){
+    public static void addRepair(IIngredient repaired, IIngredient material, int amount, @Optional int xpCost){
         AnvilRecipe recipe = new AnvilRecipe();
             recipe.left = repaired;
             recipe.right = material;
-            recipe.output = repair;
-            recipe.xpCost = repairCost;
+            recipe.output = amount;
+            recipe.xpCost = xpCost;
         recipes.add(recipe);
     }
 
     @ZenMethod
-    public static void addRepair(IIngredient repaired, IIngredient material, float repair, @Optional int repairCost){
+    public static void addRepair(IIngredient repaired, IIngredient material, float amount, @Optional int xpCost){
         AnvilRecipe recipe = new AnvilRecipe();
             recipe.left = repaired;
             recipe.right = material;
-            recipe.output = repair;
-            recipe.xpCost = repairCost;
+            recipe.output = amount;
+            recipe.xpCost = xpCost;
         recipes.add(recipe);
     }
 }
