@@ -1,6 +1,5 @@
 package rocks.gameonthe.rockytweaks.crafttweaker.merchant;
 
-import com.blamejared.mtlib.helpers.StringHelper;
 import com.google.common.collect.Lists;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.mc1120.commands.CraftTweakerCommand;
@@ -35,35 +34,9 @@ public class MerchantCommand extends CraftTweakerCommand {
     @Override
     public void executeCommand(MinecraftServer server, ICommandSender sender, String[] args) {
         if (args.length == 0 || !arguments.contains(args[0])) {
-            sender.sendMessage(new TextComponentString("Invalid arguments for command. Valid arguments: " + StringHelper.join(arguments, ", ")));
+            sender.sendMessage(new TextComponentString("Invalid arguments for command. Valid arguments: " + String.join(", ", arguments)));
         } else {
-            if (args[0].equalsIgnoreCase("professions")) {
-                StrBuilder builder = new StrBuilder("List of Merchant Professions:").appendNewLine();
-                VillagerHelper.getVillagerProfessions().forEach(p -> builder.append(p.getRegistryName()).appendNewLine());
-                CraftTweakerAPI.logCommand(builder.build());
-                sender.sendMessage(new TextComponentString("List generated; see crafttweaker.log in your minecraft dir."));
-            } else if (args[0].equalsIgnoreCase("careers")) {
-                StrBuilder builder = new StrBuilder("List of Merchant Careers:").appendNewLine();
-                VillagerRegistry.VillagerProfession profession = null;
-                if (args.length > 1) {
-                    if (VillagerHelper.getProfession(args[1]).isPresent()) {
-                        profession = VillagerHelper.getProfession(args[1]).get();
-                    } else {
-                        sender.sendMessage(new TextComponentString("Invalid profession."));
-                    }
-                }
-                if (profession == null) {
-                    VillagerHelper.getVillagerProfessions().forEach(p -> {
-                        builder.append(p.getRegistryName()).appendNewLine();
-                        VillagerHelper.getVillagerCareers(p).forEach(c -> builder.append(" - ").append(c.getName()).appendNewLine());
-                    });
-                } else {
-                    builder.append(profession.getRegistryName()).appendNewLine();
-                    VillagerHelper.getVillagerCareers(profession).forEach(c -> builder.append(" - ").append(c.getName()).appendNewLine());
-                }
-                CraftTweakerAPI.logCommand(builder.build());
-                sender.sendMessage(new TextComponentString("List generated; see crafttweaker.log in your minecraft dir."));
-            } else if (args[0].equalsIgnoreCase("trades")) {
+            if (args[0].equalsIgnoreCase("trades")) {
                 StrBuilder builder = new StrBuilder("List of Merchant Trades:").appendNewLine();
                 VillagerRegistry.VillagerProfession profession = null;
                 VillagerRegistry.VillagerCareer career = null;

@@ -1,19 +1,17 @@
 package rocks.gameonthe.rockytweaks.crafttweaker.merchant;
 
-import com.blamejared.mtlib.helpers.LogHelper;
 import com.blamejared.mtlib.utils.BaseListAddition;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 import java.util.List;
-
-import static com.blamejared.mtlib.helpers.InputHelper.toStack;
 
 @ZenClass("mods.rockytweaks.Merchant")
 @ZenRegister
@@ -33,7 +31,7 @@ public class MerchantTradeHandler {
         Preconditions.checkNotNull(sell);
         Preconditions.checkArgument(level > 0);
         CraftTweakerAPI.apply(new MerchantTradeHandler.Add(
-                new MerchantTrade(p1, VillagerHelper.getCareer(p1, career).get(), toStack(buy1), toStack(buy2), toStack(sell), level)
+                new MerchantTrade(p1, VillagerHelper.getCareer(p1, career).get(), CraftTweakerMC.getItemStack(buy1), CraftTweakerMC.getItemStack(buy2), CraftTweakerMC.getItemStack(sell), level)
         ));
     }
 
@@ -68,7 +66,7 @@ public class MerchantTradeHandler {
 
         @Override
         public String getRecipeInfo(MerchantTrade trade) {
-            return LogHelper.getStackDescription(trade.getRecipe());
+            return "\""+trade.getRecipe().toString()+"\"";
         }
     }
 }
