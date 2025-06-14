@@ -1,4 +1,4 @@
-package roidrole.roidtweaker.internal;
+package roidrole.roidtweaker;
 
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import mezz.jei.api.IJeiHelpers;

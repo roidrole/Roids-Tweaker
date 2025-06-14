@@ -1,4 +1,4 @@
-package roidrole.roidtweaker;
+package roidrole.roidtweaker.mixins;
 
 import net.minecraftforge.fml.common.Loader;
 import zone.rong.mixinbooter.ILateMixinLoader;

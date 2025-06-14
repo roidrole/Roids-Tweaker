@@ -6,7 +6,8 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.VillagerRegistry;
+import roidrole.roidtweaker.mixins.forge.IProfessionAccessor;
+import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -15,30 +16,17 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class Villager {
 
     @ZenMethod
-    public void addTrade(String profession, String career, IItemStack buy1, IItemStack sell, int level){
-        addTrade(profession, career, buy1, null, sell, level);
+    public void addTrade(String profession, String career, int level, IItemStack sell, IItemStack buy1, @Optional IItemStack buy2){
+        IProfessionAccessor prof = (IProfessionAccessor)ForgeRegistries.VILLAGER_PROFESSIONS.getValue(new ResourceLocation(profession));
+        prof.getCareers().stream().filter(c -> c.getName().equals(career)).findFirst().ifPresent(
+            c -> c.addTrade(level,
+                (merchant, recipeList, random) ->
+                    recipeList.add(new MerchantRecipe(CraftTweakerMC.getItemStack(buy1), CraftTweakerMC.getItemStack(buy2), CraftTweakerMC.getItemStack(sell))))
+        );
     }
 
     @ZenMethod
-    public void addTrade(String profession, int career, IItemStack buy1, IItemStack sell, int level){
-        addTrade(profession, career, buy1, null, sell, level);
-    }
-
-    @ZenMethod
-    public void addTrade(String profession, String career, IItemStack buy1, IItemStack buy2, IItemStack sell, int level){
-        VillagerRegistry.VillagerProfession prof = ForgeRegistries.VILLAGER_PROFESSIONS.getValue(new ResourceLocation(profession));
-        int currentID = 0;
-        while(true){
-            if(prof.getCareer(currentID).getName().equalsIgnoreCase(career)){
-                addTrade(profession, currentID, buy1, buy2, sell, level);
-                return;
-            }
-            currentID++;
-        }
-    }
-
-    @ZenMethod
-    public void addTrade(String profession, int career, IItemStack buy1, IItemStack buy2, IItemStack sell, int level){
+    public void addTrade(String profession, int career, int level, IItemStack sell, IItemStack buy1, @Optional IItemStack buy2){
         ForgeRegistries.VILLAGER_PROFESSIONS.getValue(new ResourceLocation(profession)).getCareer(career).addTrade(level,
             (merchant, recipeList, random) ->
                 recipeList.add(new MerchantRecipe(CraftTweakerMC.getItemStack(buy1), CraftTweakerMC.getItemStack(buy2), CraftTweakerMC.getItemStack(sell)))

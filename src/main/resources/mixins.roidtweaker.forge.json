@@ -1,0 +1,14 @@
+{
+  "package": "roidrole.roidtweaker.mixins.forge",
+  "required": true,
+  "refmap": "mixins.ctintegration.refmap.json",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8.5",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "IProfessionAccessor",
+    "ICareerAccessor"
+  ],
+  "server": [],
+  "client": []
+}

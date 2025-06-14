@@ -11,25 +11,27 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import org.apache.commons.lang3.text.StrBuilder;
-import rocks.gameonthe.rockytweaks.crafttweaker.merchant.VillagerHelper;
+import roidrole.roidtweaker.mixins.forge.ICareerAccessor;
+import roidrole.roidtweaker.mixins.forge.IProfessionAccessor;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public class VillagerCommand extends CraftTweakerCommand {
 
-
-    private final List<String> arguments = Lists.newArrayList("professions", "careers", "trades"); // TODO: Add "trades"
+    private final List<String> arguments = Lists.newArrayList("professions", "careers", "trades");
 
     public VillagerCommand() {
-        super("merchant");
-        setDescription(new TextComponentString("Provides a list of valid merchant professions or careers"));
+        super("villager");
     }
 
     @Override
-    protected void init() {}
+    protected void init() {
+        setDescription(new TextComponentString("Provides a list of valid villager professions or careers"));
+    }
 
     @Override
     public List<String> getSubSubCommand(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
@@ -42,41 +44,66 @@ public class VillagerCommand extends CraftTweakerCommand {
             sender.sendMessage(new TextComponentString("Invalid arguments for command. Valid arguments: " + String.join(", ", arguments)));
             return;
         }
-        StrBuilder builder = new StrBuilder();
+        StrBuilder builder;
         switch (args[0]){
             case "professions":{
-                builder.appendln("List of Merchant Professions:");
-                ForgeRegistries.VILLAGER_PROFESSIONS.getValuesCollection().forEach(p -> builder.appendln(p.getRegistryName()));
+                builder = new StrBuilder(146);
+                builder.appendln("List of Villager Professions:");
+                ForgeRegistries.VILLAGER_PROFESSIONS.getValuesCollection().forEach(p -> {
+                    builder.append(" - ");
+                    builder.appendln(p.getRegistryName());
+                });
                 break;
             }
             case "careers":{
-                builder.appendln("List of Merchant Careers:");
+                builder = new StrBuilder(146);
+                builder.appendln("List of Villager Careers:");
                 Collection<VillagerRegistry.VillagerProfession> professions;
                 if(args.length > 1){
-                    professions = Collections.singleton(ForgeRegistries.VILLAGER_PROFESSIONS.getValue(new ResourceLocation(args[2])));
+                    professions = Collections.singleton(ForgeRegistries.VILLAGER_PROFESSIONS.getValue(new ResourceLocation(args[1])));
                 } else {
                     professions = ForgeRegistries.VILLAGER_PROFESSIONS.getValuesCollection();
                 }
                 professions.forEach(prof -> {
+                    builder.append(" - ");
                     builder.appendln(prof.getRegistryName());
-                    VillagerHelper.getVillagerCareers(prof).forEach(c -> builder.append(" - ").appendln(c.getName()));
+                    IProfessionAccessor roidProf = (IProfessionAccessor) prof;
+                    List<VillagerRegistry.VillagerCareer> careers = roidProf.getCareers();
+                    careers.forEach(c -> builder.append(" -  - ").appendln(c.getName()));
                 });
-                CraftTweakerAPI.logCommand(builder.build());
-                sender.sendMessage(new TextComponentString("List generated; see crafttweaker.log in your minecraft dir."));
                 break;
             }
             case "trades":{
-                builder.appendln("List of Merchant Trades:");
+                builder = new StrBuilder(146);
+                builder.appendln("List of Villager Trades:");
                 builder.appendln("It is recommended to use JEIVillagers to see them all");
-                ForgeRegistries.VILLAGER_PROFESSIONS.getValuesCollection().forEach(prof -> {
-                    //Use prof.carrers here, but AT is not cooperating
-                });
+                Collection<VillagerRegistry.VillagerProfession> professions;
+                Collection<VillagerRegistry.VillagerCareer> careers;
+                if(args.length > 1){
+                    professions = Collections.singleton(ForgeRegistries.VILLAGER_PROFESSIONS.getValue(new ResourceLocation(args[1])));
+                } else {
+                    professions = ForgeRegistries.VILLAGER_PROFESSIONS.getValuesCollection();
+                }
+                if(args.length > 2){
+                    careers = Collections.singletonList(professions.stream().findFirst().get().getCareer(Integer.parseInt(args[2])));
+                } else {
+                    careers = new ArrayList<>();
+                    professions.forEach(p -> careers.addAll(((IProfessionAccessor)p).getCareers()));
+                }
+                careers.forEach(career ->
+                    ((ICareerAccessor)career).getTrades().forEach(levelTrades ->
+                        levelTrades.forEach(trade -> {
+                                builder.append(" -  - ");
+                                builder.appendln(trade.toString());
+                            }
+                        )
+                    )
+                );
                 CraftTweakerAPI.logCommand(builder.build());
                 break;
             }
             default: {
-                builder.appendln("Command wrongly written. Available sub commands are : ");
-                arguments.forEach(arg -> builder.append(" - ").appendln(arg));
+                return;
             }
         }
         CraftTweakerAPI.logCommand(builder.build());
