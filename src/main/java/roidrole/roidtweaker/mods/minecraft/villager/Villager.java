@@ -11,6 +11,8 @@ import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
+//TODO : remove recipes, professions, add villager professions. Probably a CT class. Is ContentTweaker needed?
+
 @ZenRegister
 @ZenClass("mods.roidtweaker.Villager")
 public class Villager {
