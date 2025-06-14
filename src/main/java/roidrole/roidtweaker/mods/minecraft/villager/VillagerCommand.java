@@ -99,7 +99,6 @@ public class VillagerCommand extends CraftTweakerCommand {
                         )
                     )
                 );
-                CraftTweakerAPI.logCommand(builder.build());
                 break;
             }
             default: {
