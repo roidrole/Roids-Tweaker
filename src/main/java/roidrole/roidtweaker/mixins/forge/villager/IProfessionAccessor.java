@@ -1,4 +1,4 @@
-package roidrole.roidtweaker.mixins.forge;
+package roidrole.roidtweaker.mixins.forge.villager;
 
 import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerCareer;
 import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession;
@@ -11,4 +11,7 @@ import java.util.List;
 public interface IProfessionAccessor {
     @Accessor(value = "careers", remap = false)
     List<VillagerCareer> getCareers();
+
+    @Accessor(value = "careers", remap = false)
+    void setCareers(List<VillagerCareer> careers);
 }

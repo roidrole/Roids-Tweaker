@@ -2,17 +2,16 @@ package roidrole.roidtweaker.mods.forge.config;
 
 import crafttweaker.annotations.ZenRegister;
 import net.minecraftforge.common.config.Configuration;
-import roidrole.roidtweaker.RoidTweaker;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenRegister
-@ZenClass(RoidTweaker.CT_PACKAGE + "config.IConfigFile")
-public class Config {
+@ZenClass("mods.roidtweaker.forge.config.IConfigFile")
+public class IConfigFile {
     Configuration config;
 
-    public Config(Configuration config){
+    public IConfigFile(Configuration config){
         this.config = config;
     }
 

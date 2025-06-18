@@ -72,6 +72,7 @@ dependencies {
     implementation('curse.maven:contenttweaker-237065:3331364')
     implementation('curse.maven:base-246996:3440963')
     implementation 'mezz:jei:4.25.5'
+    implementation 'com.cleanroommc:configanytime:3.0'
 
     //Supported mods
     compileOnly('curse.maven:baubles-227083:2518667')

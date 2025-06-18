@@ -4,14 +4,14 @@ import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import zone.rong.mixinbooter.IEarlyMixinLoader;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class RoidTweakerEarlyMixinLoader implements IFMLLoadingPlugin, IEarlyMixinLoader {
     @Override
     public List<String> getMixinConfigs() {
-        return Collections.singletonList("mixins.roidtweaker.forge.json");
+        return Arrays.asList("mixins.roidtweaker.forge.json", "mixins.roidtweaker.villager.json");
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.List;
 
 @ZenClass("mods.roidtweaker.Anvil")
 @ZenRegister
-public class AnvilCTClass {
+public class CTAnvil {
     public static List<AnvilRecipe> recipes = new ArrayList<>(0);
 
     @ZenMethod

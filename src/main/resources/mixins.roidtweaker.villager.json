@@ -1,12 +1,14 @@
 {
-  "package": "roidrole.roidtweaker.mixins.forge.registry",
+  "package": "roidrole.roidtweaker.mixins.forge.villager",
   "required": true,
   "refmap": "mixins.ctintegration.refmap.json",
   "target": "@env(DEFAULT)",
   "minVersion": "0.8.5",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MixinForgeRegistry"
+    "ICareerAccessor",
+    "IProfessionAccessor",
+    "VillagerProfessionMixin"
   ],
   "server": [],
   "client": []

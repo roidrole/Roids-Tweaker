@@ -6,7 +6,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
-import roidrole.roidtweaker.Utils;
+import roidrole.roidtweaker.utils.Utils;
 
 public class AnvilRecipe {
     public IIngredient left = IngredientAny.INSTANCE;

@@ -1,4 +1,4 @@
-package roidrole.roidtweaker.mixins.forge;
+package roidrole.roidtweaker.mixins.forge.villager;
 
 import net.minecraft.entity.passive.EntityVillager.ITradeList;
 import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerCareer;
@@ -11,4 +11,7 @@ import java.util.List;
 public interface ICareerAccessor {
     @Accessor(value = "trades", remap = false)
     List<List<ITradeList>> getTrades();
+
+    @Accessor(value = "trades", remap = false)
+    void setTrades(List<List<ITradeList>> trades);
 }

@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Comparator;
 
-import static roidrole.roidtweaker.mods.minecraft.anvil.AnvilCTClass.recipes;
+import static roidrole.roidtweaker.mods.minecraft.anvil.CTAnvil.recipes;
 
 public class AnvilListener {
     @SubscribeEvent
