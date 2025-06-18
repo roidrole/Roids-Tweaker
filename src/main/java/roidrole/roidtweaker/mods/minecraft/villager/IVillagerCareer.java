@@ -3,12 +3,14 @@ package roidrole.roidtweaker.mods.minecraft.villager;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.village.MerchantRecipe;
+import net.minecraft.village.MerchantRecipeList;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import roidrole.roidtweaker.mixins.forge.villager.IProfessionAccessor;
@@ -23,6 +25,8 @@ import stanhebben.zenscript.annotations.ZenMethod;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
+import java.util.function.BiFunction;
 
 @ZenRegister
 @ZenClass("mods.roidtweaker.minecraft.villager.IVillagerCareer")
@@ -53,13 +57,7 @@ public class IVillagerCareer implements DeferredLoader.IAction {
         while(addedTrades.size() < level){
             addedTrades.add(new ArrayList<>(0));
         }
-        addedTrades.get(level - 1).add((merchant, recipeList, random) ->
-            recipeList.add(new MerchantRecipe(
-                Utils.getRandomStack(buy1, random),
-                Utils.getRandomStack(buy2, random),
-                Utils.getRandomStack(sell, random)
-            ))
-        );
+        addedTrades.get(level - 1).add(new CTVillagerTrade(sell, buy1, buy2, (random, item) -> item));
     }
 
     @ZenMethod
@@ -67,28 +65,17 @@ public class IVillagerCareer implements DeferredLoader.IAction {
         while(addedTrades.size() < level){
             addedTrades.add(new ArrayList<>(0));
         }
-        @SuppressWarnings("")
-        int minEnch;
         if(minLevel == 0){
-            minEnch = 5;
-        } else{
-            minEnch = minLevel;
+            minLevel = 5;
         }
-        int maxEnch;
         if(maxLevel == 0){
-            maxEnch = 20;
-        } else {
-            maxEnch = maxLevel;
+            maxLevel = 20;
         }
-        addedTrades.get(level - 1).add((merchant, recipeList, random) -> {
-            ItemStack output = Utils.getRandomStack(sell, random);
-            EnchantmentHelper.addRandomEnchantment(random, output, minEnch + random.nextInt(maxEnch - minEnch), false);
-            recipeList.add((new MerchantRecipe(
-                Utils.getRandomStack(buy1, random),
-                Utils.getRandomStack(buy2, random),
-                output
-            )));
-        });
+        int finalMinLevel = minLevel;
+        int finalMaxLevel = maxLevel;
+        addedTrades.get(level - 1).add(
+            new CTVillagerTrade(sell, buy1, buy2, (random, item) -> EnchantmentHelper.addRandomEnchantment(random, item, finalMinLevel+random.nextInt(finalMaxLevel - finalMinLevel), false))
+        );
     }
 
     @ZenMethod
@@ -96,21 +83,15 @@ public class IVillagerCareer implements DeferredLoader.IAction {
         while(addedTrades.size() < level){
             addedTrades.add(new ArrayList<>(0));
         }
-        addedTrades.get(level - 1).add((merchant, recipeList, random) -> {
-            ItemStack output = Utils.getRandomStack(sell, random);
+        addedTrades.get(level - 1).add(new CTVillagerTrade(sell, buy1, buy2, (random, item) -> {
             PotionType potion;
             if(potionKeys != null && potionKeys.length > 0){
                 potion = PotionType.getPotionTypeForName(potionKeys[random.nextInt(potionKeys.length)]);
             } else {
                 potion = potionCollection.stream().skip(random.nextInt(potionCollection.size())).findFirst().get();
             }
-            PotionUtils.addPotionToItemStack(output, potion);
-            recipeList.add((new MerchantRecipe(
-                Utils.getRandomStack(buy1, random),
-                Utils.getRandomStack(buy2, random),
-                output
-            )));
-        });
+            return PotionUtils.addPotionToItemStack(item, potion);
+        }));
     }
 
     @ZenMethod
@@ -138,6 +119,28 @@ public class IVillagerCareer implements DeferredLoader.IAction {
         for (List<EntityVillager.ITradeList> trades : addedTrades){
             int thisLevel = ++level;
             trades.forEach(trade -> career.addTrade(thisLevel, trade));
+        }
+    }
+
+    public static class CTVillagerTrade implements EntityVillager.ITradeList{
+        IIngredient sell;
+        IIngredient buy1;
+        IIngredient buy2;
+        BiFunction<Random, ItemStack, ItemStack> getOutput;
+
+        CTVillagerTrade(IIngredient sell, IIngredient buy1, IIngredient buy2, BiFunction<Random, ItemStack, ItemStack> getOutput){
+            this.sell = sell;
+            this.buy1 = buy1;
+            this.buy2 = buy2;
+            this.getOutput = getOutput;
+        }
+        @Override
+        public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random) {
+            recipeList.add(new MerchantRecipe(
+                Utils.getRandomStack(buy1, random),
+                Utils.getRandomStack(buy2, random),
+                this.getOutput.apply(random, Utils.getRandomStack(sell, random))
+            ));
         }
     }
 }
