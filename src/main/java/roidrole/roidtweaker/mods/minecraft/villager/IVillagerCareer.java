@@ -103,6 +103,7 @@ public class IVillagerCareer implements DeferredLoader.IAction {
         }));
     }
 
+    @ZenMethod
     public void addTradeAdvanced(int level, Function<IRandom, IItemStack[]> recipe){
         while(addedTrades.size() < level){
             addedTrades.add(new ArrayList<>(0));
