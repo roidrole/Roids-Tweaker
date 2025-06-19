@@ -8,6 +8,7 @@
   "mixins": [
     "ICareerAccessor",
     "IProfessionAccessor",
+    "MerchantRecipeListMixin",
     "VillagerProfessionMixin"
   ],
   "server": [],
