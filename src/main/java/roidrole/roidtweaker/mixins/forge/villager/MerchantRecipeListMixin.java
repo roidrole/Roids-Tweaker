@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MerchantRecipeList.class)
-public class MerchantRecipeListMixin {
+public abstract class MerchantRecipeListMixin {
     @Inject(
         method = "areItemStacksExactlyEqual(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)Z",
         at = @At("HEAD"),

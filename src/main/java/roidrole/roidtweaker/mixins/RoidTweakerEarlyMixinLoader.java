@@ -16,7 +16,8 @@ public class RoidTweakerEarlyMixinLoader implements IFMLLoadingPlugin, IEarlyMix
             "mixins.roidtweaker.registry.disable.json",
             "mixins.roidtweaker.villager.accessor.json",
             "mixins.roidtweaker.villager.metawildcards.json",
-            "mixins.roidtweaker.villager.careerdisable.json"
+            "mixins.roidtweaker.villager.careerdisable.json",
+            "mixins.roidtweaker.villager.customprofessionsetter.json"
         );
     }
 
@@ -28,6 +29,7 @@ public class RoidTweakerEarlyMixinLoader implements IFMLLoadingPlugin, IEarlyMix
             }
             case "mixins.roidtweaker.villager.metawildcards.json" : return RoidTweakerConfig.mixinCategory.villagerCategory.allowMetaWildcards;
             case "mixins.roidtweaker.villager.careerdisable.json" : return RoidTweakerConfig.mixinCategory.villagerCategory.allowDisablingCareers;
+            case "mixins.roidtweaker.villager.customprofessionsetter.json" : return RoidTweakerConfig.mixinCategory.villagerCategory.allowCustomProfessionSetter;
             default : return true;
         }
     }

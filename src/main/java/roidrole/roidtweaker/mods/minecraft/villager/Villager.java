@@ -2,9 +2,11 @@ package roidrole.roidtweaker.mods.minecraft.villager;
 
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.util.IRandom;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
+import roidrole.roidtweaker.RoidTweakerConfig;
 import roidrole.roidtweaker.Tags;
 import roidrole.roidtweaker.mods.forge.Registries;
 import roidrole.roidtweaker.mods.minecraft.villager.actions.CareerAddition;
@@ -14,16 +16,19 @@ import roidrole.roidtweaker.utils.LoadStageEnum;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+import stanhebben.zenscript.annotations.ZenProperty;
 
 import java.util.ArrayList;
 import java.util.List;
-
-//TODO : custom MerchantRecipe allowing the Random object
+import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 @ZenRegister
 @ZenClass("mods.roidtweaker.minecraft.villager.Villager")
 public class Villager {
     public static List<String> disabledCareers = new ArrayList<>(1);
+    public static List<String> removedProfessions = new ArrayList<>(1);
+    public static List<String> allowedProfessions;
 
     @ZenMethod
     public static void addProfession(String name, @Optional String texture, @Optional String zombie){
@@ -53,9 +58,12 @@ public class Villager {
     @ZenMethod
     public static void removeProfession(String name){
         //Minecraft professions are registered too early to target them with the mixin.
-        //TODO : Overwrite getRandomProfession to remove them (make it configurable) and clear careers. Add redirecting invalid getCareers calls to a dummy career.
         if(name.startsWith("minecraft")){
-            CraftTweakerAPI.logError("Can't remove vanilla professions!");
+            if(RoidTweakerConfig.mixinCategory.villagerCategory.allowCustomProfessionSetter) {
+                removedProfessions.add(name);
+            } else {
+                CraftTweakerAPI.logError("Can't remove vanilla professions without setting allowCustomProfessionSetter=true!");
+            }
         } else {
             Registries.disable(name);
         }
@@ -79,5 +87,15 @@ public class Villager {
     @ZenMethod
     public static IVillagerCareer getCareer(String profession, String name){
         return new IVillagerCareer(new ResourceLocation(profession), name);
+    }
+
+    @ZenProperty
+    public static BiFunction<IRandom, List<String>, String> professionAttributor = (random, allowedProfessions) -> allowedProfessions.get(random.nextInt(allowedProfessions.size()));
+
+    public static void setAllowedProfessions(){
+        allowedProfessions = ForgeRegistries.VILLAGER_PROFESSIONS.getValuesCollection().stream()
+            .map(prof -> prof.getRegistryName().toString())
+            .filter(prof -> !removedProfessions.contains(prof))
+            .collect(Collectors.toList());
     }
 }

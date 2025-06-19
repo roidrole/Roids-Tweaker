@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import roidrole.roidtweaker.mods.minecraft.anvil.AnvilListener;
+import roidrole.roidtweaker.mods.minecraft.villager.Villager;
 import roidrole.roidtweaker.mods.minecraft.villager.VillagerCommand;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import xyz.tcreopargh.ctintegration.CTIntegration;
@@ -40,5 +41,8 @@ public class RoidTweaker {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event){
         DeferredLoader.postInit();
+        if(RoidTweakerConfig.mixinCategory.villagerCategory.allowCustomProfessionSetter) {
+            Villager.setAllowedProfessions();
+        }
     }
 }
