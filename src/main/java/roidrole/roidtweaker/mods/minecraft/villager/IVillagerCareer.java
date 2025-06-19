@@ -2,6 +2,10 @@ package roidrole.roidtweaker.mods.minecraft.villager;
 
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
+import crafttweaker.api.util.IRandom;
+import crafttweaker.mc1120.util.MCRandom;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.passive.EntityVillager;
@@ -27,6 +31,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 @ZenRegister
 @ZenClass("mods.roidtweaker.minecraft.villager.IVillagerCareer")
@@ -50,14 +55,18 @@ public class IVillagerCareer implements DeferredLoader.IAction {
         DeferredLoader.load(this, LoadStageEnum.POST_INIT);
     }
 
-    //TODO:Meta wildcards?
-
     @ZenMethod
-    public void addTrade(int level, IIngredient sell, IIngredient buy1, @Optional IIngredient buy2){
+    public void addTrade(int level, IIngredient sell, IIngredient buy1, @Optional IIngredient buy2, @Optional BiFunction<IRandom, IIngredient, IItemStack> getOutput){
         while(addedTrades.size() < level){
             addedTrades.add(new ArrayList<>(0));
         }
-        addedTrades.get(level - 1).add(new CTVillagerTrade(sell, buy1, buy2, (random, item) -> item));
+        BiFunction<Random, ItemStack, ItemStack> getOutputNative;
+        if(getOutput == null){
+            getOutputNative = (Random random, ItemStack item) -> Utils.getRandomStack(sell, random);
+        } else {
+            getOutputNative = (Random random, ItemStack item) -> CraftTweakerMC.getItemStack(getOutput.apply(new MCRandom(random), sell));
+        }
+        addedTrades.get(level - 1).add(new CTVillagerTrade(sell, buy1, buy2, getOutputNative));
     }
 
     @ZenMethod
@@ -92,6 +101,18 @@ public class IVillagerCareer implements DeferredLoader.IAction {
             }
             return PotionUtils.addPotionToItemStack(item, potion);
         }));
+    }
+
+    public void addTradeAdvanced(int level, Function<IRandom, IItemStack[]> recipe){
+        while(addedTrades.size() < level){
+            addedTrades.add(new ArrayList<>(0));
+        }
+        addedTrades.get(level - 1).add((merchant, recipeList, random) -> {
+            IItemStack[] iItems = recipe.apply(new MCRandom(random));
+            if(iItems.length != 3){return;}
+            if(iItems[0].isEmpty()){return;}
+            recipeList.add(new MerchantRecipe(CraftTweakerMC.getItemStack(iItems[1]), CraftTweakerMC.getItemStack(iItems[2]), CraftTweakerMC.getItemStack(iItems[0])));
+        });
     }
 
     @ZenMethod
