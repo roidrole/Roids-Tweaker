@@ -5,7 +5,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public class DeferredLoader {
+public abstract class DeferredLoader {
     public static Map<LoadStageEnum, List<IAction>> toLoad = new EnumMap<>(LoadStageEnum.class);
 
     public interface IAction {
@@ -21,7 +21,7 @@ public class DeferredLoader {
     }
 
     //Loads the postInit queue
-    public void postInit(){
+    public static void postInit(){
         if(!toLoad.containsKey(LoadStageEnum.POST_INIT)) {
             return;
         }

@@ -1,6 +1,7 @@
 package roidrole.roidtweaker.mixins;
 
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
+import roidrole.roidtweaker.RoidTweakerConfig;
 import zone.rong.mixinbooter.IEarlyMixinLoader;
 
 import javax.annotation.Nullable;
@@ -11,7 +12,24 @@ import java.util.Map;
 public class RoidTweakerEarlyMixinLoader implements IFMLLoadingPlugin, IEarlyMixinLoader {
     @Override
     public List<String> getMixinConfigs() {
-        return Arrays.asList("mixins.roidtweaker.forge.json", "mixins.roidtweaker.villager.json");
+        return Arrays.asList(
+            "mixins.roidtweaker.registry.disable.json",
+            "mixins.roidtweaker.villager.accessor.json",
+            "mixins.roidtweaker.villager.metawildcards.json",
+            "mixins.roidtweaker.villager.careerdisable.json"
+        );
+    }
+
+    @Override
+    public boolean shouldMixinConfigQueue(String mixinConfig) {
+        switch (mixinConfig){
+            case "mixins.roidtweaker.registry.disable.json" : {
+                return RoidTweakerConfig.mixinCategory.allowRemovingRegistries;
+            }
+            case "mixins.roidtweaker.villager.metawildcards.json" : return RoidTweakerConfig.mixinCategory.villagerCategory.allowMetaWildcards;
+            case "mixins.roidtweaker.villager.careerdisable.json" : return RoidTweakerConfig.mixinCategory.villagerCategory.allowDisablingCareers;
+            default : return true;
+        }
     }
 
     @Override

@@ -7,9 +7,7 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "ICareerAccessor",
-    "IProfessionAccessor",
-    "MerchantRecipeListMixin",
-    "VillagerProfessionMixin"
+    "IProfessionAccessor"
   ],
   "server": [],
   "client": []

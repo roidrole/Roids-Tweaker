@@ -10,7 +10,6 @@ import static roidrole.roidtweaker.mods.minecraft.villager.Villager.disabledCare
 
 @Mixin(VillagerRegistry.VillagerProfession.class)
 public abstract class VillagerProfessionMixin {
-
     @Inject(
         method = "register",
         at = @At(value = "HEAD"),

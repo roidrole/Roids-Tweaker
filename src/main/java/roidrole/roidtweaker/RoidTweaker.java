@@ -25,7 +25,6 @@ public class RoidTweaker {
       + "required-after:mtlib;"
       + "required-after:mixinbooter;";
     public static final String CT_PACKAGE = "mods.roidtweaker.";
-    public static DeferredLoader loader = new DeferredLoader();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -40,6 +39,6 @@ public class RoidTweaker {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event){
-        loader.postInit();
+        DeferredLoader.postInit();
     }
 }
