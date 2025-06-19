@@ -25,7 +25,6 @@ public abstract class VillagerRegistryMixin {
         cancellable = true
     )
     private static void roidTweaker_setRandomProfession(EntityVillager entity, Random rand, CallbackInfo ci){
-        allowedProfessions.forEach(System.out::println);
         entity.setProfession(ForgeRegistries.VILLAGER_PROFESSIONS.getValue(new ResourceLocation(Villager.professionAttributor.apply(new MCRandom(rand), allowedProfessions))));
         ci.cancel();
     }
