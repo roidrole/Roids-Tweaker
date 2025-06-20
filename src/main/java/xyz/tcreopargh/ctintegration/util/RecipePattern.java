@@ -176,11 +176,7 @@ public class RecipePattern {
                 CraftTweakerAPI.logError("The pattern is empty", new IllegalArgumentException());
                 return;
             }
-            if (name == null) {
-                CraftTweaker.INSTANCE.recipes.addShapeless(output, grid, recipeFunction, recipeAction);
-            } else {
-                CraftTweaker.INSTANCE.recipes.addShapeless(name, output, grid, recipeFunction, recipeAction);
-            }
+            CraftTweaker.INSTANCE.recipes.addShapeless(name, output, grid, recipeFunction, recipeAction);
         } else {
             IIngredient[][] grid = getIngredients();
             if (grid.length == 0) {
@@ -188,17 +184,9 @@ public class RecipePattern {
                 return;
             }
             if (isMirrored) {
-                if (name == null) {
-                    CraftTweaker.INSTANCE.recipes.addShapedMirrored(output, grid, recipeFunction, recipeAction);
-                } else {
-                    CraftTweaker.INSTANCE.recipes.addShapedMirrored(name, output, grid, recipeFunction, recipeAction);
-                }
+                CraftTweaker.INSTANCE.recipes.addShapedMirrored(name, output, grid, recipeFunction, recipeAction);
             } else {
-                if (name == null) {
-                    CraftTweaker.INSTANCE.recipes.addShaped(output, grid, recipeFunction, recipeAction);
-                } else {
-                    CraftTweaker.INSTANCE.recipes.addShaped(name, output, grid, recipeFunction, recipeAction);
-                }
+                CraftTweaker.INSTANCE.recipes.addShaped(name, output, grid, recipeFunction, recipeAction);
             }
         }
     }
