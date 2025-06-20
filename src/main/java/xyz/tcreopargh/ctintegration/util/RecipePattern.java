@@ -12,10 +12,7 @@ import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @ZenClass(CTIntegration.CT_PACKAGE + "util.RecipePattern")
 @ZenRegister
@@ -47,15 +44,6 @@ public class RecipePattern {
     @ZenMethod
     public static RecipePattern init(String[] recipePattern) {
         return new RecipePattern(recipePattern);
-    }
-
-    public static IIngredient[][] listToArray2D(List<List<IIngredient>> arrayList) {
-        IIngredient[][] array = new IIngredient[arrayList.size()][];
-        for (int i = 0; i < arrayList.size(); i++) {
-            List<IIngredient> row = arrayList.get(i);
-            array[i] = row.toArray(new IIngredient[0]);
-        }
-        return array;
     }
 
     @ZenMethod
@@ -127,37 +115,30 @@ public class RecipePattern {
 
     @ZenGetter("ingredients")
     public IIngredient[][] getIngredients() {
-        List<List<IIngredient>> grid = new ArrayList<>();
-        for (String rowString : pattern) {
-            List<IIngredient> row = new ArrayList<>();
-            for (char ch : rowString.toCharArray()) {
-                if (Character.isWhitespace(ch)) {
-                    row.add(null);
-                } else {
-                    if (mapping.containsKey(ch)) {
-                        row.add(mapping.get(ch));
-                    } else {
-                        CraftTweakerAPI.logWarning("Cannot find matching ingredient for character '" + ch + "', using null instead.");
-                    }
+        IIngredient[][] grid = new IIngredient[pattern.length][];
+        for(int indexR = 0; indexR < pattern.length; indexR++){
+            grid[indexR] = new IIngredient[pattern[indexR].length()];
+            int indexC = 0;
+            for (char ch : pattern[indexR].toCharArray()){
+                IIngredient current;
+                if(Character.isWhitespace(ch) || !mapping.containsKey(ch)){
+                    current = null;
+                } else{
+                    current = mapping.get(ch);
                 }
+                grid[indexR][indexC] = current;
+                indexC++;
             }
-            grid.add(row);
         }
-        return listToArray2D(grid);
+        return grid;
     }
 
     @ZenGetter("shapelessIngredients")
     public IIngredient[] getShapelessIngredients() {
-        IIngredient[][] grid = getIngredients();
-        List<IIngredient> shapelessRecipeList = new ArrayList<>();
-        for (IIngredient[] row : grid) {
-            for (IIngredient ingredient : row) {
-                if (ingredient != null) {
-                    shapelessRecipeList.add(ingredient);
-                }
-            }
-        }
-        return shapelessRecipeList.toArray(new IIngredient[0]);
+        return Arrays.stream(getIngredients())
+            .flatMap(Arrays::stream)
+            .toArray(IIngredient[]::new)
+        ;
     }
 
     @ZenMethod
