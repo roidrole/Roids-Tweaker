@@ -23,6 +23,12 @@ public class RoidTweakerConfig {
         public boolean allowRemovingRegistries = false;
     }
 
+    public static MekanismCategory mekanismCategory = new MekanismCategory();
+    public static class MekanismCategory {
+        public String defaultDomain = "mekatweaker";
+    }
+
+
 
     static {
         ConfigAnytime.register(RoidTweakerConfig.class);
