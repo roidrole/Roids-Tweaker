@@ -23,7 +23,6 @@ public class RoidTweaker {
         "required-after:forge@[14.23.1,);"
       + "required-after:jei;"
       + "required-after:crafttweaker;"
-      + "required-after:mtlib;"
       + "required-after:mixinbooter;";
     public static final String CT_PACKAGE = "mods.roidtweaker.";
 

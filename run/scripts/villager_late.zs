@@ -1,9 +1,10 @@
 import mods.roidtweaker.minecraft.villager.Villager;
+import mods.roidtweaker.minecraft.villager.IVillagerCareer;
 import crafttweaker.item.IIngredient;
 import crafttweaker.item.IItemStack;
 import crafttweaker.util.IRandom;
 
-val myCareer as IVillagerCareer = Villager.getCareer("minecraft:priest", 0)
+val myCareer as IVillagerCareer = Villager.getCareer("minecraft:priest", 0);
 myCareer.removeTrade();
 myCareer.addTrade(1, <minecraft:iron_sword>, <minecraft:iron_sword:*>, <minecraft:iron_ingot>);
 myCareer.addTrade(1, <minecraft:iron_sword>, <minecraft:iron_sword:*>, <minecraft:iron_ingot>, function(random as IRandom, sell as IIngredient) as IItemStack{return <minecraft:iron_sword>;});

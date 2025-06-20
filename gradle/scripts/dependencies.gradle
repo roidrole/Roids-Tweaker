@@ -67,7 +67,6 @@ dependencies {
     //     transitive = false
     // }
     implementation('curse.maven:crafttweaker-239197:6186559')
-    implementation('curse.maven:mtlib-253211:3308160')
 
     implementation('curse.maven:contenttweaker-237065:3331364')
     implementation('curse.maven:base-246996:3440963')
@@ -85,4 +84,5 @@ dependencies {
     compileOnly('curse.maven:scaling-health-248027:2816920')
     compileOnly('curse.maven:serene-seasons-291874:2799213')
     compileOnly('curse.maven:thaumcraft-223628:2629023')
+    compileOnly('curse.maven:mekanism-ce-unofficial-840735:6550161')
 }
