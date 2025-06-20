@@ -2,6 +2,8 @@ package roidrole.roidtweaker.mods.minecraft.villager;
 
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.data.DataList;
+import crafttweaker.api.data.DataString;
 import crafttweaker.api.util.IRandom;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
@@ -28,7 +30,7 @@ import java.util.stream.Collectors;
 public class Villager {
     public static List<String> disabledCareers = new ArrayList<>(1);
     public static List<String> removedProfessions = new ArrayList<>(1);
-    public static List<String> allowedProfessions;
+    public static DataList allowedProfessions;
 
     @ZenMethod
     public static void addProfession(String name, @Optional String texture, @Optional String zombie){
@@ -90,12 +92,16 @@ public class Villager {
     }
 
     @ZenProperty
-    public static BiFunction<IRandom, List<String>, String> professionAttributor = (random, allowedProfessions) -> allowedProfessions.get(random.nextInt(allowedProfessions.size()));
+    public static BiFunction<IRandom, DataList, String> professionAttributor = (random, allowedProfessions) -> allowedProfessions.getAt(random.nextInt(allowedProfessions.length())).asString();
 
     public static void setAllowedProfessions(){
-        allowedProfessions = ForgeRegistries.VILLAGER_PROFESSIONS.getValuesCollection().stream()
-            .map(prof -> prof.getRegistryName().toString())
-            .filter(prof -> !removedProfessions.contains(prof))
-            .collect(Collectors.toList());
+        allowedProfessions = new DataList(
+            ForgeRegistries.VILLAGER_PROFESSIONS.getValuesCollection().stream()
+                .map(prof -> prof.getRegistryName().toString())
+                .filter(prof -> !removedProfessions.contains(prof))
+                .map(DataString::new)
+                .collect(Collectors.toList()),
+            true
+        );
     }
 }
