@@ -11,7 +11,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 import java.util.ArrayList;
 import java.util.List;
 
-@ZenClass("mods.roidtweaker.Anvil")
+@ZenClass("mods.roidtweaker.minecraft.Anvil")
 @ZenRegister
 public class CTAnvil {
     public static List<AnvilRecipe> recipes = new ArrayList<>(0);
