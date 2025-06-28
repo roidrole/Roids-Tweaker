@@ -9,6 +9,7 @@ import java.util.Comparator;
 
 import static roidrole.roidtweaker.mods.minecraft.anvil.CTAnvil.recipes;
 
+@SuppressWarnings("unused")
 public class AnvilListener {
     @SubscribeEvent
     public void onAnvilUpdate(AnvilUpdateEvent event) {

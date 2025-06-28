@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import static roidrole.roidtweaker.mods.minecraft.anvil.CTAnvil.recipes;
 
 @JEIPlugin
+@SuppressWarnings("unused")
 public class HEIPlugin implements IModPlugin {
     @Override
     public void register(@Nonnull IModRegistry registry) {

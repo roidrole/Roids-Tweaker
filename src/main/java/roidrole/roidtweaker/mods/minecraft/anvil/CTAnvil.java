@@ -13,6 +13,7 @@ import java.util.List;
 
 @ZenClass("mods.roidtweaker.minecraft.Anvil")
 @ZenRegister
+@SuppressWarnings("unused")
 public class CTAnvil {
     public static List<AnvilRecipe> recipes = new ArrayList<>(0);
 

@@ -8,6 +8,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenRegister
 @ZenClass("mods.roidtweaker.forge.config.IConfigFile")
+@SuppressWarnings("unused")
 public class IConfigFile {
     Configuration config;
 

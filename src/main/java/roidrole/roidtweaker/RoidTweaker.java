@@ -35,17 +35,20 @@ public class RoidTweaker {
     public static CommonProxy proxy;
 
     @Mod.EventHandler
+    @SuppressWarnings("unused")
     public void preInit(FMLPreInitializationEvent event) {
         CTIntegration.preInit();
     }
 
     @Mod.EventHandler
+    @SuppressWarnings("unused")
     public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new AnvilListener());
         CTChatCommand.registerCommand(new VillagerCommand());
     }
 
     @Mod.EventHandler
+    @SuppressWarnings("unused")
     public void postInit(FMLPostInitializationEvent event){
         DeferredLoader.postInit();
         if(RoidTweakerConfig.mixinCategory.villagerCategory.allowCustomProfessionSetter) {
@@ -57,6 +60,7 @@ public class RoidTweaker {
     }
 
     @Mod.EventHandler
+    @SuppressWarnings("unused")
     public void loadComplete(FMLLoadCompleteEvent event) {
         DeferredLoader.loadComplete();
     }

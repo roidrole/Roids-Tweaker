@@ -11,6 +11,7 @@ import java.util.Set;
 
 @ZenRegister
 @ZenClass("mods.roidtweaker.forge.Registries")
+@SuppressWarnings("unused")
 public class Registries {
     public static Set<ResourceLocation> disabledRegistryKeys = new ObjectOpenHashSet<>();
 

@@ -9,6 +9,7 @@ import java.io.File;
 
 @ZenRegister
 @ZenClass("mods.roidtweaker.forge.config.Reader")
+@SuppressWarnings("unused")
 public class Reader {
     @ZenMethod
     public static IConfigFile getConfigFile(String path){

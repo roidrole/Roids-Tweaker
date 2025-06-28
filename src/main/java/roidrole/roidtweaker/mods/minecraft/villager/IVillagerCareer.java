@@ -35,6 +35,7 @@ import java.util.function.Function;
 
 @ZenRegister
 @ZenClass("mods.roidtweaker.minecraft.villager.IVillagerCareer")
+@SuppressWarnings("unused")
 public class IVillagerCareer implements DeferredLoader.IAction {
     public ResourceLocation profession;
     public int careerI = -1;

@@ -15,6 +15,7 @@ import java.util.List;
 
 @ModOnly("projecte")
 @ZenRegister
+@SuppressWarnings("unused")
 //Registering under CTI package because other projecte methods are there
 @ZenClass(CTIntegration.CT_PACKAGE + "projecte.FuelManager")
 public class FuelManager {
