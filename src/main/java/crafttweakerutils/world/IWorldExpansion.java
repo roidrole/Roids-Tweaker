@@ -1,10 +1,16 @@
 package crafttweakerutils.world;
 
 import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.entity.IEntityLivingBase;
 import crafttweaker.api.world.IBlockPos;
 import crafttweaker.api.world.IWorld;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -12,7 +18,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenRegister
 @ZenExpansion("crafttweaker.world.IWorld")
 @SuppressWarnings("unused")
-public class World {
+public class IWorldExpansion {
 
 	@ZenMethod
 	public static boolean canSeeSky(IWorld world, IBlockPos pos) {
@@ -61,6 +67,21 @@ public class World {
 		BlockPos p = (BlockPos)pos.getInternal();
 
 		return w.getLightFor(EnumSkyBlock.BLOCK, p);
+	}
+
+	@ZenMethod
+	public static boolean setSpawnerEntity(IWorld world, IBlockPos pos, IEntityLivingBase entity)
+	{
+		World w = (World)world.getInternal();
+		BlockPos p = (BlockPos)pos.getInternal();
+		EntityLivingBase e = (EntityLivingBase)entity.getInternal();
+
+		TileEntity tmp = w.getTileEntity(p);
+		if(!(tmp instanceof TileEntityMobSpawner)) { return false; }
+
+		TileEntityMobSpawner spawner = (TileEntityMobSpawner)tmp;
+		spawner.getSpawnerBaseLogic().setEntityId(EntityRegistry.getEntry(e.getClass()).getRegistryName());
+		return true;
 	}
 
 }
