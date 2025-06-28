@@ -1,4 +1,5 @@
 As this is a conglomeration, multiple parts have different licenses. Unless otherwise stated, my forks have the same license as the original mod. I will list the different packages and licences :
 - roidrole/roidtweaker : MIT License
 - xyz/tcreopargh/ctintegration : MIT License
-- be/lorexe/mekatweaker : GNU LESSER GENERAL PUBLIC LICENSE
+- be/lorexe/mekatweaker : GNU LESSER GENERAL PUBLIC LICENSE V.3
+- crafttweakerutils : GNU LESSER GENERAL PUBLIC LICENSE V.3
