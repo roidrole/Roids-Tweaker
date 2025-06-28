@@ -6,6 +6,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenRegister
 @ZenClass("mods.ctutils.world.IGameRules")
+@SuppressWarnings("unused")
 public interface IGameRules {
 
 	@ZenMethod

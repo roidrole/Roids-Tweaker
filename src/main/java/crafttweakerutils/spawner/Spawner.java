@@ -7,15 +7,16 @@ import crafttweaker.api.world.IBlockPos;
 import crafttweaker.api.world.IWorld;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import stanhebben.zenscript.annotations.ZenClass;
-import net.minecraft.tileentity.TileEntityMobSpawner;
-import net.minecraft.world.World;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenRegister
 @ZenClass("mods.ctutils.spawner.Spawner")
+@SuppressWarnings("unused")
 public class Spawner {
 
 	@ZenMethod
@@ -31,7 +32,6 @@ public class Spawner {
 		TileEntityMobSpawner spawner = (TileEntityMobSpawner)tmp;
 		spawner.getSpawnerBaseLogic().setEntityId(EntityRegistry.getEntry(e.getClass()).getRegistryName());
 		return true;
-
 	}
 
 }

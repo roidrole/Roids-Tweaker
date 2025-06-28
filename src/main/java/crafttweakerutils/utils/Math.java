@@ -1,20 +1,18 @@
 package crafttweakerutils.utils;
 
-import crafttweaker.annotations.*;
-import stanhebben.zenscript.annotations.*;
+import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.util.IRandom;
+import crafttweaker.mc1120.util.MCRandom;
+import stanhebben.zenscript.annotations.ZenClass;
+import stanhebben.zenscript.annotations.ZenMethod;
 
 import java.util.Random;
 
 
 @ZenRegister
 @ZenClass("mods.ctutils.utils.Math")
+@SuppressWarnings("unused")
 public class Math {
-
-	static void test()
-	{
-		Random r = null;
-
-	}
 
 	@ZenMethod
 	public static double max(double d1, double d2)
@@ -203,15 +201,13 @@ public class Math {
 	}
 
 	@ZenMethod
-	public static IRandom getRandom()
-	{
-		return new RandomWrapper(new Random());
+	public static IRandom getRandom() {
+		return new MCRandom(new Random());
 	}
 
 	@ZenMethod
-	public static IRandom getRandom(long seed)
-	{
-		return new RandomWrapper(new Random(seed));
+	public static IRandom getRandom(long seed) {
+		return new MCRandom(new Random(seed));
 	}
 
 	@ZenMethod

@@ -1,6 +1,8 @@
 package roidrole.roidtweaker;
 
+import crafttweaker.CraftTweakerAPI;
 import crafttweaker.mc1120.commands.CTChatCommand;
+import crafttweakerutils.preprocessors.OnSidePreprocessor;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -38,6 +40,7 @@ public class RoidTweaker {
     @SuppressWarnings("unused")
     public void preInit(FMLPreInitializationEvent event) {
         CTIntegration.preInit();
+        CraftTweakerAPI.tweaker.getPreprocessorManager().registerPreprocessorAction("onside", OnSidePreprocessor::new);
     }
 
     @Mod.EventHandler

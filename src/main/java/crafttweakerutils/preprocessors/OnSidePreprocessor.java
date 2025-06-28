@@ -3,8 +3,8 @@ package crafttweakerutils.preprocessors;
 import crafttweaker.preprocessor.PreprocessorActionBase;
 import crafttweaker.runtime.ScriptFile;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import stanhebben.zenscript.ZenRuntimeException;
 import net.minecraftforge.fml.relauncher.Side;
+import stanhebben.zenscript.ZenRuntimeException;
 
 public class OnSidePreprocessor extends PreprocessorActionBase {
 

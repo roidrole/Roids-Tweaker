@@ -6,7 +6,7 @@ With this mod, I aim to include and improve upon dead and broken CT addons. So f
 - Extra Tweaker, by blue_beaker (Rewritten with same API)
 - MekaTweaker, by Lorexe (included), where I implemented [#6](https://github.com/Lorexe/MekaTweaker/issues/6)
 - Thermal Expansion Specialization Hooks, by JoshieGemFinder (Rewritten with same API)
-- CraftTweakerUtils, by BrisingrAerowing
+- CraftTweakerUtils, by BrisingrAerowing, where I disabled duplicate content (with CT itself)
 
 I also included the functionalities of the following mods, with varying levels of modification : 
 - Immersive Engineering Tweaks, by ZhilBear (simplified logic, ZenExpansion instead of new class)

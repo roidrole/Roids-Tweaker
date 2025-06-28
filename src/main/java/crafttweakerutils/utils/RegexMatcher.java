@@ -6,11 +6,12 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @ZenClass("mods.ctutils.utils.RegexMatcher")
 @ZenRegister
+@SuppressWarnings("unused")
 public class RegexMatcher {
 
     @ZenGetter("CANNON_EQ")

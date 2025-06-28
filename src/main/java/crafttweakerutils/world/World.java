@@ -1,23 +1,17 @@
 package crafttweakerutils.world;
 
 import crafttweaker.annotations.ZenRegister;
-import crafttweaker.api.entity.IEntity;
 import crafttweaker.api.world.IBlockPos;
 import crafttweaker.api.world.IWorld;
-import crafttweakerutils.utils.IRandom;
-import crafttweakerutils.utils.RandomWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumSkyBlock;
-import stanhebben.zenscript.annotations.ZenClass;
-import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenExpansion;
-import net.minecraft.entity.Entity;
-
+import stanhebben.zenscript.annotations.ZenMethod;
 
 
 @ZenRegister
-@ZenClass("mods.ctutils.world.World")
-@ZenExpansion(value = "crafttweaker.world.IWorld")
+@ZenExpansion("crafttweaker.world.IWorld")
+@SuppressWarnings("unused")
 public class World {
 
 	@ZenMethod
@@ -49,13 +43,6 @@ public class World {
 	public static IGameRules getGameRules(IWorld world) {
 		net.minecraft.world.World w = (net.minecraft.world.World) world.getInternal();
 		return new MCGameRules(w.getGameRules());
-	}
-
-	@ZenMethod
-	public static IExplosion newExplosion(IWorld world, IEntity entity, double x, double y, double z, float strength, boolean isFlaming, boolean isSmoking) {
-		net.minecraft.world.World w = (net.minecraft.world.World) world.getInternal();
-
-		return new MCExplosion(w.newExplosion((Entity) entity.getInternal(), x, y, z, strength, isFlaming, isSmoking));
 	}
 
 	@ZenMethod

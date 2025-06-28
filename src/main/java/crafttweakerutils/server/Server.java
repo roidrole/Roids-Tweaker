@@ -6,13 +6,12 @@ import crafttweaker.api.player.IPlayer;
 import crafttweaker.api.server.IServer;
 import crafttweaker.mc1120.player.MCPlayer;
 import net.minecraft.server.MinecraftServer;
-import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-@ZenClass("mods.ctutils.server.Server")
 @ZenExpansion("crafttweaker.server.IServer")
 @ZenRegister
+@SuppressWarnings("unused")
 public class Server {
 
 	@ZenMethod
@@ -33,7 +32,7 @@ public class Server {
 	public static IPlayer[] getPlayers(IServer server)
 	{
 		MinecraftServer s = (MinecraftServer)server.getInternal();
-		return (IPlayer[])s.getPlayerList().getPlayers().stream().map(p -> new MCPlayer(p)).toArray();
+		return (IPlayer[])s.getPlayerList().getPlayers().stream().map(MCPlayer::new).toArray();
 	}
 
 }
