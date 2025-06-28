@@ -13,20 +13,17 @@ import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @ZenExpansion("crafttweaker.server.IServer")
 @ZenRegister
-public class ServerExpansionMC {
+public class IServerExpansion {
 
     @ZenGetter("players")
     public static IPlayer[] getPlayers(IServer server) {
-        MinecraftServer mcServer = CraftTweakerMC.getMCServer(server);
-        List<IPlayer> players = new ArrayList<>();
-        mcServer.getPlayerList().getPlayers().forEach(p -> players.add(CraftTweakerMC.getIPlayer(p)));
-        return players.toArray(new IPlayer[0]);
+        return CraftTweakerMC.getMCServer(server).getPlayerList().getPlayers().stream()
+            .map(CraftTweakerMC::getIPlayer)
+            .toArray(IPlayer[]::new);
     }
 
     @ZenMethod
@@ -48,8 +45,7 @@ public class ServerExpansionMC {
 
     @ZenGetter("playerCount")
     public static int getPlayerCount(IServer server) {
-        MinecraftServer mcServer = CraftTweakerMC.getMCServer(server);
-        return mcServer.getPlayerList().getCurrentPlayerCount();
+        return CraftTweakerMC.getMCServer(server).getCurrentPlayerCount();
     }
 
     @ZenGetter("maxPlayers")

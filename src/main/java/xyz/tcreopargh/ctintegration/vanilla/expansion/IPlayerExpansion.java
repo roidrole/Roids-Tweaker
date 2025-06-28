@@ -24,7 +24,7 @@ import java.util.Objects;
 
 @ZenExpansion("crafttweaker.player.IPlayer")
 @ZenRegister
-public class PlayerExpansionMC {
+public class IPlayerExpansion {
 
     @ZenMethod
     public static void addExperience(IPlayer player, int amount) {

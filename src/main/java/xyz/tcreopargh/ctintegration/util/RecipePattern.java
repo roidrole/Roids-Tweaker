@@ -12,7 +12,9 @@ import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @ZenClass(CTIntegration.CT_PACKAGE + "util.RecipePattern")
 @ZenRegister

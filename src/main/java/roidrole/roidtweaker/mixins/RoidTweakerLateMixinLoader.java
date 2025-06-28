@@ -12,7 +12,8 @@ public class RoidTweakerLateMixinLoader implements ILateMixinLoader {
         return Arrays.asList(
             "mixins.roidtweaker.projecte.json",
             "mixins.roidtweaker.immersiveengineering.json",
-            "mixins.roidtweaker.thermalexpansion.json"
+            "mixins.roidtweaker.thermalexpansion.json",
+            "mixins.roidtweaker.crafttweaker.json"
         );
     }
 
