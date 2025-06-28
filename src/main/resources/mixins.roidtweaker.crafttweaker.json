@@ -1,7 +1,7 @@
 {
   "package": "roidrole.roidtweaker.mixins.crafttweaker",
   "required": true,
-  "refmap": "mixins.ctintegration.refmap.json",
+  "refmap": "mixins.roidtweaker.refmap.json",
   "target": "@env(DEFAULT)",
   "minVersion": "0.8.5",
   "compatibilityLevel": "JAVA_8",
