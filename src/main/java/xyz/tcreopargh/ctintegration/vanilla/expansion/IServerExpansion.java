@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @ZenExpansion("crafttweaker.server.IServer")
 @ZenRegister
-public class ServerExpansionMC {
+public class IServerExpansion {
 
     @ZenGetter("players")
     public static IPlayer[] getPlayers(IServer server) {

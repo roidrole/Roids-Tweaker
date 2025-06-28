@@ -63,6 +63,11 @@ public class MCGameRules implements IGameRules {
 	}
 
 	@Override
+	public void setOrCreateGameRule(String key, String value) {
+		rules.setOrCreateGameRule(key, value);
+	}
+
+	@Override
 	public Object getInternal() {
 		return rules;
 	}

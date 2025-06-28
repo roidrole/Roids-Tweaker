@@ -1,10 +1,9 @@
-package crafttweakerutils.entity;
+package crafttweakerutils;
 
 
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.entity.IEntityXp;
 import net.minecraft.entity.item.EntityXPOrb;
-import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenMethod;
 

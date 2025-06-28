@@ -27,6 +27,8 @@ public interface IGameRules {
 	@ZenMethod
 	void addGameRule(String key, String value, String type);
 
+	void setOrCreateGameRule(String key, String value);
+
 	Object getInternal();
 
 }

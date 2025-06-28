@@ -16,13 +16,8 @@ import java.util.Objects;
 
 @ZenExpansion("crafttweaker.world.IWorld")
 @ZenRegister
-public class WorldExpansionMC {
-
-    @ZenMethod
-    public static void setOrCreateGameRule(IWorld world, String key, String value) {
-        World mcWorld = CraftTweakerMC.getWorld(world);
-        mcWorld.getGameRules().setOrCreateGameRule(key, value);
-    }
+public class IWorldExpansion {
+    //setOrCreateGameRule was merged in IGameRules
 
     @ZenMethod
     public static void playSound(IWorld world, String soundResourceLocation, String soundCategory, Position3f location, float volume, float pitch, @Optional boolean distanceDelay) {

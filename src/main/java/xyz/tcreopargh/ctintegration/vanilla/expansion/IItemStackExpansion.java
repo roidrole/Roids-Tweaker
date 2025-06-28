@@ -13,7 +13,7 @@ import xyz.tcreopargh.ctintegration.forge.EnergyStorageImpl;
 
 @ZenExpansion("crafttweaker.item.IItemStack")
 @ZenRegister
-public class ItemStackExpansionMC {
+public class IItemStackExpansion {
     @ZenMethod
     @ZenCaster
     public static IData asData(IItemStack itemStack) {

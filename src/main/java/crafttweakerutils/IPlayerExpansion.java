@@ -1,4 +1,4 @@
-package crafttweakerutils.player;
+package crafttweakerutils;
 
 
 import crafttweaker.annotations.ZenRegister;
@@ -10,7 +10,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenRegister
 @ZenExpansion("crafttweaker.player.IPlayer")
 @SuppressWarnings("unused")
-public class Player {
+public class IPlayerExpansion {
 
 	@ZenMethod
 	public static boolean isFake(IPlayer player)
