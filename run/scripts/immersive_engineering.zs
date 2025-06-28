@@ -1,0 +1,42 @@
+#modloaded immersiveengineering
+import mods.immersiveengineering.ArcFurnace;
+import mods.roidtweaker.immersiveengineering.GardenCloche;
+import mods.roidtweaker.immersiveengineering.GardenClocheMultiplierFunction;
+import mods.TweakedExcavation.TweakedExcavator;
+import crafttweaker.item.IIngredient;
+import crafttweaker.item.IItemStack;
+import crafttweaker.data.IData;
+import crafttweaker.world.IWorld;
+
+ArcFurnace.addRecycling(<minecraft:golden_apple>);
+ArcFurnace.removeRecyclingOutput(<minecraft:iron_ingot>);
+
+
+GardenCloche.addFertilizer(<minecraft:fire_charge>, 0.1F);
+GardenCloche.addFertilizer(<minecraft:iron_ingot>, function(fertilizer as IIngredient, seed as IItemStack, soil as IItemStack) as IData {
+    if(seed == <minecraft:reeds>){
+        return 5.0f as IData;
+    }
+    return 2.0f as IData;
+} as GardenClocheMultiplierFunction);
+GardenCloche.removeFertilizer(<minecraft:dye:15>);
+
+GardenCloche.addPlantHandler("super_cool");
+GardenCloche.addCrop("crop", <immersiveengineering:metal>, [<minecraft:diamond>]);
+GardenCloche.addCrop("stem", <minecraft:stick>, [<minecraft:diamond>], <minecraft:grass>);
+GardenCloche.addCrop("stacking", <minecraft:iron_sword>, [<minecraft:diamond>], <minecraft:iron_block>, <minecraft:gold_block>.asBlock());
+GardenCloche.addCrop("super_cool", <minecraft:golden_sword>, [<minecraft:diamond>], <minecraft:iron_block>, <blockstate:minecraft:log:variant=spruce>);
+GardenCloche.removeCrop(<minecraft:wheat_seeds>);
+
+GardenCloche.setSoilTexture(<minecraft:dirt>, "minecraft:blocks/chorus_plant"); //Full texture path is minecraft:textures/blocks/chorus_plant.png
+
+
+mods.immersiveengineering.MetalPress.addRecipeNBT(<minecraft:iron_sword>, <minecraft:iron_ingot>.withTag({marker:1}), <minecraft:stick>, 4000);
+
+
+mods.roidtweaker.immersiveengineering.SlagReplacer.setSlag(<minecraft:jungle_stairs>, <*>.only(
+    function(stack as IItemStack) as bool{
+        return stack.ores[0].name.startsWith("ingot");
+    }
+));
+mods.roidtweaker.immersiveengineering.SlagReplacer.setSlag(<minecraft:fence>, <ore:crystalSlag>, "SLAG");

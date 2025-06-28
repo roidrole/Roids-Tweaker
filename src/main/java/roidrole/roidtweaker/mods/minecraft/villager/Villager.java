@@ -14,7 +14,7 @@ import roidrole.roidtweaker.mods.forge.Registries;
 import roidrole.roidtweaker.mods.minecraft.villager.actions.CareerAddition;
 import roidrole.roidtweaker.mods.minecraft.villager.actions.CareerOverride;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.LoadStageEnum;
+import roidrole.roidtweaker.utils.EnumLoadStage;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -49,12 +49,12 @@ public class Villager {
 
     @ZenMethod
     public static void addCareer(String profession, String career){
-        DeferredLoader.load(new CareerAddition(profession, career), LoadStageEnum.POST_INIT);
+        DeferredLoader.load(new CareerAddition(profession, career), EnumLoadStage.POST_INIT);
     }
 
     @ZenMethod
     public static void addCareers(String profession, String[] career){
-        DeferredLoader.load(new CareerAddition(profession, career), LoadStageEnum.POST_INIT);
+        DeferredLoader.load(new CareerAddition(profession, career), EnumLoadStage.POST_INIT);
     }
 
     @ZenMethod
@@ -78,7 +78,7 @@ public class Villager {
 
     @ZenMethod
     public static void clearCareers(String profession){
-        DeferredLoader.load(new CareerOverride(profession), LoadStageEnum.POST_INIT);
+        DeferredLoader.load(new CareerOverride(profession), EnumLoadStage.POST_INIT);
     }
 
     @ZenMethod

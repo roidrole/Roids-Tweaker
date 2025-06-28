@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import roidrole.roidtweaker.mixins.forge.villager.IProfessionAccessor;
 import roidrole.roidtweaker.mods.minecraft.villager.actions.ITradeRemoval;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.LoadStageEnum;
+import roidrole.roidtweaker.utils.EnumLoadStage;
 import roidrole.roidtweaker.utils.Utils;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -46,13 +46,13 @@ public class IVillagerCareer implements DeferredLoader.IAction {
     public IVillagerCareer(ResourceLocation profession, int career) {
         this.profession = profession;
         this.careerI = career;
-        DeferredLoader.load(this, LoadStageEnum.POST_INIT);
+        DeferredLoader.load(this, EnumLoadStage.POST_INIT);
     }
 
     public IVillagerCareer(ResourceLocation profession, String career) {
         this.profession = profession;
         this.careerS = career;
-        DeferredLoader.load(this, LoadStageEnum.POST_INIT);
+        DeferredLoader.load(this, EnumLoadStage.POST_INIT);
     }
 
     @ZenMethod

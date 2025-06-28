@@ -1,0 +1,19 @@
+{
+  "package": "roidrole.roidtweaker.mixins.thermalexpansion",
+  "required": true,
+  "refmap": "mixins.ctintegration.refmap.json",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8.5",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "ICollectorManagerAccessor",
+    "IExtruderManagerAccessor",
+    "IFisherManagerAccessor",
+    "ITapperManagerAccessor",
+    "MixinFurnaceManager",
+    "MixinPulverizerManager",
+    "MixinSmelterManager"
+  ],
+  "server": [],
+  "client": []
+}

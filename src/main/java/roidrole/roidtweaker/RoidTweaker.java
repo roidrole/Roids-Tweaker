@@ -2,11 +2,14 @@ package roidrole.roidtweaker;
 
 import crafttweaker.mc1120.commands.CTChatCommand;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import roidrole.roidtweaker.mods.immersiveengineering.SlagReplacer;
 import roidrole.roidtweaker.mods.minecraft.anvil.AnvilListener;
 import roidrole.roidtweaker.mods.minecraft.villager.Villager;
 import roidrole.roidtweaker.mods.minecraft.villager.VillagerCommand;
@@ -48,5 +51,13 @@ public class RoidTweaker {
         if(RoidTweakerConfig.mixinCategory.villagerCategory.allowCustomProfessionSetter) {
             Villager.setAllowedProfessions();
         }
+        if(Loader.isModLoaded("immersiveengineering")){
+            SlagReplacer.postInit();
+        }
+    }
+
+    @Mod.EventHandler
+    public void loadComplete(FMLLoadCompleteEvent event) {
+        DeferredLoader.loadComplete();
     }
 }
