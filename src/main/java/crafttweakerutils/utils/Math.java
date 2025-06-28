@@ -3,6 +3,7 @@ package crafttweakerutils.utils;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.util.IRandom;
 import crafttweaker.mc1120.util.MCRandom;
+import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -179,35 +180,34 @@ public class Math {
 	@ZenMethod
 	public static double clamp(double value, double min, double max)
 	{
-		return (value < min) ? min : (value > max) ? max : value;
+		return (value < min) ? min : java.lang.Math.min(value, max);
 	}
 
 	@ZenMethod
 	public static float clamp(float value, float min, float max)
 	{
-		return (value < min) ? min : (value > max) ? max : value;
+		return (value < min) ? min : java.lang.Math.min(value, max);
 	}
 
 	@ZenMethod
 	public static int clamp(int value, int min, int max)
 	{
-		return (value < min) ? min : (value > max) ? max : value;
+		return (value < min) ? min : java.lang.Math.min(value, max);
 	}
 
 	@ZenMethod
 	public static long clamp(long value, long min, long max)
 	{
-		return (value < min) ? min : (value > max) ? max : value;
+		return (value < min) ? min : java.lang.Math.min(value, max);
 	}
 
 	@ZenMethod
-	public static IRandom getRandom() {
-		return new MCRandom(new Random());
-	}
-
-	@ZenMethod
-	public static IRandom getRandom(long seed) {
-		return new MCRandom(new Random(seed));
+	public static IRandom getRandom(@Optional long seed) {
+		if(seed == 0){
+			return new MCRandom(new Random());
+		} else {
+			return new MCRandom(new Random(seed));
+		}
 	}
 
 	@ZenMethod

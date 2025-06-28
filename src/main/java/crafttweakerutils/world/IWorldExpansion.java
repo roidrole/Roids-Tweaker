@@ -2,9 +2,12 @@ package crafttweakerutils.world;
 
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.entity.IEntityLivingBase;
+import crafttweaker.api.entity.IEntityXp;
 import crafttweaker.api.world.IBlockPos;
 import crafttweaker.api.world.IWorld;
+import crafttweaker.mc1120.entity.MCEntityXp;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.math.BlockPos;
@@ -82,6 +85,21 @@ public class IWorldExpansion {
 		TileEntityMobSpawner spawner = (TileEntityMobSpawner)tmp;
 		spawner.getSpawnerBaseLogic().setEntityId(EntityRegistry.getEntry(e.getClass()).getRegistryName());
 		return true;
+	}
+
+	@ZenMethod
+	public static IEntityXp createEntityXp(IWorld world, int value)
+	{
+		EntityXPOrb orb = new EntityXPOrb((World)world.getInternal());
+		orb.xpValue = value;
+		return new MCEntityXp(orb);
+	}
+
+	@ZenMethod
+	public static void spawnEntityXp(IWorld world, int value, IBlockPos pos)
+	{
+		IEntityXp xp = createEntityXp(world, value);
+		xp.getDefinition().spawnEntity(world, pos);
 	}
 
 }

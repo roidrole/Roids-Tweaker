@@ -41,11 +41,12 @@ public class MCGameRules implements IGameRules {
 	public void addGameRule(String key, String value, String type) {
 		if(hasRule(key)) return;
 
-		GameRules.ValueType t = GameRules.ValueType.ANY_VALUE;
+		GameRules.ValueType t;
 
 		switch (type.toLowerCase())
 		{
 			case "any":
+				t = GameRules.ValueType.ANY_VALUE;
 				break;
 			case "numeric":
 				t = GameRules.ValueType.NUMERICAL_VALUE;
