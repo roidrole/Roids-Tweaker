@@ -13,7 +13,6 @@ public class RoidTweakerLateMixinLoader implements ILateMixinLoader {
             "mixins.roidtweaker.projecte.json",
             "mixins.roidtweaker.immersiveengineering.json",
             "mixins.roidtweaker.thermalexpansion.json",
-            "mixins.roidtweaker.f0-resources.json",
             "mixins.roidtweaker.crafttweaker.json"
         );
     }
