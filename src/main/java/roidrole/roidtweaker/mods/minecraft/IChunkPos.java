@@ -9,18 +9,20 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenRegister
 @ZenClass("mods.roidtweaker.minecraft.IChunkPos")
-public abstract class IChunkPos extends ChunkPos{
-    public IChunkPos(int x, int z) {
-        super(x, z);
+public abstract class IChunkPos{
+    public ChunkPos internal;
+
+    @ZenMethod
+    public static IChunkPos getChunkPos(int x, int z){
+        return new IChunkPos(){{
+            internal = new ChunkPos(x, z);
+        }};
     }
 
     @ZenMethod
-    public static ChunkPos getChunkPos(int x, int z){
-        return new ChunkPos(x, z);
-    }
-
-    @ZenMethod
-    public static ChunkPos getChunkPos(IBlockPos pos){
-        return new ChunkPos(CraftTweakerMC.getBlockPos(pos));
+    public static IChunkPos getChunkPos(IBlockPos pos){
+        return new IChunkPos(){{
+            internal = new ChunkPos(CraftTweakerMC.getBlockPos(pos));
+        }};
     }
 }
