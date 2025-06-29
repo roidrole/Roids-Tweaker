@@ -9,7 +9,11 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenRegister
 @ZenClass("mods.roidtweaker.minecraft.IChunkPos")
-public class IChunkPos {
+public abstract class IChunkPos extends ChunkPos{
+    public IChunkPos(int x, int z) {
+        super(x, z);
+    }
+
     @ZenMethod
     public static ChunkPos getChunkPos(int x, int z){
         return new ChunkPos(x, z);
