@@ -86,6 +86,7 @@ dependencies {
     compileOnly('curse.maven:thaumcraft-223628:2629023')
     compileOnly('curse.maven:mekanism-ce-unofficial-840735:6550161')
     compileOnly('curse.maven:immersive-engineering-231951:2974106')
+    implementation('curse.maven:factory0-resources-299713:2614729')
 
     //It's hard, to play Thermal Expansion...
     compileOnly('curse.maven:thermal-expansion-69163:2926431')
