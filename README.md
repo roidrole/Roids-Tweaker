@@ -17,7 +17,8 @@ I also included the functionalities of the following mods, with varying levels o
 - Villager Trade Tables, by crazysnailboy (added functionality via CT)
 - ZenCloche, by SmokeyTheBandicoot (rewritten)
 
-There are also a few original additions : 
-- Reading other mods' config files (iff they use Forge's config system) and adding config files
+There are also a few original additions :
+- Config file support (creation, read)
+- Factory0-Resources support
+- Forge registry blacklist
 - ProjectE custom fuels
-- Removing forge registry entries
