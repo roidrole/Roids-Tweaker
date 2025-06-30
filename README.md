@@ -11,6 +11,7 @@ With this mod, I aim to include and improve upon dead and/or broken CT addons. S
 I also included the functionalities of the following mods, with varying levels of modification : 
 - Immersive Engineering Tweaks, by ZhilBear (simplified logic, ZenExpansion instead of new class)
 - Immersive Tweaker, by brisingraerowing (copied and improved functionality, ZenExpansion instead of a new class)
+- Random Things Tweaker (rewritten)
 - Rocky Tweaks, by Mohron (rewritten)
 - Tweaked, by SnowdoniaGames (reimplemented functionality not in ModTweaker with CT)
 - VanillaAnvilRepair, by eksekk (only CT functionality)
@@ -21,5 +22,5 @@ There are also a few original additions :
 - Config file support (creation, read)
 - Factory0-Resources support
 - Forge registry blacklist
-- IE Blueprint list and villager trade
+- Immersive Engineering Blueprint list and villager trade
 - ProjectE custom fuels

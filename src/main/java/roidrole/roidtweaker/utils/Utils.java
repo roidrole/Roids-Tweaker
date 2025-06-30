@@ -21,4 +21,10 @@ public abstract class Utils {
         IItemStack element = list.get(random.nextInt(list.size()));
         return CraftTweakerMC.getItemStack(element);
     }
+    public static ItemStack getFirstStack(IIngredient input){
+        if(input == null || input.getItems().isEmpty()){
+            return ItemStack.EMPTY;
+        }
+        return CraftTweakerMC.getItemStack(input.getItems().get(0));
+    }
 }
