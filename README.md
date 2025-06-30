@@ -2,7 +2,7 @@
 Roidrole's CraftTweaker addon. 
 
 With this mod, I aim to include and improve upon dead and/or broken CT addons. So far, this mod is a drop-in replacement for : 
-- CraftTweaker Integration, by TCreograph (included), where I fixed [#10](https://github.com/TCreopargh/CraftTweakerIntegration/issues/10) and [#11](https://github.com/TCreopargh/CraftTweakerIntegration/issues/11)
+- CraftTweaker Integration, by TCreograph (included), where I fixed [#10](https://github.com/TCreopargh/CraftTweakerIntegration/issues/10) and [#11](https://github.com/TCreopargh/CraftTweakerIntegration/issues/11) and added mapEMC for single items
 - CraftTweakerUtils, by BrisingrAerowing (included), where I disabled duplicate content (with CT and CTI) and made some ZenClasses ZenExpansions
 - Extra Tweaker, by blue_beaker (Rewritten with same API)
 - MekaTweaker, by Lorexe (included), where I implemented [#6](https://github.com/Lorexe/MekaTweaker/issues/6)
@@ -21,4 +21,5 @@ There are also a few original additions :
 - Config file support (creation, read)
 - Factory0-Resources support
 - Forge registry blacklist
+- IE Blueprint list and villager trade
 - ProjectE custom fuels

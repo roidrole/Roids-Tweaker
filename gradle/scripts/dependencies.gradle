@@ -80,13 +80,13 @@ dependencies {
     compileOnly('curse.maven:ftb-money-306283:3010526')
     compileOnly('curse.maven:game-stages-268655:2951840')
     compileOnly('curse.maven:nyx-rotn-edition-437663:3840824')
-    compileOnly('curse.maven:projecte-226410:2702991')
+    implementation('curse.maven:projecte-226410:2702991')
     compileOnly('curse.maven:scaling-health-248027:2816920')
     compileOnly('curse.maven:serene-seasons-291874:2799213')
     compileOnly('curse.maven:thaumcraft-223628:2629023')
     compileOnly('curse.maven:mekanism-ce-unofficial-840735:6550161')
     compileOnly('curse.maven:immersive-engineering-231951:2974106')
-    implementation('curse.maven:factory0-resources-299713:2614729')
+    compileOnly('curse.maven:factory0-resources-299713:2614729')
 
     //It's hard, to play Thermal Expansion...
     compileOnly('curse.maven:thermal-expansion-69163:2926431')

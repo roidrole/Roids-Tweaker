@@ -12,6 +12,11 @@ ArcFurnace.addRecycling(<minecraft:golden_apple>);
 ArcFurnace.removeRecyclingOutput(<minecraft:iron_ingot>);
 
 
+for type in Blueprint.getRegisteredBlueprints{
+    print(type);
+}
+Blueprint.addVillagerTrade("category", <minecraft:diamond_sword>);
+
 GardenCloche.addFertilizer(<minecraft:fire_charge>, 0.1F);
 GardenCloche.addFertilizer(<minecraft:iron_ingot>, function(fertilizer as IIngredient, seed as IItemStack, soil as IItemStack) as IData {
     if(seed == <minecraft:reeds>){

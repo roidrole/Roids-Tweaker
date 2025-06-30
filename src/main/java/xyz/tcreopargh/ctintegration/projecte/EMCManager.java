@@ -9,7 +9,9 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import moze_intel.projecte.api.ProjectEAPI;
 import moze_intel.projecte.config.CustomEMCParser;
 import moze_intel.projecte.emc.EMCMapper;
+import moze_intel.projecte.emc.SimpleStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import xyz.tcreopargh.ctintegration.CTIntegration;
@@ -19,6 +21,7 @@ import java.util.List;
 @ModOnly("projecte")
 @ZenRegister
 @ZenClass(CTIntegration.CT_PACKAGE + "projecte.EMCManager")
+@SuppressWarnings("unused")
 public class EMCManager {
 
     @ZenMethod
@@ -28,6 +31,16 @@ public class EMCManager {
         CraftTweakerAPI.logInfo("Starting server-side EMC mapping.");
         EMCMapper.map();
         CraftTweakerAPI.logInfo("Registered " + EMCMapper.emc.size() + " EMC values. (took " + (System.currentTimeMillis() - start) + " ms)");
+    }
+
+    //Roidrole addition, recommended over full map
+    @ZenMethod
+    public static void mapEMC(IItemStack item) {
+        //Not worth logging time, takes 0-1 ms on my machine
+        EMCMapper.emc.put(
+            new SimpleStack(new ResourceLocation(item.getDefinition().getId()), item.getDamage()),
+            ProjectEAPI.getEMCProxy().getValue(CraftTweakerMC.getItem(item.getDefinition()))
+        );
     }
 
     @ZenMethod

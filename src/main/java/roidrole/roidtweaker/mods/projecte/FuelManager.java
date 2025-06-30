@@ -2,7 +2,7 @@ package roidrole.roidtweaker.mods.projecte;
 
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
-import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import moze_intel.projecte.emc.SimpleStack;
 import net.minecraft.item.ItemStack;
@@ -24,7 +24,7 @@ public class FuelManager {
     public static boolean removeDefaults = false;
 
     @ZenMethod
-    public static void addFuel(IIngredient item){
+    public static void addFuel(IItemStack item){
         customFuels.add(CraftTweakerMC.getItemStack(item));
     }
 
@@ -34,7 +34,7 @@ public class FuelManager {
     }
 
     @ZenMethod
-    public static void removeFuel(IIngredient item){
+    public static void removeFuel(IItemStack item){
         fuelsToRemove.add(new SimpleStack(CraftTweakerMC.getItemStack(item)));
     }
 }
