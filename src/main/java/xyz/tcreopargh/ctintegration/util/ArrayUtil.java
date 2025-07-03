@@ -1,12 +1,12 @@
 package xyz.tcreopargh.ctintegration.util;
 
 import crafttweaker.annotations.ZenRegister;
+import org.apache.commons.lang3.ArrayUtils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 @ZenRegister
 @ZenClass(CTIntegration.CT_PACKAGE + "util.ArrayUtil")
@@ -53,41 +53,41 @@ public class ArrayUtil {
 
     @ZenMethod
     public static void reverse(int[] array) {
-        Collections.reverse(Arrays.asList(array));
+        ArrayUtils.reverse(array, 0, array.length);
     }
 
     @ZenMethod
     public static void reverse(double[] array) {
-        Collections.reverse(Arrays.asList(array));
+        ArrayUtils.reverse(array, 0, array.length);
     }
 
     @ZenMethod
     public static void reverse(float[] array) {
-        Collections.reverse(Arrays.asList(array));
+        ArrayUtils.reverse(array, 0, array.length);
     }
 
     @ZenMethod
     public static void reverse(String[] array) {
-        Collections.reverse(Arrays.asList(array));
+        ArrayUtils.reverse(array, 0, array.length);
     }
 
     @ZenMethod
     public static void reverse(short[] array) {
-        Collections.reverse(Arrays.asList(array));
+        ArrayUtils.reverse(array, 0, array.length);
     }
 
     @ZenMethod
     public static void reverse(byte[] array) {
-        Collections.reverse(Arrays.asList(array));
+        ArrayUtils.reverse(array, 0, array.length);
     }
 
     @ZenMethod
     public static void reverse(long[] array) {
-        Collections.reverse(Arrays.asList(array));
+        ArrayUtils.reverse(array, 0, array.length);
     }
 
     @ZenMethod
     public static void reverse(char[] array) {
-        Collections.reverse(Arrays.asList(array));
+        ArrayUtils.reverse(array, 0, array.length);
     }
 }

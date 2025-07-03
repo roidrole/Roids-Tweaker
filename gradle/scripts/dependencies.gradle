@@ -85,7 +85,7 @@ dependencies {
     compileOnly('curse.maven:serene-seasons-291874:2799213')
     compileOnly('curse.maven:thaumcraft-223628:2629023')
     compileOnly('curse.maven:mekanism-ce-unofficial-840735:6550161')
-    implementation('curse.maven:immersive-engineering-231951:2974106')
+    compileOnly('curse.maven:immersive-engineering-231951:2974106')
     compileOnly('curse.maven:factory0-resources-299713:2614729')
     compileOnly('curse.maven:random-things-59816:2905241')
 
