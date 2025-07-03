@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import roidrole.roidtweaker.mods.immersiveengineering.GardenClocheCommand;
 import roidrole.roidtweaker.mods.immersiveengineering.SlagReplacer;
 import roidrole.roidtweaker.mods.minecraft.anvil.AnvilListener;
 import roidrole.roidtweaker.mods.minecraft.villager.Villager;
@@ -48,6 +49,9 @@ public class RoidTweaker {
     public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new AnvilListener());
         CTChatCommand.registerCommand(new VillagerCommand());
+        if(Loader.isModLoaded("immersiveengineering")){
+            CTChatCommand.registerCommand(new GardenClocheCommand());
+        }
     }
 
     @Mod.EventHandler

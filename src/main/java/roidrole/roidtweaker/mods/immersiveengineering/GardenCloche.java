@@ -40,7 +40,6 @@ import java.util.stream.Stream;
 @ZenClass("mods.roidtweaker.immersiveengineering.GardenCloche")
 @SuppressWarnings("unused")
 
-//TODO : add command
 public class GardenCloche {
     @ZenMethod
     public static void addFertilizer(IIngredient fertilizer, float multiplier){
