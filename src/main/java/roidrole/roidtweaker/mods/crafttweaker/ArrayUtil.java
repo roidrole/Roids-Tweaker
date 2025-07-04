@@ -1,15 +1,19 @@
-package xyz.tcreopargh.ctintegration.util;
+package roidrole.roidtweaker.mods.crafttweaker;
+//File was originally in CraftTweaker Integration, but I modified more than 50% of it.
 
 import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.data.IData;
 import org.apache.commons.lang3.ArrayUtils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 @ZenRegister
 @ZenClass(CTIntegration.CT_PACKAGE + "util.ArrayUtil")
+@SuppressWarnings("unused")
 public class ArrayUtil {
     @ZenMethod
     public static void sort(int[] array) {
@@ -47,47 +51,22 @@ public class ArrayUtil {
     }
 
     @ZenMethod
-    public static void sort(char[] array) {
-        Arrays.sort(array);
-    }
-
-    @ZenMethod
-    public static void reverse(int[] array) {
+    public static void reverse(IData[] array) {
         ArrayUtils.reverse(array, 0, array.length);
     }
 
     @ZenMethod
-    public static void reverse(double[] array) {
-        ArrayUtils.reverse(array, 0, array.length);
+    public static IData[] merge(IData[] array1, IData[] array2){
+        return ArrayUtils.addAll(array1, array2);
     }
 
     @ZenMethod
-    public static void reverse(float[] array) {
-        ArrayUtils.reverse(array, 0, array.length);
+    public static IData[] trim(IData[] array, int startIndexInclusive, int endIndexExclusive){
+        return ArrayUtils.subarray(array, startIndexInclusive, endIndexExclusive);
     }
 
     @ZenMethod
-    public static void reverse(String[] array) {
-        ArrayUtils.reverse(array, 0, array.length);
-    }
-
-    @ZenMethod
-    public static void reverse(short[] array) {
-        ArrayUtils.reverse(array, 0, array.length);
-    }
-
-    @ZenMethod
-    public static void reverse(byte[] array) {
-        ArrayUtils.reverse(array, 0, array.length);
-    }
-
-    @ZenMethod
-    public static void reverse(long[] array) {
-        ArrayUtils.reverse(array, 0, array.length);
-    }
-
-    @ZenMethod
-    public static void reverse(char[] array) {
-        ArrayUtils.reverse(array, 0, array.length);
+    public static IData[] createArray(IData element, int amount){
+        return Collections.nCopies(amount, element).toArray(new IData[amount]);
     }
 }
