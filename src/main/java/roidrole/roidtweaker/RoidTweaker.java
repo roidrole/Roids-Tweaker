@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import roidrole.roidtweaker.mods.forge.firstjoin.PlayerFirstJoinEvent;
 import roidrole.roidtweaker.mods.immersiveengineering.GardenClocheCommand;
 import roidrole.roidtweaker.mods.immersiveengineering.SlagReplacer;
 import roidrole.roidtweaker.mods.minecraft.anvil.AnvilListener;
@@ -47,7 +48,11 @@ public class RoidTweaker {
     @Mod.EventHandler
     @SuppressWarnings("unused")
     public void init(FMLInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(new AnvilListener());
+        MinecraftForge.EVENT_BUS.register(AnvilListener.class);
+        if(RoidTweakerConfig.mixinCategory.allowPlayerFirstJoinEvent) {
+            MinecraftForge.EVENT_BUS.register(PlayerFirstJoinEvent.EventFirer.class);
+            MinecraftForge.EVENT_BUS.register(PlayerFirstJoinEvent.CTFirstJoin.class);
+        }
         CTChatCommand.registerCommand(new VillagerCommand());
         if(Loader.isModLoaded("immersiveengineering")){
             CTChatCommand.registerCommand(new GardenClocheCommand());

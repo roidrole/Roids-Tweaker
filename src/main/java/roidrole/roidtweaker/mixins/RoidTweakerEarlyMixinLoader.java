@@ -13,6 +13,7 @@ public class RoidTweakerEarlyMixinLoader implements IFMLLoadingPlugin, IEarlyMix
     @Override
     public List<String> getMixinConfigs() {
         return Arrays.asList(
+            "mixins.roidtweaker.firstjoindetect.json",
             "mixins.roidtweaker.registry.disable.json",
             "mixins.roidtweaker.villager.accessor.json",
             "mixins.roidtweaker.villager.metawildcards.json",
@@ -24,6 +25,7 @@ public class RoidTweakerEarlyMixinLoader implements IFMLLoadingPlugin, IEarlyMix
     @Override
     public boolean shouldMixinConfigQueue(String mixinConfig) {
         switch (mixinConfig){
+            case "mixins.roidtweaker.firstjoindetect.json" : return RoidTweakerConfig.mixinCategory.allowPlayerFirstJoinEvent;
             case "mixins.roidtweaker.registry.disable.json" : return RoidTweakerConfig.mixinCategory.allowRemovingRegistries;
             case "mixins.roidtweaker.villager.metawildcards.json" : return RoidTweakerConfig.mixinCategory.villagerCategory.allowMetaWildcards;
             case "mixins.roidtweaker.villager.careerdisable.json" : return RoidTweakerConfig.mixinCategory.villagerCategory.allowDisablingCareers;

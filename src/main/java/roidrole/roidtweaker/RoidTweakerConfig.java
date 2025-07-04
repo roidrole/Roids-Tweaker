@@ -21,6 +21,8 @@ public class RoidTweakerConfig {
 
         @Config.Comment("Also required for modded profession disabling")
         public boolean allowRemovingRegistries = false;
+
+        public boolean allowPlayerFirstJoinEvent = false;
     }
 
     public static MekanismCategory mekanismCategory = new MekanismCategory();

@@ -1,0 +1,13 @@
+{
+  "package": "roidrole.roidtweaker.mixins.forge.firstjoindetect",
+  "required": true,
+  "refmap": "mixins.roidtweaker.refmap.json",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8.5",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinUsernameCache"
+  ],
+  "server": [],
+  "client": []
+}
