@@ -20,6 +20,7 @@ I also included the functionalities of the following mods, with varying levels o
 
 There are also a few original additions :
 - Config file support (creation, read)
+- Event for player's first join
 - Factory0-Resources support
 - Forge registry blacklist
 - Immersive Engineering Blueprint list and villager trade
