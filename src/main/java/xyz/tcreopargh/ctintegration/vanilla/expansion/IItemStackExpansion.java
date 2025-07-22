@@ -13,6 +13,7 @@ import xyz.tcreopargh.ctintegration.forge.EnergyStorageImpl;
 
 @ZenExpansion("crafttweaker.item.IItemStack")
 @ZenRegister
+@SuppressWarnings("unused")
 public class IItemStackExpansion {
     @ZenMethod
     @ZenCaster
@@ -28,6 +29,7 @@ public class IItemStackExpansion {
     }
 
     @ZenGetter("energy")
+    @ZenMethod
     public static xyz.tcreopargh.ctintegration.forge.IEnergyStorage getEnergy(IItemStack itemStack) {
         ItemStack mcItemStack = CraftTweakerMC.getItemStack(itemStack);
         IEnergyStorage storage = mcItemStack.getCapability(CapabilityEnergy.ENERGY, null);

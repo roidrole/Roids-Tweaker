@@ -30,9 +30,9 @@ import xyz.tcreopargh.ctintegration.CTIntegration;
 public class RoidTweaker {
     public static final String DEPENDENCIES =
         "required-after:forge@[14.23.1,);"
-      + "required-after:jei;"
       + "required-after:crafttweaker;"
-      + "required-after:mixinbooter;";
+      + "required-after:mixinbooter;"
+      + "required-after:configanytime;";
     public static final String CT_PACKAGE = "mods.roidtweaker.";
 
     @SidedProxy(clientSide = "roidrole.roidtweaker.proxy.ClientProxy", serverSide = "roidrole.roidtweaker.proxy..CommonProxy")

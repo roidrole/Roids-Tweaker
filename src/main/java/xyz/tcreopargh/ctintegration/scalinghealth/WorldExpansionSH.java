@@ -12,14 +12,17 @@ import stanhebben.zenscript.annotations.ZenSetter;
 @ModOnly("scalinghealth")
 @ZenExpansion("crafttweaker.world.IWorld")
 @ZenRegister
+@SuppressWarnings("unused")
 public class WorldExpansionSH {
 
     @ZenGetter("worldDifficulty")
+    @ZenMethod
     public static double getWorldDifficulty(IWorld world) {
         return DifficultyManager.getWorldDifficulty(world);
     }
 
     @ZenSetter("worldDifficulty")
+    @ZenMethod
     public static void setWorldDifficulty(IWorld world, double value) {
         DifficultyManager.setWorldDifficulty(world, value);
     }

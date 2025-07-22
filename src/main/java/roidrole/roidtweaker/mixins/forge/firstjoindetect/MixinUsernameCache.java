@@ -19,7 +19,6 @@ public abstract class MixinUsernameCache {
     )
     private static String roidTweaker_checkFirstJoin(String name, Object UUID){
         if(UUID == null){
-            System.out.println("Player "+name +" joined for the first time!");
             firstJoins.add(name);
         }
         return name;

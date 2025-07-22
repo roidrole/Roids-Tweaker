@@ -16,9 +16,11 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ModOnly("baubles")
 @ZenExpansion("crafttweaker.player.IPlayer")
 @ZenRegister
+@SuppressWarnings("unused")
 public class PlayerExpansionBaubles {
 
     @ZenGetter("baublesInventory")
+    @ZenMethod
     public static IBaublesInventory getBaublesInventory(IPlayer player) {
         EntityPlayer mcPlayer = CraftTweakerMC.getPlayer(player);
         IBaublesItemHandler handler = BaublesApi.getBaublesHandler(mcPlayer);

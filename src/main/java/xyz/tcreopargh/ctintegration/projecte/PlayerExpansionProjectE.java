@@ -9,14 +9,17 @@ import moze_intel.projecte.api.capabilities.IKnowledgeProvider;
 import net.minecraft.entity.player.EntityPlayer;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenGetter;
+import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenSetter;
 
 @ModOnly("projecte")
 @ZenExpansion("crafttweaker.player.IPlayer")
 @ZenRegister
+@SuppressWarnings("unused")
 public class PlayerExpansionProjectE {
 
     @ZenGetter("personalEMC")
+    @ZenMethod
     public static long getPersonalEMC(IPlayer player) {
         EntityPlayer mcPlayer = CraftTweakerMC.getPlayer(player);
         IKnowledgeProvider iKnowledgeProvider = mcPlayer.getCapability(ProjectEAPI.KNOWLEDGE_CAPABILITY, null);
@@ -27,6 +30,7 @@ public class PlayerExpansionProjectE {
     }
 
     @ZenSetter("personalEMC")
+    @ZenMethod
     public static void setPersonalEMC(IPlayer player, long emc) {
         EntityPlayer mcPlayer = CraftTweakerMC.getPlayer(player);
         IKnowledgeProvider iKnowledgeProvider = mcPlayer.getCapability(ProjectEAPI.KNOWLEDGE_CAPABILITY, null);

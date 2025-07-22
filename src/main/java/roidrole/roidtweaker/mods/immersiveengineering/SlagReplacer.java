@@ -34,16 +34,17 @@ public class SlagReplacer {
     public static class SlagFilter{
         ItemStack slag;
         EnumFilter type = EnumFilter.OUTPUT;
-        IIngredient ingredient = IngredientAny.INSTANCE;
+        IIngredient ingredient;
 
         public SlagFilter(ItemStack slag, String type, IIngredient ingredient){
             this.slag = slag;
             if(type != null){
                 this.type = EnumFilter.valueOf(type);
             }
-            if(ingredient != null){
-                this.ingredient = ingredient;
-            }
+            this.ingredient = ingredient != null?
+                ingredient:
+                IngredientAny.INSTANCE
+            ;
         }
         public boolean matches(BlastFurnaceRecipe recipe){
             if(type == EnumFilter.OUTPUT){

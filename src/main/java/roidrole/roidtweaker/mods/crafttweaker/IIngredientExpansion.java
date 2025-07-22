@@ -5,15 +5,17 @@ import crafttweaker.api.item.IIngredient;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
 
 @ZenRegister
 @ZenExpansion("crafttweaker.item.IIngredient")
 @SuppressWarnings("unused")
 public class IIngredientExpansion {
     @ZenMethod
-    public static List<IIngredient> spread(IIngredient input){
-        return Collections.nCopies(input.getAmount(), input.amount(1));
+    public static IIngredient[] spread(IIngredient input){
+        IIngredient inputRevised = input.amount(1);
+        IIngredient[] output = new IIngredient[input.getAmount()];
+        Arrays.fill(output, inputRevised);
+        return output;
     }
 }

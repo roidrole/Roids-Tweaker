@@ -3,11 +3,13 @@ package xyz.tcreopargh.ctintegration.forge;
 import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
+import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @ZenRegister
 @ZenClass(CTIntegration.CT_PACKAGE + "IEnergyStorage")
+@SuppressWarnings("unused")
 public interface IEnergyStorage {
 
     Object getInternal();
@@ -19,14 +21,18 @@ public interface IEnergyStorage {
     int extractEnergy(int maxExtract, @Optional boolean simulate);
 
     @ZenMethod
+    @ZenGetter("energyStored")
     int getEnergyStored();
 
     @ZenMethod
+    @ZenGetter("maxEnergyStored")
     int getMaxEnergyStored();
 
     @ZenMethod
+    @ZenGetter
     boolean canExtract();
 
     @ZenMethod
+    @ZenGetter
     boolean canReceive();
 }

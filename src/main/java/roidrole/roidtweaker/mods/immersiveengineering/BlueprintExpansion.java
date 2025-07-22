@@ -22,4 +22,9 @@ public class BlueprintExpansion {
     public static void addVillagerTrade(String category, IItemStack price){
         BlueprintCraftingRecipe.addVillagerTrade(category, (ItemStack) price.getInternal());
     }
+
+    @ZenMethodStatic
+    public static void addBlueprint(String category){
+        BlueprintCraftingRecipe.blueprintCategories.add(category);
+    }
 }

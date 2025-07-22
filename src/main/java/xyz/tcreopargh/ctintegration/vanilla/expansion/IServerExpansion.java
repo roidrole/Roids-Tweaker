@@ -17,9 +17,11 @@ import java.util.UUID;
 
 @ZenExpansion("crafttweaker.server.IServer")
 @ZenRegister
+@SuppressWarnings("unused")
 public class IServerExpansion {
 
     @ZenGetter("players")
+    @ZenMethod
     public static IPlayer[] getPlayers(IServer server) {
         return CraftTweakerMC.getMCServer(server).getPlayerList().getPlayers().stream()
             .map(CraftTweakerMC::getIPlayer)
@@ -44,11 +46,13 @@ public class IServerExpansion {
     }
 
     @ZenGetter("playerCount")
+    @ZenMethod
     public static int getPlayerCount(IServer server) {
         return CraftTweakerMC.getMCServer(server).getCurrentPlayerCount();
     }
 
     @ZenGetter("maxPlayers")
+    @ZenMethod
     public static int getMaxPlayers(IServer server) {
         MinecraftServer mcServer = CraftTweakerMC.getMCServer(server);
         return mcServer.getMaxPlayers();

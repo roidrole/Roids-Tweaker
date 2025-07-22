@@ -13,13 +13,12 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import roidrole.roidtweaker.RoidTweaker;
 import roidrole.roidtweaker.RoidTweakerConfig;
-import stanhebben.zenscript.annotations.ZenClass;
-import stanhebben.zenscript.annotations.ZenMethod;
-import stanhebben.zenscript.annotations.ZenProperty;
+import stanhebben.zenscript.annotations.*;
 
 @ZenRegister
 @ModOnly("mekanism")
 @ZenClass("mods.mekatweaker.Gas")
+@SuppressWarnings("unused")
 public class GasRepresentation {
 	@ZenProperty
 	public String translationKey = null;
@@ -61,6 +60,7 @@ public class GasRepresentation {
 	}
 
 	@ZenMethod
+	@ZenSetter("icon")
 	public void setIcon(String icon) {
 		this.icon = new ResourceLocation(RoidTweakerConfig.mekanismCategory.defaultDomain, icon);
 	}
@@ -69,11 +69,13 @@ public class GasRepresentation {
 		this.icon = new ResourceLocation(domain, icon);
 	}
 	@ZenMethod
+	@ZenGetter("icon")
 	public String getIcon() {
 		return this.icon.toString();
 	}
 	
 	@ZenMethod
+	@ZenSetter("iconFlowing")
 	public void setIconFlowing(String icon) {
 		this.iconFlow = new ResourceLocation(RoidTweakerConfig.mekanismCategory.defaultDomain, icon);
 	}
@@ -82,15 +84,18 @@ public class GasRepresentation {
 		this.iconFlow = new ResourceLocation(domain, icon);
 	}
 	@ZenMethod
+	@ZenGetter("iconFlowing")
 	public String getIconFlowing() {
 		return this.iconFlow.toString();
 	}
 
 	@ZenMethod
+	@ZenSetter("unlocalizedName")
 	public void setUnlocalizedName(String translatationKey){
 		this.translationKey = translatationKey;
 	}
 	@ZenMethod
+	@ZenGetter("unlocalizedName")
 	public String getUnlocalizedName(){
 		return this.translationKey;
 	}

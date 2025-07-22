@@ -4,14 +4,13 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import stanhebben.zenscript.annotations.Optional;
-import stanhebben.zenscript.annotations.ZenClass;
-import stanhebben.zenscript.annotations.ZenMethod;
+import stanhebben.zenscript.annotations.*;
 import v0id.api.f0resources.world.IOreData;
 
 @ZenRegister
 @ZenClass("mods.roidtweaker.f0resources.OreData")
 @ModOnly("f0-resources")
+@SuppressWarnings("unused")
 public class OreData {
     public final IOreData internal;
 
@@ -35,25 +34,30 @@ public class OreData {
     }
 
     @ZenMethod
+    @ZenSetter
     public void setStack(IItemStack stack){
         this.internal.setOreItem(CraftTweakerMC.getItemStack(stack).getItem());
         this.internal.setOreMeta((short)stack.getDamage());
     }
 
     @ZenMethod
+    @ZenGetter("amount")
     public int getAmount(){
         return this.internal.getOreAmount();
     }
     @ZenMethod
+    @ZenSetter("amount")
     public void setAmount(int amount){
         this.internal.setOreAmount(amount);
     }
 
     @ZenMethod
+    @ZenGetter("requiredTier")
     public int getRequiredTier(){
         return this.internal.getTierReq();
     }
     @ZenMethod
+    @ZenGetter("requiredTier")
     public void setRequiredTier(int tier){
         this.internal.setTierReq(tier);
     }

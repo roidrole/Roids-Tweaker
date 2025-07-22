@@ -160,6 +160,7 @@ public class Math {
 	}
 
 	@ZenMethod
+	@Deprecated
 	public static double random()
 	{
 		return java.lang.Math.random();

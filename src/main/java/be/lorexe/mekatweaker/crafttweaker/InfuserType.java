@@ -20,6 +20,7 @@ import javax.annotation.Nullable;
 @ZenRegister
 @ModOnly("mekanism")
 @ZenClass("mods.mekatweaker.InfuserType")
+@SuppressWarnings("unused")
 public class InfuserType {
 	@ZenMethod
 	public static void addType(String name, @Optional @Nullable String icon) {

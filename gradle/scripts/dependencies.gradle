@@ -68,15 +68,16 @@ dependencies {
     // }
     implementation('curse.maven:crafttweaker-239197:6186559')
 
-    implementation('curse.maven:contenttweaker-237065:3331364')
-    implementation('curse.maven:base-246996:3440963')
-    implementation('mezz:jei:4.25.5')
+    compileOnly('mezz:jei:4.25.5')
+    runtimeOnly('mezz:jei:4.25.5')
     implementation('com.cleanroommc:configanytime:3.0')
 
     //Supported mods
     compileOnly('curse.maven:baubles-227083:2518667')
     compileOnly('curse.maven:blood-magic-224791:2822288')
     compileOnly('curse.maven:silent-lib-242998:2851111')
+    compileOnly('curse.maven:contenttweaker-237065:3331364')
+    compileOnly('curse.maven:base-246996:3440963')
     compileOnly('curse.maven:ftb-money-306283:3010526')
     compileOnly('curse.maven:game-stages-268655:2951840')
     compileOnly('curse.maven:nyx-rotn-edition-437663:3840824')
@@ -85,7 +86,7 @@ dependencies {
     compileOnly('curse.maven:serene-seasons-291874:2799213')
     compileOnly('curse.maven:thaumcraft-223628:2629023')
     compileOnly('curse.maven:mekanism-ce-unofficial-840735:6550161')
-    compileOnly('curse.maven:immersive-engineering-231951:2974106')
+    implementation('curse.maven:immersive-engineering-231951:2974106')
     compileOnly('curse.maven:factory0-resources-299713:2614729')
     compileOnly('curse.maven:random-things-59816:2905241')
 

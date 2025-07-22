@@ -11,6 +11,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenRegister
 @ModOnly("mekanism")
 @ZenClass("mods.mekatweaker.GasFactory")
+@SuppressWarnings("unused")
 public class GasFactory {
 
 	@ZenMethod
@@ -26,6 +27,7 @@ public class GasFactory {
 		return new GasRepresentation(unlocalizedName, color);
 	}
 
+	//Usage of the above methods is preferred as they return a minimal GasRepresentation ready for building. They are kept for backward-compat
 	@ZenMethod
 	@Deprecated
 	public static GasRepresentation createGas(String unlocalizedName) {

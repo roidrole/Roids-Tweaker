@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import org.apache.commons.lang3.StringEscapeUtils;
 import stanhebben.zenscript.annotations.ZenClass;
+import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
@@ -18,6 +19,7 @@ import java.util.Map;
 
 @ZenRegister
 @ZenClass(CTIntegration.CT_PACKAGE + "data.DataUtil")
+@SuppressWarnings("unused")
 public class DataUtil {
 
     @ZenMethod
@@ -42,6 +44,7 @@ public class DataUtil {
     }
 
     @ZenMethod
+    @ZenGetter("rawString")
     public static String getRawString(IData data) {
         if (data instanceof DataBool) {
             return data.asBool() ? "true" : "false";

@@ -9,7 +9,6 @@ import stanhebben.zenscript.annotations.ZenMethod;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 @ZenRegister
 @ZenClass(CTIntegration.CT_PACKAGE + "util.ArrayUtil")
@@ -19,40 +18,103 @@ public class ArrayUtil {
     public static void sort(int[] array) {
         Arrays.sort(array);
     }
-
     @ZenMethod
     public static void sort(double[] array) {
         Arrays.sort(array);
     }
-
     @ZenMethod
     public static void sort(float[] array) {
         Arrays.sort(array);
     }
-
     @ZenMethod
     public static void sort(String[] array) {
         Arrays.sort(array);
     }
-
     @ZenMethod
     public static void sort(short[] array) {
         Arrays.sort(array);
     }
-
     @ZenMethod
     public static void sort(byte[] array) {
         Arrays.sort(array);
     }
-
     @ZenMethod
     public static void sort(long[] array) {
         Arrays.sort(array);
     }
 
     @ZenMethod
+    public static void reverse(int[] array) {
+        ArrayUtils.reverse(array, 0, array.length);
+    }
+    @ZenMethod
+    public static void reverse(double[] array) {
+        ArrayUtils.reverse(array, 0, array.length);
+    }
+    @ZenMethod
+    public static void reverse(float[] array) {
+        ArrayUtils.reverse(array, 0, array.length);
+    }
+    @ZenMethod
+    public static void reverse(String[] array) {
+        ArrayUtils.reverse(array, 0, array.length);
+    }
+    @ZenMethod
+    public static void reverse(short[] array) {
+        ArrayUtils.reverse(array, 0, array.length);
+    }
+    @ZenMethod
+    public static void reverse(byte[] array) {
+        ArrayUtils.reverse(array, 0, array.length);
+    }
+    @ZenMethod
+    public static void reverse(long[] array) {
+        ArrayUtils.reverse(array, 0, array.length);
+    }
+    @ZenMethod
+    public static void reverse(char[] array) {
+        ArrayUtils.reverse(array, 0, array.length);
+    }
+    @ZenMethod
     public static void reverse(IData[] array) {
         ArrayUtils.reverse(array, 0, array.length);
+    }
+
+    @ZenMethod
+    public static void fill(int[] array, int element) {
+        Arrays.fill(array, element);
+    }
+    @ZenMethod
+    public static void fill(double[] array, double element) {
+        Arrays.fill(array, element);
+    }
+    @ZenMethod
+    public static void fill(float[] array, float element) {
+        Arrays.fill(array, element);
+    }
+    @ZenMethod
+    public static void fill(String[] array, String element) {
+        Arrays.fill(array, element);
+    }
+    @ZenMethod
+    public static void fill(short[] array, short element) {
+        Arrays.fill(array, element);
+    }
+    @ZenMethod
+    public static void fill(byte[] array, byte element) {
+        Arrays.fill(array, element);
+    }
+    @ZenMethod
+    public static void fill(long[] array, long element) {
+        Arrays.fill(array, element);
+    }
+    @ZenMethod
+    public static void fill(char[] array, char element) {
+        Arrays.fill(array, element);
+    }
+    @ZenMethod
+    public static void fill(IData[] array, IData element) {
+        Arrays.fill(array, element);
     }
 
     @ZenMethod
@@ -67,6 +129,8 @@ public class ArrayUtil {
 
     @ZenMethod
     public static IData[] createArray(IData element, int amount){
-        return Collections.nCopies(amount, element).toArray(new IData[amount]);
+        IData[] output = new IData[amount];
+        Arrays.fill(output, element);
+        return output;
     }
 }
