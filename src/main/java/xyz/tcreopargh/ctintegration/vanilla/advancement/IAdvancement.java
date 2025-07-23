@@ -12,6 +12,7 @@ import java.util.List;
 
 @ZenRegister
 @ZenClass(CTIntegration.CT_PACKAGE + "advancement.IAdvancement")
+@SuppressWarnings("unused")
 public interface IAdvancement {
 
     Object getInternal();
