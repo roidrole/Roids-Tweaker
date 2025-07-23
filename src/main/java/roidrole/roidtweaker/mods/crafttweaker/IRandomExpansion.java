@@ -1,4 +1,4 @@
-package crafttweakerutils.utils;
+package roidrole.roidtweaker.mods.crafttweaker;
 
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.util.IRandom;

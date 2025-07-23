@@ -2,6 +2,7 @@ package crafttweakerutils.world;
 
 import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.ZenClass;
+import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenRegister
@@ -19,6 +20,7 @@ public interface IGameRules {
 	int getInt(String name);
 
 	@ZenMethod
+	@ZenGetter("rules")
 	String[] getRules();
 
 	@ZenMethod
@@ -27,6 +29,7 @@ public interface IGameRules {
 	@ZenMethod
 	void addGameRule(String key, String value, String type);
 
+	@ZenMethod
 	void setOrCreateGameRule(String key, String value);
 
 	Object getInternal();

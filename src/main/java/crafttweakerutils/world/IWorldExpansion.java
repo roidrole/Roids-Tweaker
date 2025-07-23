@@ -15,6 +15,7 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import stanhebben.zenscript.annotations.ZenExpansion;
+import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 
@@ -49,6 +50,7 @@ public class IWorldExpansion {
 	}
 
 	@ZenMethod
+	@ZenGetter("gameRules")
 	public static IGameRules getGameRules(IWorld world) {
 		net.minecraft.world.World w = (net.minecraft.world.World) world.getInternal();
 		return new MCGameRules(w.getGameRules());

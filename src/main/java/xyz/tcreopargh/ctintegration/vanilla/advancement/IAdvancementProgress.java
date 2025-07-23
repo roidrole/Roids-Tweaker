@@ -2,6 +2,7 @@ package xyz.tcreopargh.ctintegration.vanilla.advancement;
 
 import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.ZenClass;
+import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 import xyz.tcreopargh.ctintegration.date.IDate;
@@ -27,15 +28,19 @@ public interface IAdvancementProgress {
     boolean revokeCriterion(String criterion);
 
     @ZenMethod
+    @ZenGetter("completedCriteria")
     List<String> getCompletedCriteria();
 
     @ZenMethod
+    @ZenGetter("remainingCriteria")
     List<String> getRemainingCriteria();
 
     @ZenMethod
+    @ZenGetter("percent")
     float getPercent();
 
     @ZenMethod
+    @ZenGetter("progressText")
     String getProgressText();
 
     @ZenMethod
