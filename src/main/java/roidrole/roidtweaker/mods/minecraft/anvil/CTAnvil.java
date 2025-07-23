@@ -3,6 +3,7 @@ package roidrole.roidtweaker.mods.minecraft.anvil;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.item.IngredientAny;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -15,15 +16,24 @@ import java.util.List;
 @ZenRegister
 @SuppressWarnings("unused")
 public class CTAnvil {
-    public static List<AnvilRecipe> recipes = new ArrayList<>(0);
+    public static List<AnvilRecipes> recipes = new ArrayList<>(0);
 
     @ZenMethod
     public static void addRecipe(IIngredient left, IIngredient right, IItemStack output, int xpCost) {
-        AnvilRecipe recipe = new AnvilRecipe();
+        AnvilRecipes recipe = new AnvilRecipes();
             recipe.left = left;
             recipe.right = right;
             recipe.output = CraftTweakerMC.getItemStack(output);
             recipe.xpCost = xpCost;
+        recipes.add(recipe);
+    }
+    @ZenMethod
+    public static void addRecipeShapeless(IIngredient left, IIngredient right, IItemStack output, int xpCost) {
+        AnvilRecipes.Shapeless recipe = new AnvilRecipes.Shapeless();
+        recipe.left = left;
+        recipe.right = right;
+        recipe.output = CraftTweakerMC.getItemStack(output);
+        recipe.xpCost = xpCost;
         recipes.add(recipe);
     }
 
@@ -36,40 +46,39 @@ public class CTAnvil {
 
     @ZenMethod
     public static void remove(IIngredient[] inputs){
-        AnvilRecipe recipe = new AnvilRecipe();
+        AnvilRecipes.DisabledRecipe recipe = new AnvilRecipes.DisabledRecipe();
             recipe.left = inputs[0];
             if(inputs.length > 1){
                 recipe.right = inputs[1];
+            } else {
+                recipe.right = IngredientAny.INSTANCE;
             }
-            recipe.disabled = true;
         recipes.add(recipe);
     }
 
     @ZenMethod
     public static void remove(IIngredient output){
-        AnvilRecipe recipe = new AnvilRecipe();
-            recipe.output = output;
-            recipe.disabled = true;
-            recipe.matchByOutput = true;
+        AnvilRecipes.DisabledRecipeOutput recipe = new AnvilRecipes.DisabledRecipeOutput();
+        recipe.output = output;
         recipes.add(recipe);
     }
 
     @ZenMethod
     public static void addRepair(IIngredient repaired, IIngredient material, int amount, @Optional int xpCost){
-        AnvilRecipe recipe = new AnvilRecipe();
+        AnvilRecipes.Repair recipe = new AnvilRecipes.Repair();
             recipe.left = repaired;
             recipe.right = material;
-            recipe.output = amount;
+            recipe.repair = amount;
             recipe.xpCost = xpCost;
         recipes.add(recipe);
     }
 
     @ZenMethod
     public static void addRepair(IIngredient repaired, IIngredient material, float amount, @Optional int xpCost){
-        AnvilRecipe recipe = new AnvilRecipe();
+        AnvilRecipes.Repair recipe = new AnvilRecipes.Repair();
             recipe.left = repaired;
             recipe.right = material;
-            recipe.output = amount;
+            recipe.repairRatio = amount;
             recipe.xpCost = xpCost;
         recipes.add(recipe);
     }

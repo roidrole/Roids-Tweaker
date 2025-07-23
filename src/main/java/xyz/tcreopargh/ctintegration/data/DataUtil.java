@@ -14,9 +14,6 @@ import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
-import java.util.Iterator;
-import java.util.Map;
-
 @ZenRegister
 @ZenClass(CTIntegration.CT_PACKAGE + "data.DataUtil")
 @SuppressWarnings("unused")
@@ -86,84 +83,57 @@ public class DataUtil {
         } else if (data instanceof DataLong) {
             return String.valueOf(data.asLong());
         } else if (data instanceof DataByteArray) {
-            StringBuilder result = new StringBuilder();
-            result.append("[");
-            boolean first = true;
-            byte[] var3 = data.asByteArray();
-            int var4 = var3.length;
-
-            for (int var5 = 0; var5 < var4; ++var5) {
-                byte value = var3[var5];
-                if (first) {
-                    first = false;
-                } else {
-                    result.append(", ");
-                }
-
-                result.append(value);
-            }
-
-            result.append("]");
-            return result.toString();
-        } else if (data instanceof DataIntArray) {
-            StringBuilder result = new StringBuilder();
-            result.append('[');
-            boolean first = true;
-            int[] var3 = data.asIntArray();
-            int var4 = var3.length;
-
-            for (int var5 = 0; var5 < var4; ++var5) {
-                int value = var3[var5];
-                if (first) {
-                    first = false;
-                } else {
-                    result.append(", ");
-                }
-
-                result.append(value);
-            }
-
-            result.append(']');
-            return result.toString();
-        } else if (data instanceof DataList) {
             StringBuilder output = new StringBuilder();
             output.append('[');
             boolean first = true;
-
-            IData value;
-            for (Iterator var3 = data.asList().iterator(); var3.hasNext(); output.append(toJson(value))) {
-                value = (IData) var3.next();
+            for (byte value : data.asByteArray()) {
                 if (first) {
                     first = false;
                 } else {
                     output.append(", ");
                 }
+                output.append(value);
             }
-
             output.append(']');
-            return output.toString();
-        } else if (data instanceof DataMap) {
-            StringBuilder result = new StringBuilder();
-            result.append('{');
-            boolean first = true;
-            Iterator var3 = data.asMap().entrySet().iterator();
 
-            while (var3.hasNext()) {
-                Map.Entry<String, IData> entry = (Map.Entry) var3.next();
+            return output.toString();
+        } else if (data instanceof DataIntArray) {
+            StringBuilder output = new StringBuilder();
+            output.append('[');
+            boolean first = true;
+
+            for (int value : data.asIntArray()) {
                 if (first) {
                     first = false;
                 } else {
-                    result.append(", ");
+                    output.append(", ");
                 }
-
-                result.append("\"").append(StringEscapeUtils.escapeJava(entry.getKey())).append("\"");
-
-                result.append(": ");
-                result.append(toJson(entry.getValue()));
+                output.append(value);
             }
-
-            result.append('}');
-            return result.toString();
+            output.append(']');
+            return output.toString();
+        } else if (data instanceof DataList) {
+            StringBuilder output = new StringBuilder();
+            output.append('[');
+            data.asList().forEach(value -> {
+                output.append(toJson(value));
+                output.append(", ");
+            });
+            output.delete(output.length() - 2, output.length());
+            output.append(']');
+            return output.toString();
+        } else if (data instanceof DataMap) {
+            StringBuilder output = new StringBuilder();
+            output.append('{');
+            data.asMap().forEach((key, value) -> {
+                output.append("\"").append(StringEscapeUtils.escapeJava(key)).append("\"");
+                output.append(": ");
+                output.append(toJson(value));
+                output.append(", ");
+            });
+            output.delete(output.length() - 2, output.length());
+            output.append(']');
+            return output.toString();
         } else {
             return "";
         }

@@ -12,13 +12,13 @@ ArcFurnace.addRecycling(<minecraft:golden_apple>);
 ArcFurnace.removeRecyclingOutput(<minecraft:iron_ingot>);
 
 
-Blueprint.addRecipe("my_awesome_category", <minecraft:iron_block>, (<minecraft:iron_sword> * 3).spread());
+Blueprint.addRecipe("my_awesome_category", <minecraft:iron_block>, (<minecraft:golden_sword> * 3).spread());
 Blueprint.addBlueprint("super-super blueprint");
 for type in Blueprint.getRegisteredBlueprints(){
     print(type);
 }
 
-Blueprint.addRecipe("super-super blueprint", <minecraft:iron_block>, (<minecraft:iron_sword> * 3).spread());
+Blueprint.addRecipe("super-super Blueprint", <minecraft:iron_block>, (<minecraft:golden_sword> * 3).spread());
 Blueprint.addVillagerTrade("my_awesome_category", <minecraft:diamond_sword>);
 
 GardenCloche.addFertilizer(<minecraft:fire_charge>, 0.1F);
