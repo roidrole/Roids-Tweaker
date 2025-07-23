@@ -2,7 +2,6 @@ package roidrole.roidtweaker.mods.minecraft.anvil;
 
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import crafttweaker.api.item.IngredientAny;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.AnvilUpdateEvent;
@@ -35,8 +34,8 @@ public class AnvilRecipes {
     }
 
     public static class Repair extends AnvilRecipes {
-        public int repair;
-        public float repairRatio;
+        public int repair = 0;
+        public float repairRatio = 0;
         @Override
         public boolean matches(AnvilUpdateEvent event){
             if(event.getLeft().getItemDamage() == 0){return false;}
@@ -61,7 +60,11 @@ public class AnvilRecipes {
             event.setMaterialCost(repairAmount);
             event.setOutput(output);
             event.setCanceled(false);
-            event.setCost(xpCost);
+            if(xpCost != 0) {
+                event.setCost(xpCost);
+            } else {
+                event.setCost(repairAmount);
+            }
         }
     }
 
@@ -72,13 +75,23 @@ public class AnvilRecipes {
             IItemStack rightInput = CraftTweakerMC.getIItemStack(event.getRight());
             return (left.matches(leftInput) && right.matches(rightInput)) || (left.matches(rightInput) && right.matches(leftInput));
         }
+        @Override
+        public boolean matches(AnvilRepairEvent event){
+            IItemStack leftInput = CraftTweakerMC.getIItemStack(event.getItemInput());
+            IItemStack rightInput = CraftTweakerMC.getIItemStack(event.getIngredientInput());
+            return (left.matches(leftInput) && right.matches(rightInput)) || (left.matches(rightInput) && right.matches(leftInput));
+        }
     }
 
     public void apply(AnvilUpdateEvent event){
         event.setMaterialCost(right.getAmount());
         event.setOutput(output.copy());
         event.setCanceled(false);
-        event.setCost(xpCost);
+        if(xpCost != 0) {
+            event.setCost(xpCost);
+        } else {
+            event.setCost(event.getLeft().getRepairCost() + event.getRight().getRepairCost() + right.getAmount());
+        }
     }
 
     public boolean matches(AnvilUpdateEvent event){

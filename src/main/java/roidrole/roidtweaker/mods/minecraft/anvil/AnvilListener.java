@@ -45,7 +45,7 @@ public class AnvilListener {
                 if (!event.getEntityPlayer().inventory.addItemStackToInventory(remainder)) {
                     if (event.getEntityPlayer().dropItem(remainder, true, false) != null){
                         remainder = ItemStack.EMPTY;
-                    };
+                    }
                 }
                 if(r.right.hasNewTransformers()){
                     remainder = CraftTweakerMC.getItemStack(r.right.applyNewTransform(CraftTweakerMC.getIItemStack(rightInput)));
