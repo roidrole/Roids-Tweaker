@@ -23,8 +23,6 @@ public class RoidTweakerConfig {
 
         @Config.Comment("Also required for modded villager profession disabling")
         public boolean allowRemovingRegistries = false;
-
-        public boolean allowPlayerFirstJoinEvent = false;
     }
 
     @Config.Name("Mekanism Category")

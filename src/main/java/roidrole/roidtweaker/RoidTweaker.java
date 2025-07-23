@@ -11,7 +11,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import roidrole.roidtweaker.mods.forge.firstjoin.PlayerFirstJoinEvent;
 import roidrole.roidtweaker.mods.immersiveengineering.GardenClocheCommand;
 import roidrole.roidtweaker.mods.immersiveengineering.SlagReplacer;
 import roidrole.roidtweaker.mods.minecraft.anvil.AnvilListener;
@@ -35,16 +34,12 @@ public class RoidTweaker {
       + "required-after:configanytime;";
     public static final String CT_PACKAGE = "mods.roidtweaker.";
 
-    @SidedProxy(clientSide = "roidrole.roidtweaker.proxy.ClientProxy", serverSide = "roidrole.roidtweaker.proxy..CommonProxy")
+    @SidedProxy(clientSide = "roidrole.roidtweaker.proxy.ClientProxy", serverSide = "roidrole.roidtweaker.proxy.CommonProxy")
     public static CommonProxy proxy;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new AnvilListener());
-        if(RoidTweakerConfig.mixinCategory.allowPlayerFirstJoinEvent) {
-            MinecraftForge.EVENT_BUS.register(new PlayerFirstJoinEvent.EventFirer());
-            MinecraftForge.EVENT_BUS.register(new PlayerFirstJoinEvent.CTFirstJoin());
-        }
         CTIntegration.preInit();
         CraftTweakerAPI.tweaker.getPreprocessorManager().registerPreprocessorAction("onside", OnSidePreprocessor::new);
     }
