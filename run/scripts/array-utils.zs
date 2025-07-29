@@ -5,10 +5,7 @@ import crafttweaker.data.IData;
 var myArray as int[] = [0,1,5,3,8];
 
 function printArray(array as int[], comment as string){
-    print(comment);
-    for value in array{
-        print(value as string);
-    }
+    print(comment + ": " + ArrayUtil.toString(array));
 }
 
 //These methods modify the current array

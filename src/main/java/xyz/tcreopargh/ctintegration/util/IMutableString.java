@@ -1,10 +1,7 @@
 package xyz.tcreopargh.ctintegration.util;
 
 import crafttweaker.annotations.ZenRegister;
-import stanhebben.zenscript.annotations.OperatorType;
-import stanhebben.zenscript.annotations.ZenClass;
-import stanhebben.zenscript.annotations.ZenMethod;
-import stanhebben.zenscript.annotations.ZenOperator;
+import stanhebben.zenscript.annotations.*;
 import xyz.tcreopargh.ctintegration.CTIntegration;
 
 /**
@@ -75,6 +72,13 @@ public interface IMutableString {
 
     @ZenMethod
     IMutableString reverse();
+
+    @ZenMethod
+    @ZenGetter("length")
+    int getLength();
+
+    @ZenMethod
+    int indexOf(String character);
 
     @ZenMethod
     String build();

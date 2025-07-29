@@ -133,4 +133,23 @@ public class ArrayUtil {
         Arrays.fill(output, element);
         return output;
     }
+
+    @ZenMethod
+    public static String toString(IData[] array){
+
+        StringBuilder output = new StringBuilder();
+        output.append('[');
+        boolean first = true;
+        for (IData value : array) {
+            if (first) {
+                first = false;
+            } else {
+                output.append(", ");
+            }
+            output.append(value.asString());
+        }
+        output.append(']');
+
+        return output.toString();
+    }
 }

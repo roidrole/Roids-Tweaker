@@ -8,9 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class ImplBaubleInventory implements IBaublesInventory {
 
@@ -48,13 +46,26 @@ public class ImplBaubleInventory implements IBaublesInventory {
         return CraftTweakerMC.getIItemStack(internal.getStackInSlot(slot));
     }
 
+    @Override
+    public void setStackInSlot(int slot, IItemStack item) {
+        internal.setStackInSlot(slot, CraftTweakerMC.getItemStack(item));
+    }
+
     @Nonnull
     @Override
     public Iterator<IItemStack> iterator() {
-        List<IItemStack> stacks = new ArrayList<>();
-        for (int i = 0; i < internal.getSlots(); i++) {
-            stacks.add(CraftTweakerMC.getIItemStack(internal.getStackInSlot(i)));
-        }
-        return stacks.stream().iterator();
+        return new Iterator<IItemStack>() {
+            int current = 0;
+            final int max = internal.getSlots() - 1;
+            @Override
+            public boolean hasNext() {
+                return current < max;
+            }
+
+            @Override
+            public IItemStack next() {
+                return CraftTweakerMC.getIItemStack(internal.getStackInSlot(current++));
+            }
+        };
     }
 }

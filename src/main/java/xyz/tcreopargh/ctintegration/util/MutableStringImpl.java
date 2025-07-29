@@ -149,6 +149,16 @@ public class MutableStringImpl implements IMutableString {
     }
 
     @Override
+    public int getLength(){
+        return builder.length();
+    }
+
+    @Override
+    public int indexOf(String character){
+        return builder.indexOf(character);
+    }
+
+    @Override
     public String build() {
         return this.toString();
     }
