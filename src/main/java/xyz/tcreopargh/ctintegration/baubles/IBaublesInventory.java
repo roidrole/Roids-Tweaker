@@ -16,6 +16,7 @@ import xyz.tcreopargh.ctintegration.CTIntegration;
 @ZenRegister
 @IterableSimple("crafttweaker.item.IItemStack")
 @ZenClass(CTIntegration.CT_PACKAGE + "baubles.IBaubleInventory")
+@SuppressWarnings("unused")
 public interface IBaublesInventory extends Iterable<IItemStack> {
 
     Object getInternal();

@@ -9,6 +9,7 @@ import xyz.tcreopargh.ctintegration.CTIntegration;
  */
 @ZenRegister
 @ZenClass(CTIntegration.CT_PACKAGE + "util.MutableString")
+@SuppressWarnings("unused")
 public interface IMutableString {
     @ZenMethod
     IMutableString append(String s);
