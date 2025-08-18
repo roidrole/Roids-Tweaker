@@ -187,10 +187,11 @@ public class CTMath {
 	}
 
 	@ZenMethod
-	public static double exp(double exponent, @Optional double base){
-		if(base == 0){
-			return Math.exp(exponent);
-		}
+	public static double exp(double exponent){
+		return Math.exp(exponent);
+	}
+	@ZenMethod
+	public static double exp(double exponent, double base){
 		return Math.pow(base, exponent);
 	}
 
