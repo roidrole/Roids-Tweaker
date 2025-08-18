@@ -1,7 +1,6 @@
-package xyz.tcreopargh.ctintegration.baubles;
+package roidrole.roidtweaker.mods.baubles;
 
 import baubles.api.BaublesApi;
-import baubles.api.cap.IBaublesItemHandler;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
@@ -21,10 +20,13 @@ public class PlayerExpansionBaubles {
 
     @ZenGetter("baublesInventory")
     @ZenMethod
-    public static IBaublesInventory getBaublesInventory(IPlayer player) {
-        EntityPlayer mcPlayer = CraftTweakerMC.getPlayer(player);
-        IBaublesItemHandler handler = BaublesApi.getBaublesHandler(mcPlayer);
-        return new ImplBaubleInventory(handler);
+    public static CTBaubleInventory getBaublesInventory(IPlayer player) {
+        return new CTBaubleInventory(BaublesApi.getBaublesHandler(CraftTweakerMC.getPlayer(player)));
+    }
+    @ZenGetter("bubblesInventory")
+    @ZenMethod
+    public static CTBubbleInventory getBubblesInventory(IPlayer player) {
+        return new CTBubbleInventory(BaublesApi.getBaublesContainer(CraftTweakerMC.getPlayer(player)));
     }
 
     @ZenMethod

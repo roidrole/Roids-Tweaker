@@ -1,58 +1,93 @@
-package xyz.tcreopargh.ctintegration.baubles;
+package roidrole.roidtweaker.mods.baubles;
 
 import baubles.api.cap.IBaublesItemHandler;
+import crafttweaker.annotations.ModOnly;
+import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.entity.IEntityLivingBase;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import stanhebben.zenscript.annotations.IterableSimple;
+import stanhebben.zenscript.annotations.ZenClass;
+import stanhebben.zenscript.annotations.ZenGetter;
+import stanhebben.zenscript.annotations.ZenMethod;
 
 import javax.annotation.Nonnull;
 import java.util.Iterator;
 
-public class ImplBaubleInventory implements IBaublesInventory {
+@ModOnly("baubles")
+@ZenRegister
+@IterableSimple("crafttweaker.item.IItemStack")
+@ZenClass("mods.ctintegration.baubles.IBaubleInventory")
+public class CTBaubleInventory implements Iterable<IItemStack> {
 
     private final IBaublesItemHandler internal;
 
-    public ImplBaubleInventory(IBaublesItemHandler handler) {
+    public CTBaubleInventory(IBaublesItemHandler handler) {
         this.internal = handler;
     }
 
-    @Override
     public IBaublesItemHandler getInternal() {
         return internal;
     }
 
-    @Override
+    @ZenMethod
     public boolean isItemValidForSlot(int slot, IItemStack item, IEntityLivingBase living) {
         EntityLivingBase mcLiving = CraftTweakerMC.getEntityLivingBase(living);
         ItemStack mcItemStack = CraftTweakerMC.getItemStack(item);
         return internal.isItemValidForSlot(slot, mcItemStack, mcLiving);
     }
 
-    @Override
+    @ZenMethod
     public boolean isItemValid(int slot, IItemStack item) {
         ItemStack mcItemStack = CraftTweakerMC.getItemStack(item);
         return internal.isItemValid(slot, mcItemStack);
     }
 
-    @Override
+    @ZenMethod
+    public IItemStack insertBaublesItem(IItemStack stack) {
+        ItemStack nativeStack = CraftTweakerMC.getItemStack(stack);
+        for (int i = 0; i < internal.getSlots(); i++) {
+            ItemStack slotStack = internal.insertItem(i, nativeStack, false);
+            if (slotStack != nativeStack) {
+                return CraftTweakerMC.getIItemStack(slotStack);
+            }
+        }
+        return stack;
+    }
+
+    @ZenMethod
+    @ZenGetter("slotCount")
     public int getSlotCount() {
         return internal.getSlots();
     }
 
-    @Override
+    @ZenMethod
     public IItemStack getStackInSlot(int slot) {
         return CraftTweakerMC.getIItemStack(internal.getStackInSlot(slot));
     }
 
-    @Override
+    @ZenMethod
     public void setStackInSlot(int slot, IItemStack item) {
         internal.setStackInSlot(slot, CraftTweakerMC.getItemStack(item));
     }
 
+    @ZenMethod
+    public int isBaubleEquipped(IItemStack bauble){
+        ItemStack toCheck = CraftTweakerMC.getItemStack(bauble);
+        if(toCheck.isEmpty()){return -1;}
+        for (int i = 0; i < internal.getSlots(); i++) {
+            ItemStack inSlot = internal.getStackInSlot(i);
+            if (!inSlot.isEmpty() && inSlot.getItem() == toCheck.getItem()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     @Nonnull
-    @Override
+    @ZenMethod
     public Iterator<IItemStack> iterator() {
         return new Iterator<IItemStack>() {
             int current = 0;
