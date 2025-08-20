@@ -1,8 +1,14 @@
 ## Unreleased
+
+**Added :**
 - Expanded Baubles Support
-- Added Baubles Support
-- Added ArrayUtil.toString method
-- Expanded MutableString
+- Bubbles Support
+- ArrayUtil.toString
+- MutableString.indexOf
+- MutableString.getLength
+
+**Changed :**
+- GardenClocheMultiplierFunction now returns float instead of IData
 
 ## 1.1.1 : 
 Fix mod not loading

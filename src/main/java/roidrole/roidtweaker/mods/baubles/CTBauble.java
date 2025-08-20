@@ -2,17 +2,23 @@ package roidrole.roidtweaker.mods.baubles;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
+import baubles.api.cap.InjectableBauble;
+import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-//IBauble Wrapper
-//Should also be used to create custom Baubles (static methods?)
+import java.util.HashMap;
+import java.util.Map;
+
 @ZenRegister
 @ZenClass("mods.ctintegration.baubles.IBauble")
+@ModOnly("baubles")
 public class CTBauble {
+    public static Map<Item, InjectableBauble> additionalBaubles = new HashMap<>();
     @ZenMethod
     public static String getBaubleType(IItemStack item) {
         ItemStack internal = ((ItemStack)item.getInternal());
@@ -25,5 +31,10 @@ public class CTBauble {
     @ZenMethod
     public static int[] getValidSlots(String type) {
         return BaubleType.valueOf(type).getValidSlots();
+    }
+
+    @ZenMethod
+    public static CTInjectableBauble createBauble(String type){
+        return new CTInjectableBauble(BaubleType.valueOf(type));
     }
 }

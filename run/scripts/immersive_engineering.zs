@@ -22,11 +22,11 @@ Blueprint.addRecipe("super-super Blueprint", <minecraft:iron_block>, (<minecraft
 Blueprint.addVillagerTrade("my_awesome_category", <minecraft:diamond_sword>);
 
 GardenCloche.addFertilizer(<minecraft:fire_charge>, 0.1F);
-GardenCloche.addFertilizer(<minecraft:iron_ingot>, function(fertilizer as IIngredient, seed as IItemStack, soil as IItemStack) as IData {
+GardenCloche.addFertilizer(<minecraft:iron_ingot>, function(fertilizer as IIngredient, seed as IItemStack, soil as IItemStack) as float{
     if(seed == <minecraft:reeds>){
-        return 5.0f as IData;
+        return 5.0f;
     }
-    return 2.0f as IData;
+    return 2.0f;
 } as GardenClocheMultiplierFunction);
 GardenCloche.removeFertilizer(<minecraft:dye:15>);
 

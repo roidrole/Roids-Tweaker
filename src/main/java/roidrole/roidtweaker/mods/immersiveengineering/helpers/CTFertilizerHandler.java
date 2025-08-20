@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 
 public class CTFertilizerHandler implements BelljarHandler.ItemFertilizerHandler, BelljarHandler.FluidFertilizerHandler {
     IIngredient fertilizer;
-    FunctionalInterfaces.TriFunction<Object, ItemStack, ItemStack, Float> multiplier;
+    FunctionalInterfaces.FloatTriFunction<Object, ItemStack, ItemStack> multiplier;
 
     public CTFertilizerHandler(IIngredient fertilizer, float multiplier){
         this.fertilizer = fertilizer;

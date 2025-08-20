@@ -23,6 +23,9 @@ public class RoidTweakerConfig {
 
         @Config.Comment("Also required for modded villager profession disabling")
         public boolean allowRemovingRegistries = false;
+
+        @Config.Comment("Only compatible with Bubbles!\nAllows making any existing item into a bauble")
+        public boolean allowCustomBaubles = false;
     }
 
     @Config.Name("Mekanism Category")

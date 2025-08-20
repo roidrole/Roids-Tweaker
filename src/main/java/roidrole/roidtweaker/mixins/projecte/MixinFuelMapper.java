@@ -35,7 +35,7 @@ public abstract class MixinFuelMapper {
         remap = false,
         cancellable = true
     )
-    private static void cti_beforeAdd(CallbackInfo ci){
+    private static void roidTweaker_beforeAdd(CallbackInfo ci){
         FuelManager.customFuels.forEach(MixinFuelMapper::addToMap);
         if(FuelManager.removeDefaults){
             FUEL_MAP.sort(Comparator.comparing(EMCMapper::getEmcValue));
@@ -53,7 +53,7 @@ public abstract class MixinFuelMapper {
             ),
             remap = false
     )
-    private static void cti_afterAdd(CallbackInfo ci){
+    private static void roidTweaker_afterAdd(CallbackInfo ci){
         FUEL_MAP.removeAll(FuelManager.fuelsToRemove);
     }
 }

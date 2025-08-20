@@ -7,6 +7,7 @@ import crafttweaker.recipes.IRecipeFunction;
 import mods.ctintegration.baubles.IBauble;
 import mods.ctintegration.baubles.IBaubleInventory;
 import mods.ctintegration.bubbles.IBubbleInventory;
+import mods.ctintegration.baubles.InjectableBauble;
 //Expansions
 import crafttweaker.entity.IEntityLivingBase;
 import crafttweaker.player.IPlayer;
@@ -60,3 +61,38 @@ recipes.addShapeless(<minecraft:carrot>, (<minecraft:diamond_sword> * 3).spread(
         player.bubblesInventory.resetBaubleSlots();
     }
 );
+
+//Custom Baubles (requires Bubbles)
+val newBauble as InjectableBauble = IBauble.createBauble("RING");
+    newBauble.setOnWornTick(function(stack as IItemStack, entity as IEntityLivingBase) as void{
+        if(!entity.world.isRemote()){
+            print("I'm Being Worn!");
+        }
+    });
+    newBauble.setOnEquipped(function(stack as IItemStack, entity as IEntityLivingBase) as void{
+        if(!entity.world.isRemote()){
+            print("I'M EQUIPPED, LOL");
+        }
+    });
+    newBauble.setOnUnequipped(function(stack as IItemStack, entity as IEntityLivingBase) as void{
+        if(!entity.world.isRemote()){
+            print("Fine, I'll shut up");
+        }
+    });
+    newBauble.setCanUnequip(function(stack as IItemStack, entity as IEntityLivingBase) as bool{
+        if(!stack.hasTag){
+            print("Can't touch this");
+            return false;
+        }
+        return stack.tag.OwnerDied.asBool();
+    });
+    newBauble.willAutoSync = function(stack as IItemStack, entity as IEntityLivingBase) as bool{
+        return true;
+    };
+    newBauble.setOnDeath(function(slot as int, item as IItemStack, entity as IEntityLivingBase) as string{
+        //For some reason, stack as IItemStack is needed here. Might revisit later.
+        //Roundabout, but CT is weird that way.
+        (entity as IPlayer).bubblesInventory.setStackInSlot(slot, (item as IItemStack).updateTag({"OwnerDied":true}));
+        return "ALWAYS_KEEP";
+    });
+newBauble.register(<minecraft:fire_charge>.definition);
