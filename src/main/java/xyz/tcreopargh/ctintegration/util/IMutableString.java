@@ -2,13 +2,12 @@ package xyz.tcreopargh.ctintegration.util;
 
 import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.*;
-import xyz.tcreopargh.ctintegration.CTIntegration;
 
 /**
  * @author TCreopargh
  */
 @ZenRegister
-@ZenClass(CTIntegration.CT_PACKAGE + "util.MutableString")
+@ZenClass("mods.ctintegration.util.MutableString")
 @SuppressWarnings("unused")
 public interface IMutableString {
     @ZenMethod

@@ -5,11 +5,11 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.player.IPlayer;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegration;
 
-@ZenClass(CTIntegration.CT_PACKAGE + "thaumcraft.IPlayerKnowledge")
+@ZenClass("mods.ctintegration.thaumcraft.IPlayerKnowledge")
 @ModOnly("thaumcraft")
 @ZenRegister
+@SuppressWarnings("unused")
 public interface IPlayerKnowledge {
 
     Object getInternal();

@@ -6,12 +6,11 @@ import crafttweaker.api.data.IData;
 import org.apache.commons.lang3.ArrayUtils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegration;
 
 import java.util.Arrays;
 
 @ZenRegister
-@ZenClass(CTIntegration.CT_PACKAGE + "util.ArrayUtil")
+@ZenClass("mods.ctintegration.util.ArrayUtil")
 @SuppressWarnings("unused")
 public class ArrayUtil {
     @ZenMethod

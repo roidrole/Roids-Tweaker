@@ -14,13 +14,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegration;
 
 import java.util.List;
 
 @ModOnly("projecte")
 @ZenRegister
-@ZenClass(CTIntegration.CT_PACKAGE + "projecte.EMCManager")
+@ZenClass("mods.ctintegration.projecte.EMCManager")
 @SuppressWarnings("unused")
 public class EMCManager {
 

@@ -3,11 +3,14 @@ package xyz.tcreopargh.ctintegration.cot;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.contenttweaker.ContentTweaker;
 import com.teamacronymcoders.contenttweaker.modules.vanilla.items.ItemRepresentation;
+import crafttweaker.annotations.ModsOnly;
+import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenProperty;
-import xyz.tcreopargh.ctintegration.CTIntegration;
 
-@ZenClass(CTIntegration.CT_PACKAGE + "cot.baubles.BaubleItemRepresentation")
+@ZenClass("mods.ctintegration.cot.baubles.BaubleItemRepresentation")
+@ZenRegister
+@ModsOnly({"bauble, contenttweaker"})
 public class BaubleItemRepresentation extends ItemRepresentation {
 
     @ZenProperty

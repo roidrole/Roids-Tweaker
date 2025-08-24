@@ -4,7 +4,6 @@ import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegration;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,7 +11,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @ZenRegister
-@ZenClass(CTIntegration.CT_PACKAGE + "util.RawLogger")
+@ZenClass("mods.ctintegration.util.RawLogger")
+@SuppressWarnings("unused")
 public class RawLogger {
 
     private static final File logFile = new File("crafttweaker_raw.log");

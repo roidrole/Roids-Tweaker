@@ -34,6 +34,9 @@ public class RoidTweakerConfig {
 
         @Config.Comment("Allows modifying anvil recipes")
         public boolean allowAnvilRecipes = false;
+
+        @Config.Comment("Allows listening to more anvil events")
+        public boolean allowGameStagesEvents = false;
     }
 
     @Config.Name("Mekanism Category")

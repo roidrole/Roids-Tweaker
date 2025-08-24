@@ -66,7 +66,7 @@ dependencies {
     // implementation ('com.google.code.gson:gson:2.8.6') {
     //     transitive = false
     // }
-    implementation('curse.maven:crafttweaker-239197:6186559')
+    implementation('curse.maven:crafttweaker-239197:6920367')
 
     compileOnly('mezz:jei:4.25.5')
     runtimeOnly('mezz:jei:4.25.5')

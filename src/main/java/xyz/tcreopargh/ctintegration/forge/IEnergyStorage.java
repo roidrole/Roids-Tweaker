@@ -5,10 +5,9 @@ import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @ZenRegister
-@ZenClass(CTIntegration.CT_PACKAGE + "IEnergyStorage")
+@ZenClass("mods.ctintegration.IEnergyStorage")
 @SuppressWarnings("unused")
 public interface IEnergyStorage {
 

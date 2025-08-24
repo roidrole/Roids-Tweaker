@@ -4,13 +4,12 @@ import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegration;
 import xyz.tcreopargh.ctintegration.date.IDate;
 
 import java.util.List;
 
 @ZenRegister
-@ZenClass(CTIntegration.CT_PACKAGE + "advancement.IAdvancementProgress")
+@ZenClass("mods.ctintegration.advancement.IAdvancementProgress")
 @SuppressWarnings("unused")
 public interface IAdvancementProgress {
 

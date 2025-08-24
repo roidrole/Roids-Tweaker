@@ -19,7 +19,7 @@ import roidrole.roidtweaker.mods.minecraft.villager.Villager;
 import roidrole.roidtweaker.mods.minecraft.villager.VillagerCommand;
 import roidrole.roidtweaker.proxy.CommonProxy;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import xyz.tcreopargh.ctintegration.CTIntegration;
+import xyz.tcreopargh.ctintegration.gamestages.events.EventsExpansion;
 
 @Mod(
     modid = Tags.MOD_ID,
@@ -46,7 +46,9 @@ public class RoidTweaker {
         if(RoidTweakerConfig.eventCategory.allowCustomBaubles) {
             MinecraftForge.EVENT_BUS.register(new BaubleEventHandler());
         }
-        CTIntegration.preInit();
+        if (RoidTweakerConfig.eventCategory.allowGameStagesEvents) {
+            MinecraftForge.EVENT_BUS.register(EventsExpansion.EventHandler.class);
+        }
         CraftTweakerAPI.tweaker.getPreprocessorManager().registerPreprocessorAction("onside", OnSidePreprocessor::new);
     }
 

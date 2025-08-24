@@ -15,6 +15,7 @@ import thaumcraft.common.world.aura.AuraHandler;
 @ZenExpansion("crafttweaker.world.IWorld")
 @ModOnly("thaumcraft")
 @ZenRegister
+@SuppressWarnings("unused")
 public class WorldExpansionThaumcraft {
     @ZenMethod
     public static void addVis(IWorld world, IBlockPos pos, float amount) {

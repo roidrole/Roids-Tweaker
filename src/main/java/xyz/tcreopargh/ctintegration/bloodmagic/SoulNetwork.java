@@ -7,11 +7,11 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.api.player.IPlayer;
 import crafttweaker.api.text.ITextComponent;
 import stanhebben.zenscript.annotations.*;
-import xyz.tcreopargh.ctintegration.CTIntegration;
 
-@ZenClass(CTIntegration.CT_PACKAGE + "bloodmagic.SoulNetork")
+@ZenClass("mods.ctintegration.bloodmagic.SoulNetork")
 @ModOnly("bloodmagic")
 @ZenRegister
+@SuppressWarnings("unused")
 public class SoulNetwork {
     private final WayofTime.bloodmagic.core.data.SoulNetwork network;
 

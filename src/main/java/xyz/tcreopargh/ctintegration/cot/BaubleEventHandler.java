@@ -1,42 +1,58 @@
 package xyz.tcreopargh.ctintegration.cot;
 
+import crafttweaker.annotations.ModsOnly;
+import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.entity.IEntityLivingBase;
 import crafttweaker.api.item.IItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
-import xyz.tcreopargh.ctintegration.CTIntegration;
 
 public class BaubleEventHandler {
-    @ZenClass(CTIntegration.CT_PACKAGE + "cot.baubles.WornTick")
+
+    @ZenRegister
+    @ModsOnly({"bauble, contenttweaker"})
+    @ZenClass("mods.ctintegration.cot.baubles.WornTick")
     public interface OnWornTick {
         void handle(IItemStack bauble, IEntityLivingBase wearer);
     }
 
-    @ZenClass(CTIntegration.CT_PACKAGE + "cot.baubles.Equipped")
+    @ZenRegister
+    @ModsOnly({"bauble, contenttweaker"})
+    @ZenClass("mods.ctintegration.cot.baubles.Equipped")
     public interface OnEquipped {
         void handle(IItemStack bauble, IEntityLivingBase wearer);
     }
 
-    @ZenClass(CTIntegration.CT_PACKAGE + "cot.baubles.Unequipped")
+    @ZenRegister
+    @ModsOnly({"bauble, contenttweaker"})
+    @ZenClass("mods.ctintegration.cot.baubles.Unequipped")
     public interface OnUnequipped {
         void handle(IItemStack bauble, IEntityLivingBase wearer);
     }
 
-    @ZenClass(CTIntegration.CT_PACKAGE + "cot.baubles.CanEquip")
+    @ZenRegister
+    @ModsOnly({"bauble, contenttweaker"})
+    @ZenClass("mods.ctintegration.cot.baubles.CanEquip")
     public interface CanEquip {
         boolean handle(IItemStack bauble, IEntityLivingBase wearer);
     }
 
-    @ZenClass(CTIntegration.CT_PACKAGE + "cot.baubles.CanUnequip")
+    @ZenRegister
+    @ModsOnly({"bauble, contenttweaker"})
+    @ZenClass("mods.ctintegration.cot.baubles.CanUnequip")
     public interface canUnequip {
         boolean handle(IItemStack bauble, IEntityLivingBase wearer);
     }
 
-    @ZenClass(CTIntegration.CT_PACKAGE + "cot.baubles.WillAutoSync")
+    @ZenRegister
+    @ModsOnly({"bauble, contenttweaker"})
+    @ZenClass("mods.ctintegration.cot.baubles.WillAutoSync")
     public interface WillAutoSync {
         boolean handle(IItemStack bauble, IEntityLivingBase wearer);
     }
 
-    @ZenClass(CTIntegration.CT_PACKAGE + "cot.baubles.GetBaubleType")
+    @ZenRegister
+    @ModsOnly({"bauble, contenttweaker"})
+    @ZenClass("mods.ctintegration.cot.baubles.GetBaubleType")
     public interface GetBaubleType {
         String handle(IItemStack bauble);
     }

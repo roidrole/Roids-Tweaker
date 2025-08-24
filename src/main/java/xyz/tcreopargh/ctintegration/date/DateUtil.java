@@ -4,7 +4,6 @@ import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegration;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 @ZenRegister
-@ZenClass(CTIntegration.CT_PACKAGE + "util.DateUtil")
+@ZenClass("mods.ctintegration.util.DateUtil")
 @SuppressWarnings("unused")
 public class DateUtil {
 

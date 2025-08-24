@@ -5,11 +5,10 @@ import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @ModOnly("sereneseasons")
 @ZenRegister
-@ZenClass(CTIntegration.CT_PACKAGE + "sereneseasons.ISeasonState")
+@ZenClass("mods.ctintegration.sereneseasons.ISeasonState")
 @SuppressWarnings("unused")
 public interface ISeasonState {
 

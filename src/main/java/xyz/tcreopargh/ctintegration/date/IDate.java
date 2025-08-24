@@ -2,10 +2,10 @@ package xyz.tcreopargh.ctintegration.date;
 
 import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.*;
-import xyz.tcreopargh.ctintegration.CTIntegration;
 
 @ZenRegister
-@ZenClass(CTIntegration.CT_PACKAGE + "date.IDate")
+@ZenClass("mods.ctintegration.date.IDate")
+@SuppressWarnings("unused")
 public interface IDate {
 
     @ZenMethod
