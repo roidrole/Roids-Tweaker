@@ -1,4 +1,5 @@
-package xyz.tcreopargh.ctintegration.data;
+package roidrole.roidtweaker.mods.crafttweaker.data;
+//Originally in CT Integration
 
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.data.IData;
@@ -9,7 +10,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenExpansion("crafttweaker.data.IData")
 @ZenRegister
 @SuppressWarnings("unused")
-public class DataExpansion {
+public class IDataExpansion {
 
     @ZenMethod
     public static String toNBTString(IData data) {

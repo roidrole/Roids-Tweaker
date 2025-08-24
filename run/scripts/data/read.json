@@ -1,0 +1,13 @@
+{
+  "key": "value",
+  "amount": 2,
+  "decimal_amount": 2.3,
+  //A comment. Ignored when reading
+  "name": [
+    "1",
+    "a",
+    "a1",
+    "1a"
+  ],
+  "null?": null
+}
