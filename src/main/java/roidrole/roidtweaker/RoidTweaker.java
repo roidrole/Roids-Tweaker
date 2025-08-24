@@ -33,7 +33,6 @@ public class RoidTweaker {
       + "required-after:crafttweaker;"
       + "required-after:mixinbooter;"
       + "required-after:configanytime;";
-    public static final String CT_PACKAGE = "mods.roidtweaker.";
 
     @SidedProxy(clientSide = "roidrole.roidtweaker.proxy.ClientProxy", serverSide = "roidrole.roidtweaker.proxy.CommonProxy")
     public static CommonProxy proxy;
