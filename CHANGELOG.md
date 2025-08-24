@@ -5,6 +5,8 @@
 - Expanded Baubles Support
 - Bubbles Support
 - ArrayUtil.toString
+- IWorld.getTopBlock
+- IWorld.getTopSolidBlock
 - MutableString.indexOf
 - MutableString.getLength
 

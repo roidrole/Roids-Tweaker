@@ -2,7 +2,7 @@
 Roidrole's CraftTweaker addon. 
 
 With this mod, I aim to include and improve upon dead and/or broken CT addons. So far, this mod is a drop-in replacement for : 
-- CraftTweaker Integration, by TCreograph (included), where I fixed [#10](https://github.com/TCreopargh/CraftTweakerIntegration/issues/10) and [#11](https://github.com/TCreopargh/CraftTweakerIntegration/issues/11), added mapEMC for single items and fixed and expanded ArrayUtils
+- CraftTweaker Integration, by TCreograph (included), where I fixed [#10](https://github.com/TCreopargh/CraftTweakerIntegration/issues/10) and [#11](https://github.com/TCreopargh/CraftTweakerIntegration/issues/11), added mapEMC for single items and fixed, expanded ArrayUtils, MutableString, DataUtil and Bauble Support
 - Extra Tweaker, by blue_beaker (Rewritten with same API)
 - MekaTweaker, by Lorexe (included), where I implemented [#6](https://github.com/Lorexe/MekaTweaker/issues/6)
 - Thermal Expansion Specialization Hooks, by JoshieGemFinder (Rewritten with same API)
@@ -19,9 +19,11 @@ I also included the functionalities of the following mods, with varying levels o
 - ZenCloche, by SmokeyTheBandicoot (rewritten)
 
 There are also a few original additions :
+- Bubbles support (clone of GS + making any item a bauble with custom behavior)
 - Config file support (creation, reading)
 - Factory0-Resources support
 - Forge registry blacklist
+- IData storage in a file
 - Immersive Engineering Blueprint list and villager trade
 - ProjectE custom fuels
 - More villager and anvil methods
