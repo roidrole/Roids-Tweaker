@@ -48,7 +48,7 @@ public class DataConverterRawString implements IDataConverter<String> {
         return value;
     }
 
-    //Reimplementing the toString method of the original to preserve compat
+    //Starting here, reimplementation of the toString method of the original to preserve compat
     @Override
     public String fromList(List<IData> values) {
         StringBuilder output = new StringBuilder();

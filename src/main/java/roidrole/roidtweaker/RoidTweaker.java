@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import roidrole.roidtweaker.mods.baubles.BaubleEventHandler;
 import roidrole.roidtweaker.mods.immersiveengineering.GardenClocheCommand;
 import roidrole.roidtweaker.mods.immersiveengineering.SlagReplacer;
 import roidrole.roidtweaker.mods.minecraft.anvil.AnvilListener;
@@ -39,7 +40,12 @@ public class RoidTweaker {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(new AnvilListener());
+        if(RoidTweakerConfig.eventCategory.allowAnvilRecipes) {
+            MinecraftForge.EVENT_BUS.register(new AnvilListener());
+        }
+        if(RoidTweakerConfig.eventCategory.allowCustomBaubles) {
+            MinecraftForge.EVENT_BUS.register(new BaubleEventHandler());
+        }
         CTIntegration.preInit();
         CraftTweakerAPI.tweaker.getPreprocessorManager().registerPreprocessorAction("onside", OnSidePreprocessor::new);
     }

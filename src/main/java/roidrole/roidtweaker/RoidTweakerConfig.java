@@ -23,9 +23,17 @@ public class RoidTweakerConfig {
 
         @Config.Comment("Also required for modded villager profession disabling")
         public boolean allowRemovingRegistries = false;
+    }
 
-        @Config.Comment("Only compatible with Bubbles!\nAllows making any existing item into a bauble")
+    @Config.Comment("Configs for event handlers from the mod. They each add a little performance loss, so here is your option to disable them")
+    @Config.Name("Event Category")
+    public static EventCategory eventCategory = new EventCategory();
+    public static class EventCategory {
+        @Config.Comment("Allows making any existing item into a bauble.\nOnly compatible with Bubbles!")
         public boolean allowCustomBaubles = false;
+
+        @Config.Comment("Allows modifying anvil recipes")
+        public boolean allowAnvilRecipes = false;
     }
 
     @Config.Name("Mekanism Category")

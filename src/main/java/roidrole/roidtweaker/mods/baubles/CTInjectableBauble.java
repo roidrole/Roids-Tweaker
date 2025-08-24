@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 @ZenRegister
 @ZenClass("mods.ctintegration.baubles.InjectableBauble")
 @ModOnly("baubles")
+@SuppressWarnings("unused")
 public class CTInjectableBauble extends InjectableBauble {
     public CTInjectableBauble(IBaubleType type) {
         super(type, 0);
@@ -122,7 +123,7 @@ public class CTInjectableBauble extends InjectableBauble {
                 this.onWornTick = (stack, entity) -> nativeItem.onUpdate(stack, entity.world, entity, 0, mainHand);
             }
         }
-        CTBauble.additionalBaubles.put(nativeItem, this);
+        BaubleEventHandler.additionalBaubles.put(nativeItem, this);
     }
 
     //Utils
