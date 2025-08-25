@@ -19,6 +19,7 @@ import roidrole.roidtweaker.mods.minecraft.villager.Villager;
 import roidrole.roidtweaker.mods.minecraft.villager.VillagerCommand;
 import roidrole.roidtweaker.proxy.CommonProxy;
 import roidrole.roidtweaker.utils.DeferredLoader;
+import xyz.tcreopargh.ctintegration.cot.BaubleItemRepresentation;
 import xyz.tcreopargh.ctintegration.gamestages.events.EventsExpansion;
 
 @Mod(
@@ -48,7 +49,13 @@ public class RoidTweaker {
         if (RoidTweakerConfig.eventCategory.allowGameStagesEvents) {
             MinecraftForge.EVENT_BUS.register(EventsExpansion.EventHandler.class);
         }
+
         CraftTweakerAPI.tweaker.getPreprocessorManager().registerPreprocessorAction("onside", OnSidePreprocessor::new);
+
+        //Can't @ZenRegister because it throws a ClassNotFoundException, which CT catches and logs in full
+        if(Loader.isModLoaded("baubles") && Loader.isModLoaded("contenttweaker")){
+            CraftTweakerAPI.registerClass(BaubleItemRepresentation.class);
+        }
     }
 
     @Mod.EventHandler

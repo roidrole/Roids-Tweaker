@@ -3,14 +3,11 @@ package xyz.tcreopargh.ctintegration.cot;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.contenttweaker.ContentTweaker;
 import com.teamacronymcoders.contenttweaker.modules.vanilla.items.ItemRepresentation;
-import crafttweaker.annotations.ModsOnly;
-import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenProperty;
 
 @ZenClass("mods.ctintegration.cot.baubles.BaubleItemRepresentation")
-@ZenRegister
-@ModsOnly({"bauble, contenttweaker"})
+//Can't @ZenRegister here because it creates a ClassNotFoundException, which CT logs in full as an ERROR
 public class BaubleItemRepresentation extends ItemRepresentation {
 
     @ZenProperty

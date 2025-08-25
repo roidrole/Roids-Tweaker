@@ -7,7 +7,7 @@ import stanhebben.zenscript.annotations.ZenMethodStatic;
 
 @ZenExpansion("mods.contenttweaker.VanillaFactory")
 @ZenRegister
-@ModsOnly({"bauble, contenttweaker"})
+@ModsOnly({"bauble", "contenttweaker"})
 @SuppressWarnings("unused")
 public class BaubleVanillaFactoryExpansion {
     @ZenMethodStatic
