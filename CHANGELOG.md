@@ -1,4 +1,4 @@
-## Unreleased
+## 1.1.0
 
 **Added :**
 - Config to toggle event listeners
@@ -15,7 +15,7 @@
 - GardenClocheMultiplierFunction now returns float instead of IData
 - Event listeners are off by default
 
-## 1.1.1 : 
+## 1.0.1 : 
 Fix mod not loading
 
 ## 1.0.0 :

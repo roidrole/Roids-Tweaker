@@ -4,6 +4,7 @@ import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.item.IngredientUnknown;
 import crafttweaker.api.minecraft.CraftTweakerMC;
+import crafttweaker.mc1120.item.MCItemStack;
 import lumien.randomthings.recipes.imbuing.ImbuingRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
@@ -31,7 +32,7 @@ public class CTImbuingRecipe extends ImbuingRecipe {
     @Override
     public boolean matchesItemHandler(IItemHandler iItemHandler) {
         //Center
-        IItemStack center = CraftTweakerMC.getIItemStack(iItemHandler.getStackInSlot(3));
+        IItemStack center = MCItemStack.createNonCopy(iItemHandler.getStackInSlot(3));
         if(!this.center.matches(center)){
             return false;
         }
@@ -40,7 +41,7 @@ public class CTImbuingRecipe extends ImbuingRecipe {
         //Can't exit early because some slots might not match any ingredient (null exists!)
         BitSet ingMatched = new BitSet(ingredients.length);
         for (int i = 0; i < 3; i++) {
-            IItemStack slotStack = CraftTweakerMC.getIItemStack(iItemHandler.getStackInSlot(i));
+            IItemStack slotStack = MCItemStack.createNonCopy(iItemHandler.getStackInSlot(i));
             if(slotStack == null){continue;}
             for(IIngredient recipeIng : ingredients){
                 if(!ingMatched.get(i) && recipeIng.matches(slotStack)){

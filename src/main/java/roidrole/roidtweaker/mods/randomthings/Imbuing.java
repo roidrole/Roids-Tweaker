@@ -5,7 +5,7 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import crafttweaker.api.minecraft.CraftTweakerMC;
+import crafttweaker.mc1120.item.MCItemStack;
 import lumien.randomthings.recipes.imbuing.ImbuingRecipeHandler;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.EnumLoadStage;
@@ -33,7 +33,7 @@ public class Imbuing {
         }
         DeferredLoader.load(EnumLoadStage.POST_INIT, () ->
             ImbuingRecipeHandler.imbuingRecipes.removeIf(recipe ->
-                output.matches(CraftTweakerMC.getIItemStack(recipe.getResult()))
+                output.matches(MCItemStack.createNonCopy(recipe.getResult()))
             )
         );
     }
