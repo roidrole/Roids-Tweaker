@@ -58,7 +58,7 @@ public class DataUtil {
         }
         JsonReader reader;
         try {
-            reader = new JsonReader(new FileReader(file + ".json"));
+            reader = new JsonReader(new FileReader(file));
         } catch (FileNotFoundException e){
             CraftTweakerAPI.logError("Trying to read non-existent file: "+file);
             return new DataBool(false);
@@ -82,7 +82,7 @@ public class DataUtil {
         }
         try {
             Files.createDirectories(Paths.get(file).getParent());
-            JsonWriter writer = new JsonWriter(new BufferedWriter(new FileWriter(file+".json")));
+            JsonWriter writer = new JsonWriter(new BufferedWriter(new FileWriter(file)));
             writer.setLenient(true);
             DataTypeAdapter.INSTANCE.write(writer, data);
             writer.close();

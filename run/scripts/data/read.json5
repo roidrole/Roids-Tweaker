@@ -3,6 +3,7 @@
   "amount": 2,
   "decimal_amount": 2.3,
   //A comment. Ignored when reading
+  //You should use .json5 files if you want to have comments
   "name": [
     "1",
     "a",
