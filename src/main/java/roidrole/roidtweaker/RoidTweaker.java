@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import roidrole.roidtweaker.mods.baubles.BaubleEventHandler;
+import roidrole.roidtweaker.mods.baubles.CTInjectableBauble;
 import roidrole.roidtweaker.mods.immersiveengineering.GardenClocheCommand;
 import roidrole.roidtweaker.mods.immersiveengineering.SlagReplacer;
 import roidrole.roidtweaker.mods.minecraft.anvil.AnvilListener;
@@ -53,8 +54,11 @@ public class RoidTweaker {
         CraftTweakerAPI.tweaker.getPreprocessorManager().registerPreprocessorAction("onside", OnSidePreprocessor::new);
 
         //Can't @ZenRegister because it throws a ClassNotFoundException, which CT catches and logs in full
-        if(Loader.isModLoaded("baubles") && Loader.isModLoaded("contenttweaker")){
-            CraftTweakerAPI.registerClass(BaubleItemRepresentation.class);
+        if(Loader.isModLoaded("baubles")){
+            CraftTweakerAPI.registerClass(CTInjectableBauble.class);
+            if(Loader.isModLoaded("contenttweaker")){
+                CraftTweakerAPI.registerClass(BaubleItemRepresentation.class);
+            }
         }
     }
 

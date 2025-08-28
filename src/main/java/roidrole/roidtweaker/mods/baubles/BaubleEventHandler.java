@@ -1,7 +1,7 @@
 package roidrole.roidtweaker.mods.baubles;
 
+import baubles.api.IBauble;
 import baubles.api.cap.BaublesCapabilities;
-import baubles.api.cap.InjectableBauble;
 import baubles.common.Baubles;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -19,13 +19,13 @@ import java.util.Map;
 
 public class BaubleEventHandler {
 	private static final ResourceLocation capabilityResourceLocation = new ResourceLocation(Baubles.MODID, "bauble_cap");
-	public static Map<Item, InjectableBauble> additionalBaubles = new HashMap<>();
+	public static Map<Item, IBauble> additionalBaubles = new HashMap<>();
 
 	@SubscribeEvent
 	public void baubleCreation(AttachCapabilitiesEvent<ItemStack> event){
 		ItemStack stack = event.getObject();
 		if(stack.isEmpty()){return;}
-		InjectableBauble bauble = additionalBaubles.get(stack.getItem());
+		IBauble bauble = additionalBaubles.get(stack.getItem());
 		if(bauble != null){
 			event.addCapability(capabilityResourceLocation, new ICapabilityProvider() {
 				@Override

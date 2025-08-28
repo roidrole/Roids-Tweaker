@@ -1,9 +1,7 @@
 package roidrole.roidtweaker.mods.baubles;
 
-import baubles.api.IBaubleType;
-import baubles.api.cap.InjectableBauble;
-import crafttweaker.annotations.ModOnly;
-import crafttweaker.annotations.ZenRegister;
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
 import crafttweaker.api.entity.IEntityLivingBase;
 import crafttweaker.api.item.IItemDefinition;
 import crafttweaker.api.item.IItemStack;
@@ -21,13 +19,12 @@ import stanhebben.zenscript.annotations.ZenSetter;
 
 import javax.annotation.Nullable;
 
-@ZenRegister
 @ZenClass("mods.ctintegration.baubles.InjectableBauble")
-@ModOnly("baubles")
 @SuppressWarnings("unused")
-public class CTInjectableBauble extends InjectableBauble {
-    public CTInjectableBauble(IBaubleType type) {
-        super(type, 0);
+public class CTInjectableBauble implements IBauble {
+    BaubleType type;
+    public CTInjectableBauble(BaubleType type){
+        this.type = type;
     }
     public FunctionalInterfaces.VoidBiFunction<ItemStack, EntityLivingBase> onWornTick = null;
     public FunctionalInterfaces.VoidBiFunction<ItemStack, EntityLivingBase> onEquipped = (stack, entity) -> {};
@@ -41,6 +38,13 @@ public class CTInjectableBauble extends InjectableBauble {
     public boolean mainHand = true;
 
     //IBauble
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public BaubleType getBaubleType(ItemStack stack){
+        return type;
+    }
+
     @Override
     public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
         this.onWornTick.apply(itemstack, player);

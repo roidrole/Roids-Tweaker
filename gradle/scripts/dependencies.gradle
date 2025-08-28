@@ -76,7 +76,7 @@ dependencies {
 
     //Supported mods
     //runtimeOnly('curse.maven:baubles-227083:2518667')
-    runtimeOnly('curse.maven:bubbles-a-baubles-fork-995393:6807550')
+    //runtimeOnly('curse.maven:bubbles-a-baubles-fork-995393:6807550')
     compileOnly('curse.maven:bubbles-a-baubles-fork-995393:6807550')
     compileOnly('curse.maven:blood-magic-224791:2822288')
     compileOnly('curse.maven:silent-lib-242998:2851111')
