@@ -1,3 +1,6 @@
+## 1.1.1
+Fix crash on startup when using original baubles
+
 ## 1.1.0
 
 **Added :**

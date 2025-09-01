@@ -29,7 +29,7 @@ public class RoidTweakerConfig {
     @Config.Name("Event Category")
     public static EventCategory eventCategory = new EventCategory();
     public static class EventCategory {
-        @Config.Comment("Allows making any existing item into a bauble.\nOnly compatible with Bubbles!")
+        @Config.Comment("Allows making any existing item into a bauble.\nWill crash on startup if not using bubbles!")
         public boolean allowCustomBaubles = false;
 
         @Config.Comment("Allows modifying anvil recipes")

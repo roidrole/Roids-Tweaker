@@ -54,11 +54,11 @@ public class RoidTweaker {
         CraftTweakerAPI.tweaker.getPreprocessorManager().registerPreprocessorAction("onside", OnSidePreprocessor::new);
 
         //Can't @ZenRegister because it throws a ClassNotFoundException, which CT catches and logs in full
-        if(Loader.isModLoaded("baubles")){
+        if(Loader.isModLoaded("baubles") && Loader.isModLoaded("contenttweaker")){
+            CraftTweakerAPI.registerClass(BaubleItemRepresentation.class);
+        }
+        if(RoidTweakerConfig.eventCategory.allowCustomBaubles){
             CraftTweakerAPI.registerClass(CTInjectableBauble.class);
-            if(Loader.isModLoaded("contenttweaker")){
-                CraftTweakerAPI.registerClass(BaubleItemRepresentation.class);
-            }
         }
     }
 
