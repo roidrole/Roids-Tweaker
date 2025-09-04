@@ -96,3 +96,20 @@ val newBauble as InjectableBauble = IBauble.createBauble("RING");
         return "ALWAYS_KEEP";
     });
 newBauble.register(<minecraft:fire_charge>.definition);
+
+//Example for adding a potion effect
+val feather_of_speed as InjectableBauble = IBauble.createBauble("RING");
+    feather_of_speed.setOnWornTick(function(stack as IItemStack, entity as IEntityLivingBase) as void{
+	    if (!entity.world.isRemote()) {
+            if (entity.world.getWorldTime() % 10 == 0) {
+                //You can also do fun stuff like setting the multiplier to the stack size
+                entity.addPotionEffect(<potion:minecraft:speed>.makePotionEffect(100, stack.amount - 1));
+            }
+        }
+    });
+    feather_of_speed.setOnUnequipped(function(stack as IItemStack, entity as IEntityLivingBase) as void{
+        if (!entity.world.isRemote()) {
+            entity.removePotionEffect(<potion:minecraft:speed>);
+        }
+    });
+feather_of_speed.register(<minecraft:feather>.definition);
