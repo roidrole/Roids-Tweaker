@@ -27,9 +27,4 @@ public class CTBauble {
     public static int[] getValidSlots(String type) {
         return BaubleType.valueOf(type).getValidSlots();
     }
-
-    @ZenMethod
-    public static CTInjectableBauble createBauble(String type){
-        return new CTInjectableBauble(BaubleType.valueOf(type));
-    }
 }

@@ -6,6 +6,7 @@ import crafttweaker.recipes.IRecipeFunction;
 //Bauble-related classes
 import mods.ctintegration.baubles.IBauble;
 import mods.ctintegration.baubles.IBaubleInventory;
+//Bubbles-exclusive
 import mods.ctintegration.bubbles.IBubbleInventory;
 import mods.ctintegration.baubles.InjectableBauble;
 //Expansions
@@ -100,7 +101,7 @@ newBauble.register(<minecraft:fire_charge>.definition);
 //Example for adding a potion effect
 val feather_of_speed as InjectableBauble = IBauble.createBauble("RING");
     feather_of_speed.setOnWornTick(function(stack as IItemStack, entity as IEntityLivingBase) as void{
-	    if (!entity.world.isRemote()) {
+        if (!entity.world.isRemote()) {
             if (entity.world.getWorldTime() % 10 == 0) {
                 //You can also do fun stuff like setting the multiplier to the stack size
                 entity.addPotionEffect(<potion:minecraft:speed>.makePotionEffect(100, stack.amount - 1));
@@ -113,3 +114,6 @@ val feather_of_speed as InjectableBauble = IBauble.createBauble("RING");
         }
     });
 feather_of_speed.register(<minecraft:feather>.definition);
+/*
+    Adding this comment just so I can diable bubbles stuff easier
+*/

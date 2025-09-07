@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import roidrole.roidtweaker.mods.baubles.BaubleEventHandler;
+import roidrole.roidtweaker.mods.baubles.CTBaubleExpansion;
 import roidrole.roidtweaker.mods.baubles.CTInjectableBauble;
 import roidrole.roidtweaker.mods.immersiveengineering.GardenClocheCommand;
 import roidrole.roidtweaker.mods.immersiveengineering.SlagReplacer;
@@ -59,6 +60,7 @@ public class RoidTweaker {
         }
         if(RoidTweakerConfig.eventCategory.allowCustomBaubles){
             CraftTweakerAPI.registerClass(CTInjectableBauble.class);
+            CraftTweakerAPI.registerClass(CTBaubleExpansion.class);
         }
     }
 
