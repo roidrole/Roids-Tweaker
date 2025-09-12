@@ -1,5 +1,5 @@
 package roidrole.roidtweaker.mods.crafttweaker;
-//Mod was originally in CTUtils, but I modified a significant part of it
+//File was originally in CTUtils, but I modified a significant part of it
 
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.util.IRandom;
