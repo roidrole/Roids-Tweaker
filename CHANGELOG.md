@@ -1,5 +1,9 @@
+## Unrelease
+Fixed error on startup with just baubles
+Added IWorld.getEntitiesWithinAABB
+
 ## 1.1.1
-Fix crash on startup when using original baubles
+Fixed crash on startup when using original baubles
 
 ## 1.1.0
 
