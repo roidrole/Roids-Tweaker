@@ -45,7 +45,10 @@ recipes.addShapeless(<minecraft:carrot>, (<minecraft:golden_sword> * 3).spread()
     }
 );
 
-//Following won't work if using baubles!
+//Starting here, things won't work if using baubles! Use Bubbles to unlock this functionality
+//You cannot call these methods even if wrapped in an if(false){} or the game will error
+
+
 recipes.addShapeless(<minecraft:carrot>, (<minecraft:iron_sword> * 3).spread(),
     function(out as IItemStack, ins, cInfo) as IItemStack{return out;} as IRecipeFunction,
     function(out, cInfo, player){
@@ -63,7 +66,7 @@ recipes.addShapeless(<minecraft:carrot>, (<minecraft:diamond_sword> * 3).spread(
     }
 );
 
-//Custom Baubles (requires Bubbles)
+//Custom Baubles
 val newBauble as InjectableBauble = IBauble.createBauble("RING");
     newBauble.setOnWornTick(function(stack as IItemStack, entity as IEntityLivingBase) as void{
         if(!entity.world.isRemote()){
@@ -114,6 +117,7 @@ val feather_of_speed as InjectableBauble = IBauble.createBauble("RING");
         }
     });
 feather_of_speed.register(<minecraft:feather>.definition);
+
 /*
     Adding this comment just so I can diable bubbles stuff easier
 */
