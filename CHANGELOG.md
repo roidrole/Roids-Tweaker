@@ -1,5 +1,7 @@
 ## Unreleased
-Added MineralMixTweaker
+**Added :**
+- MineralMixTweaker
+- MineralMixTweaker for Immersive Petroleum
 
 ## 1.1.2
 Fixed error on startup with just baubles
