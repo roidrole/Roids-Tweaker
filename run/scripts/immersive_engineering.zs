@@ -3,6 +3,7 @@ import mods.immersiveengineering.ArcFurnace;
 import mods.roidtweaker.immersiveengineering.GardenCloche;
 import mods.roidtweaker.immersiveengineering.GardenClocheMultiplierFunction;
 import mods.immersiveengineering.Blueprint;
+import mods.immersiveengineering.MineralMix;
 import crafttweaker.item.IIngredient;
 import crafttweaker.item.IItemStack;
 import crafttweaker.data.IData;
@@ -41,6 +42,8 @@ GardenCloche.setSoilTexture(<minecraft:dirt>, "minecraft:blocks/chorus_plant"); 
 
 
 mods.immersiveengineering.MetalPress.addRecipeNBT(<minecraft:iron_sword>, <minecraft:iron_ingot>.withTag({marker:1}), <minecraft:stick>, 4000);
+
+MineralMix.printRegisteredMinerals();
 
 
 mods.roidtweaker.immersiveengineering.SlagReplacer.setSlag(<minecraft:jungle_stairs>, <*>.only(
