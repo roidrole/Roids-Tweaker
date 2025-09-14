@@ -13,6 +13,7 @@ import java.util.List;
 @ZenRegister
 @ModOnly("immersiveengineering")
 @ZenExpansion("mods.immersiveengineering.Excavator")
+@SuppressWarnings("unused")
 public class ExcavatorExpansion {
 	@ZenMethodStatic
 	public static List<Excavator.MTMineralMix> getRegisteredMinerals() {

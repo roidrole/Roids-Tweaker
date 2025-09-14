@@ -13,9 +13,14 @@ import stanhebben.zenscript.annotations.*;
 @ZenRegister
 @ZenExpansion("mods.immersiveengineering.MineralMix")
 @ModOnly("immersiveengineering")
+@SuppressWarnings("unused")
 public class CTMineralMixExpansion {
 	@ZenCaster
+	@ZenMethod
 	public static String toString(Excavator.MTMineralMix mix) {
+		if(mix == null){
+			return null;
+		}
 		return ((IMTMineralMixAccessor)mix).getMix().name;
 	}
 	@ZenMethodStatic

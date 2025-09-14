@@ -32,7 +32,5 @@ recipes.addShapeless(<minecraft:stone> * 4, [<minecraft:iron_ore>, <minecraft:ir
         print(chunkData.getSize());
 
         world.setChunkData(here, chunkData);
-
-
     }
 );

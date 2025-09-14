@@ -37,6 +37,9 @@ public abstract class IECTHelper {
     }
 
     public static Excavator.MTMineralMix getMTMineralMix(ExcavatorHandler.MineralMix mix){
+        if(mix == null){
+            return null;
+        }
         return new Excavator.MTMineralMix(mix, ExcavatorHandler.mineralList.get(mix));
     }
     public static DimensionChunkCoords getDimensionalChunkCoords(IWorld world, IBlockPos pos){

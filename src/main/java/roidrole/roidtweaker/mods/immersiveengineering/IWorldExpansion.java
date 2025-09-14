@@ -11,16 +11,18 @@ import crafttweaker.mc1120.world.MCBlockPos;
 import roidrole.roidtweaker.mixins.immersiveengineering.IMTMineralMixAccessor;
 import roidrole.roidtweaker.mods.immersiveengineering.helpers.IECTHelper;
 import stanhebben.zenscript.annotations.ZenExpansion;
+import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 import java.util.HashMap;
 import java.util.Map;
 
-//TODO : Update wiki, test stuff, Consider IP support
+//TODO : Consider IP support
 
 @ModOnly("immersiveengineering")
 @ZenRegister
 @ZenExpansion("crafttweaker.world.IWorld")
+@SuppressWarnings("unused")
 public class IWorldExpansion {
 	@ZenMethod
 	public static void setMineralMix(IWorld world, IBlockPos pos, Excavator.MTMineralMix mix){
@@ -32,11 +34,14 @@ public class IWorldExpansion {
 	@ZenMethod
 	public static Excavator.MTMineralMix getMineralMix(IWorld world, IBlockPos pos){
 		DimensionChunkCoords dimPos = IECTHelper.getDimensionalChunkCoords(world, pos);
-		ExcavatorHandler.MineralMix mineral = ExcavatorHandler.mineralCache.get(dimPos).mineral;
+		ExcavatorHandler.MineralWorldInfo info = ExcavatorHandler.mineralCache.get(dimPos);
+		if(info == null){return null;}
+		ExcavatorHandler.MineralMix mineral = info.mineral;
 		return IECTHelper.getMTMineralMix(mineral);
 	}
 
 	@ZenMethod
+	@ZenGetter("mineralMix")
 	//Was in MMT, probably not needed. Still better than original implementation
 	//If you need this, it's probably better I make specific compat for your needs
 	public static Map<IBlockPos, Excavator.MTMineralMix[]> getMineralMap(IWorld world){
