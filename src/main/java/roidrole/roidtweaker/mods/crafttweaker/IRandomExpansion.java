@@ -9,9 +9,9 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenRegister
 @ZenExpansion("crafttweaker.util.IRandom")
 @SuppressWarnings("unused")
-public interface IRandomExpansion {
+public class IRandomExpansion {
     @ZenMethod
-    static double nextGaussian(IRandom random) {
+    public static double nextGaussian(IRandom random) {
         return ((IMCRandomAccessor)random).getRandom().nextGaussian();
     }
 }

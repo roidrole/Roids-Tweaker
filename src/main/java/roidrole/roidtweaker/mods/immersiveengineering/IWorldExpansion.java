@@ -41,7 +41,7 @@ public class IWorldExpansion {
 	}
 
 	@ZenMethod
-	@ZenGetter("mineralMix")
+	@ZenGetter("mineralMap")
 	//Was in MMT, probably not needed. Still better than original implementation
 	//If you need this, it's probably better I make specific compat for your needs
 	public static Map<IBlockPos, Excavator.MTMineralMix[]> getMineralMap(IWorld world){

@@ -82,27 +82,27 @@ import crafttweaker.recipes.IRecipeFunction;
     }
 
     recipes.addShapeless(<minecraft:stone> * 4, [<minecraft:iron_ore>, <minecraft:iron_ore>, <minecraft:iron_ore>, <minecraft:iron_ore>] as IIngredient[],
-    function(out as IItemStack, ins, cInfo) as IItemStack{return out;} as IRecipeFunction,
-    function(out, cInfo, player){
-        //Should only execute these on the server
-        if(cInfo.world.isRemote()){
-            return;
-        }
-        val pos as IBlockPos = player.position as IBlockPos;
-        cInfo.world.setMineralMix(pos, Excavator.getMineral("Iron"));
-        print(cInfo.world.getMineralMix(pos) as string);
+        function(out as IItemStack, ins, cInfo) as IItemStack{return out;} as IRecipeFunction,
+        function(out, cInfo, player){
+            //Should only execute these on the server
+            if(cInfo.world.isRemote()){
+                return;
+            }
+            val pos as IBlockPos = player.position as IBlockPos;
+            cInfo.world.setMineralMix(pos, Excavator.getMineral("Iron"));
+            print(cInfo.world.getMineralMix(pos) as string);
 
-        val mapMix as MineralMix[][IBlockPos] = cInfo.world.getMineralMap();
-        if(isNull(mapMix[player.position as IBlockPos])){
-            print("null");
-        } else {
-            print(mapMix[player.position as IBlockPos][0] as string);
-        }
+            val mapMix as MineralMix[][IBlockPos] = cInfo.world.getMineralMap();
+            if(isNull(mapMix[player.position as IBlockPos])){
+                print("null");
+            } else {
+                print(mapMix[player.position as IBlockPos][0] as string);
+            }
 
-        cInfo.world.setMineralMix(pos, Excavator.getMineral("Silt"));
-        print(cInfo.world.getMineralMix(pos) as string);
-    }
-);
+            cInfo.world.setMineralMix(pos, Excavator.getMineral("Silt"));
+            print(cInfo.world.getMineralMix(pos) as string);
+        }
+    );
 //Done!
 
 
