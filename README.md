@@ -27,6 +27,7 @@ There are also a few original additions :
 - Forge registry blacklist
 - IData storage in a file
 - Immersive Engineering Blueprint list and villager trade
+- MineralMixTweaker support for Immersive Petroleum
 - ProjectE custom fuels
 - More villager and anvil methods
 

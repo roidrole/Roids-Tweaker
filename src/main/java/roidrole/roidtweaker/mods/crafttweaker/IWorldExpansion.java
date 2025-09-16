@@ -78,14 +78,8 @@ public class IWorldExpansion {
 	}
 
 	@ZenMethod
-	public static IEntity[] getEntitiesWithinAABB(IWorld world, IAxisAlignedBB aabb, @Optional IEntityDefinition entity){
-		Class<? extends Entity> entityClass;
-		if(entity == null){
-			entityClass = Entity.class;
-		} else {
-			entityClass = ((EntityEntry) entity.getInternal()).getEntityClass();
-		}
-		List<? extends Entity> nativeList = CraftTweakerMC.getWorld(world).getEntitiesWithinAABB(entityClass, ((AxisAlignedBB)aabb.getInternal()));
+	public static IEntity[] getEntitiesWithinAABB(IWorld world, IAxisAlignedBB aabb, IEntityDefinition entity){
+		List<? extends Entity> nativeList = CraftTweakerMC.getWorld(world).getEntitiesWithinAABB(((EntityEntry) entity.getInternal()).getEntityClass(), ((AxisAlignedBB)aabb.getInternal()));
 		return nativeList.stream().map(CraftTweakerMC::getIEntity).toArray(IEntity[]::new);
 	}
 }

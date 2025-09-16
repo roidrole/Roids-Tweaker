@@ -1,11 +1,14 @@
 ## Unreleased
 **Added :**
 - MineralMixTweaker
-- MineralMixTweaker for Immersive Petroleum
+- MineralMixTweaker support for Immersive Petroleum
+
+**Changed :**
+- getEntitiesWithinAABB `IEntityDefinition entity` parameter is non-optional because already in CraftTweaker
 
 ## 1.1.2
-Fixed error on startup with just baubles
-Added IWorld.getEntitiesWithinAABB
+- **Fixed** error on startup with just baubles
+- **Added** IWorld.getEntitiesWithinAABB
 
 ## 1.1.1
 Fixed crash on startup when using original baubles
