@@ -28,7 +28,9 @@ public class DataUtil {
     @ZenMethod
     public static IData parse(String jsonString) {
         try {
-            return DataTypeAdapter.INSTANCE.read(new JsonReader(new StringReader(jsonString)));
+            JsonReader reader = new JsonReader(new StringReader(jsonString));
+            reader.setLenient(true);
+            return DataTypeAdapter.INSTANCE.read(reader);
         } catch (IOException e) {
             CraftTweakerAPI.logError("Cannot read jsonString "+jsonString, e);
             return null;
