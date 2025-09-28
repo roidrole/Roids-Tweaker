@@ -17,8 +17,8 @@ public class RoidTweakerConfig {
 
             public boolean allowMetaWildcards = false;
 
-            @Config.Comment("Allows setting a custom function to set a profession to a villager. \nRequired for removing vanilla professions")
-            public boolean allowCustomProfessionSetter = false;
+            @Config.Comment("Required for removing vanilla professions")
+            public boolean replaceProfessionSetter = false;
         }
 
         @Config.Comment("Also required for modded villager profession disabling")

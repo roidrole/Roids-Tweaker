@@ -1,16 +1,12 @@
 package roidrole.roidtweaker.mixins.forge.villager;
 
-import crafttweaker.mc1120.util.MCRandom;
 import net.minecraft.entity.monster.EntityZombieVillager;
 import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import roidrole.roidtweaker.mods.minecraft.villager.Villager;
 
 import java.util.Random;
 
@@ -25,7 +21,7 @@ public abstract class VillagerRegistryMixin {
         cancellable = true
     )
     private static void roidTweaker_setRandomProfession(EntityVillager entity, Random rand, CallbackInfo ci){
-        entity.setProfession(ForgeRegistries.VILLAGER_PROFESSIONS.getValue(new ResourceLocation(Villager.professionAttributor.apply(new MCRandom(rand), allowedProfessions))));
+        entity.setProfession(allowedProfessions[rand.nextInt(allowedProfessions.length)]);
         ci.cancel();
     }
 
@@ -36,7 +32,7 @@ public abstract class VillagerRegistryMixin {
         cancellable = true
     )
     private static void roidTweaker_setRandomProfession(EntityZombieVillager entity, Random rand, CallbackInfo ci){
-        entity.setForgeProfession(ForgeRegistries.VILLAGER_PROFESSIONS.getValue(new ResourceLocation(Villager.professionAttributor.apply(new MCRandom(rand), allowedProfessions))));
+        entity.setProfession(VillagerRegistry.getId(allowedProfessions[rand.nextInt(allowedProfessions.length)]));
         ci.cancel();
     }
 }

@@ -75,7 +75,7 @@ public class RoidTweaker {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event){
         DeferredLoader.postInit();
-        if(RoidTweakerConfig.mixinCategory.villagerCategory.allowCustomProfessionSetter) {
+        if(RoidTweakerConfig.mixinCategory.villagerCategory.replaceProfessionSetter) {
             Villager.setAllowedProfessions();
         }
         if(Loader.isModLoaded("immersiveengineering")){
