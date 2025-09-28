@@ -10,8 +10,3 @@ Villager.addProfession("crafttweaker:marine_biologist", "contenttweaker:textures
 Villager.addCareer("crafttweaker:marine_biologist", "based_one");
 
 //Villager.clearCareers("immersiveengineering:engineer");
-
-
-Villager.setProfessionAttributor(function(allowedProfessions as string[]){
-    return allowedProfessions[0];
-});
