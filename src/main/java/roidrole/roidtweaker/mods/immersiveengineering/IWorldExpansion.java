@@ -17,8 +17,6 @@ import stanhebben.zenscript.annotations.ZenMethod;
 import java.util.HashMap;
 import java.util.Map;
 
-//TODO : Consider IP support
-
 @ModOnly("immersiveengineering")
 @ZenRegister
 @ZenExpansion("crafttweaker.world.IWorld")
