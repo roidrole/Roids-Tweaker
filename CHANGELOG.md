@@ -1,4 +1,4 @@
-## Unreleased
+## 1.2.0
 **Added :**
 - MineralMixTweaker
 - MineralMixTweaker support for Immersive Petroleum
