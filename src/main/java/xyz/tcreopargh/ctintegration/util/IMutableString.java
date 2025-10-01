@@ -81,6 +81,7 @@ public interface IMutableString {
     int indexOf(String character);
 
     @ZenMethod
+    @ZenCaster
     String build();
 
     @ZenMethod

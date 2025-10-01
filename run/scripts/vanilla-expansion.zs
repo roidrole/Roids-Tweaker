@@ -13,6 +13,13 @@ recipes.addShaped(<minecraft:golden_sword>, [
     (<minecraft:stick> * 3).spread()
 ]);
 
+//IItemStack[]
+recipes.addShaped(<minecraft:golden_sword>, [
+    [[<minecraft:bread>, <minecraft:feather>] as IIngredient],
+    [<minecraft:stick>],
+    [<minecraft:stick>]
+]);
+
 //IRandom
 print("Testing Random");
 print(Math.getRandom().nextGaussian());
