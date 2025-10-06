@@ -1,3 +1,6 @@
+## Unreleased
+**Added** UniDict support
+
 ## 1.2.0
 **Added :**
 - MineralMixTweaker

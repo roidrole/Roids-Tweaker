@@ -92,6 +92,8 @@ dependencies {
     compileOnly('curse.maven:mekanism-ce-unofficial-840735:6550161')
     implementation('curse.maven:immersive-engineering-231951:2974106')
     implementation('curse.maven:immersive-petroleum-268250:3382321')
+    implementation('curse.maven:wanionlib-253043:4623135')
+    implementation('curse.maven:unidict-244258:3553627')
 
     compileOnly('curse.maven:factory0-resources-299713:2614729')
     compileOnly('curse.maven:random-things-59816:2905241')
