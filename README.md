@@ -5,14 +5,14 @@ With this mod, I aim to include and improve upon dead and/or broken CT addons. S
 - CraftTweaker Integration, by TCreograph (included), where I fixed [#10](https://github.com/TCreopargh/CraftTweakerIntegration/issues/10) and [#11](https://github.com/TCreopargh/CraftTweakerIntegration/issues/11), added mapEMC for single items and fixed, expanded ArrayUtils, MutableString, DataUtil and Bauble Support
 - Extra Tweaker, by blue_beaker (Rewritten with same API)
 - MekaTweaker, by Lorexe (included), where I implemented [#6](https://github.com/Lorexe/MekaTweaker/issues/6)
-- MineralMixTweaker (rewritten with same API)
+- MineralMixTweaker, by Witixin (rewritten with same API)
 - Thermal Expansion Specialization Hooks, by JoshieGemFinder (Rewritten with same API)
 
 I also included the functionalities of the following mods, with varying levels of modification :
 - CraftTweakerUtils, by BrisingrAerowing (included), where I removed duplicate content (with CT and CTI) and made some ZenClasses ZenExpansions
 - Immersive Engineering Tweaks, by ZhilBear (simplified logic, ZenExpansion instead of new class)
 - Immersive Tweaker, by brisingraerowing (copied and improved functionality, ZenExpansion instead of a new class)
-- Random Things Tweaker (rewritten)
+- Random Things Tweaker, by tfarecnim (rewritten)
 - Rocky Tweaks, by Mohron (rewritten)
 - Tweaked, by SnowdoniaGames (reimplemented functionality not in ModTweaker with CT)
 - VanillaAnvilRepair, by eksekk (only CT functionality)
