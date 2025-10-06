@@ -21,6 +21,7 @@ I also included the functionalities of the following mods, with varying levels o
 - ZenUtils (no, not that one, [this](https://www.curseforge.com/minecraft/mc-mods/zenutils) one), by ZoniIC645 (rewritten, fixed incompat with ZenUtils)
 
 There are also a few original additions :
+- Anvil Expansion
 - Bubbles support (clone of GS + making any item a bauble with custom behavior)
 - Config file support (creation, reading)
 - Factory0-Resources support
@@ -29,6 +30,7 @@ There are also a few original additions :
 - Immersive Engineering Blueprint list and villager trade
 - MineralMixTweaker support for Immersive Petroleum
 - ProjectE custom fuels
-- More villager and anvil methods
+- Unidict integration
+- Villager expansion
 
 You can find a list of all features in the [wiki](https://github.com/roidrole/Roids-Tweaker/wiki)
