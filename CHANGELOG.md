@@ -1,5 +1,7 @@
 ## Unreleased
-**Added** UniDict support
+**Added :** 
+- UniDict support
+- IItemStack[] as IIngredient ZenCaster (or)
 
 ## 1.2.0
 **Added :**

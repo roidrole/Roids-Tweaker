@@ -30,7 +30,7 @@ There are also a few original additions :
 - Immersive Engineering Blueprint list and villager trade
 - MineralMixTweaker support for Immersive Petroleum
 - ProjectE custom fuels
-- Unidict integration
+- UniDict integration
 - Villager expansion
 
 You can find a list of all features in the [wiki](https://github.com/roidrole/Roids-Tweaker/wiki)
