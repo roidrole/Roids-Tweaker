@@ -1,3 +1,6 @@
+## 1.2.1
+Fixed crash on startup without Thermal expansion (and some other unknown condition) - #8
+
 ## 1.2.0
 **Added :**
 - MineralMixTweaker
