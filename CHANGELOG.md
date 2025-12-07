@@ -2,6 +2,7 @@
 **Added :** 
 - UniDict support
 - IItemStack[] as IIngredient ZenCaster (or)
+- IGameRules.getDouble()
 
 ## 1.2.0
 **Added :**
