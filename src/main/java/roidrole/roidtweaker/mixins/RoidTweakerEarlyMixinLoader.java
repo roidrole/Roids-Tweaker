@@ -13,8 +13,9 @@ public class RoidTweakerEarlyMixinLoader implements IFMLLoadingPlugin, IEarlyMix
     @Override
     public List<String> getMixinConfigs() {
         return Arrays.asList(
+			"mixins.roidtweaker.minecraft.json",
+			"mixins.roidtweaker.forge.json",
             "mixins.roidtweaker.registry.disable.json",
-            "mixins.roidtweaker.villager.accessor.json",
             "mixins.roidtweaker.villager.metawildcards.json",
             "mixins.roidtweaker.villager.careerdisable.json",
             "mixins.roidtweaker.villager.customprofessionsetter.json"

@@ -20,6 +20,9 @@ public interface IGameRules {
 	int getInt(String name);
 
 	@ZenMethod
+	double getDouble(String name);
+
+	@ZenMethod
 	@ZenGetter("rules")
 	String[] getRules();
 
