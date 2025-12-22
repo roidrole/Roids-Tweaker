@@ -1,10 +1,12 @@
 package roidrole.roidtweaker.mods.minecraft.anvil;
 
+import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.item.IngredientAny;
 import crafttweaker.api.minecraft.CraftTweakerMC;
+import roidrole.roidtweaker.RoidTweakerConfig;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -20,6 +22,10 @@ public class CTAnvil {
 
     @ZenMethod
     public static void addRecipe(IIngredient left, IIngredient right, IItemStack output, int xpCost) {
+        if(!RoidTweakerConfig.eventCategory.allowAnvilRecipes) {
+            CraftTweakerAPI.logError("Trying to add an anvil recipe while anvil recipes are disabled");
+            return;
+        }
         AnvilRecipes recipe = new AnvilRecipes();
             recipe.left = left;
             recipe.right = right;
@@ -29,6 +35,10 @@ public class CTAnvil {
     }
     @ZenMethod
     public static void addRecipeShapeless(IIngredient left, IIngredient right, IItemStack output, int xpCost) {
+        if(!RoidTweakerConfig.eventCategory.allowAnvilRecipes) {
+            CraftTweakerAPI.logError("Trying to add an anvil recipe while anvil recipes are disabled");
+            return;
+        }
         AnvilRecipes.Shapeless recipe = new AnvilRecipes.Shapeless();
         recipe.left = left;
         recipe.right = right;
@@ -39,6 +49,10 @@ public class CTAnvil {
 
     @ZenMethod
     public static void addRecipes(IIngredient left, IIngredient[] right, IItemStack[] output, int[] xpCost) {
+        if(!RoidTweakerConfig.eventCategory.allowAnvilRecipes) {
+            CraftTweakerAPI.logError("Trying to add an anvil recipe while anvil recipes are disabled");
+            return;
+        }
         for (int i = 0; i < right.length; i++) {
             addRecipe(left, right[i], output[i], xpCost[i]);
         }
@@ -46,6 +60,10 @@ public class CTAnvil {
 
     @ZenMethod
     public static void remove(IIngredient[] inputs){
+        if(!RoidTweakerConfig.eventCategory.allowAnvilRecipes) {
+            CraftTweakerAPI.logError("Trying to remove an anvil recipe while anvil recipes are disabled");
+            return;
+        }
         AnvilRecipes.DisabledRecipe recipe = new AnvilRecipes.DisabledRecipe();
             recipe.left = inputs[0];
             if(inputs.length > 1){
@@ -58,6 +76,10 @@ public class CTAnvil {
 
     @ZenMethod
     public static void remove(IIngredient output){
+        if(!RoidTweakerConfig.eventCategory.allowAnvilRecipes) {
+            CraftTweakerAPI.logError("Trying to remove an anvil recipe while anvil recipes are disabled");
+            return;
+        }
         AnvilRecipes.DisabledRecipeOutput recipe = new AnvilRecipes.DisabledRecipeOutput();
         recipe.output = output;
         recipes.add(recipe);
@@ -65,6 +87,10 @@ public class CTAnvil {
 
     @ZenMethod
     public static void addRepair(IIngredient repaired, IIngredient material, int amount, @Optional int xpCost){
+        if(!RoidTweakerConfig.eventCategory.allowAnvilRecipes) {
+            CraftTweakerAPI.logError("Trying to add an anvil recipe while anvil recipes are disabled");
+            return;
+        }
         AnvilRecipes.Repair recipe = new AnvilRecipes.Repair();
             recipe.left = repaired;
             recipe.right = material;
@@ -75,6 +101,10 @@ public class CTAnvil {
 
     @ZenMethod
     public static void addRepair(IIngredient repaired, IIngredient material, float amount, @Optional int xpCost){
+        if(!RoidTweakerConfig.eventCategory.allowAnvilRecipes) {
+            CraftTweakerAPI.logError("Trying to add an anvil recipe while anvil recipes are disabled");
+            return;
+        }
         AnvilRecipes.Repair recipe = new AnvilRecipes.Repair();
             recipe.left = repaired;
             recipe.right = material;

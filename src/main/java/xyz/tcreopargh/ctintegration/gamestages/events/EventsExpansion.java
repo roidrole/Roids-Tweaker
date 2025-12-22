@@ -1,5 +1,6 @@
 package xyz.tcreopargh.ctintegration.gamestages.events;
 
+import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.event.IEventHandle;
@@ -8,6 +9,7 @@ import crafttweaker.util.EventList;
 import crafttweaker.util.IEventHandler;
 import net.darkhax.gamestages.event.GameStageEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import roidrole.roidtweaker.RoidTweakerConfig;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -24,26 +26,41 @@ public class EventsExpansion {
 
     @ZenMethod
     public static IEventHandle onGameStageAdd(IEventManager manager, IEventHandler<CTGameStageAddEvent> event) {
+        if(!RoidTweakerConfig.eventCategory.allowGameStagesEvents){
+            CraftTweakerAPI.logError("Trying to add a GameStage event when GameStages event are turned off");
+        }
         return stageAddEvents.add(event);
     }
 
     @ZenMethod
     public static IEventHandle onGameStageRemove(IEventManager manager, IEventHandler<CTGameStageRemoveEvent> event) {
+        if(!RoidTweakerConfig.eventCategory.allowGameStagesEvents){
+            CraftTweakerAPI.logError("Trying to add a GameStage event when GameStages event are turned off");
+        }
         return stageRemoveEvents.add(event);
     }
 
     @ZenMethod
     public static IEventHandle onGameStageAdded(IEventManager manager, IEventHandler<CTGameStageAddedEvent> event) {
+        if(!RoidTweakerConfig.eventCategory.allowGameStagesEvents){
+            CraftTweakerAPI.logError("Trying to add a GameStage event when GameStages event are turned off");
+        }
         return stageAddedEvents.add(event);
     }
 
     @ZenMethod
     public static IEventHandle onGameStageRemoved(IEventManager manager, IEventHandler<CTGameStageRemovedEvent> event) {
+        if(!RoidTweakerConfig.eventCategory.allowGameStagesEvents){
+            CraftTweakerAPI.logError("Trying to add a GameStage event when GameStages event are turned off");
+        }
         return stageRemovedEvents.add(event);
     }
 
     @ZenMethod
     public static IEventHandle onGameStageCleared(IEventManager manager, IEventHandler<CTGameStageClearedEvent> event) {
+        if(!RoidTweakerConfig.eventCategory.allowGameStagesEvents){
+            CraftTweakerAPI.logError("Trying to add a GameStage event when GameStages event are turned off");
+        }
         return stageClearedEvents.add(event);
     }
 
