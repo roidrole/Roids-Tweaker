@@ -15,6 +15,9 @@ myCareer.addTradeAdvanced(1, function(random as IRandom) as IItemStack[]{
     val wool as IItemStack = <minecraft:wool>.withDamage(meta);
     return [wool, wool, wool] as IItemStack[];
 });
+myCareer.addTradeAdvanced(1, function(random as IRandom) as IItemStack[]{
+    return null;
+});
 
 
 Villager.getCareer("minecraft:librarian", "librarian").removeTrade(1);

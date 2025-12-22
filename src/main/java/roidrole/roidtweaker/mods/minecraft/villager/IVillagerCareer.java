@@ -111,6 +111,7 @@ public class IVillagerCareer implements DeferredLoader.IAction {
         }
         addedTrades.get(level - 1).add((merchant, recipeList, random) -> {
             IItemStack[] iItems = recipe.apply(new MCRandom(random));
+            if(iItems == null){return;}
             if(iItems.length != 3){return;}
             if(iItems[0].isEmpty()){return;}
             recipeList.add(new MerchantRecipe(CraftTweakerMC.getItemStack(iItems[1]), CraftTweakerMC.getItemStack(iItems[2]), CraftTweakerMC.getItemStack(iItems[0])));
