@@ -3,6 +3,7 @@
 - UniDict support
 - IItemStack[] as IIngredient ZenCaster (or)
 - IGameRules.getDouble()
+- DataUtil SNBT support
 
 ## 1.2.0
 **Added :**
