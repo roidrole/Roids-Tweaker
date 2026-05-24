@@ -1,10 +1,17 @@
 ## Unreleased
-**Added :** 
+**Added :**
 - UniDict support
 - IItemStack[] as IIngredient ZenCaster (or)
 - IGameRules.getDouble()
 - DataUtil SNBT support
 - IEntity.hasDefinition(IEntityDefinition definition)
+
+## 1.2.2
+- The mod will now log an error when adding recipes that require a disabled event listener
+- Fixed #11 - world crash when addTradeAdvanced is made to return null 
+
+## 1.2.1
+Fixed crash on startup without Thermal expansion (and some other unknown condition) - #8
 
 ## 1.2.0
 **Added :**

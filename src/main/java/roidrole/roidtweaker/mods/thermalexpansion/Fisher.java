@@ -64,6 +64,9 @@ public class Fisher {
         public void load() {
             List<ItemStack> fishList = IFisherManagerAccessor.getFishList();
 
+            if(fishList.isEmpty()){
+                return;
+            }
             //Workaround because List.indexOf and List.contains doesn't work for ItemStacks due to .equals being weird
             BitSet removeSet = new BitSet(fishList.size());
             for (int i = 0; i < fishList.size(); i++) {

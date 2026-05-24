@@ -7,13 +7,16 @@ import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
+import java.util.Collections;
 import java.util.List;
 
 @Mixin(FisherManager.class)
 public interface IFisherManagerAccessor {
     @Accessor(value = "fishList", remap = false)
+    @SuppressWarnings("unchecked")
     static List<ItemStack> getFishList(){
-        throw new AssertionError();
+        //Shouldn't throw an error here because called by static of Fisher sometimes (#8)
+        return Collections.EMPTY_LIST;
     }
     @Accessor(value = "weightList", remap = false)
     static List<Integer> getWeightList(){

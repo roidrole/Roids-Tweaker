@@ -110,7 +110,6 @@ dependencies {
     implementation('curse.maven:thermal-foundation-222880:2926428')
     implementation('curse.maven:cofh-world-271384:2920434')
 
-
     runtimeOnly('curse.maven:ftb-library-legacy-forge-237167:2985811')
     runtimeOnly('curse.maven:ftb-utilities-forge-237102:3157548')
     runtimeOnly('curse.maven:mantle-74924:2713386')
