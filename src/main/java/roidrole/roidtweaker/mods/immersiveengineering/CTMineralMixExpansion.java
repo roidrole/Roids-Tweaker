@@ -23,6 +23,7 @@ public class CTMineralMixExpansion {
 		}
 		return ((IMTMineralMixAccessor)mix).getMix().name;
 	}
+
 	@ZenMethodStatic
 	@Deprecated
 	public static void printRegisteredMinerals() {

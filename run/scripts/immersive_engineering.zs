@@ -81,6 +81,20 @@ import crafttweaker.recipes.IRecipeFunction;
         print(dim);
     }
 
+    Excavator.removeAllMinerals();
+    print("After removing all minerals: ");
+    MineralMix.printRegisteredMinerals();
+    Excavator.addMineral(
+        "Iron",
+        3,
+        0,
+        ["oreIron"],
+        [1]
+    );
+    print("After adding back one mineral: ");
+    MineralMix.printRegisteredMinerals();
+
+
     recipes.addShapeless(<minecraft:stone> * 4, [<minecraft:iron_ore>, <minecraft:iron_ore>, <minecraft:iron_ore>, <minecraft:iron_ore>] as IIngredient[],
         function(out as IItemStack, ins, cInfo) as IItemStack{return out;} as IRecipeFunction,
         function(out, cInfo, player){

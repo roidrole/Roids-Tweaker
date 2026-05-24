@@ -2,6 +2,8 @@ package roidrole.roidtweaker.mods.immersiveengineering;
 
 import blusunrize.immersiveengineering.api.tool.ExcavatorHandler;
 import blusunrize.immersiveengineering.common.util.compat.crafttweaker.Excavator;
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.ZenExpansion;
@@ -22,5 +24,20 @@ public class ExcavatorExpansion {
 			(mix, weight) -> output.add(new Excavator.MTMineralMix(mix, weight))
 		);
 		return output;
+	}
+
+	@ZenMethodStatic
+	public static void removeAllMinerals(){
+		CraftTweakerAPI.apply(new IAction() {
+			@Override
+			public void apply() {
+				ExcavatorHandler.mineralList.clear();
+			}
+
+			@Override
+			public String describe() {
+				return "Removing all registered MineralMix";
+			}
+		});
 	}
 }
