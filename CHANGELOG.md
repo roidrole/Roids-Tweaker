@@ -6,6 +6,9 @@
 - DataUtil SNBT support
 - IEntity.hasDefinition(IEntityDefinition definition)
 
+**Fixed :**
+- VanillaFactory.createBaubleItem
+
 ## 1.2.2
 - The mod will now log an error when adding recipes that require a disabled event listener
 - Fixed #11 - world crash when addTradeAdvanced is made to return null 

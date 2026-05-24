@@ -66,7 +66,7 @@ dependencies {
     // implementation ('com.google.code.gson:gson:2.8.6') {
     //     transitive = false
     // }
-    implementation('curse.maven:crafttweaker-239197:6920367')
+    implementation('curse.maven:crafttweaker-239197:8051578')
 
     compileOnly('mezz:jei:4.25.5')
     runtimeOnly('mezz:jei:4.25.5')
@@ -100,15 +100,15 @@ dependencies {
     implementation('curse.maven:unidict-244258:3553627')
 
     compileOnly('curse.maven:factory0-resources-299713:2614729')
-    implementation('curse.maven:random-things-59816:2905241')
+    compileOnly('curse.maven:random-things-59816:2905241')
 
     //It's hard, to play Thermal Expansion...
-    implementation('curse.maven:thermal-expansion-69163:2926431')
-    implementation('curse.maven:codechicken-lib-1-8-242818:2779848')
-    implementation('curse.maven:cofh-core-69162:2920433')
-    implementation('curse.maven:redstone-flux-270789:2920436')
-    implementation('curse.maven:thermal-foundation-222880:2926428')
-    implementation('curse.maven:cofh-world-271384:2920434')
+    compileOnly('curse.maven:thermal-expansion-69163:2926431')
+    compileOnly('curse.maven:codechicken-lib-1-8-242818:2779848')
+    compileOnly('curse.maven:cofh-core-69162:2920433')
+    compileOnly('curse.maven:redstone-flux-270789:2920436')
+    compileOnly('curse.maven:thermal-foundation-222880:2926428')
+    compileOnly('curse.maven:cofh-world-271384:2920434')
 
     runtimeOnly('curse.maven:ftb-library-legacy-forge-237167:2985811')
     runtimeOnly('curse.maven:ftb-utilities-forge-237102:3157548')
