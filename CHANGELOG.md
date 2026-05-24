@@ -4,6 +4,7 @@
 - IItemStack[] as IIngredient ZenCaster (or)
 - IGameRules.getDouble()
 - DataUtil SNBT support
+- IEntity.hasDefinition(IEntityDefinition definition)
 
 ## 1.2.0
 **Added :**
