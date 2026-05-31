@@ -1,3 +1,4 @@
+#modloaded mistyworld
 import mods.roidtweaker.mistyworld.MistyWorld;
 
 MistyWorld.addCompostable(<minecraft:golden_sword>);
