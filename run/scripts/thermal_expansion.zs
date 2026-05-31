@@ -1,4 +1,4 @@
-#modloaded thermalexpansion
+#modloaded thermalexpansion modtweaker
 import mods.thermalexpansion.Collector;
 import mods.thermalexpansion.Extruder;
 import mods.thermalexpansion.Fisher;
