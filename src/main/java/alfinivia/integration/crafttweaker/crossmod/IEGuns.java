@@ -6,6 +6,7 @@ import blusunrize.immersiveengineering.api.tool.ChemthrowerHandler;
 import blusunrize.immersiveengineering.api.tool.ChemthrowerHandler.ChemthrowerEffect;
 import blusunrize.immersiveengineering.api.tool.RailgunHandler;
 import blusunrize.immersiveengineering.common.util.compat.crafttweaker.CraftTweakerHelper;
+import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.entity.IEntity;
@@ -33,15 +34,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import org.apache.commons.lang3.tuple.Pair;
+import roidrole.roidtweaker.utils.DeferredLoader;
+import roidrole.roidtweaker.utils.EnumLoadStage;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 import javax.annotation.Nullable;
 
 @ModOnly("immersiveengineering")
-@ZenClass("mods.alfinivia.ImmersiveEngineering")
+@ZenClass("mods.roidtweaker.immersiveengineering.IEGuns")
 @ZenRegister
-public class ImmersiveEngineering {
+@SuppressWarnings("unused")
+public class IEGuns {
 
     @ZenMethod
     public static void addChemthrowerEffect(ILiquidStack liquid, boolean isGas, boolean isFlammable, String source, float damage) {
@@ -80,14 +84,24 @@ public class ImmersiveEngineering {
     }
 
     public static void addChemthrowerEffect(ILiquidStack liquid, boolean isGas, boolean isFlammable, ChemthrowerEffect effect) {
-        Fluid fluid = CraftTweakerMC.getLiquidStack(liquid).getFluid();
-        ChemthrowerHandler.registerEffect(fluid, effect);
-        if(isGas && !fluid.isGaseous()) {
-            ChemthrowerHandler.registerGas(fluid);
-        }
-        if(isFlammable) {
-            ChemthrowerHandler.registerFlammable(fluid);
-        }
+        CraftTweakerAPI.logInfo("Adding a chemical thrower effect for "+liquid.toCommandString());
+        String fluidName = liquid.getName();
+        boolean isGaseous = liquid.isGaseous();
+        DeferredLoader.load(EnumLoadStage.POST_INIT, () -> {
+            ChemthrowerHandler.effectMap.put(fluidName, effect);
+            if(isGaseous){
+                if(isGas) {
+                    ChemthrowerHandler.gasList.add(fluidName);
+                } else {
+                    ChemthrowerHandler.gasList.remove(fluidName);
+                }
+            }
+            if(isFlammable) {
+                ChemthrowerHandler.flammableList.add(fluidName);
+            } else {
+                ChemthrowerHandler.flammableList.remove(fluidName);
+            }
+        });
     }
 
     @ZenMethod
@@ -97,6 +111,7 @@ public class ImmersiveEngineering {
 
     @ZenMethod
     public static void addRailgunBullet(IIngredient item, float damage, float gravity, IRailgunImpact effect, int[][] colorMap) {
+        CraftTweakerAPI.logInfo("Adding a railgun bullet for " + item.toCommandString());
         RailgunHandler.RailgunProjectileProperties properties;
         if(effect != null) {
             properties = new CustomRailgunProperties(damage, gravity, effect);
@@ -189,22 +204,25 @@ public class ImmersiveEngineering {
      */
 
     @ModOnly("immersiveengineering")
-    @ZenClass("mods.alfinivia.IRailgunImpact")
+    @ZenClass("mods.roidtweaker.immersiveengineering.IRailgunImpact")
     @ZenRegister
+    @FunctionalInterface
     public interface IRailgunImpact {
         boolean apply(IEntity target, IEntity shooter);
     }
 
     @ModOnly("immersiveengineering")
-    @ZenClass("mods.alfinivia.IChemEntityEffect")
+    @ZenClass("mods.roidtweaker.immersiveengineering.IChemEntityEffect")
     @ZenRegister
+    @FunctionalInterface
     public interface IChemEntityEffect {
         void apply(IEntityLivingBase target, IPlayer shooter, IItemStack thrower, ILiquidStack fluid);
     }
 
     @ModOnly("immersiveengineering")
-    @ZenClass("mods.alfinivia.IChemBlockEffect")
+    @ZenClass("mods.roidtweaker.immersiveengineering.IChemBlockEffect")
     @ZenRegister
+    @FunctionalInterface
     public interface IChemBlockEffect {
         void apply(IWorld world, IBlockPos pos, IFacing facing, IPlayer entityPlayer, IItemStack itemStack, ILiquidStack fluid);
     }

@@ -9,6 +9,7 @@ With this mod, I aim to include and improve upon dead and/or broken CT addons. S
 - Thermal Expansion Specialization Hooks, by JoshieGemFinder (Rewritten with same API)
 
 I also included the functionalities of the following mods, with varying levels of modification :
+- Alfinivia, by BordListian (partially included), where I rewrote the Misty World support and merged Immersive Engineering chemical thrower and railgun support and the bullet builder
 - CraftTweakerUtils, by BrisingrAerowing (included), where I removed duplicate content (with CT and CTI) and made some ZenClasses ZenExpansions
 - Immersive Engineering Tweaks, by ZhilBear (simplified logic, ZenExpansion instead of new class)
 - Immersive Tweaker, by brisingraerowing (copied and improved functionality, ZenExpansion instead of a new class)

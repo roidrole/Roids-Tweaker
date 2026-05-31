@@ -3,7 +3,6 @@ package alfinivia.integration.crafttweaker.crossmod;
 import blusunrize.immersiveengineering.api.tool.BulletHandler;
 import blusunrize.immersiveengineering.common.entities.EntityRevolvershot;
 import crafttweaker.CraftTweakerAPI;
-import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.entity.IEntity;
@@ -15,13 +14,13 @@ import crafttweaker.api.world.IBlockPos;
 import crafttweaker.api.world.IFacing;
 import crafttweaker.api.world.IWorld;
 import crafttweaker.mc1120.world.MCFacing;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -29,19 +28,21 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 import javax.annotation.Nullable;
+import java.util.Map;
+import java.util.function.ToIntFunction;
 
 @ModOnly("immersiveengineering")
-@ZenClass("mods.alfinivia.BulletBuilder")
+@ZenClass("mods.roidtweaker.immersiveengineering.BulletBuilder")
 @ZenRegister
+@SuppressWarnings("unused")
 public class BulletBuilder {
 
 	@ZenMethod
-	public static BulletBuilder get(String className)
-	{
-		return new BulletBuilder(className);
+	public static BulletBuilder get(String name) {
+		return new BulletBuilder(name);
 	}
 
-	private final String className;
+	private final String name;
 	private ResourceLocation[] textures;
 	private ItemStack casing = ItemStack.EMPTY;
 	private IBulletEntityImpact entityImpact;
@@ -53,10 +54,10 @@ public class BulletBuilder {
 	private float gravity = 0;
 	private float movementDecay = 0;
 	private int tickLimit = 40;
-	private IItemColor color = ((stack, tintIndex) -> 0xFFFFFFFF);
+	private final Map<Integer, ToIntFunction<ItemStack>> colorMap = new Object2ObjectArrayMap<>();
 
-	public BulletBuilder(String className) {
-		this.className = className;
+	public BulletBuilder(String name) {
+		this.name = name;
 	}
 
 	@ZenMethod
@@ -72,20 +73,6 @@ public class BulletBuilder {
 		this.casing = CraftTweakerMC.getItemStack(casing);
 	}
 
-	@ZenMethod
-	public void impactEntity(IBulletEntityImpact impact) {
-		this.entityImpact = impact;
-	}
-
-	@ZenMethod
-	public void impactBlock(IBulletBlockImpact impact) {
-		this.blockImpact = impact;
-	}
-
-	@ZenMethod
-	public void onFired(IBulletFired fired) {
-		this.fired = fired;
-	}
 
 	@ZenMethod
 	public void setTickLimit(int tickLimit) {
@@ -119,24 +106,12 @@ public class BulletBuilder {
 
 	@ZenMethod
 	public void setColor(int layer, int color) {
-		this.color = (stack, tintIndex) -> {
-			if(layer == tintIndex){
-				return color;
-			} else {
-				return this.color.colorMultiplier(stack,tintIndex);
-			}
-		};
+		this.colorMap.put(layer, (stack) -> color);
 	}
 
 	@ZenMethod
 	public void setColorNBT(int layer, String tag) {
-		this.color = (stack, tintIndex) -> {
-			if(layer == tintIndex){
-				return getColorFromNBT(stack,tag);
-			} else {
-				return this.color.colorMultiplier(stack,tintIndex);
-			}
-		};
+		this.colorMap.put(layer, (stack -> getColorFromNBT(stack,tag)));
 	}
 
 	private int getColorFromNBT(ItemStack stack, String tag) {
@@ -150,12 +125,25 @@ public class BulletBuilder {
 	}
 
 	@ZenMethod
-	public void build() {
-		CraftTweakerAPI.apply(new Build(this));
+	public void impactBlock(IBulletBlockImpact impact) {
+		this.blockImpact = impact;
 	}
 
-	public void buildInternal() {
-		if(textures == null || className == null) {
+	@ZenMethod
+	public void impactEntity(IBulletEntityImpact impact) {
+		this.entityImpact = impact;
+	}
+
+	@ZenMethod
+	public void onFired(IBulletFired fired) {
+		this.fired = fired;
+	}
+
+	@ZenMethod
+	public void build() {
+		CraftTweakerAPI.logInfo("adding IE bullet "+this.name);
+		if(textures == null || name == null) {
+			CraftTweakerAPI.logError("Trying to build bullet "+this.name+" with a null texture.");
 			return;
 		}
 
@@ -163,7 +151,22 @@ public class BulletBuilder {
 		bullet.entityImpact = entityImpact;
 		bullet.blockImpact = blockImpact;
 		bullet.fired = fired;
-		bullet.color = color;
+		if(colorMap.isEmpty()){
+			bullet.color = (stack, tintIndex) -> 0xFFFFFF;
+		} else if(colorMap.size() == 1) {
+			Map.Entry<Integer, ToIntFunction<ItemStack>> entry = colorMap.entrySet().iterator().next();
+			int layer = entry.getKey();
+			ToIntFunction<ItemStack> color = entry.getValue();
+			bullet.color = (stack, tintIndex) -> {
+				if(layer == tintIndex){
+					return color.applyAsInt(stack);
+				} else {
+					return 0xFFFFFF;
+				}
+			};
+		} else {
+			bullet.color = (stack, tintIndex) -> colorMap.get(tintIndex).applyAsInt(stack);
+		}
 		bullet.isProperCartridge = isProperCartridge;
 		bullet.isValidForTurret = isValidForTurret;
 		bullet.projectileCount = bulletAmount;
@@ -171,25 +174,7 @@ public class BulletBuilder {
 		bullet.movementDecay = movementDecay;
 		bullet.tickLimit = tickLimit;
 
-		BulletHandler.registerBullet(className,bullet);
-	}
-
-	public static class Build implements IAction {
-		BulletBuilder builder;
-
-		public Build(BulletBuilder builder) {
-			this.builder = builder;
-		}
-
-		@Override
-		public void apply() {
-			builder.buildInternal();
-		}
-
-		@Override
-		public String describe() {
-			return "adding IE bullet "+builder.className;
-		}
+		BulletHandler.registerBullet(name,bullet);
 	}
 
 	public static class CustomBullet implements BulletHandler.IBullet {
@@ -292,41 +277,17 @@ public class BulletBuilder {
 	 * Functional interfaces
 	 */
 
-	@ModOnly("immersiveengineering")
-	@ZenClass("mods.alfinivia.IBulletFired")
-	@ZenRegister
+	@FunctionalInterface
 	public interface IBulletFired {
 		void apply(IPlayer shooter, IItemStack cartridge, IEntity projectile, boolean charged);
 	}
 
-	@ModOnly("immersiveengineering")
-	@ZenClass("mods.alfinivia.IBulletEntityImpact")
-	@ZenRegister
+	@FunctionalInterface
 	public interface IBulletEntityImpact {
 		void apply(IWorld world, IEntity target, IEntityLivingBase shooter, IEntity bullet, boolean headshot);
-
-		@ZenMethod
-		static IBulletEntityImpact damage(String damageType, float damage, int fire, boolean pierce, boolean resetHurt, float headshotMultiplier) {
-			DamageSource source = new DamageSource(damageType);
-			if(pierce)
-				source = source.setDamageBypassesArmor();
-			final DamageSource finalSource = source;
-			return (world, target, shooter, bullet, headshot) -> {
-				Entity entity = CraftTweakerMC.getEntity(target);
-				if(!world.isRemote() && target != null && entity.attackEntityFrom(finalSource,(headshot?headshotMultiplier:0) * damage))
-				{
-					if(resetHurt)
-						entity.hurtResistantTime = 0;
-					if(fire > 0)
-						entity.setFire(fire);
-				}
-			};
-		}
 	}
 
-	@ModOnly("immersiveengineering")
-	@ZenClass("mods.alfinivia.IBulletBlockImpact")
-	@ZenRegister
+	@FunctionalInterface
 	public interface IBulletBlockImpact {
 		void apply(IWorld world, IBlockPos pos, IFacing sidehit, IEntityLivingBase shooter, IEntity bullet, boolean headshot);
 	}

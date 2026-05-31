@@ -98,10 +98,10 @@ dependencies {
     compileOnly('curse.maven:random-things-59816:2905241')
 
     //It's hard, to play Thermal Expansion...
-    compileOnly('curse.maven:thermal-expansion-69163:2926431')
-    compileOnly('curse.maven:codechicken-lib-1-8-242818:2779848')
-    compileOnly('curse.maven:cofh-core-69162:2920433')
-    compileOnly('curse.maven:redstone-flux-270789:2920436')
-    compileOnly('curse.maven:thermal-foundation-222880:2926428')
-    compileOnly('curse.maven:cofh-world-271384:2920434')
+    implementation('curse.maven:thermal-expansion-69163:2926431')
+    implementation('curse.maven:codechicken-lib-1-8-242818:2779848')
+    implementation('curse.maven:cofh-core-69162:2920433')
+    implementation('curse.maven:redstone-flux-270789:2920436')
+    implementation('curse.maven:thermal-foundation-222880:2926428')
+    implementation('curse.maven:cofh-world-271384:2920434')
 }
