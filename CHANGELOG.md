@@ -1,10 +1,13 @@
-## Unreleased
+## 1.3.0
 **Added :**
+- Alfinivia's non-overlapping CT support for Immersive Engineering and Misty World
 - UniDict support
+- Nutrition Unofficial Extended Life support
 - IItemStack[] as IIngredient ZenCaster (or)
 - IGameRules.getDouble()
 - DataUtil SNBT support
 - IEntity.hasDefinition(IEntityDefinition definition)
+- Excavator.removeAllMinerals()
 
 **Fixed :**
 - VanillaFactory.createBaubleItem
