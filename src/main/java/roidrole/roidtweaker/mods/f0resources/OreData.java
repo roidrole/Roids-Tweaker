@@ -57,7 +57,7 @@ public class OreData {
         return this.internal.getTierReq();
     }
     @ZenMethod
-    @ZenGetter("requiredTier")
+    @ZenSetter("requiredTier")
     public void setRequiredTier(int tier){
         this.internal.setTierReq(tier);
     }

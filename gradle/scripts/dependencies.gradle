@@ -101,7 +101,7 @@ dependencies {
     compileOnly('curse.maven:misty-world-unveiled-1104150:6987174')
     implementation('curse.maven:nutrition-unofficial-extended-life-964516:6095757')
 
-    compileOnly('curse.maven:factory0-resources-299713:2614729')
+    implementation('curse.maven:factory0-resources-299713:2614729')
     compileOnly('curse.maven:random-things-59816:2905241')
 
     //It's hard, to play Thermal Expansion...

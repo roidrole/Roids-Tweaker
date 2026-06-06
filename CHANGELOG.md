@@ -1,3 +1,6 @@
+## 1.3.1
+Fixed OreData.setRequiredTier being a ZenGetter
+
 ## 1.3.0
 **Added :**
 - Alfinivia's non-overlapping CT support for Immersive Engineering and Misty World
