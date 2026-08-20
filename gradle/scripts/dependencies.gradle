@@ -100,6 +100,8 @@ dependencies {
     compileOnly('curse.maven:unidict-244258:3553627')
     compileOnly('curse.maven:misty-world-unveiled-1104150:6987174')
     implementation('curse.maven:nutrition-unofficial-extended-life-964516:6095757')
+    implementation('curse.maven:chisel-235279:2915375')
+    implementation('curse.maven:ctm-267602:2915363')
 
     implementation('curse.maven:factory0-resources-299713:2614729')
     compileOnly('curse.maven:random-things-59816:2905241')

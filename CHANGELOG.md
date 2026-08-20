@@ -1,3 +1,9 @@
+## Unreleased
+**Added :**
+- IFacing.getFacings and IFacing.getHorizontals
+- IIngredient.getEmpty()
+- IIngredient.or(IIngredient[])
+
 ## 1.3.1
 Fixed OreData.setRequiredTier being a ZenGetter
 
