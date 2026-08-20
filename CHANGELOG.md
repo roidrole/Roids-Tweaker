@@ -4,6 +4,10 @@
 - IIngredient.getEmpty()
 - IIngredient.or(IIngredient[])
 
+**Removed :**
+- IItemStack[] as IIngredient ZenCaster 
+  - Was finicky, sometimes unusable. Use IIngredient.getEmpty() and ingredient.or(Ingredient[])
+
 ## 1.3.1
 Fixed OreData.setRequiredTier being a ZenGetter
 
@@ -37,7 +41,8 @@ Fixed crash on startup without Thermal expansion (and some other unknown conditi
 - IWorld.getEntitiesWithinAABB `IEntityDefinition entity` parameter is non-optional because already in CraftTweaker
 
 **Removed :**
-- Villager.customProfessionSetter : never really worked, caused crashes only in prod
+- Villager.customProfessionSetter 
+  - never really worked, caused crashes only in prod
 
 **Fixed :**
 - Can now parse invalid JSON text (JsonReader is lenient) - #5
