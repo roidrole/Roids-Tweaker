@@ -2,8 +2,11 @@ package roidrole.roidtweaker.mods.crafttweaker;
 
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.item.IngredientOr;
+import crafttweaker.api.item.IngredientUnknown;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenMethod;
+import stanhebben.zenscript.annotations.ZenMethodStatic;
 
 import java.util.Arrays;
 
@@ -17,5 +20,15 @@ public class IIngredientExpansion {
         IIngredient[] output = new IIngredient[input.getAmount()];
         Arrays.fill(output, inputRevised);
         return output;
+    }
+
+    @ZenMethod
+    public static IIngredient or(IIngredient instance, IIngredient[] ingredients){
+        return new IngredientOr(instance, new IngredientOr(ingredients));
+    }
+
+    @ZenMethodStatic
+    public static IIngredient getEmpty(){
+        return IngredientUnknown.INSTANCE;
     }
 }
