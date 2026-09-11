@@ -23,7 +23,7 @@ public class IIngredientExpansion {
     }
 
     @ZenMethod
-    public static IIngredient or(IIngredient instance, IIngredient[] ingredients){
+    public static IIngredient orArray(IIngredient instance, IIngredient[] ingredients){
         return new IngredientOr(instance, new IngredientOr(ingredients));
     }
 
