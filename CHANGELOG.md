@@ -3,6 +3,7 @@
 - IFacing.getFacings and IFacing.getHorizontals
 - IIngredient.getEmpty()
 - IIngredient.or(IIngredient[])
+- Chisel Carving (ModTweaker extension) addVariationAndGroup that adds the group if nonexistent instead of erroring.
 
 **Removed :**
 - IItemStack[] as IIngredient ZenCaster 
