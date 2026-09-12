@@ -2,12 +2,15 @@
 **Added :**
 - IFacing.getFacings and IFacing.getHorizontals
 - IIngredient.getEmpty()
-- IIngredient.or(IIngredient[])
+- IIngredient.orArray(IIngredient[])
 - Chisel Carving (ModTweaker extension) addVariationAndGroup that adds the group if nonexistent instead of erroring.
 
 **Removed :**
 - IItemStack[] as IIngredient ZenCaster 
-  - Was finicky, sometimes unusable. Use IIngredient.getEmpty() and ingredient.or(Ingredient[])
+  - Was finicky, sometimes unusable. Use IIngredient.getEmpty() and ingredient.orArray(Ingredient[])
+
+**Fixed :**
+- Alfinivia Compatibility
 
 ## 1.3.1
 Fixed OreData.setRequiredTier being a ZenGetter

@@ -35,11 +35,11 @@ import java.util.function.ToIntFunction;
 @ZenClass("mods.roidtweaker.immersiveengineering.BulletBuilder")
 @ZenRegister
 @SuppressWarnings("unused")
-public class BulletBuilder {
+public class BulletBuilderRT {
 
 	@ZenMethod
-	public static BulletBuilder get(String name) {
-		return new BulletBuilder(name);
+	public static BulletBuilderRT get(String name) {
+		return new BulletBuilderRT(name);
 	}
 
 	private final String name;
@@ -56,7 +56,7 @@ public class BulletBuilder {
 	private int tickLimit = 40;
 	private final Map<Integer, ToIntFunction<ItemStack>> colorMap = new Object2ObjectArrayMap<>();
 
-	public BulletBuilder(String name) {
+	public BulletBuilderRT(String name) {
 		this.name = name;
 	}
 
