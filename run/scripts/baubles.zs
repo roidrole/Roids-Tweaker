@@ -7,8 +7,8 @@ import crafttweaker.recipes.IRecipeFunction;
 import mods.ctintegration.baubles.IBauble;
 import mods.ctintegration.baubles.IBaubleInventory;
 //Bubbles-exclusive
-import mods.ctintegration.bubbles.IBubbleInventory;
-import mods.ctintegration.baubles.InjectableBauble;
+//import mods.ctintegration.bubbles.IBubbleInventory;
+//import mods.ctintegration.baubles.InjectableBauble;
 //Expansions
 import crafttweaker.entity.IEntityLivingBase;
 import crafttweaker.player.IPlayer;
@@ -48,7 +48,7 @@ recipes.addShapeless(<minecraft:carrot>, (<minecraft:golden_sword> * 3).spread()
 //Starting here, things won't work if using baubles! Use Bubbles to unlock this functionality
 //You cannot call these methods even if wrapped in an if(false){} or the game will error
 
-
+/*
 recipes.addShapeless(<minecraft:carrot>, (<minecraft:iron_sword> * 3).spread(),
     function(out as IItemStack, ins, cInfo) as IItemStack{return out;} as IRecipeFunction,
     function(out, cInfo, player){

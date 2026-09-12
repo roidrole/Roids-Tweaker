@@ -1,0 +1,64 @@
+package moretweaker.railcraft;
+
+import com.blamejared.mtlib.helpers.InputHelper;
+import crafttweaker.IAction;
+import crafttweaker.annotations.ModOnly;
+import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.item.IItemStack;
+import mods.railcraft.api.crafting.Crafters;
+import mods.railcraft.api.crafting.IBlastFurnaceCrafter;
+import moretweaker.CraftingPart;
+import moretweaker.Inputs;
+import moretweaker.MoreTweaker;
+import net.minecraft.item.ItemStack;
+import stanhebben.zenscript.annotations.Optional;
+import stanhebben.zenscript.annotations.ZenClass;
+import stanhebben.zenscript.annotations.ZenMethod;
+
+@ZenClass("moretweaker.railcraft.BlastFurnace")
+@ZenRegister
+@ModOnly("railcraft")
+public class BlastFurnace {
+   @ZenMethod
+   public static void add(IItemStack output, IIngredient input, @Optional(valueLong = 1280L) final int ticks, @Optional(valueLong = 0L) final int slag) {
+      final ItemStack out = InputHelper.toStack(output);
+      final CraftingPart in = Inputs.getPart(input);
+      MoreTweaker.queuePostInitAction(new IAction() {
+         public void apply() {
+            ((IBlastFurnaceCrafter.IBlastFurnaceRecipeBuilder)((IBlastFurnaceCrafter.IBlastFurnaceRecipeBuilder)((IBlastFurnaceCrafter.IBlastFurnaceRecipeBuilder)Crafters.blastFurnace().newRecipe(RailUtil.toInput(in)).output(out)).time(ticks)).slagOutput(slag).name(MoreTweaker.newRL())).register();
+         }
+
+         public String describe() {
+            return "Adds a BlastFurnace-Recipe";
+         }
+      });
+   }
+
+   @ZenMethod
+   public static void remove(IIngredient output) {
+      final Object out = Inputs.getObject(output);
+      MoreTweaker.queuePostInitAction(new IAction() {
+         public void apply() {
+            Crafters.blastFurnace().getRecipes().removeIf((iRecipe) -> Inputs.matchesForRemoval(out, iRecipe.getOutput()));
+         }
+
+         public String describe() {
+            return "Removes BlastFurnace-Recipes";
+         }
+      });
+   }
+
+   @ZenMethod
+   public static void removeAll() {
+      MoreTweaker.queuePostInitAction(new IAction() {
+         public void apply() {
+            Crafters.blastFurnace().getRecipes().clear();
+         }
+
+         public String describe() {
+            return "Removes all BlastFurnace recipes";
+         }
+      });
+   }
+}

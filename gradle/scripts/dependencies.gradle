@@ -78,11 +78,29 @@ dependencies {
     implementation('curse.maven:modtweaker-220954:3840577')
     implementation('curse.maven:mtlib-253211:3308160')
 
+    //To make playing with all these mods bearable
+    runtimeOnly('curse.maven:reid-629017:8029704')
+    runtimeOnly('curse.maven:vintagefix-871198:7958801')
+
+    //Debugging
+    runtimeOnly('curse.maven:ftb-library-legacy-forge-237167:2985811')
+    runtimeOnly('curse.maven:ftb-utilities-forge-237102:3157548')
+
+    //Common library for supported mods
+    implementation('curse.maven:shadowfacts-forgelin-248453:2785465')
+    implementation('curse.maven:patchouli-306770:3162874')
+    implementation('curse.maven:guide-api-228832:2645992')
+    implementation('curse.maven:redstone-flux-270789:2920436')
+    implementation('curse.maven:codechicken-lib-1-8-242818:2779848')
+    implementation(files("libs/llibrary-core-1.0.11-1.12.2.jar"))
+    implementation('curse.maven:llibrary-243298:3116493')
+
+
     //Supported mods
-    //runtimeOnly('curse.maven:baubles-227083:2518667')
+    runtimeOnly('curse.maven:baubles-227083:2518667')
     //runtimeOnly('curse.maven:bubbles-a-baubles-fork-995393:6807550')
     compileOnly('curse.maven:bubbles-a-baubles-fork-995393:6807550')
-    compileOnly('curse.maven:blood-magic-224791:2822288')
+    implementation('curse.maven:blood-magic-224791:2822288')
     compileOnly('curse.maven:silent-lib-242998:2851111')
     implementation('curse.maven:contenttweaker-237065:3331364')
     implementation('curse.maven:base-246996:3440963')
@@ -99,23 +117,52 @@ dependencies {
     compileOnly('curse.maven:wanionlib-253043:4623135')
     compileOnly('curse.maven:unidict-244258:3553627')
     compileOnly('curse.maven:misty-world-unveiled-1104150:6987174')
-    implementation('curse.maven:nutrition-unofficial-extended-life-964516:6095757')
-    implementation('curse.maven:chisel-235279:2915375')
-    implementation('curse.maven:ctm-267602:2915363')
+    compileOnly('curse.maven:nutrition-unofficial-extended-life-964516:6095757')
+    compileOnly('curse.maven:chisel-235279:2915375')
+    compileOnly('curse.maven:ctm-267602:2915363')
 
     implementation('curse.maven:factory0-resources-299713:2614729')
     compileOnly('curse.maven:random-things-59816:2905241')
 
     //It's hard, to play Thermal Expansion...
     compileOnly('curse.maven:thermal-expansion-69163:2926431')
-    compileOnly('curse.maven:codechicken-lib-1-8-242818:2779848')
     compileOnly('curse.maven:cofh-core-69162:2920433')
-    compileOnly('curse.maven:redstone-flux-270789:2920436')
     compileOnly('curse.maven:thermal-foundation-222880:2926428')
     compileOnly('curse.maven:cofh-world-271384:2920434')
 
-    runtimeOnly('curse.maven:ftb-library-legacy-forge-237167:2985811')
-    runtimeOnly('curse.maven:ftb-utilities-forge-237102:3157548')
-    runtimeOnly('curse.maven:mantle-74924:2713386')
-    runtimeOnly('curse.maven:tinkers-antique-1242239:7339332')
+    //runtimeOnly('curse.maven:mantle-74924:2713386')
+    //runtimeOnly('curse.maven:tinkers-antique-1242239:7339332')
+
+    //MoreTweaker
+    implementation('curse.maven:advent-of-ascension-nevermine-311054:3054253')
+    implementation('curse.maven:bedrockcraft-363794:2929848')
+    implementation(files("libs/TheBetweenlands-3.9.6-core.jar"))
+    implementation('curse.maven:angry-pixel-the-betweenlands-mod-243363:4479688')
+    implementation('curse.maven:bewitchment-legacy-285439:6379256')
+    implementation('curse.maven:blood-arsenal-228823:2904183')
+    //Note: Built-in CT support
+    implementation('curse.maven:buildcraft-61811:6376391')
+    implementation('curse.maven:cooking-for-blockheads-231484:2862651')
+    implementation('curse.maven:brandons-core-231382:3408276')
+    implementation('curse.maven:draconic-evolution-223565:3431261')
+    implementation('curse.maven:ctd-core-258186:2716113')
+    implementation('curse.maven:enderfuge-264938:3022111')
+    implementation('curse.maven:the-erebus-220698:3211974')
+    //Note: Built-in CT support
+    implementation('curse.maven:fossils-223908:3953392')
+    implementation('curse.maven:gadgetry-core-282775:2633658')
+    implementation('curse.maven:gadgetry-machines-282776:2634495')
+    //Note: Galacticraft Tweaker exists
+    implementation('curse.maven:galacticraft-legacy-564236:6364107')
+    implementation('curse.maven:hearth-well-313368:2800056')
+    implementation('curse.maven:infinitycraft-238239:2509257')
+    implementation('curse.maven:lightningcraft-237422:2872478')
+    implementation('curse.maven:matter-overdrive-refitted-1522080:8161752')
+    implementation('curse.maven:mob-grinding-utils-254241:6804869')
+    implementation('curse.maven:quacklib-276915:2619757')
+    //Note: RailcraftTweaker exists
+    implementation('curse.maven:railcraft-51195:3853491')
+    implementation('curse.maven:railway-depot-worker-1031521:7815628')
+    implementation('curse.maven:tammodized-251733:2641061')
+    implementation('curse.maven:voidscape-251730:2536024')
 }
