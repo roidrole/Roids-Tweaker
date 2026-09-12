@@ -3,6 +3,7 @@ package moretweaker;
 import com.google.common.collect.BiMap;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
+import crafttweaker.mc1120.actions.ActionSetTranslation;
 import epicsquid.gadgetry.core.recipe.AlloyRecipe;
 import epicsquid.gadgetry.machines.recipe.DistillingRecipe;
 import epicsquid.gadgetry.machines.recipe.GrindingRecipe;
@@ -16,7 +17,6 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -26,6 +26,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
 import org.apache.logging.log4j.Logger;
+import roidrole.roidtweaker.Tags;
 import therealfarfetchd.quacklib.common.api.autoconf.DefaultFeatures;
 import therealfarfetchd.quacklib.common.api.autoconf.FeatureManager;
 
@@ -45,21 +46,15 @@ public class MoreTweaker {
    @Instance
    public static MoreTweaker instance;
    public static Logger logger;
-   @SidedProxy(
-      serverSide = "moretweaker.CommonProxy",
-      clientSide = "moretweaker.ClientProxy"
-   )
-   public static CommonProxy proxy;
+
    private static final Queue<IAction> postQueue = new LinkedList<>();
-   private static final Map<String, String> runtimeInjectTranslations = new HashMap<>();
 
    @EventHandler
    public void preInit(FMLPreInitializationEvent event) {
       logger = event.getModLog();
-      logger.info("Loading MoreTweaker v1.0.19");
       if (Loader.isModLoaded("quacklib")) {
          CraftTweakerAPI.logInfo("Enabling QuackLib alloy smelter");
-         FeatureManager.INSTANCE.depend(DefaultFeatures.INSTANCE.getAlloyFurnace());
+         FeatureManager.INSTANCE.depend(DefaultFeatures.INSTANCE.getAlloyFurnace(), Tags.MOD_ID);
       }
 
    }
@@ -69,8 +64,6 @@ public class MoreTweaker {
       if (Loader.isModLoaded("mob_grinding_utils")) {
          MinecraftForge.EVENT_BUS.register(SpawnEggHandler.INSTANCE);
       }
-
-      proxy.registerTranslationsInjectHandler();
    }
 
    @EventHandler
@@ -248,10 +241,6 @@ public class MoreTweaker {
    }
 
    public static void injectTranslation(String key, String value) {
-      runtimeInjectTranslations.put(key, value);
-   }
-
-   public static Map<String, String> getRuntimeTranslations() {
-      return Collections.unmodifiableMap(runtimeInjectTranslations);
+      CraftTweakerAPI.apply(new ActionSetTranslation(null, key, value));
    }
 }
