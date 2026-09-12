@@ -195,16 +195,6 @@ public class Inputs {
       return false;
    }
 
-   public static <T> boolean matchesForRemovalFlat(Object obj, Iterable<T> stacks, Function<T, Iterable<ItemStack>> action) {
-      for(T stack : stacks) {
-         if (matchesForRemoval(obj, action.apply(stack))) {
-            return true;
-         }
-      }
-
-      return false;
-   }
-
    public static Ingredient getIngredient(Object ingredient) {
       if (ingredient == null) {
          return Ingredient.EMPTY;

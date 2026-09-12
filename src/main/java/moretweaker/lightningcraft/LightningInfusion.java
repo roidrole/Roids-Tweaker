@@ -16,6 +16,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.lightningcraft.LightningInfusion")
 @ZenRegister
 @ModOnly("lightningcraft")
+@SuppressWarnings("unused")
 public class LightningInfusion {
    @ZenMethod
    public static void add(IItemStack output, IIngredient catalyst, final int cost, IIngredient[] inputs) {

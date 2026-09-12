@@ -15,6 +15,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.lightningcraft.LightningTransforming")
 @ZenRegister
 @ModOnly("lightningcraft")
+@SuppressWarnings("unused")
 public class LightningTransforming {
    @ZenMethod
    public static void add(IItemStack output, IItemStack[] inputs) {

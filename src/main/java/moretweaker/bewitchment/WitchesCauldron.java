@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 @ZenClass("moretweaker.bewitchment.WitchesCauldron")
 @ZenRegister
 @ModOnly("bewitchment")
+@SuppressWarnings("unused")
 public class WitchesCauldron {
    @ZenMethod
    public static void addRecipe(IItemStack[] outputs, IIngredient[] inputs) {

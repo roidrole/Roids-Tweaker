@@ -25,6 +25,7 @@ import java.util.List;
 @ZenClass("moretweaker.betweenlands.Purifier")
 @ZenRegister
 @ModOnly("thebetweenlands")
+@SuppressWarnings("unused")
 public class Purifier {
    @ZenMethod
    public static void addRecipe(IIngredient input, IItemStack output) {

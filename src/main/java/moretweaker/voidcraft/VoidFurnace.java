@@ -18,6 +18,7 @@ import tamaized.voidcraft.registry.VoidCraftTERecipes;
 @ZenClass("moretweaker.voidcraft.VoidFurnace")
 @ZenRegister
 @ModOnly("voidcraft")
+@SuppressWarnings("unused")
 public class VoidFurnace {
    @ZenMethod
    public static void add(IItemStack output, IIngredient input1, IIngredient input2, @Optional(valueLong = 500L) final int voidicPower) {

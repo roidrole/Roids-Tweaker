@@ -22,6 +22,7 @@ import java.util.List;
 @ZenClass("moretweaker.draconicevolution.FusionCrafting")
 @ZenRegister
 @ModOnly("draconicevolution")
+@SuppressWarnings("unused")
 public class FusionCrafting {
    @ZenProperty
    public static final int BASIC = 0;

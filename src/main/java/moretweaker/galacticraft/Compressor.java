@@ -18,6 +18,7 @@ import java.util.Arrays;
 @ZenClass("moretweaker.galacticraft.Compressor")
 @ZenRegister
 @ModOnly("galacticraftcore")
+@SuppressWarnings("unused")
 public class Compressor {
    @ZenMethod
    public static void addShaped(IItemStack output, IItemStack[][] inputs) {

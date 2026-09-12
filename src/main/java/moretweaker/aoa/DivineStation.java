@@ -17,6 +17,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.aoa.DivineStation")
 @ZenRegister
 @ModOnly("aoa3")
+@SuppressWarnings("unused")
 public class DivineStation {
    @ZenMethod
    public static void addRecipe(IItemStack input, IItemStack upgradeKit, IItemStack output) {

@@ -17,6 +17,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.fossil.CultureVat")
 @ZenRegister
 @ModOnly("fossil")
+@SuppressWarnings("unused")
 public class CultureVat {
    @ZenMethod
    public static void addRecipe(IIngredient input, IItemStack output) {

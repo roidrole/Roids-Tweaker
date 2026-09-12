@@ -22,6 +22,7 @@ import java.util.Map;
 @ZenClass("moretweaker.hwell.MoreCoring")
 @ZenRegister
 @ModOnly("hwell")
+@SuppressWarnings("unused")
 public class MoreCoring {
    @ZenMethod
    public static void removeCoring(@Nullable String coreId, @Nullable String shardId) {

@@ -14,6 +14,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.gadgetry.CombustionGenerator")
 @ZenRegister
 @ModOnly("gadgetrymachines")
+@SuppressWarnings("unused")
 public class CombustionGenerator {
    @ZenMethod
    public static void add(ILiquidStack liquid, int energy) {

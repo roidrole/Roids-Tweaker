@@ -19,6 +19,7 @@ import java.util.List;
 @ZenClass("moretweaker.galacticraft.CircuitFabricator")
 @ZenRegister
 @ModOnly("galacticraftcore")
+@SuppressWarnings("unused")
 public class CircuitFabricator {
    @ZenMethod
    public static void add(IItemStack output, IIngredient[] inputs) {

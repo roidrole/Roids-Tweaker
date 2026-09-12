@@ -20,6 +20,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.railcraft.RollingMachine")
 @ZenRegister
 @ModOnly("railcraft")
+@SuppressWarnings("unused")
 public class RollingMachine {
    @ZenMethod
    public static void addShaped(IItemStack output, IIngredient[][] inputs, @Optional(valueLong = 100L) final int ticks) {

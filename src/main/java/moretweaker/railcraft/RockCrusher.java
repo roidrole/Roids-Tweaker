@@ -21,6 +21,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.railcraft.RockCrusher")
 @ZenRegister
 @ModOnly("railcraft")
+@SuppressWarnings("unused")
 public class RockCrusher {
    @ZenMethod
    public static void add(IIngredient input, IItemStack[] outputs, final float[] chances, @Optional(valueLong = 100L) final int ticks) {

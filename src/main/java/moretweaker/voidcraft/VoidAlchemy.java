@@ -19,6 +19,7 @@ import tamaized.voidcraft.registry.VoidCraftTERecipes;
 @ZenClass("moretweaker.voidcraft.VoidAlchemy")
 @ZenRegister
 @ModOnly("voidcraft")
+@SuppressWarnings("unused")
 public class VoidAlchemy {
    @ZenMethod
    public static void add(IItemStack output, IIngredient[] inputs, @Optional(valueLong = 350L) final int voidicPower) {

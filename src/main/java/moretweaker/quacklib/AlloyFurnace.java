@@ -21,6 +21,7 @@ import java.util.List;
 @ZenClass("moretweaker.quacklib.AlloyFurnace")
 @ZenRegister
 @ModOnly("quacklib")
+@SuppressWarnings("unused")
 public class AlloyFurnace {
    @ZenMethod
    public static void addRecipe(IItemStack output, IIngredient[] inputs) {

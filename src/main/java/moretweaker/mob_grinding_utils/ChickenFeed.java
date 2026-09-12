@@ -13,6 +13,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.mob_grinding_utils.ChickenFeed")
 @ZenRegister
 @ModOnly("mob_grinding_utils")
+@SuppressWarnings("unused")
 public class ChickenFeed {
    @ZenMethod
    public static void setSpawnEgg(final String mobId, IItemStack spawnegg) {

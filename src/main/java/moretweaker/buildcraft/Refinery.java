@@ -16,6 +16,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.buildcraft.Refinery")
 @ZenRegister
 @ModOnly("buildcraftfactory")
+@SuppressWarnings("unused")
 public class Refinery {
    @ZenMethod
    public static void addDistilling(ILiquidStack input, ILiquidStack output, ILiquidStack gasOutput, int energy) {

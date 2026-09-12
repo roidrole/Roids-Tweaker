@@ -21,6 +21,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.erebus.SmoothieMaker")
 @ZenRegister
 @ModOnly("erebus")
+@SuppressWarnings("unused")
 public class SmoothieMaker {
 
 	@ZenMethod

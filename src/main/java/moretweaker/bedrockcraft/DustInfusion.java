@@ -18,13 +18,14 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.bedrockcraft.DustInfusion")
 @ZenRegister
 @ModOnly("bedrockcraft")
+@SuppressWarnings("unused")
 public class DustInfusion {
    @ZenMethod
    public static void addRecipe(IItemStack block, IItemStack output) {
       Item blockItem = CraftTweakerMC.getItemStack(block).getItem();
       final ItemStack out = CraftTweakerMC.getItemStack(output);
       final Block b = Block.getBlockFromItem(blockItem);
-      if (b != null && b != Blocks.AIR) {
+      if (b != Blocks.AIR) {
          MoreTweaker.queuePostInitAction(new IAction() {
             public void apply() {
                BedrockDustRecipes.addRecipe(b, out);
@@ -42,7 +43,7 @@ public class DustInfusion {
    @ZenMethod
    public static void removeRecipe(IItemStack block) {
       final Block b = Block.getBlockFromItem(CraftTweakerMC.getItemStack(block).getItem());
-      if (b != null && b != Blocks.AIR) {
+      if (b != Blocks.AIR) {
          MoreTweaker.queuePostInitAction(new IAction() {
             public void apply() {
                BedrockDustRecipes.removeRecipe(b);

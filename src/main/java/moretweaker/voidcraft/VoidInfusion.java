@@ -17,6 +17,7 @@ import tamaized.voidcraft.registry.VoidCraftTERecipes;
 @ZenClass("moretweaker.voidcraft.VoidInfusion")
 @ZenRegister
 @ModOnly("voidcraft")
+@SuppressWarnings("unused")
 public class VoidInfusion {
    @ZenMethod
    public static void add(IItemStack output, IIngredient input, final int voidicFluid) {

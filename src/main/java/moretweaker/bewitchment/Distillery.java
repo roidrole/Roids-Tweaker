@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @ZenClass("moretweaker.bewitchment.Distillery")
 @ZenRegister
 @ModOnly("bewitchment")
+@SuppressWarnings("unused")
 public class Distillery {
    @ZenMethod
    public static void addRecipe(IItemStack[] outputs, IIngredient[] inputs) {

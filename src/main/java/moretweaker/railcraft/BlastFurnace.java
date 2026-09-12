@@ -18,6 +18,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.railcraft.BlastFurnace")
 @ZenRegister
 @ModOnly("railcraft")
+@SuppressWarnings("unused")
 public class BlastFurnace {
    @ZenMethod
    public static void add(IItemStack output, IIngredient input, @Optional(valueLong = 1280L) final int ticks, @Optional final int slag) {

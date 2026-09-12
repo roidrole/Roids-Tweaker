@@ -16,6 +16,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.lightningcraft.LightningCrusher")
 @ZenRegister
 @ModOnly("lightningcraft")
+@SuppressWarnings("unused")
 public class LightningCrusher {
    @ZenMethod
    public static void add(IItemStack output, IIngredient input) {

@@ -18,6 +18,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.erebus.OfferingAltar")
 @ZenRegister
 @ModOnly("erebus")
+@SuppressWarnings("unused")
 public class OfferingAltar {
 
    @ZenMethod

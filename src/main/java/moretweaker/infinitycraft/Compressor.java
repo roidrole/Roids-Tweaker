@@ -18,6 +18,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.infinitycraft.Compressor")
 @ZenRegister
 @ModOnly("infinitycraft")
+@SuppressWarnings("unused")
 public class Compressor {
    @ZenMethod
    public static void addRecipe(IIngredient input, IItemStack output, @Optional final int experience) {

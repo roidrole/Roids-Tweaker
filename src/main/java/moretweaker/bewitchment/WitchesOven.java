@@ -18,6 +18,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.bewitchment.WitchesOven")
 @ZenRegister
 @ModOnly("bewitchment")
+@SuppressWarnings("unused")
 public class WitchesOven {
    @ZenMethod
    public static void addRecipe(IIngredient input, IItemStack output, IItemStack byproduct, @Optional(valueDouble = (double)1.0F) final float chance, @Optional final boolean requiresJar) {

@@ -23,6 +23,7 @@ import java.util.List;
 @ZenClass("moretweaker.matteroverdrive.Inscriber")
 @ZenRegister
 @ModOnly("matteroverdrive")
+@SuppressWarnings("unused")
 public class Inscriber {
 
 	@ZenMethod

@@ -25,6 +25,7 @@ import java.util.List;
 @ZenClass("moretweaker.betweenlands.Animator")
 @ZenRegister
 @ModOnly("thebetweenlands")
+@SuppressWarnings("unused")
 public class Animator {
    @ZenMethod
    public static void addRecipe(IItemStack input, final int fuel, final int life, IItemStack output) {

@@ -18,6 +18,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.enderfuge.EnderFuge")
 @ZenRegister
 @ModOnly("enderfuge")
+@SuppressWarnings("unused")
 public class EnderFuge {
    @ZenMethod
    public static void addRecipe(IItemStack output, IIngredient input) {

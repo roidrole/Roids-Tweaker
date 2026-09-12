@@ -22,6 +22,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.cfb.KitchenAppliances")
 @ZenRegister
 @ModOnly("cookingforblockheads")
+@SuppressWarnings("unused")
 public class KitchenAppliances {
    @ZenMethod
    public static void addToasterRecipe(IItemStack output, IIngredient input) {

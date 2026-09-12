@@ -18,6 +18,7 @@ import tamaized.voidcraft.registry.VoidCraftTERecipes;
 @ZenClass("moretweaker.voidcraft.VoidMacerator")
 @ZenRegister
 @ModOnly("voidcraft")
+@SuppressWarnings("unused")
 public class VoidMacerator {
    @ZenMethod
    public static void add(IItemStack output, IIngredient input, @Optional(valueLong = 200L) final int voidicPower) {

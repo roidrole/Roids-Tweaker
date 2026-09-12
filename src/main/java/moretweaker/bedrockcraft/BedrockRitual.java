@@ -17,6 +17,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.bedrockcraft.BedrockRitual")
 @ZenRegister
 @ModOnly("bedrockcraft")
+@SuppressWarnings("unused")
 public class BedrockRitual {
    @ZenMethod
    public static void addRecipe(IItemStack output, IIngredient center, int bedrockAmount, IIngredient[] inputs) {

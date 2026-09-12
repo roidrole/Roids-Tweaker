@@ -16,6 +16,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.railcraft.FluidFuels")
 @ZenRegister
 @ModOnly("railcraft")
+@SuppressWarnings("unused")
 public class FluidFuels {
 	@ZenMethod
 	public static void add(ILiquidStack fuel, @Optional(valueLong = 4800L) final int heatPerBucket) {

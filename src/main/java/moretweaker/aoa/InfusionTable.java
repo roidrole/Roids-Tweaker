@@ -22,6 +22,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.aoa.InfusionTable")
 @ZenRegister
 @ModOnly("aoa3")
+@SuppressWarnings("unused")
 public class InfusionTable {
 	@ZenMethod
 	public static void addRecipe(IItemStack output, IItemStack mainInput, IIngredient[] inputs, @Optional(valueLong = 1L) final int infusionLevel, @Optional final int xpMin, @Optional final int xpMax) {

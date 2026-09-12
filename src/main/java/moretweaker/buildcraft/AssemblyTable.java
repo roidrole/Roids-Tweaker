@@ -21,6 +21,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.buildcraft.AssemblyTable")
 @ZenRegister
 @ModOnly("buildcraftsilicon")
+@SuppressWarnings("unused")
 public class AssemblyTable {
    @ZenMethod
    public static void add(IItemStack output, long energyCost, IIngredient[] inputs) {

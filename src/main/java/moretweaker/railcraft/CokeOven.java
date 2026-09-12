@@ -20,6 +20,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.railcraft.CokeOven")
 @ZenRegister
 @ModOnly("railcraft")
+@SuppressWarnings("unused")
 public class CokeOven {
    @ZenMethod
    public static void add(IItemStack output, IIngredient input, ILiquidStack liquid, @Optional(valueLong = 1800L) final int ticks) {

@@ -23,6 +23,7 @@ import java.util.List;
 @ZenClass("moretweaker.betweenlands.DruidAltar")
 @ZenRegister
 @ModOnly("thebetweenlands")
+@SuppressWarnings("unused")
 public class DruidAltar {
    @ZenMethod
    public static void addRecipe(IItemStack output, IIngredient[] inputs) {

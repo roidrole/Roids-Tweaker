@@ -16,6 +16,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.gadgetry.AlloyFurnace")
 @ZenRegister
 @ModOnly("gadgetrycore")
+@SuppressWarnings("unused")
 public class AlloyFurnace {
    @ZenMethod
    public static void add(IItemStack output, IIngredient[] inputs) {

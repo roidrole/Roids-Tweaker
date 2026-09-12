@@ -16,6 +16,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.gadgetry.Grinder")
 @ZenRegister
 @ModOnly("gadgetrymachines")
+@SuppressWarnings("unused")
 public class Grinder {
    @ZenMethod
    public static void add(IItemStack output, IIngredient input) {

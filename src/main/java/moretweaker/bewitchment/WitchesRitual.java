@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 @ZenClass("moretweaker.bewitchment.WitchesRitual")
 @ZenRegister
 @ModOnly("bewitchment")
+@SuppressWarnings("unused")
 public class WitchesRitual {
    @ZenProperty
    public static final int NONE = -1;

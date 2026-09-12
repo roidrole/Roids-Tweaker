@@ -19,6 +19,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.fossil.ArcheologyWorkbench")
 @ZenRegister
 @ModOnly("fossil")
+@SuppressWarnings("unused")
 public class ArcheologyWorkbench {
    @ZenMethod
    public static void addRecipe(IIngredient input, IItemStack output) {

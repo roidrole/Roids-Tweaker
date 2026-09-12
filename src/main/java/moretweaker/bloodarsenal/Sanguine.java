@@ -19,6 +19,7 @@ import stanhebben.zenscript.annotations.ZenProperty;
 @ZenClass("moretweaker.bloodarsenal.Sanguine")
 @ZenRegister
 @ModOnly("bloodarsenal")
+@SuppressWarnings("unused")
 public class Sanguine {
    @ZenProperty
    public static final String BAD_POTION = "bad_potion";
@@ -53,6 +54,7 @@ public class Sanguine {
    }
 
    @ZenMethod
+   @SuppressWarnings("unchecked")
    public static void addRecipe(IItemStack output, final int lpCost, IItemStack catalyst, IIngredient[] inputs) {
       if (inputs.length > 8) {
          CraftTweakerAPI.logError("Sanguine Recipes: 8 Inputs maximum, provided " + inputs.length);
@@ -94,6 +96,7 @@ public class Sanguine {
    }
 
    @ZenMethod
+   @SuppressWarnings("unchecked")
    public static void addModifier(final String modifier, final int lpCost, IIngredient[] inputs) {
       if (inputs.length > 8) {
          CraftTweakerAPI.logError("Sanguine Recipes: 8 Inputs maximum, provided " + inputs.length);

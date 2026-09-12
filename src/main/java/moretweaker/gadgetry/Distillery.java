@@ -18,6 +18,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.gadgetry.Distillery")
 @ZenRegister
 @ModOnly("gadgetrymachines")
+@SuppressWarnings("unused")
 public class Distillery {
    @ZenMethod
    public static void add(IItemStack output, ILiquidStack fluidOutput, IIngredient input, ILiquidStack fluidInput) {

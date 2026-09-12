@@ -24,6 +24,7 @@ import java.util.Iterator;
 @ZenClass("moretweaker.buildcraft.IntegrationTable")
 @ZenRegister
 @ModOnly("buildcraftsilicon")
+@SuppressWarnings("unused")
 public class IntegrationTable {
    @ZenMethod
    public static void add(IItemStack output, long energyCost, IIngredient catalyst, IIngredient[] inputs) {

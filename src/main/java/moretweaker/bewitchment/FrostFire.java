@@ -17,6 +17,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("moretweaker.bewitchment.FrostFire")
 @ZenRegister
 @ModOnly("bewitchment")
+@SuppressWarnings("unused")
 public class FrostFire {
    @ZenMethod
    public static void addRecipe(IItemStack output, IIngredient input) {

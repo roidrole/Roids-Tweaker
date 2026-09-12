@@ -22,6 +22,7 @@ import java.util.List;
 @ZenClass("moretweaker.jei.MoreJei")
 @ZenRegister
 @ModOnly("jei")
+@SuppressWarnings("unused")
 public class MoreJeiZS {
 	@ZenMethod
 	public static void removeDescription(IIngredient input) {

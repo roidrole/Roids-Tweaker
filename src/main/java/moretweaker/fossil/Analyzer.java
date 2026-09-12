@@ -24,6 +24,7 @@ import java.util.Set;
 @ZenClass("moretweaker.fossil.Analyzer")
 @ZenRegister
 @ModOnly("fossil")
+@SuppressWarnings("unused")
 public class Analyzer {
    @ZenMethod
    public static void addOutput(IIngredient input, IItemStack output, final double weight) {

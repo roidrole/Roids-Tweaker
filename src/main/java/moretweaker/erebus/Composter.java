@@ -18,6 +18,7 @@ import java.util.List;
 @ZenClass("moretweaker.erebus.Composter")
 @ZenRegister
 @ModOnly("erebus")
+@SuppressWarnings("unused")
 public class Composter {
 
 	@ZenMethod

@@ -23,6 +23,7 @@ import java.util.List;
 @ZenClass("moretweaker.betweenlands.Mortar")
 @ZenRegister
 @ModOnly("thebetweenlands")
+@SuppressWarnings("unused")
 public class Mortar {
    @ZenMethod
    public static void addRecipe(IIngredient input, IItemStack output) {
