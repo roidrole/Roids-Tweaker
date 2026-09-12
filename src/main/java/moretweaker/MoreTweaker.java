@@ -1,6 +1,5 @@
 package moretweaker;
 
-import com.google.common.collect.BiMap;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.mc1120.actions.ActionSetTranslation;
@@ -21,7 +20,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.ForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
@@ -30,7 +28,6 @@ import roidrole.roidtweaker.Tags;
 import therealfarfetchd.quacklib.common.api.autoconf.DefaultFeatures;
 import therealfarfetchd.quacklib.common.api.autoconf.FeatureManager;
 
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -182,62 +179,25 @@ public class MoreTweaker {
 
    public static <T extends IForgeRegistryEntry<T>> void forgeRemove(Class<T> registerClass, Predicate<T> removePredicate) {
       IForgeRegistry<T> registry = GameRegistry.findRegistry(registerClass);
-      if (registry instanceof IForgeRegistryModifiable) {
-         Set<ResourceLocation> removes = new HashSet<>();
-
-         for(Map.Entry<ResourceLocation, T> entry : registry.getEntries()) {
-            if (removePredicate.test(entry.getValue())) {
-               removes.add(entry.getKey());
-            }
-         }
-
-         boolean hasReportedError = false;
-         BiMap<ResourceLocation, T> names = null;
-         BiMap<Integer, T> ids = null;
-
-         for(ResourceLocation entry : removes) {
-            try {
-               ((IForgeRegistryModifiable<T>)registry).remove(entry);
-            } catch (UnsupportedOperationException e) {
-               if (registry instanceof ForgeRegistry) {
-                  ForgeRegistry<T> fr = (ForgeRegistry<T>)registry;
-                  if (fr.isLocked()) {
-                     if (!hasReportedError) {
-                        hasReportedError = true;
-                        CraftTweakerAPI.logError("We're too late to remove entries. Report to MoreTweaker author.");
-                     }
-                  } else {
-                     try {
-                        if (names == null || ids == null) {
-                           Field namesField = ForgeRegistry.class.getDeclaredField("names");
-                           namesField.setAccessible(true);
-                           names = (BiMap<ResourceLocation, T>)namesField.get(fr);
-                           Field idsField = ForgeRegistry.class.getDeclaredField("ids");
-                           idsField.setAccessible(true);
-                           ids = (BiMap<Integer, T>)idsField.get(fr);
-                        }
-
-                        T value = names.remove(entry);
-                        if (value != null) {
-                           ids.inverse().remove(value);
-                        }
-                     } catch (ReflectiveOperationException var13) {
-                        if (!hasReportedError) {
-                           hasReportedError = true;
-                           CraftTweakerAPI.logError("Reflection failed. Report to MoreTweaker author: " + e.getMessage());
-                        }
-                     }
-                  }
-               } else if (!hasReportedError) {
-                  hasReportedError = true;
-                  CraftTweakerAPI.logError("Can't remove recipes from a custom non-modifiable forge registry.");
-               }
-            }
-         }
-      } else {
-         CraftTweakerAPI.logError("Can't remove recipes from a non-modifiable forge registry.");
+      if(!(registry instanceof IForgeRegistryModifiable)){
+         return;
       }
 
+      List<ResourceLocation> removes = new ArrayList<>();
+
+      for(T entry : registry.getValuesCollection()) {
+          if (removePredicate.test(entry)) {
+             removes.add(entry.getRegistryName());
+          }
+      }
+
+      for(ResourceLocation remove : removes){
+         try {
+            ((IForgeRegistryModifiable<T>) registry).remove(remove);
+		 } catch (Exception e) {
+			 CraftTweakerAPI.logError(Tags.MOD_ID + " can't remove elements from registry " + registerClass.getCanonicalName() + ". Please report to " + Tags.MOD_ID + " author");
+		 }
+      }
    }
 
    public static void injectTranslation(String key, String value) {

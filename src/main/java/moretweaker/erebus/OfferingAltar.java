@@ -11,17 +11,14 @@ import erebus.recipes.OfferingAltarRecipe;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
+import roidrole.roidtweaker.mixins.erebus.OfferingAltarRecipeAccessor;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 
 @ZenClass("moretweaker.erebus.OfferingAltar")
 @ZenRegister
 @ModOnly("erebus")
 public class OfferingAltar {
-   private static Field recipeListField = null;
 
    @ZenMethod
    public static void addRecipe(IItemStack output, IIngredient input1, IIngredient input2, IIngredient input3) {
@@ -49,7 +46,7 @@ public class OfferingAltar {
       final Object out = Inputs.getObject(output);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            OfferingAltar.getMutableList().removeIf((r) -> Inputs.matchesForRemoval(out, r.getOutput()));
+            OfferingAltarRecipeAccessor.getList().removeIf((r) -> Inputs.matchesForRemoval(out, r.getOutput()));
          }
 
          public String describe() {
@@ -62,26 +59,12 @@ public class OfferingAltar {
    public static void removeAll() {
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            OfferingAltar.getMutableList().clear();
+            OfferingAltarRecipeAccessor.getList().clear();
          }
 
          public String describe() {
             return "Removes all recipes for the offering altar";
          }
       });
-   }
-
-   private static ArrayList<OfferingAltarRecipe> getMutableList() {
-      try {
-         if (recipeListField == null) {
-            recipeListField = OfferingAltarRecipe.class.getDeclaredField("list");
-            recipeListField.setAccessible(true);
-         }
-
-         return (ArrayList<OfferingAltarRecipe>)recipeListField.get((Object)null);
-      } catch (ClassCastException | ReflectiveOperationException e) {
-         CraftTweakerAPI.logError("Could not get mutable list for erebus offering altar: " + e.getMessage());
-         throw new RuntimeException("Could not get mutable list for erebus offering altar: " + e.getMessage(), e);
-      }
    }
 }

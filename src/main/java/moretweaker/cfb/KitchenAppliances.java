@@ -10,19 +10,14 @@ import moretweaker.CraftingPart;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.blay09.mods.cookingforblockheads.api.SinkHandler;
-import net.blay09.mods.cookingforblockheads.api.ToastHandler;
 import net.blay09.mods.cookingforblockheads.api.ToastOutputHandler;
 import net.blay09.mods.cookingforblockheads.registry.CookingRegistry;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import roidrole.roidtweaker.mixins.cookingforblockheads.CookingRegistryAccessor;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
 
 @ZenClass("moretweaker.cfb.KitchenAppliances")
 @ZenRegister
@@ -53,7 +48,7 @@ public class KitchenAppliances {
       final Object out = Inputs.getObject(output);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            KitchenAppliances.getStackMap("toastHandlers", ToastHandler.class).entrySet().removeIf((th) -> th.getValue() instanceof ToastOutputHandler && Inputs.matchesForRemoval(out, ((ToastOutputHandler)th.getValue()).getToasterOutput(th.getKey().copy())));
+            CookingRegistryAccessor.getToastHandlers().entrySet().removeIf((th) -> th.getValue() instanceof ToastOutputHandler && Inputs.matchesForRemoval(out, ((ToastOutputHandler)th.getValue()).getToasterOutput(th.getKey().copy())));
          }
 
          public String describe() {
@@ -66,7 +61,7 @@ public class KitchenAppliances {
    public static void removeAllToasterRecipes() {
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            KitchenAppliances.getStackMap("toastHandlers", ToastHandler.class).clear();
+            CookingRegistryAccessor.getToastHandlers().clear();
          }
 
          public String describe() {
@@ -100,7 +95,7 @@ public class KitchenAppliances {
       final Object out = Inputs.getObject(output);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            KitchenAppliances.getStackMap("sinkHandlers", SinkHandler.class)
+            CookingRegistryAccessor.getSinkHandlers()
                 .entrySet()
                 .removeIf((th) ->
                     Inputs.matchesForRemoval(out, th.getValue().getSinkOutput(th.getKey().copy()))
@@ -117,7 +112,7 @@ public class KitchenAppliances {
    public static void removeAllSinkRecipes() {
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            KitchenAppliances.getStackMap("sinkHandlers", SinkHandler.class).clear();
+            CookingRegistryAccessor.getSinkHandlers().clear();
          }
 
          public String describe() {
@@ -149,7 +144,7 @@ public class KitchenAppliances {
       final Object out = Inputs.getObject(output);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            KitchenAppliances.getStackMap("ovenRecipes", ItemStack.class).values().removeIf((stack) -> Inputs.matchesForRemoval(out, stack));
+            CookingRegistryAccessor.getOvenRecipes().values().removeIf((stack) -> Inputs.matchesForRemoval(out, stack));
          }
 
          public String describe() {
@@ -162,7 +157,7 @@ public class KitchenAppliances {
    public static void removeAllOvenRecipes() {
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            KitchenAppliances.getStackMap("ovenRecipes", ItemStack.class).clear();
+            CookingRegistryAccessor.getOvenRecipes().clear();
          }
 
          public String describe() {
@@ -206,7 +201,7 @@ public class KitchenAppliances {
       final Object out = Inputs.getObject(output);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            KitchenAppliances.getFoodRecipeList().removeIf((r) -> Inputs.matchesForRemoval(out, r.getRecipeOutput()));
+            CookingRegistryAccessor.getRecipeList().removeIf((r) -> Inputs.matchesForRemoval(out, r.getRecipeOutput()));
          }
 
          public String describe() {
@@ -219,32 +214,12 @@ public class KitchenAppliances {
    public static void removeAllFoodRecipes() {
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            KitchenAppliances.getFoodRecipeList().clear();
+            CookingRegistryAccessor.getRecipeList().clear();
          }
 
          public String describe() {
             return "Removes all food recipes.";
          }
       });
-   }
-
-   private static <T> Map<ItemStack, T> getStackMap(String fieldId, Class<T> valueClass) {
-      try {
-         Field mapField = CookingRegistry.class.getDeclaredField(fieldId);
-         mapField.setAccessible(true);
-         return (Map<ItemStack, T>)mapField.get((Object)null);
-      } catch (ReflectiveOperationException e) {
-         throw new RuntimeException(e);
-      }
-   }
-
-   private static List<IRecipe> getFoodRecipeList() {
-      try {
-         Field mapField = CookingRegistry.class.getDeclaredField("recipeList");
-         mapField.setAccessible(true);
-         return (List<IRecipe>)mapField.get((Object)null);
-      } catch (ReflectiveOperationException e) {
-         throw new RuntimeException(e);
-      }
    }
 }

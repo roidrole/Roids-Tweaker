@@ -8,72 +8,55 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import mods.railcraft.api.fuel.FluidFuelManager;
 import moretweaker.MoreTweaker;
 import net.minecraftforge.fluids.FluidStack;
+import roidrole.roidtweaker.mixins.railcraft.FluidFuelManagerAccessor;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-
-import java.lang.reflect.Field;
-import java.util.Map;
 
 @ZenClass("moretweaker.railcraft.FluidFuels")
 @ZenRegister
 @ModOnly("railcraft")
 public class FluidFuels {
-   private static Field mapField = null;
+	@ZenMethod
+	public static void add(ILiquidStack fuel, @Optional(valueLong = 4800L) final int heatPerBucket) {
+		final FluidStack fluid = CraftTweakerMC.getLiquidStack(fuel);
+		fluid.amount = 1000;
+		MoreTweaker.queuePostInitAction(new IAction() {
+			public void apply() {
+				FluidFuelManager.addFuel(fluid, heatPerBucket);
+			}
 
-   @ZenMethod
-   public static void add(ILiquidStack fuel, @Optional(valueLong = 4800L) final int heatPerBucket) {
-      final FluidStack fluid = CraftTweakerMC.getLiquidStack(fuel);
-      fluid.amount = 1000;
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            FluidFuelManager.addFuel(fluid, heatPerBucket);
-         }
+			public String describe() {
+				return "Adds a railcraft fluid fuel";
+			}
+		});
+	}
 
-         public String describe() {
-            return "Adds a railcraft fluid fuel";
-         }
-      });
-   }
+	@ZenMethod
+	public static void remove(ILiquidStack fuel) {
+		final FluidStack fluid = CraftTweakerMC.getLiquidStack(fuel);
+		fluid.amount = 1000;
+		MoreTweaker.queuePostInitAction(new IAction() {
+			public void apply() {
+				FluidFuelManagerAccessor.getBoilerFuel().keySet().removeIf((f) -> f.getFluid() == fluid.getFluid());
+			}
 
-   @ZenMethod
-   public static void remove(ILiquidStack fuel) {
-      final FluidStack fluid = CraftTweakerMC.getLiquidStack(fuel);
-      fluid.amount = 1000;
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            FluidFuels.getFuelMap().keySet().removeIf((f) -> f.getFluid() == fluid.getFluid());
-         }
+			public String describe() {
+				return "Removes a railcraft fluid fuel";
+			}
+		});
+	}
 
-         public String describe() {
-            return "Removes a railcraft fluid fuel";
-         }
-      });
-   }
+	@ZenMethod
+	public static void removeAll() {
+		MoreTweaker.queuePostInitAction(new IAction() {
+			public void apply() {
+				FluidFuelManagerAccessor.getBoilerFuel().clear();
+			}
 
-   @ZenMethod
-   public static void removeAll() {
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            FluidFuels.getFuelMap().clear();
-         }
-
-         public String describe() {
-            return "Removes all recipes";
-         }
-      });
-   }
-
-   private static Map<FluidStack, Integer> getFuelMap() {
-      try {
-         if (mapField == null) {
-            mapField = FluidFuelManager.class.getDeclaredField("boilerFuel");
-            mapField.setAccessible(true);
-         }
-
-         return (Map<FluidStack, Integer>)mapField.get((Object)null);
-      } catch (ReflectiveOperationException e) {
-         throw new RuntimeException(e);
-      }
-   }
+			public String describe() {
+				return "Removes all recipes";
+			}
+		});
+	}
 }

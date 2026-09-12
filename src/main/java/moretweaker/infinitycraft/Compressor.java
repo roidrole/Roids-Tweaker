@@ -15,15 +15,10 @@ import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.lang.reflect.Field;
-import java.util.Map;
-
 @ZenClass("moretweaker.infinitycraft.Compressor")
 @ZenRegister
 @ModOnly("infinitycraft")
 public class Compressor {
-   private static Field mapField = null;
-
    @ZenMethod
    public static void addRecipe(IIngredient input, IItemStack output, @Optional final int experience) {
       final CraftingPart in = Inputs.getPart(input);
@@ -47,7 +42,7 @@ public class Compressor {
       final Object out = Inputs.getObject(output);
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
-            Compressor.getCompressorMap().values().removeIf((s) -> Inputs.matchesForRemoval(out, s));
+            CompressorRecipes.instance().getCompressingList().values().removeIf((s) -> Inputs.matchesForRemoval(out, s));
          }
 
          public String describe() {
@@ -60,25 +55,12 @@ public class Compressor {
    public static void removeAll() {
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
-            Compressor.getCompressorMap().clear();
+            CompressorRecipes.instance().getCompressingList().clear();
          }
 
          public String describe() {
             return "Removes all recipes for the infinitycraft Compressor";
          }
       });
-   }
-
-   private static Map<ItemStack, ItemStack> getCompressorMap() {
-      try {
-         if (mapField == null) {
-            mapField = CompressorRecipes.class.getDeclaredField("compressingList");
-            mapField.setAccessible(true);
-         }
-
-         return (Map<ItemStack, ItemStack>)mapField.get(CompressorRecipes.instance());
-      } catch (ReflectiveOperationException e) {
-         throw new RuntimeException(e);
-      }
    }
 }

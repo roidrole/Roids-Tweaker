@@ -1,0 +1,15 @@
+{
+	"package": "roidrole.roidtweaker.mixins.erebus",
+	"required": true,
+	"refmap": "mixins.roidtweaker.refmap.json",
+	"target": "@env(DEFAULT)",
+	"minVersion": "0.8.5",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+		"ComposterRegistryAccessor",
+		"OfferingAltarRecipeAccessor",
+		"SmoothieMakerRecipeAccessor"
+	],
+	"server": [],
+	"client": []
+}
