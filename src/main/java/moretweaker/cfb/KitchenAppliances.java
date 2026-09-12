@@ -6,9 +6,6 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
 import moretweaker.CraftingPart;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
@@ -22,6 +19,10 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
 
 @ZenClass("moretweaker.cfb.KitchenAppliances")
 @ZenRegister
@@ -52,7 +53,7 @@ public class KitchenAppliances {
       final Object out = Inputs.getObject(output);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            KitchenAppliances.getStackMap("toastHandlers", ToastHandler.class).entrySet().removeIf((th) -> th.getValue() instanceof ToastOutputHandler && Inputs.matchesForRemoval(out, ((ToastOutputHandler)th.getValue()).getToasterOutput(((ItemStack)th.getKey()).copy())));
+            KitchenAppliances.getStackMap("toastHandlers", ToastHandler.class).entrySet().removeIf((th) -> th.getValue() instanceof ToastOutputHandler && Inputs.matchesForRemoval(out, ((ToastOutputHandler)th.getValue()).getToasterOutput(th.getKey().copy())));
          }
 
          public String describe() {
@@ -99,7 +100,11 @@ public class KitchenAppliances {
       final Object out = Inputs.getObject(output);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            KitchenAppliances.getStackMap("sinkHandlers", SinkHandler.class).entrySet().removeIf((th) -> Inputs.matchesForRemoval(out, ((SinkHandler)th.getValue()).getSinkOutput(((ItemStack)th.getKey()).copy())));
+            KitchenAppliances.getStackMap("sinkHandlers", SinkHandler.class)
+                .entrySet()
+                .removeIf((th) ->
+                    Inputs.matchesForRemoval(out, th.getValue().getSinkOutput(th.getKey().copy()))
+                );
          }
 
          public String describe() {
@@ -227,7 +232,7 @@ public class KitchenAppliances {
       try {
          Field mapField = CookingRegistry.class.getDeclaredField(fieldId);
          mapField.setAccessible(true);
-         return (Map)mapField.get((Object)null);
+         return (Map<ItemStack, T>)mapField.get((Object)null);
       } catch (ReflectiveOperationException e) {
          throw new RuntimeException(e);
       }
@@ -237,7 +242,7 @@ public class KitchenAppliances {
       try {
          Field mapField = CookingRegistry.class.getDeclaredField("recipeList");
          mapField.setAccessible(true);
-         return (List)mapField.get((Object)null);
+         return (List<IRecipe>)mapField.get((Object)null);
       } catch (ReflectiveOperationException e) {
          throw new RuntimeException(e);
       }

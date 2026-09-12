@@ -5,14 +5,15 @@ import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.liquid.ILiquidStack;
-import java.lang.reflect.Field;
-import java.util.Map;
 import mods.railcraft.api.fuel.FluidFuelManager;
 import moretweaker.MoreTweaker;
 import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.lang.reflect.Field;
+import java.util.Map;
 
 @ZenClass("moretweaker.railcraft.FluidFuels")
 @ZenRegister
@@ -70,7 +71,7 @@ public class FluidFuels {
             mapField.setAccessible(true);
          }
 
-         return (Map)mapField.get((Object)null);
+         return (Map<FluidStack, Integer>)mapField.get((Object)null);
       } catch (ReflectiveOperationException e) {
          throw new RuntimeException(e);
       }

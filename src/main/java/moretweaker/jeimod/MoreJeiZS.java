@@ -4,10 +4,6 @@ import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IIngredientType;
 import mezz.jei.api.recipe.IRecipeWrapper;
@@ -19,6 +15,11 @@ import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.tuple.Pair;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @ZenClass("moretweaker.jei.MoreJei")
 @ZenRegister
@@ -37,8 +38,8 @@ public class MoreJeiZS {
                if (category != null) {
                   List<IRecipeWrapper> removal = new ArrayList<>();
                   runtime.getRecipeRegistry().getRecipeWrappers(category).forEach((wrapper) -> {
-                     Pair<IIngredientType<?>, List<?>> properties = MoreJeiZS.getProperties(wrapper);
-                     if (properties != null && properties.getKey() == VanillaTypes.ITEM && Inputs.matchesForRemoval(obj, (List<ItemStack>)properties.getValue())) {
+                     Pair<IIngredientType<?>, List<ItemStack>> properties = MoreJeiZS.getProperties(wrapper);
+                     if (properties != null && properties.getKey() == VanillaTypes.ITEM && Inputs.matchesForRemoval(obj, properties.getValue())) {
                         removal.add(wrapper);
                      }
 
@@ -72,7 +73,7 @@ public class MoreJeiZS {
       });
    }
 
-   private static Pair<IIngredientType<?>, List<?>> getProperties(IngredientInfoRecipe<?> recipe) {
+   private static Pair<IIngredientType<?>, List<ItemStack>> getProperties(IngredientInfoRecipe<?> recipe) {
       try {
          if (ingredientType == null || ingredients == null) {
             ingredientType = IngredientInfoRecipe.class.getDeclaredField("ingredientType");
@@ -81,7 +82,7 @@ public class MoreJeiZS {
             ingredients.setAccessible(true);
          }
 
-         return Pair.of((IIngredientType<?>) ingredientType.get(recipe), (List<?>)ingredients.get(recipe));
+         return Pair.of((IIngredientType<?>) ingredientType.get(recipe), (List<ItemStack>)ingredients.get(recipe));
       } catch (ReflectiveOperationException var2) {
          return null;
       }

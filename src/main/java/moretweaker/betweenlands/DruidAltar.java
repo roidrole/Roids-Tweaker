@@ -7,8 +7,6 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import java.util.ArrayList;
-import java.util.List;
 import moretweaker.CraftingPart;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
@@ -18,6 +16,9 @@ import thebetweenlands.api.IBetweenlandsAPI;
 import thebetweenlands.api.recipes.IDruidAltarRecipe;
 import thebetweenlands.common.BetweenlandsAPI;
 import thebetweenlands.common.recipe.misc.DruidAltarRecipe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ZenClass("moretweaker.betweenlands.DruidAltar")
 @ZenRegister
@@ -56,7 +57,7 @@ public class DruidAltar {
       final Object out = Inputs.getObject(output);
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
-            List<IDruidAltarRecipe> recipes = new ArrayList();
+            List<IDruidAltarRecipe> recipes = new ArrayList<>();
             BetweenlandsAPI.getInstance().getDruidAltarRecipes().forEach((r) -> {
                if (r instanceof DruidAltarRecipe && Inputs.matchesForRemoval(out, ((DruidAltarRecipe)r).getDefaultOutput())) {
                   recipes.add(r);
@@ -77,7 +78,7 @@ public class DruidAltar {
    public static void removeAll() {
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
-            List<IDruidAltarRecipe> allRecipes = new ArrayList(BetweenlandsAPI.getInstance().getDruidAltarRecipes());
+            List<IDruidAltarRecipe> allRecipes = new ArrayList<>(BetweenlandsAPI.getInstance().getDruidAltarRecipes());
             IBetweenlandsAPI var10001 = BetweenlandsAPI.getInstance();
             allRecipes.forEach(var10001::unregisterDruidAltarRecipe);
          }

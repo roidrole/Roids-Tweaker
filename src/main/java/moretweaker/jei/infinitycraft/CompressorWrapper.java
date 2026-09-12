@@ -1,19 +1,19 @@
 package moretweaker.jei.infinitycraft;
 
-import java.util.Map;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
+import java.util.Map;
 
 public class CompressorWrapper implements IRecipeWrapper {
    private final ItemStack in;
    private final ItemStack out;
 
    public CompressorWrapper(Map.Entry<ItemStack, ItemStack> entry) {
-      this((ItemStack)entry.getKey(), (ItemStack)entry.getValue());
+      this(entry.getKey(), entry.getValue());
    }
 
    public CompressorWrapper(ItemStack in, ItemStack out) {

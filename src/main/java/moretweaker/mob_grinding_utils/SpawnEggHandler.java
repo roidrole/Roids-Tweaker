@@ -1,7 +1,5 @@
 package moretweaker.mob_grinding_utils;
 
-import java.util.HashMap;
-import java.util.Map;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.item.ItemStack;
@@ -12,9 +10,12 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SpawnEggHandler {
    public static final SpawnEggHandler INSTANCE = new SpawnEggHandler();
-   private Map<ResourceLocation, ItemStack> spawnEggs = new HashMap();
+   private final Map<ResourceLocation, ItemStack> spawnEggs = new HashMap<>();
 
    private SpawnEggHandler() {
    }
@@ -47,7 +48,7 @@ public class SpawnEggHandler {
                   ResourceLocation rl = new ResourceLocation(mobId);
                   if (this.spawnEggs.containsKey(rl)) {
                      nbt.setString("mguMobName", "minecraft:invalid");
-                     ItemStack drop = (ItemStack)this.spawnEggs.getOrDefault(rl, ItemStack.EMPTY);
+                     ItemStack drop = this.spawnEggs.getOrDefault(rl, ItemStack.EMPTY);
                      if (!drop.isEmpty()) {
                         entity.entityDropItem(drop, 0.0F);
                      }

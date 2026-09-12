@@ -13,12 +13,13 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import java.util.Iterator;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.util.Iterator;
 
 @ZenClass("moretweaker.buildcraft.IntegrationTable")
 @ZenRegister
@@ -49,7 +50,7 @@ public class IntegrationTable {
             Iterator<IntegrationRecipe> itr = BuildcraftRecipeRegistry.integrationRecipes.getAllRecipes().iterator();
 
             while(itr.hasNext()) {
-               IntegrationRecipe recipe = (IntegrationRecipe)itr.next();
+               IntegrationRecipe recipe = itr.next();
                if (Inputs.matchesForRemoval(out, recipe.getCenterStack().ingredient.getMatchingStacks())) {
                   itr.remove();
                }

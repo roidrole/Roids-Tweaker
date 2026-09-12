@@ -7,13 +7,14 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import java.util.ArrayList;
-import java.util.List;
 import micdoodle8.mods.galacticraft.api.recipe.CircuitFabricatorRecipes;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ZenClass("moretweaker.galacticraft.CircuitFabricator")
 @ZenRegister
@@ -26,7 +27,7 @@ public class CircuitFabricator {
          if (inputs.length != 5) {
             CraftTweakerAPI.logError("CircuitFabricator expected 5 IIngredients but got " + inputs.length + ".");
          } else {
-            final List<Object> in = new ArrayList(5);
+            final List<Object> in = new ArrayList<>(5);
 
             for(IIngredient ingredient : inputs) {
                in.add(Inputs.getObject(ingredient));

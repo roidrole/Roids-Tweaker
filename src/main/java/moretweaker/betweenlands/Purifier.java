@@ -7,8 +7,6 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import java.util.ArrayList;
-import java.util.List;
 import moretweaker.CraftingPart;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
@@ -20,6 +18,9 @@ import thebetweenlands.common.BetweenlandsAPI;
 import thebetweenlands.common.recipe.purifier.PurifierRecipeAspectVial;
 import thebetweenlands.common.recipe.purifier.PurifierRecipeStandard;
 import thebetweenlands.common.registries.ItemRegistry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ZenClass("moretweaker.betweenlands.Purifier")
 @ZenRegister
@@ -48,7 +49,7 @@ public class Purifier {
       final Object out = Inputs.getObject(output);
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
-            List<IPurifierRecipe> recipes = new ArrayList();
+            List<IPurifierRecipe> recipes = new ArrayList<>();
             BetweenlandsAPI.getInstance().getPurifierRecipes().forEach((r) -> {
                if (PurifierRecipeStandard.class.isAssignableFrom(r.getClass()) && Inputs.matchesForRemoval(out, r.getOutput(Purifier.guessInput(r)))) {
                   recipes.add(r);
@@ -69,7 +70,7 @@ public class Purifier {
    public static void removeAll() {
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
-            List<IPurifierRecipe> allRecipes = new ArrayList(BetweenlandsAPI.getInstance().getPurifierRecipes());
+            List<IPurifierRecipe> allRecipes = new ArrayList<>(BetweenlandsAPI.getInstance().getPurifierRecipes());
             IBetweenlandsAPI var10001 = BetweenlandsAPI.getInstance();
             allRecipes.forEach(var10001::unregisterPurifierRecipe);
          }

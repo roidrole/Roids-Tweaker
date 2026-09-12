@@ -3,9 +3,9 @@ package moretweaker.jei.railcraft;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableAnimated;
+import mezz.jei.api.gui.IDrawableAnimated.StartDirection;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
-import mezz.jei.api.gui.IDrawableAnimated.StartDirection;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import moretweaker.jei.MoreJei;
@@ -22,7 +22,7 @@ public class FluidFuelCategory implements IRecipeCategory<FluidFuelWrapper> {
    public FluidFuelCategory(IGuiHelper guiHelper) {
       this.background = guiHelper.drawableBuilder(MoreJei.GUI_VANILLA, 0, 134, 18, 34).addPadding(0, 0, 0, 144).build();
       this.flame = guiHelper.createAnimatedDrawable(guiHelper.createDrawable(MoreJei.GUI_VANILLA, 82, 114, 14, 14), 300, StartDirection.TOP, true);
-      this.localizedName = I18n.format("tile.railcraft.boiler.firebox.fluid.name", new Object[0]);
+      this.localizedName = I18n.format("tile.railcraft.boiler.firebox.fluid.name");
    }
 
    public @Nonnull IDrawable getBackground() {
@@ -43,7 +43,7 @@ public class FluidFuelCategory implements IRecipeCategory<FluidFuelWrapper> {
 
    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull FluidFuelWrapper recipeWrapper, @Nonnull IIngredients ii) {
       IGuiFluidStackGroup fluids = recipeLayout.getFluidStacks();
-      fluids.init(0, true, 0, 16, 18, 18, 1000, false, (IDrawable)null);
+      fluids.init(0, true, 0, 16, 18, 18, 1000, false, null);
       fluids.set(ii);
    }
 }

@@ -1,6 +1,5 @@
 package moretweaker.jei.erebus;
 
-import javax.annotation.Nonnull;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
@@ -10,6 +9,8 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+
 public class OfferingCategory implements IRecipeCategory<OfferingWrapper> {
    public static final String id = "moretweaker.erebus.offering.recipes";
    private final IDrawable background;
@@ -18,7 +19,7 @@ public class OfferingCategory implements IRecipeCategory<OfferingWrapper> {
    public OfferingCategory(IGuiHelper guiHelper) {
       ResourceLocation location = new ResourceLocation("moretweaker", "textures/gui/erebus_offering.png");
       this.background = guiHelper.createDrawable(location, 0, 0, 100, 37);
-      this.localizedName = I18n.format("tile.erebus.altar_offering.name", new Object[0]);
+      this.localizedName = I18n.format("tile.erebus.altar_offering.name");
    }
 
    @Nonnull

@@ -23,7 +23,7 @@ public class Grinder {
       final Object in = Inputs.getObject(input);
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
-            GrindingRecipe recipe = new GrindingRecipe(out, new Object[]{in});
+            GrindingRecipe recipe = new GrindingRecipe(out, in);
             GrindingRecipe.recipes.add(recipe);
             GrindingRecipe.grindables.add(recipe.inputs.get(0));
          }

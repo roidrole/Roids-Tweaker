@@ -8,13 +8,14 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import erebus.recipes.OfferingAltarRecipe;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 @ZenClass("moretweaker.erebus.OfferingAltar")
 @ZenRegister
@@ -33,7 +34,7 @@ public class OfferingAltar {
       } else {
          MoreTweaker.queuePostInitAction(new IAction() {
             public void apply() {
-               OfferingAltarRecipe.addRecipe(out, new Object[]{in1, in2, in3});
+               OfferingAltarRecipe.addRecipe(out, in1, in2, in3);
             }
 
             public String describe() {
@@ -77,10 +78,10 @@ public class OfferingAltar {
             recipeListField.setAccessible(true);
          }
 
-         return (ArrayList)recipeListField.get((Object)null);
+         return (ArrayList<OfferingAltarRecipe>)recipeListField.get((Object)null);
       } catch (ClassCastException | ReflectiveOperationException e) {
-         CraftTweakerAPI.logError("Could not get mutable list for erebus offering altar: " + ((Exception)e).getMessage());
-         throw new RuntimeException("Could not get mutable list for erebus offering altar: " + ((Exception)e).getMessage(), e);
+         CraftTweakerAPI.logError("Could not get mutable list for erebus offering altar: " + e.getMessage());
+         throw new RuntimeException("Could not get mutable list for erebus offering altar: " + e.getMessage(), e);
       }
    }
 }

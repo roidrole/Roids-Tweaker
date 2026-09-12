@@ -2,19 +2,8 @@ package moretweaker;
 
 import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
-import crafttweaker.api.item.IIngredient;
-import crafttweaker.api.item.IItemStack;
-import crafttweaker.api.item.IngredientItem;
-import crafttweaker.api.item.IngredientOr;
-import crafttweaker.api.item.IngredientStack;
+import crafttweaker.api.item.*;
 import crafttweaker.api.oredict.IOreDictEntry;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,6 +11,9 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreIngredient;
+
+import java.util.*;
+import java.util.function.Function;
 
 public class Inputs {
    private Inputs() {
@@ -33,7 +25,7 @@ public class Inputs {
       } else if (ingredient instanceof IItemStack) {
          return new ItemStack[]{InputHelper.toStack((IItemStack)ingredient)};
       } else if (ingredient instanceof IOreDictEntry) {
-         return (ItemStack[])OreDictionary.getOres(((IOreDictEntry)ingredient).getName()).toArray(new ItemStack[0]);
+         return OreDictionary.getOres(((IOreDictEntry)ingredient).getName()).toArray(new ItemStack[0]);
       } else if (!(ingredient instanceof IngredientStack) && !(ingredient instanceof IngredientItem) && !(ingredient instanceof IngredientOr)) {
          return new ItemStack[0];
       } else {
@@ -78,7 +70,7 @@ public class Inputs {
 
    public static Object[] getShapedObjects(IIngredient[][] ingredients) {
       char[][] chars = new char[][]{{'a', 'b', 'c'}, {'d', 'e', 'f'}, {'g', 'h', 'i'}};
-      Map<Character, Object> inputs = new HashMap();
+      Map<Character, Object> inputs = new HashMap<>();
       if (ingredients.length >= 1 && ingredients.length <= 3) {
          int length = -1;
 
@@ -115,7 +107,7 @@ public class Inputs {
             }
          }
 
-         List<Object> list = new ArrayList(Arrays.asList(strs));
+         List<Object> list = new ArrayList<>(Arrays.asList(strs));
 
          for(Character chr : inputs.keySet()) {
             list.add(chr);
@@ -151,7 +143,7 @@ public class Inputs {
 
          return false;
       } else if (obj instanceof List) {
-         for(Object entry : (List)obj) {
+         for(Object entry : (List<?>)obj) {
             if (matchesForRemoval(entry, stack)) {
                return true;
             }
@@ -185,7 +177,7 @@ public class Inputs {
 
    public static <T> boolean matchesForRemoval(Object obj, Iterable<T> stacks, Function<T, ItemStack> action) {
       for(T stack : stacks) {
-         if (matchesForRemoval(obj, (ItemStack)action.apply(stack))) {
+         if (matchesForRemoval(obj, action.apply(stack))) {
             return true;
          }
       }
@@ -195,7 +187,7 @@ public class Inputs {
 
    public static <T> boolean matchesForRemovalArray(Object obj, Iterable<T> stacks, Function<T, ItemStack[]> action) {
       for(T stack : stacks) {
-         if (matchesForRemoval(obj, (ItemStack[])action.apply(stack))) {
+         if (matchesForRemoval(obj, action.apply(stack))) {
             return true;
          }
       }
@@ -205,7 +197,7 @@ public class Inputs {
 
    public static <T> boolean matchesForRemovalFlat(Object obj, Iterable<T> stacks, Function<T, Iterable<ItemStack>> action) {
       for(T stack : stacks) {
-         if (matchesForRemoval(obj, (Iterable)action.apply(stack))) {
+         if (matchesForRemoval(obj, action.apply(stack))) {
             return true;
          }
       }
@@ -217,7 +209,7 @@ public class Inputs {
       if (ingredient == null) {
          return Ingredient.EMPTY;
       } else if (ingredient instanceof ItemStack) {
-         return Ingredient.fromStacks(new ItemStack[]{(ItemStack)ingredient});
+         return Ingredient.fromStacks((ItemStack)ingredient);
       } else if (ingredient instanceof String) {
          return new OreIngredient((String)ingredient);
       } else if (ingredient instanceof Item) {
@@ -227,9 +219,9 @@ public class Inputs {
       } else if (!(ingredient instanceof List)) {
          return Ingredient.EMPTY;
       } else {
-         List<Ingredient> converted = new ArrayList();
+         List<Ingredient> converted = new ArrayList<>();
 
-         for(Object o : (List)ingredient) {
+         for(Object o : (List<?>)ingredient) {
             converted.add(getIngredient(o));
          }
 
@@ -250,10 +242,10 @@ public class Inputs {
    public static CraftingPart getPart(IIngredient obj) {
       if (obj instanceof IItemStack) {
          ItemStack stack = InputHelper.toStack((IItemStack)obj);
-         return new CraftingPart(Ingredient.fromStacks(new ItemStack[]{stack}), stack.getCount());
+         return new CraftingPart(Ingredient.fromStacks(stack), stack.getCount());
       } else if (obj instanceof IngredientStack && obj.getInternal() instanceof IItemStack) {
          ItemStack stack = InputHelper.toStack((IItemStack)obj.getInternal());
-         return new CraftingPart(Ingredient.fromStacks(new ItemStack[]{stack}), obj.getAmount());
+         return new CraftingPart(Ingredient.fromStacks(stack), obj.getAmount());
       } else if (obj instanceof IOreDictEntry) {
          return !OreDictionary.doesOreNameExist(((IOreDictEntry)obj).getName()) ? CraftingPart.EMPTY : new CraftingPart(new OreIngredient(((IOreDictEntry)obj).getName()), obj.getAmount());
       } else if (obj instanceof IngredientStack && obj.getInternal() instanceof IOreDictEntry) {
@@ -266,7 +258,7 @@ public class Inputs {
             if (amount == -1) {
                amount = stack.getAmount();
             } else if (amount != -2 && amount != stack.getAmount()) {
-               CraftTweakerAPI.logWarning("Could not retain stack-size for " + obj.toString() + " when converting to CraftingPart. Using 1 instead.");
+               CraftTweakerAPI.logWarning("Could not retain stack-size for " + obj + " when converting to CraftingPart. Using 1 instead.");
                amount = -2;
             }
          }
@@ -276,7 +268,7 @@ public class Inputs {
          }
 
          IIngredient[] parts = (IIngredient[])obj.getInternal();
-         List<Ingredient> parts2 = new ArrayList();
+         List<Ingredient> parts2 = new ArrayList<>();
 
          for(IIngredient part : parts) {
             parts2.add(getPart(part).ingredient);
@@ -288,14 +280,14 @@ public class Inputs {
          return CraftingPart.EMPTY;
       } else {
          List<IItemStack> stacks = obj.getItems();
-         List<ItemStack> stacks2 = new ArrayList();
+         List<ItemStack> stacks2 = new ArrayList<>();
          int amount = -1;
 
          for(IItemStack stack : stacks) {
             if (amount == -1) {
                amount = stack.getAmount();
             } else if (amount != -2 && amount != stack.getAmount()) {
-               CraftTweakerAPI.logWarning("Could not retain stack-size for " + obj.toString() + " when converting to CraftingPart. Using 1 instead.");
+               CraftTweakerAPI.logWarning("Could not retain stack-size for " + obj + " when converting to CraftingPart. Using 1 instead.");
                amount = -2;
             }
 
@@ -306,7 +298,7 @@ public class Inputs {
             amount = 1;
          }
 
-         return new CraftingPart(Ingredient.fromStacks((ItemStack[])stacks2.toArray(new ItemStack[0])), amount);
+         return new CraftingPart(Ingredient.fromStacks(stacks2.toArray(new ItemStack[0])), amount);
       }
    }
 

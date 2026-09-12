@@ -12,7 +12,6 @@ import moretweaker.ReflectionHelper;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import tamaized.tammodized.common.tileentity.TamTileEntityRecipeList;
 import tamaized.voidcraft.common.machina.addons.TERecipeInfuser;
 import tamaized.voidcraft.registry.VoidCraftTERecipes;
 

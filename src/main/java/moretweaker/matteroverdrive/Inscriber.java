@@ -6,8 +6,6 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import java.lang.reflect.Field;
-import java.util.List;
 import matteroverdrive.data.recipes.InscriberRecipe;
 import matteroverdrive.data.recipes.RecipeManager;
 import matteroverdrive.init.MatterOverdriveRecipes;
@@ -17,6 +15,9 @@ import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.lang.reflect.Field;
+import java.util.List;
 
 @ZenClass("moretweaker.matteroverdrive.Inscriber")
 @ZenRegister
@@ -111,7 +112,7 @@ public class Inscriber {
             f_recipes.setAccessible(true);
          }
 
-         return (List)f_recipes.get(MatterOverdriveRecipes.INSCRIBER);
+         return (List<InscriberRecipe>)f_recipes.get(MatterOverdriveRecipes.INSCRIBER);
       } catch (ReflectiveOperationException e) {
          throw new IllegalStateException(e);
       }

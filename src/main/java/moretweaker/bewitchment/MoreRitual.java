@@ -1,7 +1,6 @@
 package moretweaker.bewitchment;
 
 import com.bewitchment.api.registry.Ritual;
-import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,6 +12,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.items.ItemStackHandler;
+
+import java.util.List;
 
 public class MoreRitual extends Ritual {
    private final ResourceLocation spawnEntity;
@@ -32,7 +33,7 @@ public class MoreRitual extends Ritual {
    public void onFinished(World world, BlockPos anotherPos, BlockPos ritualPos, EntityPlayer player, ItemStackHandler something) {
       super.onFinished(world, anotherPos, ritualPos, player, something);
       if (this.spawnEntity != null && !world.isRemote) {
-         EntityEntry spawnEntry = (EntityEntry)ForgeRegistries.ENTITIES.getValue(this.spawnEntity);
+         EntityEntry spawnEntry = ForgeRegistries.ENTITIES.getValue(this.spawnEntity);
          if (spawnEntry != null) {
             Entity toSpawn = spawnEntry.newInstance(world);
             toSpawn.setLocationAndAngles((double)ritualPos.getX() + (double)0.5F, (double)ritualPos.getY() + (double)0.5F, (double)ritualPos.getZ() + (double)0.5F, 0.0F, 0.0F);

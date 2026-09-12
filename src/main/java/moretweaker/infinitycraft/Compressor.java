@@ -8,14 +8,15 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import java.lang.reflect.Field;
-import java.util.Map;
 import moretweaker.CraftingPart;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.lang.reflect.Field;
+import java.util.Map;
 
 @ZenClass("moretweaker.infinitycraft.Compressor")
 @ZenRegister
@@ -24,7 +25,7 @@ public class Compressor {
    private static Field mapField = null;
 
    @ZenMethod
-   public static void addRecipe(IIngredient input, IItemStack output, @Optional(valueLong = 0L) final int experience) {
+   public static void addRecipe(IIngredient input, IItemStack output, @Optional final int experience) {
       final CraftingPart in = Inputs.getPart(input);
       final ItemStack out = InputHelper.toStack(output);
       CraftTweakerAPI.apply(new IAction() {
@@ -75,7 +76,7 @@ public class Compressor {
             mapField.setAccessible(true);
          }
 
-         return (Map)mapField.get(CompressorRecipes.instance());
+         return (Map<ItemStack, ItemStack>)mapField.get(CompressorRecipes.instance());
       } catch (ReflectiveOperationException e) {
          throw new RuntimeException(e);
       }

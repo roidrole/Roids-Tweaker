@@ -38,7 +38,7 @@ public class RockCrusher {
                builder.addOutput(out[i], chances[i]);
             }
 
-            ((IRockCrusherCrafter.IRockCrusherRecipeBuilder)((IRockCrusherCrafter.IRockCrusherRecipeBuilder)builder.time(ticks)).name(MoreTweaker.newRL())).register();
+            builder.time(ticks).name(MoreTweaker.newRL()).register();
          }
 
          public String describe() {

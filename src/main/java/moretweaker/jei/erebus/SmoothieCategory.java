@@ -1,18 +1,15 @@
 package moretweaker.jei.erebus;
 
-import javax.annotation.Nonnull;
 import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
-import mezz.jei.api.gui.IDrawableAnimated;
-import mezz.jei.api.gui.IGuiFluidStackGroup;
-import mezz.jei.api.gui.IGuiItemStackGroup;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.*;
 import mezz.jei.api.gui.IDrawableAnimated.StartDirection;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
+
+import javax.annotation.Nonnull;
 
 public class SmoothieCategory implements IRecipeCategory<SmoothieWrapper> {
    public static final String id = "moretweaker.erebus.smoothie.recipes";
@@ -24,7 +21,7 @@ public class SmoothieCategory implements IRecipeCategory<SmoothieWrapper> {
    public SmoothieCategory(IGuiHelper guiHelper) {
       ResourceLocation location = new ResourceLocation("erebus", "textures/gui/container/smoothie_maker.png");
       this.background = guiHelper.createDrawable(location, 7, 5, 162, 75);
-      this.localizedName = I18n.format("tile.erebus.smoothie_maker.name", new Object[0]);
+      this.localizedName = I18n.format("tile.erebus.smoothie_maker.name");
       this.fluidMeter = guiHelper.createDrawable(location, 176, 38, 9, 73);
       this.progress = guiHelper.drawableBuilder(location, 176, 0, 73, 36).buildAnimated(200, StartDirection.TOP, false);
    }
@@ -49,7 +46,7 @@ public class SmoothieCategory implements IRecipeCategory<SmoothieWrapper> {
       return this.background;
    }
 
-   public void drawExtras(Minecraft minecraft) {
+   public void drawExtras(@Nonnull Minecraft minecraft) {
       this.progress.draw(minecraft, 44, 21);
    }
 

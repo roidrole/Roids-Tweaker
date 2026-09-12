@@ -10,14 +10,15 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
 import erebus.ModItems;
 import erebus.recipes.SmoothieMakerRecipe;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 @ZenClass("moretweaker.erebus.SmoothieMaker")
 @ZenRegister
@@ -93,10 +94,10 @@ public class SmoothieMaker {
             recipeListField.setAccessible(true);
          }
 
-         return (ArrayList)recipeListField.get((Object)null);
+         return (ArrayList<SmoothieMakerRecipe>)recipeListField.get((Object)null);
       } catch (ClassCastException | ReflectiveOperationException e) {
-         CraftTweakerAPI.logError("Could not get mutable list for erebus smoothie maker: " + ((Exception)e).getMessage());
-         throw new RuntimeException("Could not get mutable list for erebus smoothie maker: " + ((Exception)e).getMessage(), e);
+         CraftTweakerAPI.logError("Could not get mutable list for erebus smoothie maker: " + e.getMessage());
+         throw new RuntimeException("Could not get mutable list for erebus smoothie maker: " + e.getMessage(), e);
       }
    }
 }

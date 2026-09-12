@@ -2,14 +2,8 @@ package moretweaker.jei.buildcraft;
 
 import buildcraft.api.mj.MjAPI;
 import buildcraft.api.recipes.IngredientStack;
-import buildcraft.api.recipes.IntegrationRecipe;
 import buildcraft.lib.recipe.IntegrationRecipeBasic;
 import com.google.common.collect.ImmutableList;
-import java.awt.Color;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.Nonnull;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
@@ -18,17 +12,21 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+import java.awt.*;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 public class IntegrationWrapper implements IRecipeWrapper {
    private static Field outputField;
-   private final IntegrationRecipe recipe;
    private final CraftingPart catalyst;
    private final CraftingPart[] inputs;
    private final ItemStack output;
    private final String mjString;
 
    public IntegrationWrapper(IntegrationRecipeBasic recipe) {
-      this.recipe = recipe;
-      ItemStack output;
+	   ItemStack output;
       if (outputField == null) {
          output = new ItemStack(Blocks.BARRIER);
          output.setStackDisplayName("Could not obtain Buildcraft-Recipe Output for some reason. Report to MoreTweaker author.");
@@ -44,12 +42,12 @@ public class IntegrationWrapper implements IRecipeWrapper {
       this.output = output;
       this.catalyst = this.toCraftingPart(recipe.getCenterStack());
       ImmutableList<IngredientStack> inputs = recipe.getRequirements(output);
-      this.inputs = this.toCraftingParts((IngredientStack[])inputs.toArray(new IngredientStack[0]));
+      this.inputs = this.toCraftingParts(inputs.toArray(new IngredientStack[0]));
       this.mjString = recipe.getRequiredMicroJoules(output) / MjAPI.MJ + " MJ";
    }
 
    public void getIngredients(@Nonnull IIngredients ii) {
-      List<List<ItemStack>> in = new ArrayList();
+      List<List<ItemStack>> in = new ArrayList<>();
       in.add(this.catalyst.toStackList());
 
       for(int i = 0; i < 8; ++i) {
@@ -87,7 +85,7 @@ public class IntegrationWrapper implements IRecipeWrapper {
          outputField = IntegrationRecipeBasic.class.getDeclaredField("output");
          outputField.setAccessible(true);
       } catch (SecurityException | NoSuchFieldException e) {
-         ((Exception)e).printStackTrace();
+         e.printStackTrace();
          outputField = null;
       }
 

@@ -8,7 +8,6 @@ import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
 import mods.railcraft.api.crafting.Crafters;
-import mods.railcraft.api.crafting.ICokeOvenCrafter;
 import moretweaker.CraftingPart;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
@@ -29,7 +28,7 @@ public class CokeOven {
       final FluidStack fluid = InputHelper.toFluid(liquid);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            ((ICokeOvenCrafter.ICokeOvenRecipeBuilder)((ICokeOvenCrafter.ICokeOvenRecipeBuilder)((ICokeOvenCrafter.ICokeOvenRecipeBuilder)Crafters.cokeOven().newRecipe(RailUtil.toInput(in)).output(out)).fluid(fluid).time(ticks)).name(MoreTweaker.newRL())).register();
+            Crafters.cokeOven().newRecipe(RailUtil.toInput(in)).output(out).fluid(fluid).time(ticks).name(MoreTweaker.newRL()).register();
          }
 
          public String describe() {

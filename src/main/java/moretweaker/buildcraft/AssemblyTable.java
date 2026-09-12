@@ -45,7 +45,7 @@ public class AssemblyTable {
       final Object out = Inputs.getObject(output);
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
-            AssemblyRecipeRegistry.REGISTRY.values().removeIf((r) -> Inputs.matchesForRemoval(out, (Iterable)r.getOutputPreviews()));
+            AssemblyRecipeRegistry.REGISTRY.values().removeIf((r) -> Inputs.matchesForRemoval(out, r.getOutputPreviews()));
          }
 
          public String describe() {

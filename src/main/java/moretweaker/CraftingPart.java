@@ -1,10 +1,11 @@
 package moretweaker;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 
 public final class CraftingPart {
    public static final CraftingPart EMPTY;
@@ -18,7 +19,7 @@ public final class CraftingPart {
 
    public List<ItemStack> toStackList() {
       ItemStack[] stacks = this.ingredient.getMatchingStacks();
-      List<ItemStack> list = new ArrayList();
+      List<ItemStack> list = new ArrayList<>();
 
       for(ItemStack stack : stacks) {
          ItemStack stack0 = stack.copy();
@@ -35,7 +36,7 @@ public final class CraftingPart {
 
    public ItemStack getAStack() {
       List<ItemStack> stacks = this.toStackList();
-      return stacks.isEmpty() ? ItemStack.EMPTY : (ItemStack)stacks.get(0);
+      return stacks.isEmpty() ? ItemStack.EMPTY : stacks.get(0);
    }
 
    static {

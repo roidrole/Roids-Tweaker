@@ -1,10 +1,11 @@
 package moretweaker.lightningcraft;
 
 import crafttweaker.api.item.IIngredient;
-import java.util.List;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.List;
 
 public class LUtil {
    private LUtil() {

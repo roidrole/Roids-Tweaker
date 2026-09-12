@@ -5,10 +5,7 @@ import erebus.ModBlocks;
 import erebus.recipes.ComposterRegistry;
 import erebus.recipes.OfferingAltarRecipe;
 import erebus.recipes.SmoothieMakerRecipe;
-import java.util.ArrayList;
-import java.util.List;
 import mezz.jei.api.IModRegistry;
-import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import moretweaker.jei.MoreJeiPlugin;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,15 +16,18 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ErebusJei implements MoreJeiPlugin {
    public void register(IRecipeCategoryRegistration registry) {
-      registry.addRecipeCategories(new IRecipeCategory[]{new OfferingCategory(registry.getJeiHelpers().getGuiHelper()), new CompostCategory(registry.getJeiHelpers().getGuiHelper()), new SmoothieCategory(registry.getJeiHelpers().getGuiHelper())});
+      registry.addRecipeCategories(new OfferingCategory(registry.getJeiHelpers().getGuiHelper()), new CompostCategory(registry.getJeiHelpers().getGuiHelper()), new SmoothieCategory(registry.getJeiHelpers().getGuiHelper()));
    }
 
    public void register(IModRegistry registry) {
-      registry.addRecipeCatalyst(new ItemStack(ModBlocks.ALTAR_OFFERING), new String[]{"moretweaker.erebus.offering.recipes"});
-      registry.addRecipeCatalyst(new ItemStack(ModBlocks.COMPOSTER), new String[]{"moretweaker.erebus.compost.recipes"});
-      registry.addRecipeCatalyst(new ItemStack(ModBlocks.SMOOTHIE_MAKER), new String[]{"moretweaker.erebus.smoothie.recipes"});
+      registry.addRecipeCatalyst(new ItemStack(ModBlocks.ALTAR_OFFERING), "moretweaker.erebus.offering.recipes");
+      registry.addRecipeCatalyst(new ItemStack(ModBlocks.COMPOSTER), "moretweaker.erebus.compost.recipes");
+      registry.addRecipeCatalyst(new ItemStack(ModBlocks.SMOOTHIE_MAKER), "moretweaker.erebus.smoothie.recipes");
       registry.handleRecipes(OfferingAltarRecipe.class, OfferingWrapper::new, "moretweaker.erebus.offering.recipes");
       registry.handleRecipes(ItemStack.class, CompostWrapper::new, "moretweaker.erebus.compost.recipes");
       registry.handleRecipes(SmoothieMakerRecipe.class, SmoothieWrapper::new, "moretweaker.erebus.smoothie.recipes");
@@ -51,7 +51,7 @@ public class ErebusJei implements MoreJeiPlugin {
    }
 
    public static List<List<ItemStack>> getStacksList(Object[] inputs, int sizeNeeded) {
-      List<List<ItemStack>> in = new ArrayList();
+      List<List<ItemStack>> in = new ArrayList<>();
 
       for(Object obj : inputs) {
          if (in.size() < sizeNeeded) {
@@ -62,9 +62,9 @@ public class ErebusJei implements MoreJeiPlugin {
                   in.add(OreDictionary.getOres((String)obj));
                }
             } else {
-               List<ItemStack> stackList = new ArrayList();
+               List<ItemStack> stackList = new ArrayList<>();
 
-               for(Object o : (List)obj) {
+               for(Object o : (List<?>)obj) {
                   if (o instanceof ItemStack) {
                      stackList.add((ItemStack)o);
                   }

@@ -10,13 +10,14 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import java.util.ArrayList;
-import java.util.List;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ZenClass("moretweaker.draconicevolution.FusionCrafting")
 @ZenRegister

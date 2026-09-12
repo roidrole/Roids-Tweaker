@@ -5,8 +5,6 @@ import com.bewitchment.common.block.BlockGlyph;
 import com.bewitchment.common.item.tool.ItemAthame;
 import com.bewitchment.common.item.tool.ItemBoline;
 import com.bewitchment.registry.ModObjects;
-import java.util.List;
-import java.util.function.Predicate;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,6 +19,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
+import java.util.List;
+import java.util.function.Predicate;
+
+@SuppressWarnings("unused")
 public class Test extends IForgeRegistryEntry.Impl<Test> {
    public static final int[][] small = new int[][]{{0, 0, 1, 1, 1, 0, 0}, {0, 1, 0, 0, 0, 1, 0}, {1, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 1}, {0, 1, 0, 0, 0, 1, 0}, {0, 0, 1, 1, 1, 0, 0}};
    public static final int[][] medium = new int[][]{{0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0}};
@@ -76,12 +78,12 @@ public class Test extends IForgeRegistryEntry.Impl<Test> {
    }
 
    public void onStarted(World world, BlockPos pos, EntityPlayer caster, ItemStackHandler inventory) {
-      world.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 1.0F);
+      world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 1.0F);
    }
 
    public void onFinished(World world, BlockPos altarPos, BlockPos effectivePos, EntityPlayer caster, ItemStackHandler inventory) {
-      world.playSound((EntityPlayer)null, altarPos, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 0.7F, 0.7F);
-      world.playSound((EntityPlayer)null, effectivePos, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 0.7F, 0.7F);
+      world.playSound(null, altarPos, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 0.7F, 0.7F);
+      world.playSound(null, effectivePos, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 0.7F, 0.7F);
 
       for(int i = 0; i < inventory.getSlots(); ++i) {
          ItemStack stack = inventory.getStackInSlot(i);
@@ -98,17 +100,17 @@ public class Test extends IForgeRegistryEntry.Impl<Test> {
 
       if (!world.isRemote && this.output != null) {
          for(ItemStack stack : this.output) {
-            InventoryHelper.spawnItemStack(world, (double)altarPos.getX(), (double)altarPos.getY(), (double)altarPos.getZ(), stack.copy());
+            InventoryHelper.spawnItemStack(world, altarPos.getX(), altarPos.getY(), altarPos.getZ(), stack.copy());
          }
       }
 
    }
 
    public void onHalted(World world, BlockPos altarPos, BlockPos effectivePos, EntityPlayer caster, ItemStackHandler inventory) {
-      world.playSound((EntityPlayer)null, altarPos, SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.BLOCKS, 0.7F, 0.7F);
+      world.playSound(null, altarPos, SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.BLOCKS, 0.7F, 0.7F);
       if (!world.isRemote) {
          for(int i = 0; i < inventory.getSlots(); ++i) {
-            InventoryHelper.spawnItemStack(world, (double)altarPos.getX(), (double)altarPos.getY(), (double)altarPos.getZ(), inventory.extractItem(i, inventory.getStackInSlot(i).getCount(), false));
+            InventoryHelper.spawnItemStack(world, altarPos.getX(), altarPos.getY(), altarPos.getZ(), inventory.extractItem(i, inventory.getStackInSlot(i).getCount(), false));
          }
       }
 
@@ -121,7 +123,7 @@ public class Test extends IForgeRegistryEntry.Impl<Test> {
       for(int x = 0; x < small.length; ++x) {
          for(int z = 0; z < small.length; ++z) {
             IBlockState state = world.getBlockState(pos.add(x - small.length / 2, 0, z - small.length / 2));
-            if (small[x][z] == 1 && (state.getBlock() != ModObjects.glyph || (Integer)state.getValue(BlockGlyph.TYPE) == 0 || (Integer)state.getValue(BlockGlyph.TYPE) != this.circles[0] && this.circles[0] != 4)) {
+            if (small[x][z] == 1 && (state.getBlock() != ModObjects.glyph || state.getValue(BlockGlyph.TYPE) == 0 || state.getValue(BlockGlyph.TYPE) != this.circles[0] && this.circles[0] != 4)) {
                return false;
             }
          }
@@ -131,7 +133,7 @@ public class Test extends IForgeRegistryEntry.Impl<Test> {
          for(int x = 0; x < medium.length; ++x) {
             for(int z = 0; z < medium.length; ++z) {
                IBlockState state = world.getBlockState(pos.add(x - medium.length / 2, 0, z - medium.length / 2));
-               if (medium[x][z] == 1 && (state.getBlock() != ModObjects.glyph || (Integer)state.getValue(BlockGlyph.TYPE) == 0 || (Integer)state.getValue(BlockGlyph.TYPE) != this.circles[1] && this.circles[1] != 4)) {
+               if (medium[x][z] == 1 && (state.getBlock() != ModObjects.glyph || state.getValue(BlockGlyph.TYPE) == 0 || state.getValue(BlockGlyph.TYPE) != this.circles[1] && this.circles[1] != 4)) {
                   return false;
                }
             }
@@ -142,7 +144,7 @@ public class Test extends IForgeRegistryEntry.Impl<Test> {
          for(int x = 0; x < large.length; ++x) {
             for(int z = 0; z < large.length; ++z) {
                IBlockState state = world.getBlockState(pos.add(x - large.length / 2, 0, z - large.length / 2));
-               if (large[x][z] == 1 && (state.getBlock() != ModObjects.glyph || (Integer)state.getValue(BlockGlyph.TYPE) == 0 || (Integer)state.getValue(BlockGlyph.TYPE) != this.circles[2] && this.circles[2] != 4)) {
+               if (large[x][z] == 1 && (state.getBlock() != ModObjects.glyph || state.getValue(BlockGlyph.TYPE) == 0 || state.getValue(BlockGlyph.TYPE) != this.circles[2] && this.circles[2] != 4)) {
                   return false;
                }
             }

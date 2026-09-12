@@ -9,9 +9,6 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
@@ -21,6 +18,10 @@ import net.minecraft.potion.PotionEffect;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @ZenClass("moretweaker.bewitchment.WitchesCauldron")
 @ZenRegister
@@ -38,7 +39,7 @@ public class WitchesCauldron {
 
       if (outputs.length <= 3 && inputs.length <= 10) {
          final List<ItemStack> out = Arrays.asList(InputHelper.toStacks(outputs));
-         final List<Ingredient> in = (List)Arrays.stream(Inputs.getParts(inputs)).map((c) -> c.ingredient).collect(Collectors.toList());
+         final List<Ingredient> in = Arrays.stream(Inputs.getParts(inputs)).map((c) -> c.ingredient).collect(Collectors.toList());
          MoreTweaker.queuePostInitAction(new IAction() {
             public void apply() {
                MoreTweaker.forgeAdd(CauldronRecipe.class, new CauldronRecipe(MoreTweaker.newRL(), in, out));
@@ -56,7 +57,7 @@ public class WitchesCauldron {
       final Object out = Inputs.getObject(output);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            MoreTweaker.forgeRemove(CauldronRecipe.class, (r) -> Inputs.matchesForRemoval(out, (Iterable)r.output));
+            MoreTweaker.forgeRemove(CauldronRecipe.class, (r) -> Inputs.matchesForRemoval(out, r.output));
          }
 
          public String describe() {
@@ -79,7 +80,7 @@ public class WitchesCauldron {
    }
 
    @ZenMethod
-   public static void addBrew(IIngredient trigger, final String potion, @Optional(valueLong = 600L) final int duration, @Optional(valueLong = 0L) final int amplifier) {
+   public static void addBrew(IIngredient trigger, final String potion, @Optional(valueLong = 600L) final int duration, @Optional final int amplifier) {
       final Ingredient in = Inputs.getPart(trigger).ingredient;
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {

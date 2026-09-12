@@ -7,7 +7,6 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import mods.railcraft.api.crafting.Crafters;
-import mods.railcraft.api.crafting.IBlastFurnaceCrafter;
 import moretweaker.CraftingPart;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
@@ -21,12 +20,12 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ModOnly("railcraft")
 public class BlastFurnace {
    @ZenMethod
-   public static void add(IItemStack output, IIngredient input, @Optional(valueLong = 1280L) final int ticks, @Optional(valueLong = 0L) final int slag) {
+   public static void add(IItemStack output, IIngredient input, @Optional(valueLong = 1280L) final int ticks, @Optional final int slag) {
       final ItemStack out = InputHelper.toStack(output);
       final CraftingPart in = Inputs.getPart(input);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            ((IBlastFurnaceCrafter.IBlastFurnaceRecipeBuilder)((IBlastFurnaceCrafter.IBlastFurnaceRecipeBuilder)((IBlastFurnaceCrafter.IBlastFurnaceRecipeBuilder)Crafters.blastFurnace().newRecipe(RailUtil.toInput(in)).output(out)).time(ticks)).slagOutput(slag).name(MoreTweaker.newRL())).register();
+            Crafters.blastFurnace().newRecipe(RailUtil.toInput(in)).output(out).time(ticks).slagOutput(slag).name(MoreTweaker.newRL()).register();
          }
 
          public String describe() {

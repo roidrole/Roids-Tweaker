@@ -26,7 +26,7 @@ public class BedrockRitual {
       final int amount = Math.max(0, Math.min(bedrockAmount, 320));
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            RitualManager.addRecipe(out, c, amount, in);
+            RitualManager.addRecipe(out, c, amount, (Object[]) in);
          }
 
          public String describe() {

@@ -7,7 +7,6 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import mods.railcraft.api.crafting.Crafters;
-import mods.railcraft.api.crafting.IRollingMachineCrafter;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
@@ -30,7 +29,7 @@ public class RollingMachine {
       final ShapedOreRecipe recipe = new ShapedOreRecipe(rl, out, in);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            ((IRollingMachineCrafter.IRollingMachineRecipeBuilder)((IRollingMachineCrafter.IRollingMachineRecipeBuilder)Crafters.rollingMachine().newRecipe(out).time(ticks)).name(rl)).recipe(recipe);
+            Crafters.rollingMachine().newRecipe(out).time(ticks).name(rl).recipe(recipe);
          }
 
          public String describe() {
@@ -47,7 +46,7 @@ public class RollingMachine {
       final ShapelessOreRecipe recipe = new ShapelessOreRecipe(rl, out, in);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            ((IRollingMachineCrafter.IRollingMachineRecipeBuilder)((IRollingMachineCrafter.IRollingMachineRecipeBuilder)Crafters.rollingMachine().newRecipe(out).time(ticks)).name(rl)).recipe(recipe);
+            Crafters.rollingMachine().newRecipe(out).time(ticks).name(rl).recipe(recipe);
          }
 
          public String describe() {

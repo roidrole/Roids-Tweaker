@@ -6,8 +6,6 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.oredict.IOreDictEntry;
-import java.util.HashSet;
-import java.util.Set;
 import matteroverdrive.MatterOverdrive;
 import matteroverdrive.data.matter.ItemHandler;
 import moretweaker.CraftingPart;
@@ -16,6 +14,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @ZenClass("moretweaker.matteroverdrive.Matter")
 @ZenRegister

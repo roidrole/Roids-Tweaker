@@ -7,8 +7,6 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import java.util.ArrayList;
-import java.util.List;
 import moretweaker.Inputs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -20,6 +18,9 @@ import thebetweenlands.api.IBetweenlandsAPI;
 import thebetweenlands.api.recipes.IAnimatorRecipe;
 import thebetweenlands.common.BetweenlandsAPI;
 import thebetweenlands.common.recipe.misc.AnimatorRecipe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ZenClass("moretweaker.betweenlands.Animator")
 @ZenRegister
@@ -68,7 +69,7 @@ public class Animator {
       final Object out = Inputs.getObject(output);
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
-            List<IAnimatorRecipe> recipes = new ArrayList();
+            List<IAnimatorRecipe> recipes = new ArrayList<>();
             BetweenlandsAPI.getInstance().getAnimatorRecipes().forEach((r) -> {
                if (Inputs.matchesForRemoval(out, r.getResult(Animator.guessInput(r)))) {
                   recipes.add(r);
@@ -94,7 +95,7 @@ public class Animator {
       } else {
          CraftTweakerAPI.apply(new IAction() {
             public void apply() {
-               List<IAnimatorRecipe> recipes = new ArrayList();
+               List<IAnimatorRecipe> recipes = new ArrayList<>();
                BetweenlandsAPI.getInstance().getAnimatorRecipes().forEach((r) -> {
                   Class<? extends Entity> spawnClass = r.getSpawnEntityClass(Animator.guessInput(r));
                   if (spawnClass != null && entityClass.isAssignableFrom(spawnClass)) {
@@ -117,7 +118,7 @@ public class Animator {
    public static void removeAll() {
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
-            List<IAnimatorRecipe> allRecipes = new ArrayList(BetweenlandsAPI.getInstance().getAnimatorRecipes());
+            List<IAnimatorRecipe> allRecipes = new ArrayList<>(BetweenlandsAPI.getInstance().getAnimatorRecipes());
             IBetweenlandsAPI var10001 = BetweenlandsAPI.getInstance();
             allRecipes.forEach(var10001::unregisterAnimatorRecipe);
          }

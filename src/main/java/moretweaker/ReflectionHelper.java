@@ -23,7 +23,7 @@ public class ReflectionHelper {
 
             Constructor<T> c = clazz.getDeclaredConstructor(types);
             c.setAccessible(true);
-            return (T)c.newInstance(args);
+            return c.newInstance(args);
          } catch (ReflectiveOperationException e) {
             throw new RuntimeException("Could not create nested class: " + clazz.getName(), e);
          }

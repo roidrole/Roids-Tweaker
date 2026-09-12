@@ -1,17 +1,18 @@
 package moretweaker.jei.erebus;
 
-import javax.annotation.Nonnull;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableAnimated;
+import mezz.jei.api.gui.IDrawableAnimated.StartDirection;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
-import mezz.jei.api.gui.IDrawableAnimated.StartDirection;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
+
+import javax.annotation.Nonnull;
 
 public class CompostCategory implements IRecipeCategory<CompostWrapper> {
    public static final String id = "moretweaker.erebus.compost.recipes";
@@ -23,7 +24,7 @@ public class CompostCategory implements IRecipeCategory<CompostWrapper> {
    public CompostCategory(IGuiHelper guiHelper) {
       ResourceLocation location = new ResourceLocation("erebus", "textures/gui/container/composter.png");
       this.background = guiHelper.createDrawable(location, 55, 16, 85, 54);
-      this.localizedName = I18n.format("tile.erebus.composter.name", new Object[0]);
+      this.localizedName = I18n.format("tile.erebus.composter.name");
       this.fuel = guiHelper.drawableBuilder(location, 176, 0, 16, 14).buildAnimated(400, StartDirection.TOP, true);
       this.compost = guiHelper.drawableBuilder(location, 176, 14, 30, 30).buildAnimated(200, StartDirection.LEFT, false);
    }
@@ -48,7 +49,7 @@ public class CompostCategory implements IRecipeCategory<CompostWrapper> {
       return this.background;
    }
 
-   public void drawExtras(Minecraft minecraft) {
+   public void drawExtras(@Nonnull Minecraft minecraft) {
       this.fuel.draw(minecraft, 1, 20);
       this.compost.draw(minecraft, 21, 12);
    }

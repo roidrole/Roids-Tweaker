@@ -2,8 +2,9 @@ package moretweaker.bloodarsenal;
 
 import arcaratus.bloodarsenal.recipe.RecipeFilter;
 import crafttweaker.api.item.IIngredient;
-import java.util.List;
 import moretweaker.Inputs;
+
+import java.util.List;
 
 public class BloodArsenalUtils {
    private BloodArsenalUtils() {

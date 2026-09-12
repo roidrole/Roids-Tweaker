@@ -1,12 +1,12 @@
 package moretweaker.quacklib;
 
-import java.util.List;
 import moretweaker.CraftingPart;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import therealfarfetchd.quacklib.common.api.recipe.ItemTemplate;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public class IngredientTemplate implements ItemTemplate {
    private final ItemStack outStack;
@@ -18,13 +18,13 @@ public class IngredientTemplate implements ItemTemplate {
       if (stacks.isEmpty()) {
          this.outStack = ItemStack.EMPTY;
       } else {
-         this.outStack = (ItemStack)stacks.get(0);
+         this.outStack = stacks.get(0);
       }
 
    }
 
    public IngredientTemplate(ItemStack stack) {
-      this.part = new CraftingPart(Ingredient.fromStacks(new ItemStack[]{stack}), stack.getCount());
+      this.part = new CraftingPart(Ingredient.fromStacks(stack), stack.getCount());
       this.outStack = stack.copy();
    }
 

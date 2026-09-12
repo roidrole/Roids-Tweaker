@@ -7,14 +7,15 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
 import erebus.recipes.ComposterRegistry;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @ZenClass("moretweaker.erebus.Composter")
 @ZenRegister
@@ -42,7 +43,7 @@ public class Composter {
    @ZenMethod
    public static void addAll(IItemStack[] compostables) {
       ItemStack[] c = InputHelper.toStacks(compostables);
-      final ArrayList<ItemStack> all = new ArrayList();
+      final ArrayList<ItemStack> all = new ArrayList<>();
       Collections.addAll(all, c);
       all.forEach((stack) -> stack.setCount(1));
       MoreTweaker.queuePostInitAction(new IAction() {
@@ -76,7 +77,7 @@ public class Composter {
    @ZenMethod
    public static void removeAll(IItemStack[] nonCompostables) {
       ItemStack[] c = InputHelper.toStacks(nonCompostables);
-      final ArrayList<ItemStack> all = new ArrayList();
+      final ArrayList<ItemStack> all = new ArrayList<>();
       Collections.addAll(all, c);
       all.forEach((stack) -> stack.setCount(1));
       MoreTweaker.queuePostInitAction(new IAction() {
@@ -112,10 +113,10 @@ public class Composter {
             whiteListField.setAccessible(true);
          }
 
-         return (ArrayList)whiteListField.get((Object)null);
+         return (ArrayList<ItemStack>)whiteListField.get((Object)null);
       } catch (ClassCastException | ReflectiveOperationException e) {
-         CraftTweakerAPI.logError("Could not get mutable list for erebus composter whitelist: " + ((Exception)e).getMessage());
-         throw new RuntimeException("Could not get mutable list for erebus composter whitelist: " + ((Exception)e).getMessage(), e);
+         CraftTweakerAPI.logError("Could not get mutable list for erebus composter whitelist: " + e.getMessage());
+         throw new RuntimeException("Could not get mutable list for erebus composter whitelist: " + e.getMessage(), e);
       }
    }
 
@@ -126,10 +127,10 @@ public class Composter {
             blackListField.setAccessible(true);
          }
 
-         return (ArrayList)blackListField.get((Object)null);
+         return (ArrayList<ItemStack>)blackListField.get((Object)null);
       } catch (ClassCastException | ReflectiveOperationException e) {
-         CraftTweakerAPI.logError("Could not get mutable list for erebus composter blacklist: " + ((Exception)e).getMessage());
-         throw new RuntimeException("Could not get mutable list for erebus composter blacklist: " + ((Exception)e).getMessage(), e);
+         CraftTweakerAPI.logError("Could not get mutable list for erebus composter blacklist: " + e.getMessage());
+         throw new RuntimeException("Could not get mutable list for erebus composter blacklist: " + e.getMessage(), e);
       }
    }
 }

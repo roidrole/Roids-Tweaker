@@ -6,11 +6,12 @@ import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
-import java.util.List;
 import net.minecraft.item.ItemStack;
 import sblectric.lightningcraft.recipes.LightningTransformRecipes;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.util.List;
 
 @ZenClass("moretweaker.lightningcraft.LightningTransforming")
 @ZenRegister

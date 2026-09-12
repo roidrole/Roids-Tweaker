@@ -8,25 +8,15 @@ import epicsquid.gadgetry.machines.recipe.DistillingRecipe;
 import epicsquid.gadgetry.machines.recipe.GrindingRecipe;
 import fossilsarcheology.server.recipe.FAMachineRecipeRegistry;
 import fossilsarcheology.server.recipe.RecipeAnalyzer;
-import java.lang.reflect.Field;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
-import java.util.function.Predicate;
 import moretweaker.mob_grinding_utils.SpawnEggHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -39,6 +29,10 @@ import org.apache.logging.log4j.Logger;
 import therealfarfetchd.quacklib.common.api.autoconf.DefaultFeatures;
 import therealfarfetchd.quacklib.common.api.autoconf.FeatureManager;
 
+import java.lang.reflect.Field;
+import java.util.*;
+import java.util.function.Predicate;
+
 @Mod(
    modid = "moretweaker",
    name = "MoreTweaker",
@@ -48,10 +42,6 @@ import therealfarfetchd.quacklib.common.api.autoconf.FeatureManager;
 )
 public class MoreTweaker {
    private static int next_id = 0;
-   public static final String MODID = "moretweaker";
-   public static final String MODNAME = "MoreTweaker";
-   public static final String VERSION = "1.0.19";
-   public static final String DEPENDENCIES = "required-after:crafttweaker;required-after:mtlib;after:railcraft;after:draconicevolution@[2.3.17,);after:buildcraftcore@[7.99.24,);after:buildcraftsilicon@[7.99.24,);after:enderfuge;after:voidcraft;after:bloodarsenal@[1.12.2-2.1.0-25,);after:erebus@[1.0.20,);after:bedrockcraft@[1.0.1,);after:fossil@[8.0.1,);after:matteroverdrive;after:quacklib;after:infinitycraft;after:thebetweenlands;after:aoa3;after:bewitchment@[0.21.11,);after:hwell";
    @Instance
    public static MoreTweaker instance;
    public static Logger logger;
@@ -122,11 +112,11 @@ public class MoreTweaker {
 
       if (Loader.isModLoaded("fossil")) {
          CraftTweakerAPI.logInfo("Cleaning up Fossils Weights");
-         Set<RecipeAnalyzer> newRecipes = new HashSet();
+         Set<RecipeAnalyzer> newRecipes = new HashSet<>();
          Iterator<RecipeAnalyzer> itr = FAMachineRecipeRegistry.analyzerRecipes.iterator();
 
          while(itr.hasNext()) {
-            RecipeAnalyzer recipe = (RecipeAnalyzer)itr.next();
+            RecipeAnalyzer recipe = itr.next();
             if (recipe.getTotalWeight() != 100.0F) {
                itr.remove();
                float factor = 100.0F / recipe.getTotalWeight();
@@ -139,9 +129,9 @@ public class MoreTweaker {
                      break;
                   }
 
-                  float chance = (Float)entry.getKey() - weight;
-                  weight = (Float)entry.getKey();
-                  r.addOutput((ItemStack)entry.getValue(), chance * factor);
+                  float chance = entry.getKey() - weight;
+                  weight = entry.getKey();
+                  r.addOutput(entry.getValue(), chance * factor);
                }
 
                newRecipes.add(r);
@@ -149,11 +139,11 @@ public class MoreTweaker {
          }
 
          FAMachineRecipeRegistry.analyzerRecipes.addAll(newRecipes);
-         newRecipes = new HashSet();
+         newRecipes = new HashSet<>();
          itr = FAMachineRecipeRegistry.sifterRecipes.iterator();
 
          while(itr.hasNext()) {
-            RecipeAnalyzer recipe = (RecipeAnalyzer)itr.next();
+            RecipeAnalyzer recipe = itr.next();
             if (recipe.getTotalWeight() != 100.0F) {
                itr.remove();
                float factor = 100.0F / recipe.getTotalWeight();
@@ -166,9 +156,9 @@ public class MoreTweaker {
                      break;
                   }
 
-                  float chance = (Float)entry.getKey() - weight;
-                  weight = (Float)entry.getKey();
-                  r.addOutput((ItemStack)entry.getValue(), chance * factor);
+                  float chance = entry.getKey() - weight;
+                  weight = entry.getKey();
+                  r.addOutput(entry.getValue(), chance * factor);
                }
 
                newRecipes.add(r);
@@ -200,7 +190,7 @@ public class MoreTweaker {
    public static <T extends IForgeRegistryEntry<T>> void forgeRemove(Class<T> registerClass, Predicate<T> removePredicate) {
       IForgeRegistry<T> registry = GameRegistry.findRegistry(registerClass);
       if (registry instanceof IForgeRegistryModifiable) {
-         Set<ResourceLocation> removes = new HashSet();
+         Set<ResourceLocation> removes = new HashSet<>();
 
          for(Map.Entry<ResourceLocation, T> entry : registry.getEntries()) {
             if (removePredicate.test(entry.getValue())) {
@@ -214,10 +204,10 @@ public class MoreTweaker {
 
          for(ResourceLocation entry : removes) {
             try {
-               ((IForgeRegistryModifiable)registry).remove(entry);
+               ((IForgeRegistryModifiable<T>)registry).remove(entry);
             } catch (UnsupportedOperationException e) {
                if (registry instanceof ForgeRegistry) {
-                  ForgeRegistry<T> fr = (ForgeRegistry)registry;
+                  ForgeRegistry<T> fr = (ForgeRegistry<T>)registry;
                   if (fr.isLocked()) {
                      if (!hasReportedError) {
                         hasReportedError = true;
@@ -228,13 +218,13 @@ public class MoreTweaker {
                         if (names == null || ids == null) {
                            Field namesField = ForgeRegistry.class.getDeclaredField("names");
                            namesField.setAccessible(true);
-                           names = (BiMap)namesField.get(fr);
+                           names = (BiMap<ResourceLocation, T>)namesField.get(fr);
                            Field idsField = ForgeRegistry.class.getDeclaredField("ids");
                            idsField.setAccessible(true);
-                           ids = (BiMap)idsField.get(fr);
+                           ids = (BiMap<Integer, T>)idsField.get(fr);
                         }
 
-                        T value = (T)(names.remove(entry));
+                        T value = names.remove(entry);
                         if (value != null) {
                            ids.inverse().remove(value);
                         }

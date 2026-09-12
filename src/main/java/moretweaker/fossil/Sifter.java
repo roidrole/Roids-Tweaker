@@ -9,16 +9,17 @@ import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import fossilsarcheology.server.recipe.FAMachineRecipeRegistry;
 import fossilsarcheology.server.recipe.RecipeAnalyzer;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 import moretweaker.CraftingPart;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 @ZenClass("moretweaker.fossil.Sifter")
 @ZenRegister
@@ -67,11 +68,11 @@ public class Sifter {
       final Object out = Inputs.getObject(output);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            Set<RecipeAnalyzer> newRecipes = new HashSet();
+            Set<RecipeAnalyzer> newRecipes = new HashSet<>();
             Iterator<RecipeAnalyzer> itr = FAMachineRecipeRegistry.sifterRecipes.iterator();
 
             while(itr.hasNext()) {
-               RecipeAnalyzer recipe = (RecipeAnalyzer)itr.next();
+               RecipeAnalyzer recipe = itr.next();
                if (Iterables.tryFind(recipe.getDisplayMap().values(), (s) -> Inputs.matchesForRemoval(out, s)).isPresent()) {
                   itr.remove();
                   RecipeAnalyzer r = new RecipeAnalyzer(recipe.getInput());
@@ -84,10 +85,10 @@ public class Sifter {
                         break;
                      }
 
-                     float chance = (Float)entry.getKey() - weight;
-                     weight = (Float)entry.getKey();
-                     if (!Inputs.matchesForRemoval(out, (ItemStack)entry.getValue())) {
-                        r.addOutput((ItemStack)entry.getValue(), chance);
+                     float chance = entry.getKey() - weight;
+                     weight = entry.getKey();
+                     if (!Inputs.matchesForRemoval(out, entry.getValue())) {
+                        r.addOutput(entry.getValue(), chance);
                         outputAdded = true;
                      }
                   }

@@ -8,9 +8,6 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
@@ -19,6 +16,10 @@ import net.minecraft.util.ResourceLocation;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenProperty;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @ZenClass("moretweaker.bewitchment.WitchesRitual")
 @ZenRegister
@@ -49,7 +50,7 @@ public class WitchesRitual {
 
       if (outputs.length <= 5 && inputs.length <= 10) {
          final List<ItemStack> out = Arrays.asList(InputHelper.toStacks(outputs));
-         final List<Ingredient> in = (List)Arrays.stream(Inputs.getParts(inputs)).map((c) -> c.ingredient).collect(Collectors.toList());
+         final List<Ingredient> in = Arrays.stream(Inputs.getParts(inputs)).map((c) -> c.ingredient).collect(Collectors.toList());
          final ResourceLocation rl = MoreTweaker.newRL();
          MoreTweaker.injectTranslation("ritual." + rl.getNamespace() + "." + rl.getPath(), name);
          MoreTweaker.queuePostInitAction(new IAction() {
@@ -69,7 +70,7 @@ public class WitchesRitual {
       final Object out = Inputs.getObject(output);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            MoreTweaker.forgeRemove(Ritual.class, (r) -> Inputs.matchesForRemoval(out, (Iterable)r.output));
+            MoreTweaker.forgeRemove(Ritual.class, (r) -> Inputs.matchesForRemoval(out, r.output));
          }
 
          public String describe() {

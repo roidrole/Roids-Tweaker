@@ -2,17 +2,7 @@ package moretweaker.jei;
 
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import javax.annotation.Nonnull;
-import mezz.jei.api.IJeiHelpers;
-import mezz.jei.api.IJeiRuntime;
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.IModRegistry;
-import mezz.jei.api.JEIPlugin;
+import mezz.jei.api.*;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import moretweaker.jei.buildcraft.BuildCraftJei;
@@ -24,13 +14,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 
+import javax.annotation.Nonnull;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 @JEIPlugin
 public class MoreJei implements IModPlugin {
    private static IJeiRuntime runtime = null;
    private static IJeiHelpers helpers = null;
-   private static final List<MoreJeiPlugin> plugins = new LinkedList();
+   private static final List<MoreJeiPlugin> plugins = new LinkedList<>();
    public static final ResourceLocation GUI_VANILLA = new ResourceLocation("jei", "textures/gui/gui_vanilla.png");
-   private static final Queue<IAction> runtimeQueue = new LinkedList();
+   private static final Queue<IAction> runtimeQueue = new LinkedList<>();
 
    public MoreJei() {
       register("buildcraftsilicon", BuildCraftJei::new);
@@ -53,8 +50,8 @@ public class MoreJei implements IModPlugin {
          plugin.register(registry);
       }
 
-      registry.addIngredientInfo(new ItemStack(Items.DIAMOND), VanillaTypes.ITEM, new String[]{"Test description", "Fancy"});
-      registry.addIngredientInfo(new ItemStack(Items.GOLD_INGOT), VanillaTypes.ITEM, new String[]{"Another description", "WOWERS"});
+      registry.addIngredientInfo(new ItemStack(Items.DIAMOND), VanillaTypes.ITEM, "Test description", "Fancy");
+      registry.addIngredientInfo(new ItemStack(Items.GOLD_INGOT), VanillaTypes.ITEM, "Another description", "WOWERS");
    }
 
    public void registerCategories(IRecipeCategoryRegistration registry) {

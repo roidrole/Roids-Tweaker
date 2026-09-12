@@ -2,14 +2,15 @@ package moretweaker.jei.erebus;
 
 import com.google.common.collect.ImmutableList;
 import erebus.recipes.SmoothieMakerRecipe;
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.Nonnull;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SmoothieWrapper implements IRecipeWrapper {
    private final SmoothieMakerRecipe recipe;
@@ -23,7 +24,7 @@ public class SmoothieWrapper implements IRecipeWrapper {
       in.add(ImmutableList.of(this.recipe.getContainer()));
       ii.setInputLists(VanillaTypes.ITEM, in);
       ii.setOutput(VanillaTypes.ITEM, this.recipe.getOutput());
-      List<List<FluidStack>> fluids = new ArrayList();
+      List<List<FluidStack>> fluids = new ArrayList<>();
 
       for(FluidStack stack : this.recipe.getFluids()) {
          fluids.add(ImmutableList.of(stack));

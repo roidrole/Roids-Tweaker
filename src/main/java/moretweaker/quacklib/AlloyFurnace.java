@@ -6,8 +6,6 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import java.util.ArrayList;
-import java.util.List;
 import kotlin.Unit;
 import moretweaker.CraftingPart;
 import moretweaker.Inputs;
@@ -16,7 +14,9 @@ import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import therealfarfetchd.quacklib.common.api.recipe.AlloyFurnaceRecipes;
-import therealfarfetchd.quacklib.common.api.recipe.ItemTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ZenClass("moretweaker.quacklib.AlloyFurnace")
 @ZenRegister
@@ -26,7 +26,7 @@ public class AlloyFurnace {
    public static void addRecipe(IItemStack output, IIngredient[] inputs) {
       final ItemStack out = InputHelper.toStack(output);
       CraftingPart[] in = Inputs.getParts(inputs);
-      final List<IngredientTemplate> templates = new ArrayList();
+      final List<IngredientTemplate> templates = new ArrayList<>();
 
       for(CraftingPart part : in) {
          templates.add(new IngredientTemplate(part));
@@ -52,7 +52,7 @@ public class AlloyFurnace {
       final Object out = Inputs.getObject(output);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
-            AlloyFurnaceRecipes.INSTANCE.getRecipesList().removeIf((pair) -> Inputs.matchesForRemoval(out, ((ItemTemplate)pair.getSecond()).makeStack()));
+            AlloyFurnaceRecipes.INSTANCE.getRecipesList().removeIf((pair) -> Inputs.matchesForRemoval(out, pair.getSecond().makeStack()));
          }
 
          public String describe() {
