@@ -13,9 +13,9 @@ recipes.addShaped(<minecraft:golden_sword>, [
     (<minecraft:stick> * 3).spread()
 ]);
 
-//IItemStack[]
+val breadOrFeathers = IIngredient.getEmpty().orArray([<minecraft:bread>, <minecraft:feather>]);
 recipes.addShaped(<minecraft:golden_sword>, [
-    [[<minecraft:bread>, <minecraft:feather>] as IIngredient],
+    [breadOrFeathers],
     [<minecraft:stick>],
     [<minecraft:stick>]
 ]);
