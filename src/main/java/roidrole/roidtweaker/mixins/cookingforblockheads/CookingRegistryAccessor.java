@@ -15,22 +15,22 @@ import java.util.Map;
 @Mixin(CookingRegistry.class)
 public interface CookingRegistryAccessor {
 
-	@Accessor
+	@Accessor(remap = false)
 	static List<IRecipe> getRecipeList(){
 		throw new MixinException("Mixin "+CookingRegistryAccessor.class.getCanonicalName() + " didn't apply");
 	}
 
-	@Accessor
+	@Accessor(remap = false)
 	static Map<ItemStack, ItemStack> getOvenRecipes(){
 		throw new MixinException("Mixin "+CookingRegistryAccessor.class.getCanonicalName() + " didn't apply");
 	}
 
-	@Accessor
+	@Accessor(remap = false)
 	static Map<ItemStack, SinkHandler> getSinkHandlers(){
 		throw new MixinException("Mixin "+CookingRegistryAccessor.class.getCanonicalName() + " didn't apply");
 	}
 
-	@Accessor
+	@Accessor(remap = false)
 	static Map<ItemStack, ToastHandler> getToastHandlers(){
 		throw new MixinException("Mixin "+CookingRegistryAccessor.class.getCanonicalName() + " didn't apply");
 	}

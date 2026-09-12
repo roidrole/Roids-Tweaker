@@ -7,14 +7,14 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(InscriberRecipe.class)
 public interface InscriberRecipeAccessor {
-	@Accessor
+	@Accessor(remap = false)
 	void setMain(ItemStack main);
-	@Accessor
+	@Accessor(remap = false)
 	void setSec(ItemStack sec);
-	@Accessor
+	@Accessor(remap = false)
 	void setOutput(ItemStack output);
-	@Accessor
+	@Accessor(remap = false)
 	void setEnergy(int energy);
-	@Accessor
+	@Accessor(remap = false)
 	void setTime(int time);
 }

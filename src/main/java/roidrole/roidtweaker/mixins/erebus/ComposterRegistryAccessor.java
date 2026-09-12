@@ -10,12 +10,12 @@ import java.util.List;
 
 @Mixin(ComposterRegistry.class)
 public interface ComposterRegistryAccessor {
-	@Accessor
+	@Accessor(remap = false)
 	static List<ItemStack> getBlacklist(){
 		throw new MixinException("Mixin "+ ComposterRegistryAccessor.class.getCanonicalName() + " didn't apply");
 	}
 
-	@Accessor
+	@Accessor(remap = false)
 	static List<ItemStack> getRegistry(){
 		throw new MixinException("Mixin "+ ComposterRegistryAccessor.class.getCanonicalName() + " didn't apply");
 	}

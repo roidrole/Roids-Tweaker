@@ -9,9 +9,9 @@ import java.util.List;
 
 @Mixin(IngredientInfoRecipe.class)
 public interface IngredientInfoRecipeAccessor<T> {
-	@Accessor
+	@Accessor(remap = false)
 	List<T> getIngredients();
 
-	@Accessor
+	@Accessor(remap = false)
 	IIngredientType<T> getIngredientType();
 }

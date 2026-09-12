@@ -9,6 +9,6 @@ import java.util.List;
 
 @Mixin(RecipeManager.class)
 public interface RecipeManagerAccessor<M, R extends Recipe<M>> {
-	@Accessor
+	@Accessor(remap = false)
 	List<R> getRecipes();
 }

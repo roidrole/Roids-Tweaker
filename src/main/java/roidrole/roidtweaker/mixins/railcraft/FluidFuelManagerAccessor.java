@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Mixin(FluidFuelManager.class)
 public interface FluidFuelManagerAccessor {
-	@Accessor
+	@Accessor(remap = false)
 	static Map<FluidStack, Integer> getBoilerFuel(){
 		throw new MixinException("Mixin "+ FluidFuelManagerAccessor.class.getCanonicalName() + " didn't apply");
 	}

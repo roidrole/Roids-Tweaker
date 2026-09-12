@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mixin(SmoothieMakerRecipe.class)
 public interface SmoothieMakerRecipeAccessor {
-	@Accessor
+	@Accessor(remap = false)
 	static List<SmoothieMakerRecipe> getRecipes(){
 		throw new MixinException("Mixin "+ SmoothieMakerRecipeAccessor.class.getCanonicalName() + " didn't apply");
 	}

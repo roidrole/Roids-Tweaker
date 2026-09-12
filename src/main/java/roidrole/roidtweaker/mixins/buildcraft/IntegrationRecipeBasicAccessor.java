@@ -7,6 +7,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(IntegrationRecipeBasic.class)
 public interface IntegrationRecipeBasicAccessor {
-	@Accessor
+	@Accessor(remap = false)
 	ItemStack getOutput();
 }

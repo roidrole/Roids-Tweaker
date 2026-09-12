@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mixin(OfferingAltarRecipe.class)
 public interface OfferingAltarRecipeAccessor {
-	@Accessor
+	@Accessor(remap = false)
 	static List<OfferingAltarRecipe> getList(){
 		throw new MixinException("Mixin "+ OfferingAltarRecipeAccessor.class.getCanonicalName() + " didn't apply");
 	}
