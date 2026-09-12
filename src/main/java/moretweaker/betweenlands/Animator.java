@@ -1,12 +1,12 @@
 package moretweaker.betweenlands;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -28,8 +28,8 @@ import java.util.List;
 public class Animator {
    @ZenMethod
    public static void addRecipe(IItemStack input, final int fuel, final int life, IItemStack output) {
-      final ItemStack in = InputHelper.toStack(input);
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack in = CraftTweakerMC.getItemStack(input);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
             AnimatorRecipe recipe = new AnimatorRecipe(in, fuel, life, out);
@@ -44,7 +44,7 @@ public class Animator {
 
    @ZenMethod
    public static void addRecipe(IItemStack input, final int fuel, final int life, String entity) {
-      final ItemStack in = InputHelper.toStack(input);
+      final ItemStack in = CraftTweakerMC.getItemStack(input);
       final ResourceLocation entityLocation = new ResourceLocation(entity);
       final Class<? extends Entity> entityClass = EntityList.getClass(entityLocation);
       if (entityClass == null) {

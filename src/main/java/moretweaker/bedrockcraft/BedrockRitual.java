@@ -1,12 +1,12 @@
 package moretweaker.bedrockcraft;
 
 import bedrockcraft.ritual.RitualManager;
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
@@ -20,7 +20,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class BedrockRitual {
    @ZenMethod
    public static void addRecipe(IItemStack output, IIngredient center, int bedrockAmount, IIngredient[] inputs) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       final Ingredient c = Inputs.getIngredient(Inputs.getObject(center));
       final Ingredient[] in = Inputs.getIngredients(Inputs.getObjects(inputs));
       final int amount = Math.max(0, Math.min(bedrockAmount, 320));

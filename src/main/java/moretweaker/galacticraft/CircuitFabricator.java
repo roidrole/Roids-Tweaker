@@ -1,12 +1,12 @@
 package moretweaker.galacticraft;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import micdoodle8.mods.galacticraft.api.recipe.CircuitFabricatorRecipes;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
@@ -22,7 +22,7 @@ import java.util.List;
 public class CircuitFabricator {
    @ZenMethod
    public static void add(IItemStack output, IIngredient[] inputs) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       if (!out.isEmpty()) {
          if (inputs.length != 5) {
             CraftTweakerAPI.logError("CircuitFabricator expected 5 IIngredients but got " + inputs.length + ".");
@@ -48,7 +48,7 @@ public class CircuitFabricator {
 
    @ZenMethod
    public static void remove(IItemStack output) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       if (!out.isEmpty()) {
          CraftTweakerAPI.apply(new IAction() {
             public void apply() {

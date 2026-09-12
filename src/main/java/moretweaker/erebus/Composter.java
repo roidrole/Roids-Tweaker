@@ -1,11 +1,11 @@
 package moretweaker.erebus;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import erebus.recipes.ComposterRegistry;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
@@ -26,7 +26,7 @@ public class Composter {
 
    @ZenMethod
    public static void add(IItemStack compostable) {
-      final ItemStack c = InputHelper.toStack(compostable);
+      final ItemStack c = CraftTweakerMC.getItemStack(compostable);
       c.setCount(1);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
@@ -42,7 +42,7 @@ public class Composter {
 
    @ZenMethod
    public static void addAll(IItemStack[] compostables) {
-      ItemStack[] c = InputHelper.toStacks(compostables);
+      ItemStack[] c = CraftTweakerMC.getItemStacks(compostables);
       final ArrayList<ItemStack> all = new ArrayList<>();
       Collections.addAll(all, c);
       all.forEach((stack) -> stack.setCount(1));
@@ -60,7 +60,7 @@ public class Composter {
 
    @ZenMethod
    public static void remove(IItemStack nonCompostable) {
-      final ItemStack c = InputHelper.toStack(nonCompostable);
+      final ItemStack c = CraftTweakerMC.getItemStack(nonCompostable);
       c.setCount(1);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
@@ -76,7 +76,7 @@ public class Composter {
 
    @ZenMethod
    public static void removeAll(IItemStack[] nonCompostables) {
-      ItemStack[] c = InputHelper.toStacks(nonCompostables);
+      ItemStack[] c = CraftTweakerMC.getItemStacks(nonCompostables);
       final ArrayList<ItemStack> all = new ArrayList<>();
       Collections.addAll(all, c);
       all.forEach((stack) -> stack.setCount(1));

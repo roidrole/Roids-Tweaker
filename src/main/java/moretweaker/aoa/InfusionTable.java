@@ -1,12 +1,12 @@
 package moretweaker.aoa;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.enchantment.Enchantment;
@@ -27,8 +27,8 @@ import java.lang.reflect.Field;
 public class InfusionTable {
    @ZenMethod
    public static void addRecipe(IItemStack output, IItemStack mainInput, IIngredient[] inputs, @Optional(valueLong = 1L) final int infusionLevel, @Optional final int xpMin, @Optional final int xpMax) {
-      final ItemStack out = InputHelper.toStack(output);
-      final ItemStack in1 = InputHelper.toStack(mainInput);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
+      final ItemStack in1 = CraftTweakerMC.getItemStack(mainInput);
       if (inputs.length <= 0 || inputs.length > 9) {
          CraftTweakerAPI.logError("No or more than 9 inputs given for InfusionTable recipe");
       }

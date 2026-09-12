@@ -1,6 +1,5 @@
 package moretweaker.draconicevolution;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import com.brandon3055.draconicevolution.api.fusioncrafting.FusionRecipeAPI;
 import com.brandon3055.draconicevolution.api.fusioncrafting.IFusionRecipe;
 import com.brandon3055.draconicevolution.api.fusioncrafting.SimpleFusionRecipe;
@@ -10,6 +9,7 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -34,8 +34,8 @@ public class FusionCrafting {
 
    @ZenMethod
    public static void add(IItemStack output, IItemStack catalyst, final int tier, long energyCost, IIngredient[] ingredients) {
-      final ItemStack out = InputHelper.toStack(output);
-      final ItemStack cl = InputHelper.toStack(catalyst);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
+      final ItemStack cl = CraftTweakerMC.getItemStack(catalyst);
       final Object[] in = Inputs.getObjects(ingredients);
       final long energyPerIngredient = energyCost / (long)in.length;
       CraftTweakerAPI.apply(new IAction() {

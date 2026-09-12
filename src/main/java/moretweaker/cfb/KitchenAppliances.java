@@ -1,11 +1,11 @@
 package moretweaker.cfb;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.CraftingPart;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
@@ -30,7 +30,7 @@ import java.util.Map;
 public class KitchenAppliances {
    @ZenMethod
    public static void addToasterRecipe(IItemStack output, IIngredient input) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       final CraftingPart in = Inputs.getPart(input);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
@@ -77,7 +77,7 @@ public class KitchenAppliances {
 
    @ZenMethod
    public static void addSinkRecipe(IItemStack output, IIngredient input) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       final CraftingPart in = Inputs.getPart(input);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
@@ -128,7 +128,7 @@ public class KitchenAppliances {
 
    @ZenMethod
    public static void addOvenRecipe(IItemStack output, IIngredient input) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       final CraftingPart in = Inputs.getPart(input);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
@@ -173,7 +173,7 @@ public class KitchenAppliances {
 
    @ZenMethod
    public static void addFoodShapeless(IItemStack output, IIngredient[] inputs) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       final Object[] in = Inputs.getObjects(inputs);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
@@ -188,7 +188,7 @@ public class KitchenAppliances {
 
    @ZenMethod
    public static void addFoodShaped(IItemStack output, IIngredient[][] inputs) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       final Object[] in = Inputs.getShapedObjects(inputs);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {

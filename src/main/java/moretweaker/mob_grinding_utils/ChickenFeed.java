@@ -1,11 +1,11 @@
 package moretweaker.mob_grinding_utils;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -16,7 +16,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class ChickenFeed {
    @ZenMethod
    public static void setSpawnEgg(final String mobId, IItemStack spawnegg) {
-      final ItemStack stack = InputHelper.toStack(spawnegg);
+      final ItemStack stack = CraftTweakerMC.getItemStack(spawnegg);
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
             SpawnEggHandler.INSTANCE.setSpawnEgg(mobId, stack);

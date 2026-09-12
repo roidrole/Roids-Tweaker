@@ -1,6 +1,5 @@
 package moretweaker.erebus;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
@@ -8,6 +7,7 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import erebus.ModItems;
 import erebus.recipes.SmoothieMakerRecipe;
 import moretweaker.Inputs;
@@ -28,13 +28,13 @@ public class SmoothieMaker {
 
    @ZenMethod
    public static void addRecipe(IItemStack output, IIngredient[] inputs, ILiquidStack[] fluids) {
-      addRecipe(output, InputHelper.toIItemStack(new ItemStack(ModItems.MATERIALS, 1, 59)), inputs, fluids);
+      addRecipe(output, CraftTweakerMC.getIItemStack(new ItemStack(ModItems.MATERIALS, 1, 59)), inputs, fluids);
    }
 
    @ZenMethod
    public static void addRecipe(IItemStack output, IItemStack container, IIngredient[] inputs, ILiquidStack[] fluids) {
-      final ItemStack out = InputHelper.toStack(output);
-      final ItemStack c = InputHelper.toStack(container);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
+      final ItemStack c = CraftTweakerMC.getItemStack(container);
       final Object[] in = Inputs.getObjects(inputs);
 
       for(Object obj : in) {
@@ -44,7 +44,7 @@ public class SmoothieMaker {
          }
       }
 
-      final FluidStack[] fl = InputHelper.toFluids(fluids);
+      final FluidStack[] fl = CraftTweakerMC.getLiquidStacks(fluids);
       if (in.length <= 4 && fl.length <= 4) {
          MoreTweaker.queuePostInitAction(new IAction() {
             public void apply() {

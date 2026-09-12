@@ -1,13 +1,13 @@
 package moretweaker.bewitchment;
 
 import com.bewitchment.api.registry.DistilleryRecipe;
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
@@ -34,7 +34,7 @@ public class Distillery {
       }
 
       if (outputs.length <= 6 && inputs.length <= 6) {
-         final List<ItemStack> out = Arrays.asList(InputHelper.toStacks(outputs));
+         final List<ItemStack> out = Arrays.asList(CraftTweakerMC.getItemStacks(outputs));
          final List<Ingredient> in = Arrays.stream(Inputs.getParts(inputs)).map((c) -> c.ingredient).collect(Collectors.toList());
          MoreTweaker.queuePostInitAction(new IAction() {
             public void apply() {

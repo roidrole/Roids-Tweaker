@@ -1,10 +1,10 @@
 package moretweaker.railcraft;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.liquid.ILiquidStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import mods.railcraft.api.fuel.FluidFuelManager;
 import moretweaker.MoreTweaker;
 import net.minecraftforge.fluids.FluidStack;
@@ -23,7 +23,7 @@ public class FluidFuels {
 
    @ZenMethod
    public static void add(ILiquidStack fuel, @Optional(valueLong = 4800L) final int heatPerBucket) {
-      final FluidStack fluid = InputHelper.toFluid(fuel);
+      final FluidStack fluid = CraftTweakerMC.getLiquidStack(fuel);
       fluid.amount = 1000;
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
@@ -38,7 +38,7 @@ public class FluidFuels {
 
    @ZenMethod
    public static void remove(ILiquidStack fuel) {
-      final FluidStack fluid = InputHelper.toFluid(fuel);
+      final FluidStack fluid = CraftTweakerMC.getLiquidStack(fuel);
       fluid.amount = 1000;
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {

@@ -1,11 +1,11 @@
 package moretweaker.fossil;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import fossilsarcheology.server.item.FAItemRegistry;
 import fossilsarcheology.server.recipe.FAMachineRecipeRegistry;
 import fossilsarcheology.server.recipe.RecipeWorktable;
@@ -22,13 +22,13 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class ArcheologyWorkbench {
    @ZenMethod
    public static void addRecipe(IIngredient input, IItemStack output) {
-      addRecipe(input, output, InputHelper.toIItemStack(new ItemStack(FAItemRegistry.RELIC_SCRAP)));
+      addRecipe(input, output, CraftTweakerMC.getIItemStack(new ItemStack(FAItemRegistry.RELIC_SCRAP)));
    }
 
    @ZenMethod
    public static void addRecipe(IIngredient input, IItemStack output, IIngredient fuel) {
       final CraftingPart in = Inputs.getPart(input);
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       final CraftingPart f = Inputs.getPart(fuel);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {

@@ -1,12 +1,12 @@
 package moretweaker.bewitchment;
 
 import com.bewitchment.api.registry.OvenRecipe;
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.CraftingPart;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
@@ -22,8 +22,8 @@ public class WitchesOven {
    @ZenMethod
    public static void addRecipe(IIngredient input, IItemStack output, IItemStack byproduct, @Optional(valueDouble = (double)1.0F) final float chance, @Optional final boolean requiresJar) {
       final CraftingPart in = Inputs.getPart(input);
-      final ItemStack out = InputHelper.toStack(output);
-      final ItemStack by = InputHelper.toStack(byproduct);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
+      final ItemStack by = CraftTweakerMC.getItemStack(byproduct);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
             for(ItemStack stack : in.toStackList()) {

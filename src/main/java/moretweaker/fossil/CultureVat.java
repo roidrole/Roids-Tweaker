@@ -1,11 +1,11 @@
 package moretweaker.fossil;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import fossilsarcheology.server.recipe.FAMachineRecipeRegistry;
 import moretweaker.CraftingPart;
 import moretweaker.Inputs;
@@ -21,7 +21,7 @@ public class CultureVat {
    @ZenMethod
    public static void addRecipe(IIngredient input, IItemStack output) {
       final CraftingPart in = Inputs.getPart(input);
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
             for(ItemStack stack : in.toStackList()) {

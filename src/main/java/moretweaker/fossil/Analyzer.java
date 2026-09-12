@@ -1,12 +1,12 @@
 package moretweaker.fossil;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import com.google.common.collect.Iterables;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import fossilsarcheology.server.recipe.FAMachineRecipeRegistry;
 import fossilsarcheology.server.recipe.RecipeAnalyzer;
 import moretweaker.CraftingPart;
@@ -28,7 +28,7 @@ public class Analyzer {
    @ZenMethod
    public static void addOutput(IIngredient input, IItemStack output, final double weight) {
       final CraftingPart in = Inputs.getPart(input);
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
             for(ItemStack stack : in.toStackList()) {

@@ -1,12 +1,12 @@
 package moretweaker.betweenlands;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.CraftingPart;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
@@ -28,7 +28,7 @@ import java.util.List;
 public class Purifier {
    @ZenMethod
    public static void addRecipe(IIngredient input, IItemStack output) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       final CraftingPart in = Inputs.getPart(input);
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {

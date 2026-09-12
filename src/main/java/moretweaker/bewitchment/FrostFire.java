@@ -1,12 +1,12 @@
 package moretweaker.bewitchment;
 
 import com.bewitchment.api.registry.FrostfireRecipe;
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
@@ -20,7 +20,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class FrostFire {
    @ZenMethod
    public static void addRecipe(IItemStack output, IIngredient input) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       final Ingredient in = Inputs.getPart(input).ingredient;
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {

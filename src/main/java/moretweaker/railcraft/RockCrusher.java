@@ -1,12 +1,12 @@
 package moretweaker.railcraft;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import mods.railcraft.api.crafting.Crafters;
 import mods.railcraft.api.crafting.IOutputEntry;
 import mods.railcraft.api.crafting.IRockCrusherCrafter;
@@ -24,7 +24,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class RockCrusher {
    @ZenMethod
    public static void add(IIngredient input, IItemStack[] outputs, final float[] chances, @Optional(valueLong = 100L) final int ticks) {
-      final ItemStack[] out = InputHelper.toStacks(outputs);
+      final ItemStack[] out = CraftTweakerMC.getItemStacks(outputs);
       final CraftingPart in = Inputs.getPart(input);
       if (out.length != chances.length) {
          CraftTweakerAPI.logError("Invalid RockCrusher recipe: outputs and chances have different legths: " + out.length + ", " + chances.length);

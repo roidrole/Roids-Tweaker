@@ -1,12 +1,12 @@
 package moretweaker.gadgetry;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import epicsquid.gadgetry.core.recipe.AlloyRecipe;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
@@ -22,7 +22,7 @@ public class AlloyFurnace {
       if (inputs.length > 3) {
          CraftTweakerAPI.logError("Can't add AlloyFurnace-Recipe with more than three inputs.");
       } else {
-         final ItemStack out = InputHelper.toStack(output);
+         final ItemStack out = CraftTweakerMC.getItemStack(output);
          final Object[] in = new Object[3];
 
          int i;

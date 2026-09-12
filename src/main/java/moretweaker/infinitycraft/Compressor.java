@@ -1,6 +1,5 @@
 package moretweaker.infinitycraft;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import com.rowan662.infinitycraft.machines.CompressorRecipes;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
@@ -8,6 +7,7 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.CraftingPart;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
@@ -27,7 +27,7 @@ public class Compressor {
    @ZenMethod
    public static void addRecipe(IIngredient input, IItemStack output, @Optional final int experience) {
       final CraftingPart in = Inputs.getPart(input);
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
             for(ItemStack stack : in.toStackList()) {

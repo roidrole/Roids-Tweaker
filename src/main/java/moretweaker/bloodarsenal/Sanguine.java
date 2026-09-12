@@ -1,13 +1,13 @@
 package moretweaker.bloodarsenal;
 
 import arcaratus.bloodarsenal.recipe.SanguineInfusionRecipeRegistry;
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
@@ -57,8 +57,8 @@ public class Sanguine {
       if (inputs.length > 8) {
          CraftTweakerAPI.logError("Sanguine Recipes: 8 Inputs maximum, provided " + inputs.length);
       } else {
-         final ItemStack out = InputHelper.toStack(output);
-         final ItemStack c = InputHelper.toStack(catalyst);
+         final ItemStack out = CraftTweakerMC.getItemStack(output);
+         final ItemStack c = CraftTweakerMC.getItemStack(catalyst);
          Object[] in = BloodArsenalUtils.toBAArray(Inputs.getObjects(inputs));
          int[] ca = BloodArsenalUtils.amountArray(inputs);
          final Pair<Object, Integer>[] in2 = new Pair[in.length];

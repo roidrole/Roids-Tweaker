@@ -1,11 +1,11 @@
 package moretweaker.matteroverdrive;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import matteroverdrive.data.recipes.InscriberRecipe;
 import matteroverdrive.data.recipes.RecipeManager;
 import matteroverdrive.init.MatterOverdriveRecipes;
@@ -34,7 +34,7 @@ public class Inscriber {
    public static void addRecipe(IIngredient input1, IIngredient input2, IItemStack output, final int energy, final int time) {
       final CraftingPart in1 = Inputs.getPart(input1);
       final CraftingPart in2 = Inputs.getPart(input2);
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
             for(ItemStack stack1 : in1.toStackList()) {

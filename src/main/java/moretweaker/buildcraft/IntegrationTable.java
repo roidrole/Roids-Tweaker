@@ -5,7 +5,6 @@ import buildcraft.api.recipes.BuildcraftRecipeRegistry;
 import buildcraft.api.recipes.IngredientStack;
 import buildcraft.api.recipes.IntegrationRecipe;
 import buildcraft.lib.recipe.IntegrationRecipeBasic;
-import com.blamejared.mtlib.helpers.InputHelper;
 import com.google.common.collect.ImmutableSet;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
@@ -13,6 +12,7 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
@@ -27,7 +27,7 @@ import java.util.Iterator;
 public class IntegrationTable {
    @ZenMethod
    public static void add(IItemStack output, long energyCost, IIngredient catalyst, IIngredient[] inputs) {
-      ItemStack out = InputHelper.toStack(output);
+      ItemStack out = CraftTweakerMC.getItemStack(output);
       ImmutableSet<IngredientStack> in = BuildUtil.getIngredients(inputs);
       IngredientStack c = IngredientStack.of(Inputs.getObject(catalyst));
       final IntegrationRecipe recipe = new IntegrationRecipeBasic(MoreTweaker.newRL(), energyCost * MjAPI.MJ, c, in.asList(), out);

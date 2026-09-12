@@ -1,11 +1,11 @@
 package moretweaker.gadgetry;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.liquid.ILiquidStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import epicsquid.gadgetry.machines.recipe.CombustionValues;
 import net.minecraftforge.fluids.Fluid;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -17,7 +17,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class CombustionGenerator {
    @ZenMethod
    public static void add(ILiquidStack liquid, int energy) {
-      final Fluid fluid = InputHelper.toFluid(liquid).getFluid();
+      final Fluid fluid = CraftTweakerMC.getLiquidStack(liquid).getFluid();
       final int internal = energy / 1000;
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
@@ -32,7 +32,7 @@ public class CombustionGenerator {
 
    @ZenMethod
    public static void remove(ILiquidStack liquid) {
-      final Fluid fluid = InputHelper.toFluid(liquid).getFluid();
+      final Fluid fluid = CraftTweakerMC.getLiquidStack(liquid).getFluid();
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
             CombustionValues.values.remove(fluid);

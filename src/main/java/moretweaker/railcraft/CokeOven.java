@@ -1,12 +1,12 @@
 package moretweaker.railcraft;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import mods.railcraft.api.crafting.Crafters;
 import moretweaker.CraftingPart;
 import moretweaker.Inputs;
@@ -23,9 +23,9 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class CokeOven {
    @ZenMethod
    public static void add(IItemStack output, IIngredient input, ILiquidStack liquid, @Optional(valueLong = 1800L) final int ticks) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       final CraftingPart in = Inputs.getPart(input);
-      final FluidStack fluid = InputHelper.toFluid(liquid);
+      final FluidStack fluid = CraftTweakerMC.getLiquidStack(liquid);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
             Crafters.cokeOven().newRecipe(RailUtil.toInput(in)).output(out).fluid(fluid).time(ticks).name(MoreTweaker.newRL()).register();

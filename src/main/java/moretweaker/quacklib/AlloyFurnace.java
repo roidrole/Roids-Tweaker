@@ -1,11 +1,11 @@
 package moretweaker.quacklib;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import kotlin.Unit;
 import moretweaker.CraftingPart;
 import moretweaker.Inputs;
@@ -24,7 +24,7 @@ import java.util.List;
 public class AlloyFurnace {
    @ZenMethod
    public static void addRecipe(IItemStack output, IIngredient[] inputs) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       CraftingPart[] in = Inputs.getParts(inputs);
       final List<IngredientTemplate> templates = new ArrayList<>();
 

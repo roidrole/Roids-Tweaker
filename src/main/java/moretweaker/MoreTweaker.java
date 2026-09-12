@@ -37,7 +37,7 @@ import java.util.function.Predicate;
    modid = "moretweaker",
    name = "MoreTweaker",
    version = "1.0.19",
-   dependencies = "required-after:crafttweaker;required-after:mtlib;after:railcraft;after:draconicevolution@[2.3.17,);after:buildcraftcore@[7.99.24,);after:buildcraftsilicon@[7.99.24,);after:enderfuge;after:voidcraft;after:bloodarsenal@[1.12.2-2.1.0-25,);after:erebus@[1.0.20,);after:bedrockcraft@[1.0.1,);after:fossil@[8.0.1,);after:matteroverdrive;after:quacklib;after:infinitycraft;after:thebetweenlands;after:aoa3;after:bewitchment@[0.21.11,);after:hwell",
+   dependencies = "required-after:crafttweaker;after:railcraft;after:draconicevolution@[2.3.17,);after:buildcraftcore@[7.99.24,);after:buildcraftsilicon@[7.99.24,);after:enderfuge;after:voidcraft;after:bloodarsenal@[1.12.2-2.1.0-25,);after:erebus@[1.0.20,);after:bedrockcraft@[1.0.1,);after:fossil@[8.0.1,);after:matteroverdrive;after:quacklib;after:infinitycraft;after:thebetweenlands;after:aoa3;after:bewitchment@[0.21.11,);after:hwell",
    acceptedMinecraftVersions = "[1.12.2]"
 )
 public class MoreTweaker {

@@ -1,8 +1,8 @@
 package moretweaker;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.api.item.*;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.api.oredict.IOreDictEntry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -23,13 +23,13 @@ public class Inputs {
       if (ingredient == null) {
          return new ItemStack[0];
       } else if (ingredient instanceof IItemStack) {
-         return new ItemStack[]{InputHelper.toStack((IItemStack)ingredient)};
+         return new ItemStack[]{CraftTweakerMC.getItemStack((IItemStack)ingredient)};
       } else if (ingredient instanceof IOreDictEntry) {
          return OreDictionary.getOres(((IOreDictEntry)ingredient).getName()).toArray(new ItemStack[0]);
       } else if (!(ingredient instanceof IngredientStack) && !(ingredient instanceof IngredientItem) && !(ingredient instanceof IngredientOr)) {
          return new ItemStack[0];
       } else {
-         ItemStack[] stacks = InputHelper.toStacks(ingredient.getItemArray());
+         ItemStack[] stacks = CraftTweakerMC.getItemStacks(ingredient.getItemArray());
          return stacks == null ? new ItemStack[0] : stacks;
       }
    }
@@ -38,9 +38,9 @@ public class Inputs {
       if (ingredient == null) {
          return ItemStack.EMPTY;
       } else if (ingredient instanceof IItemStack) {
-         return InputHelper.toStack((IItemStack)ingredient);
+         return CraftTweakerMC.getItemStack((IItemStack)ingredient);
       } else if (ingredient instanceof IngredientStack && ingredient.getInternal() instanceof IItemStack) {
-         ItemStack stack = InputHelper.toStack((IItemStack)ingredient.getInternal());
+         ItemStack stack = CraftTweakerMC.getItemStack((IItemStack)ingredient.getInternal());
          stack.setCount(ingredient.getAmount());
          return stack;
       } else if (ingredient instanceof IOreDictEntry) {
@@ -51,7 +51,7 @@ public class Inputs {
          List<ItemStack> list = new ArrayList<>();
 
          for(IItemStack stack : ingredient.getItems()) {
-            list.add(InputHelper.toStack(stack));
+            list.add(CraftTweakerMC.getItemStack(stack));
          }
 
          return list;
@@ -241,10 +241,10 @@ public class Inputs {
 
    public static CraftingPart getPart(IIngredient obj) {
       if (obj instanceof IItemStack) {
-         ItemStack stack = InputHelper.toStack((IItemStack)obj);
+         ItemStack stack = CraftTweakerMC.getItemStack((IItemStack)obj);
          return new CraftingPart(Ingredient.fromStacks(stack), stack.getCount());
       } else if (obj instanceof IngredientStack && obj.getInternal() instanceof IItemStack) {
-         ItemStack stack = InputHelper.toStack((IItemStack)obj.getInternal());
+         ItemStack stack = CraftTweakerMC.getItemStack((IItemStack)obj.getInternal());
          return new CraftingPart(Ingredient.fromStacks(stack), obj.getAmount());
       } else if (obj instanceof IOreDictEntry) {
          return !OreDictionary.doesOreNameExist(((IOreDictEntry)obj).getName()) ? CraftingPart.EMPTY : new CraftingPart(new OreIngredient(((IOreDictEntry)obj).getName()), obj.getAmount());
@@ -291,7 +291,7 @@ public class Inputs {
                amount = -2;
             }
 
-            stacks2.add(InputHelper.toStack(stack));
+            stacks2.add(CraftTweakerMC.getItemStack(stack));
          }
 
          if (amount < 0) {

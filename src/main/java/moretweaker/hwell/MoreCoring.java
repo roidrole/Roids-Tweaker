@@ -1,10 +1,10 @@
 package moretweaker.hwell;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -45,8 +45,8 @@ public class MoreCoring {
 
    @ZenMethod
    public static void addCoring(final String coreId, final String shardId, IItemStack[] output, IItemStack[] input) {
-      final ItemStack[] out = Arrays.stream(output).map(InputHelper::toStack).toArray(ItemStack[]::new);
-      final ItemStack[] in = Arrays.stream(input).map(InputHelper::toStack).toArray(ItemStack[]::new);
+      final ItemStack[] out = Arrays.stream(output).map(CraftTweakerMC::getItemStack).toArray(ItemStack[]::new);
+      final ItemStack[] in = Arrays.stream(input).map(CraftTweakerMC::getItemStack).toArray(ItemStack[]::new);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
             RecipeCoring.addCoreRecipe(coreId, shardId, out, in);

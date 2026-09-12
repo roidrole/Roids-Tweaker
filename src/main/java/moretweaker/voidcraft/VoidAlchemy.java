@@ -1,12 +1,12 @@
 package moretweaker.voidcraft;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import moretweaker.ReflectionHelper;
@@ -27,7 +27,7 @@ public class VoidAlchemy {
       if (inputs.length != 6) {
          CraftTweakerAPI.logError("For VoidAlchemy: Less or more than  six ingredients specified");
       } else {
-         final ItemStack out = InputHelper.toStack(output);
+         final ItemStack out = CraftTweakerMC.getItemStack(output);
          final ItemStack[][] in = new ItemStack[][]{{ItemStack.EMPTY}, {ItemStack.EMPTY}, {ItemStack.EMPTY}, {ItemStack.EMPTY}, {ItemStack.EMPTY}, {ItemStack.EMPTY}};
 
          for(int i = 0; i < in.length; ++i) {

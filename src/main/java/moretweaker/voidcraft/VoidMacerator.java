@@ -1,11 +1,11 @@
 package moretweaker.voidcraft;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import moretweaker.ReflectionHelper;
@@ -22,7 +22,7 @@ import tamaized.voidcraft.registry.VoidCraftTERecipes;
 public class VoidMacerator {
    @ZenMethod
    public static void add(IItemStack output, IIngredient input, @Optional(valueLong = 200L) final int voidicPower) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       final ItemStack[] in = Inputs.getStackList(input);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {

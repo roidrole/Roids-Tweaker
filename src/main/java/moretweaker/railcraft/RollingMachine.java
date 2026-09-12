@@ -1,11 +1,11 @@
 package moretweaker.railcraft;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import mods.railcraft.api.crafting.Crafters;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
@@ -23,7 +23,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class RollingMachine {
    @ZenMethod
    public static void addShaped(IItemStack output, IIngredient[][] inputs, @Optional(valueLong = 100L) final int ticks) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       Object[] in = Inputs.getShapedObjects(inputs);
       final ResourceLocation rl = MoreTweaker.newRL();
       final ShapedOreRecipe recipe = new ShapedOreRecipe(rl, out, in);
@@ -40,7 +40,7 @@ public class RollingMachine {
 
    @ZenMethod
    public static void addShapeless(IItemStack output, IIngredient[] inputs, @Optional(valueLong = 100L) final int ticks) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       Object[] in = Inputs.getObjects(inputs);
       final ResourceLocation rl = MoreTweaker.newRL();
       final ShapelessOreRecipe recipe = new ShapelessOreRecipe(rl, out, in);

@@ -4,7 +4,6 @@ import buildcraft.api.mj.MjAPI;
 import buildcraft.api.recipes.AssemblyRecipeBasic;
 import buildcraft.api.recipes.IngredientStack;
 import buildcraft.lib.recipe.AssemblyRecipeRegistry;
-import com.blamejared.mtlib.helpers.InputHelper;
 import com.google.common.collect.ImmutableSet;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
@@ -12,6 +11,7 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
@@ -24,7 +24,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class AssemblyTable {
    @ZenMethod
    public static void add(IItemStack output, long energyCost, IIngredient[] inputs) {
-      ItemStack out = InputHelper.toStack(output);
+      ItemStack out = CraftTweakerMC.getItemStack(output);
       ImmutableSet<IngredientStack> in = BuildUtil.getIngredients(inputs);
       if (!in.isEmpty()) {
          final AssemblyRecipeBasic recipe = new AssemblyRecipeBasic(MoreTweaker.newRL(), energyCost * MjAPI.MJ, in, out);

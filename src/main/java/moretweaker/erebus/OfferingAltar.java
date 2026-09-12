@@ -1,12 +1,12 @@
 package moretweaker.erebus;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import erebus.recipes.OfferingAltarRecipe;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
@@ -25,7 +25,7 @@ public class OfferingAltar {
 
    @ZenMethod
    public static void addRecipe(IItemStack output, IIngredient input1, IIngredient input2, IIngredient input3) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       final Object in1 = Inputs.getObject(input1);
       final Object in2 = Inputs.getObject(input2);
       final Object in3 = Inputs.getObject(input3);

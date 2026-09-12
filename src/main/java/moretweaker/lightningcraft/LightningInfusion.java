@@ -1,12 +1,12 @@
 package moretweaker.lightningcraft;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
 import sblectric.lightningcraft.recipes.LightningInfusionRecipes;
@@ -19,7 +19,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class LightningInfusion {
    @ZenMethod
    public static void add(IItemStack output, IIngredient catalyst, final int cost, IIngredient[] inputs) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       final Object cl = LUtil.getObject(catalyst);
       final Object[] in = LUtil.getObjects(inputs);
       if (in.length != 4) {

@@ -1,12 +1,12 @@
 package moretweaker.galacticraft;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import micdoodle8.mods.galacticraft.api.recipe.CompressorRecipes;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
@@ -21,7 +21,7 @@ import java.util.Arrays;
 public class Compressor {
    @ZenMethod
    public static void addShaped(IItemStack output, IItemStack[][] inputs) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       if (!out.isEmpty()) {
          final Object[] in = Inputs.getShapedObjects(inputs);
          CraftTweakerAPI.logInfo(Arrays.toString(in));
@@ -39,7 +39,7 @@ public class Compressor {
 
    @ZenMethod
    public static void addShapeless(IItemStack output, IIngredient[] inputs) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       if (!out.isEmpty()) {
          final Object[] in = Inputs.getObjects(inputs);
          CraftTweakerAPI.apply(new IAction() {
@@ -56,7 +56,7 @@ public class Compressor {
 
    @ZenMethod
    public static void remove(IItemStack output) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       if (!out.isEmpty()) {
          CraftTweakerAPI.apply(new IAction() {
             public void apply() {

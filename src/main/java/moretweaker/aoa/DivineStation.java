@@ -1,11 +1,11 @@
 package moretweaker.aoa;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
@@ -20,9 +20,9 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class DivineStation {
    @ZenMethod
    public static void addRecipe(IItemStack input, IItemStack upgradeKit, IItemStack output) {
-      final ItemStack in = InputHelper.toStack(input);
-      final ItemStack kit = InputHelper.toStack(upgradeKit);
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack in = CraftTweakerMC.getItemStack(input);
+      final ItemStack kit = CraftTweakerMC.getItemStack(upgradeKit);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
             MoreTweaker.forgeAdd(IRecipe.class, new UpgradeKitRecipe("", in, kit, out));

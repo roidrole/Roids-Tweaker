@@ -1,6 +1,5 @@
 package moretweaker.enderfuge;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import com.themastergeneral.enderfuge.common.processing.EnderfugeFuel;
 import com.themastergeneral.enderfuge.common.processing.EnderfugeRecipes;
 import crafttweaker.CraftTweakerAPI;
@@ -9,6 +8,7 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.Optional;
@@ -21,7 +21,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class EnderFuge {
    @ZenMethod
    public static void addRecipe(IItemStack output, IIngredient input) {
-      final ItemStack out = InputHelper.toStack(output);
+      final ItemStack out = CraftTweakerMC.getItemStack(output);
       final ItemStack[] in = Inputs.getStackList(input);
       CraftTweakerAPI.apply(new IAction() {
          public void apply() {
