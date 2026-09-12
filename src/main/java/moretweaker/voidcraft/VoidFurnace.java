@@ -8,7 +8,6 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
-import moretweaker.ReflectionHelper;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -29,7 +28,12 @@ public class VoidFurnace {
          public void apply() {
             for(ItemStack stack1 : in1) {
                for(ItemStack stack2 : in2) {
-                  VoidCraftTERecipes.blastFurnace.registerRecipe(ReflectionHelper.createNested(TERecipesBlastFurnace.BlastFurnaceRecipe.class, VoidCraftTERecipes.blastFurnace, new Class[]{ItemStack[].class, ItemStack.class, Integer.TYPE}, new ItemStack[]{stack1, stack2}, out, voidicPower));
+                  TERecipesBlastFurnace.BlastFurnaceRecipe recipe = new TERecipesBlastFurnace().new BlastFurnaceRecipe(
+                      new ItemStack[]{stack1, stack2},
+                      out,
+                      voidicPower
+                  );
+                  VoidCraftTERecipes.blastFurnace.registerRecipe(recipe);
                }
             }
 

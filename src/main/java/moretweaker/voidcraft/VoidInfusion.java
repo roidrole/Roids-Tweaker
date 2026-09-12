@@ -8,7 +8,6 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
-import moretweaker.ReflectionHelper;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -26,9 +25,13 @@ public class VoidInfusion {
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
             for(ItemStack stack : in) {
-               VoidCraftTERecipes.infuser.registerRecipe(ReflectionHelper.createNested(TERecipeInfuser.InfuserRecipe.class, VoidCraftTERecipes.infuser, new Class[]{ItemStack[].class, ItemStack.class, Integer.TYPE}, new ItemStack[]{stack}, out, voidicFluid));
+               TERecipeInfuser.InfuserRecipe recipe = new TERecipeInfuser().new InfuserRecipe(
+                   new ItemStack[]{stack},
+                   out,
+                   voidicFluid
+               );
+               VoidCraftTERecipes.infuser.registerRecipe(recipe);
             }
-
          }
 
          public String describe() {

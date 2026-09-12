@@ -8,7 +8,6 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
-import moretweaker.ReflectionHelper;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -27,9 +26,13 @@ public class VoidMacerator {
       MoreTweaker.queuePostInitAction(new IAction() {
          public void apply() {
             for(ItemStack stack : in) {
-               VoidCraftTERecipes.macerator.registerRecipe(ReflectionHelper.createNested(TERecipesMacerator.MaceratorRecipe.class, VoidCraftTERecipes.macerator, new Class[]{ItemStack[].class, ItemStack.class, Integer.TYPE}, new ItemStack[]{stack}, out, voidicPower));
+               TERecipesMacerator.MaceratorRecipe recipe = new TERecipesMacerator().new MaceratorRecipe(
+                   new ItemStack[]{stack},
+                   out,
+                   voidicPower
+               );
+               VoidCraftTERecipes.macerator.registerRecipe(recipe);
             }
-
          }
 
          public String describe() {

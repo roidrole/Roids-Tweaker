@@ -9,12 +9,10 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
-import moretweaker.ReflectionHelper;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import tamaized.voidcraft.common.capabilities.vadeMecum.IVadeMecumCapability;
 import tamaized.voidcraft.common.machina.addons.TERecipesAlchemy;
 import tamaized.voidcraft.registry.VoidCraftTERecipes;
 
@@ -42,7 +40,15 @@ public class VoidAlchemy {
                         for(ItemStack stack3 : in[3]) {
                            for(ItemStack stack4 : in[4]) {
                               for(ItemStack stack5 : in[5]) {
-                                 VoidCraftTERecipes.alchemy.registerRecipe(ReflectionHelper.createNested(TERecipesAlchemy.AlchemyRecipe.class, VoidCraftTERecipes.alchemy, new Class[]{IVadeMecumCapability.Category.class, ItemStack[].class, ItemStack.class, Integer.TYPE}, null, new ItemStack[]{stack0, stack1, stack2, stack3, stack4, stack5}, out, voidicPower));
+                                 //Ugly, but necessry since it's a non-static inner class
+                                 TERecipesAlchemy parent = new TERecipesAlchemy();
+                                 TERecipesAlchemy.AlchemyRecipe recipe = parent.new AlchemyRecipe(
+                                     null,
+                                     new ItemStack[]{stack0, stack1, stack2, stack3, stack4, stack5},
+                                     out,
+                                     voidicPower
+                                 );
+                                 VoidCraftTERecipes.alchemy.registerRecipe(recipe);
                               }
                            }
                         }
