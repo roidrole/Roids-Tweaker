@@ -24,7 +24,13 @@ public class IIngredientExpansion {
 
     @ZenMethod
     public static IIngredient orArray(IIngredient instance, IIngredient[] ingredients){
-        return new IngredientOr(instance, new IngredientOr(ingredients));
+        if(instance == IngredientUnknown.INSTANCE){
+            return new IngredientOr(ingredients);
+        }
+        IIngredient[] singleArray = new IIngredient[ingredients.length + 1];
+        singleArray[0] = instance;
+        System.arraycopy(ingredients, 0, singleArray, 1, singleArray.length);
+        return new IngredientOr(singleArray);
     }
 
     @ZenMethodStatic
