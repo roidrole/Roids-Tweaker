@@ -1,12 +1,12 @@
 package roidrole.roidtweaker.utils;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class DeferredLoader {
-    public static Map<EnumLoadStage, List<IAction>> toLoad = new EnumMap<>(EnumLoadStage.class);
+    public static Map<EnumLoadStage, Collection<IAction>> toLoad = new EnumMap<EnumLoadStage, Collection<IAction>>(EnumLoadStage.class){{
+        this.put(EnumLoadStage.POST_INIT, new BucketedLinkedCollection<>(8));
+        this.put(EnumLoadStage.LOAD_COMPLETE, new BucketedLinkedCollection<>(0));
+    }};
 
     public interface IAction {
         void load();
@@ -14,9 +14,6 @@ public abstract class DeferredLoader {
 
     //Adds in the load queue
     public static void load(IAction action, EnumLoadStage stage){
-        if(!toLoad.containsKey(stage)){
-            toLoad.put(stage, new ArrayList<>(1));
-        }
         toLoad.get(stage).add(action);
     }
     public static void load(EnumLoadStage stage, IAction action){
@@ -25,16 +22,10 @@ public abstract class DeferredLoader {
 
     //Loads the postInit queue
     public static void postInit(){
-        if(!toLoad.containsKey(EnumLoadStage.POST_INIT)) {
-            return;
-        }
-        toLoad.get(EnumLoadStage.POST_INIT).forEach(IAction::load);
+        toLoad.remove(EnumLoadStage.POST_INIT).forEach(IAction::load);
     }
 
     public static void loadComplete(){
-        if(!toLoad.containsKey(EnumLoadStage.LOAD_COMPLETE)) {
-            return;
-        }
-        toLoad.get(EnumLoadStage.LOAD_COMPLETE).forEach(IAction::load);
+        toLoad.remove(EnumLoadStage.LOAD_COMPLETE).forEach(IAction::load);
     }
 }
