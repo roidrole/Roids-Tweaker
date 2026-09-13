@@ -1,7 +1,6 @@
 package moretweaker.aoa;
 
 import crafttweaker.CraftTweakerAPI;
-import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
@@ -10,11 +9,12 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.tslat.aoa3.crafting.recipes.InfusionTableRecipe;
+import roidrole.roidtweaker.utils.DeferredLoader;
+import roidrole.roidtweaker.utils.EnumLoadStage;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -26,32 +26,31 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class InfusionTable {
 	@ZenMethod
 	public static void addRecipe(IItemStack output, IItemStack mainInput, IIngredient[] inputs, @Optional(valueLong = 1L) final int infusionLevel, @Optional final int xpMin, @Optional final int xpMax) {
-		final ItemStack out = CraftTweakerMC.getItemStack(output);
-		final ItemStack in1 = CraftTweakerMC.getItemStack(mainInput);
-		if (inputs.length <= 0 || inputs.length > 9) {
+		if (inputs.length == 0 || inputs.length > 9) {
 			CraftTweakerAPI.logError("No or more than 9 inputs given for InfusionTable recipe");
 		}
 
 		final NonNullList<Ingredient> in2 = NonNullList.create();
-
 		for(IIngredient ingredient : inputs) {
-			in2.add(Inputs.getPart(ingredient).ingredient);
+			in2.add(CraftTweakerMC.getIngredient(ingredient));
 		}
 
-		MoreTweaker.queuePostInitAction(new IAction() {
-			public void apply() {
-				MoreTweaker.forgeAdd(IRecipe.class, new InfusionTableRecipe("", out, in1, in2, infusionLevel, xpMin, xpMax));
-			}
+		InfusionTableRecipe recipe = new InfusionTableRecipe(
+			"",
+			CraftTweakerMC.getItemStack(output),
+			CraftTweakerMC.getItemStack(mainInput),
+			in2,
+			infusionLevel,
+			xpMin,
+			xpMax
+		);
 
-			public String describe() {
-				return "Adds an AOA InfusionTable recipe with item output.";
-			}
-		});
+		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> MoreTweaker.forgeAdd(IRecipe.class, recipe));
 	}
 
 	@ZenMethod
 	public static void addRecipe(final String enchantmentId, final int enchantmentLevel, IIngredient[] inputs, @Optional(valueLong = 1L) final int infusionLevel, @Optional final int xpMin, @Optional final int xpMax) {
-		if (inputs.length <= 0 || inputs.length > 9) {
+		if (inputs.length == 0 || inputs.length > 9) {
 			CraftTweakerAPI.logError("No or more than 9 inputs given for InfusionTable recipe");
 		}
 
@@ -61,68 +60,48 @@ public class InfusionTable {
 			in2.add(Inputs.getPart(ingredient).ingredient);
 		}
 
-		MoreTweaker.queuePostInitAction(new IAction() {
-			public void apply() {
-				Enchantment ench = Enchantment.getEnchantmentByLocation(enchantmentId);
-				if (ench == null) {
-					CraftTweakerAPI.logError("No enchantment found for given key to create an AOA InfusionTable recipe");
-				} else {
-					MoreTweaker.forgeAdd(IRecipe.class, new InfusionTableRecipe("", ench, enchantmentLevel, in2, infusionLevel, xpMin, xpMax));
-				}
-			}
-
-			public String describe() {
-				return "Adds an AOA InfusionTable recipe with enchantment output.";
-			}
+		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> {
+			InfusionTableRecipe recipe = new InfusionTableRecipe(
+				"",
+				Enchantment.getEnchantmentByLocation(enchantmentId),
+				enchantmentLevel,
+				in2,
+				infusionLevel,
+				xpMin,
+				xpMax
+			);
+			MoreTweaker.forgeAdd(IRecipe.class, recipe);
 		});
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
-		final Object out = Inputs.getObject(output);
-		MoreTweaker.queuePostInitAction(new IAction() {
-			public void apply() {
-				MoreTweaker.forgeRemove(IRecipe.class, (r) -> r instanceof InfusionTableRecipe && !((InfusionTableRecipe)r).isEnchanting() && Inputs.matchesForRemoval(out, r.getRecipeOutput()));
-			}
-
-			public String describe() {
-				return "Removes AOA InfusionTable recipes by item output.";
-			}
-		});
+		DeferredLoader.load(EnumLoadStage.POST_INIT, () ->
+			MoreTweaker.forgeRemove(IRecipe.class,recipe ->
+				recipe instanceof InfusionTableRecipe &&
+				!((InfusionTableRecipe)recipe).isEnchanting() &&
+				output.matches(CraftTweakerMC.getIItemStackForMatching(recipe.getRecipeOutput()))
+		));
 	}
 
 	@ZenMethod
 	public static void removeRecipe(final String enchantmentId) {
-		MoreTweaker.queuePostInitAction(new IAction() {
-			public void apply() {
-				Enchantment ench = Enchantment.getEnchantmentByLocation(enchantmentId);
-				if (ench == null) {
-					CraftTweakerAPI.logError("No enchantment found for given key to remove AOA InfusionTables");
-					return;
-				}
-				MoreTweaker.forgeRemove(IRecipe.class, (r) ->
-					r instanceof InfusionTableRecipe &&
-					((InfusionTableRecipe) r).isEnchanting() &&
-					((InfusionTableRecipe) r).getEnchantment() != null &&
-					((InfusionTableRecipe) r).getEnchantment().enchantment == ench);
+		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> {
+			Enchantment ench = Enchantment.getEnchantmentByLocation(enchantmentId);
+			MoreTweaker.forgeRemove(IRecipe.class, recipe ->
+					recipe instanceof InfusionTableRecipe &&
+						((InfusionTableRecipe) recipe).isEnchanting() &&
+						((InfusionTableRecipe) recipe).getEnchantment() != null &&
+						((InfusionTableRecipe) recipe).getEnchantment().enchantment == ench);
 			}
-
-			public String describe() {
-				return "Removes AOA InfusionTable recipes by enchantment output.";
-			}
-		});
+		);
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		MoreTweaker.queuePostInitAction(new IAction() {
-			public void apply() {
-				MoreTweaker.forgeRemove(IRecipe.class, (r) -> r instanceof InfusionTableRecipe);
-			}
-
-			public String describe() {
-				return "Removes all recipes for the AOA InfusionTable";
-			}
+		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> {
+			CraftTweakerAPI.logInfo("Removing all recipes for the AOA InfusionTable");
+			MoreTweaker.forgeRemove(IRecipe.class, (r) -> r instanceof InfusionTableRecipe);
 		});
 	}
 }

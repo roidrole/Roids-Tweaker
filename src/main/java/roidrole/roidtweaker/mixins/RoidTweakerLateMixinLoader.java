@@ -19,6 +19,7 @@ public class RoidTweakerLateMixinLoader implements ILateMixinLoader {
             "mixins.roidtweaker.jei.json",
             "mixins.roidtweaker.projecte.json",
             "mixins.roidtweaker.railcraft.json",
+            "mixins.roidtweaker.thebetweenlands.json",
             "mixins.roidtweaker.thermalexpansion.json"
         );
     }

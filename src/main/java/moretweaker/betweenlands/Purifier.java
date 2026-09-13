@@ -1,92 +1,76 @@
 package moretweaker.betweenlands;
 
 import crafttweaker.CraftTweakerAPI;
-import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import moretweaker.CraftingPart;
-import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
+import roidrole.roidtweaker.mixins.thebetweenlands.PurifierRecipeAccessor;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import thebetweenlands.api.IBetweenlandsAPI;
 import thebetweenlands.api.recipes.IPurifierRecipe;
 import thebetweenlands.common.BetweenlandsAPI;
+import thebetweenlands.common.recipe.purifier.PurifierRecipe;
 import thebetweenlands.common.recipe.purifier.PurifierRecipeAspectVial;
 import thebetweenlands.common.recipe.purifier.PurifierRecipeStandard;
 import thebetweenlands.common.registries.ItemRegistry;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.Nonnull;
 
 @ZenClass("moretweaker.betweenlands.Purifier")
 @ZenRegister
 @ModOnly("thebetweenlands")
 @SuppressWarnings("unused")
 public class Purifier {
-   @ZenMethod
-   public static void addRecipe(IIngredient input, IItemStack output) {
-      final ItemStack out = CraftTweakerMC.getItemStack(output);
-      final CraftingPart in = Inputs.getPart(input);
-      CraftTweakerAPI.apply(new IAction() {
-         public void apply() {
-            for(ItemStack stack : in.toStackList()) {
-               BetweenlandsAPI.getInstance().registerPurifierRecipe(new PurifierRecipeStandard(out, stack));
-            }
+	@ZenMethod
+	public static void addRecipe(IIngredient input, IItemStack output) {
+		BetweenlandsAPI.getInstance().registerPurifierRecipe(new PurifierRecipeCT(input, CraftTweakerMC.getItemStack(output)));
+	}
 
-         }
+	@ZenMethod
+	public static void removeRecipe(IIngredient output) {
+		PurifierRecipeAccessor.getRECIPES().removeIf(
+			recipe -> output.matches(CraftTweakerMC.getIItemStackForMatching(Purifier.guessOutput(recipe)))
+		);
+	}
 
-         public String describe() {
-            return "Adds some betweenlands Purifier recipes";
-         }
-      });
-   }
+	@ZenMethod
+	public static void removeAll() {
+		CraftTweakerAPI.logInfo("Removing all recipes for the Purifier");
+		PurifierRecipeAccessor.getRECIPES().clear();
+	}
 
-   @ZenMethod
-   public static void removeRecipe(IIngredient output) {
-      final Object out = Inputs.getObject(output);
-      CraftTweakerAPI.apply(new IAction() {
-         public void apply() {
-            List<IPurifierRecipe> recipes = new ArrayList<>();
-            BetweenlandsAPI.getInstance().getPurifierRecipes().forEach((r) -> {
-               if (PurifierRecipeStandard.class.isAssignableFrom(r.getClass()) && Inputs.matchesForRemoval(out, r.getOutput(Purifier.guessInput(r)))) {
-                  recipes.add(r);
-               }
+	private static ItemStack guessOutput(IPurifierRecipe recipe) {
+		if (recipe instanceof PurifierRecipeStandard) {
+			return recipe.getOutput(((PurifierRecipeStandard)recipe).getInput());
+		} else if (recipe instanceof PurifierRecipeAspectVial){
+			return new ItemStack(ItemRegistry.DENTROTHYST_FLUID_VIAL);
+		} else if (recipe instanceof PurifierRecipeCT){
+			return ((PurifierRecipeCT) recipe).output;
+		} else {
+			return recipe.getOutput(ItemStack.EMPTY);
+		}
+	}
 
-            });
-            IBetweenlandsAPI var10001 = BetweenlandsAPI.getInstance();
-            recipes.forEach(var10001::unregisterPurifierRecipe);
-         }
+	public static class PurifierRecipeCT extends PurifierRecipe {
+		private final IIngredient input;
+		private final ItemStack output;
 
-         public String describe() {
-            return "Removes some betweenlands Purifier recipes";
-         }
-      });
-   }
+		public PurifierRecipeCT(IIngredient input, ItemStack output) {
+			this.input = input;
+			this.output = output;
+		}
 
-   @ZenMethod
-   public static void removeAll() {
-      CraftTweakerAPI.apply(new IAction() {
-         public void apply() {
-            List<IPurifierRecipe> allRecipes = new ArrayList<>(BetweenlandsAPI.getInstance().getPurifierRecipes());
-            IBetweenlandsAPI var10001 = BetweenlandsAPI.getInstance();
-            allRecipes.forEach(var10001::unregisterPurifierRecipe);
-         }
+		@Override
+		public @Nonnull ItemStack getOutput(ItemStack itemStack) {
+			return output;
+		}
 
-         public String describe() {
-            return "Removes all recipes for the Purifier";
-         }
-      });
-   }
-
-   private static ItemStack guessInput(IPurifierRecipe recipe) {
-      if (recipe instanceof PurifierRecipeStandard) {
-         return recipe.getOutput(((PurifierRecipeStandard)recipe).getInput());
-      } else {
-         return recipe instanceof PurifierRecipeAspectVial ? new ItemStack(ItemRegistry.DENTROTHYST_FLUID_VIAL) : ItemStack.EMPTY;
-      }
-   }
+		@Override
+		public boolean matchesInput(ItemStack itemStack) {
+			return input.matches(CraftTweakerMC.getIItemStackForMatching(itemStack));
+		}
+	}
 }

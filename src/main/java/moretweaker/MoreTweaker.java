@@ -160,7 +160,7 @@ public class MoreTweaker {
 
    }
 
-   public static void queuePostInitAction(IAction action) {
+   public static void queuePostInitAction(final IAction action) {
       postQueue.add(action);
    }
 
@@ -168,7 +168,7 @@ public class MoreTweaker {
       return new ResourceLocation("moretweaker", "moretweakerrecipe" + next_id++);
    }
 
-   public static <T extends IForgeRegistryEntry<T>> void forgeAdd(Class<T> registerClass, T entry) {
+   public static <T extends IForgeRegistryEntry<T>> void forgeAdd(final Class<T> registerClass, final T entry) {
       IForgeRegistry<T> registry = GameRegistry.findRegistry(registerClass);
       if (entry.getRegistryName() == null) {
          entry.setRegistryName(newRL());
@@ -177,7 +177,7 @@ public class MoreTweaker {
       registry.register(entry);
    }
 
-   public static <T extends IForgeRegistryEntry<T>> void forgeRemove(Class<T> registerClass, Predicate<T> removePredicate) {
+   public static <T extends IForgeRegistryEntry<T>> void forgeRemove(final Class<T> registerClass, final Predicate<T> removePredicate) {
       IForgeRegistry<T> registry = GameRegistry.findRegistry(registerClass);
       if(!(registry instanceof IForgeRegistryModifiable)){
          return;
@@ -191,12 +191,12 @@ public class MoreTweaker {
           }
       }
 
-      for(ResourceLocation remove : removes){
-         try {
+      try {
+         for(ResourceLocation remove : removes){
             ((IForgeRegistryModifiable<T>) registry).remove(remove);
-		 } catch (Exception e) {
-			 CraftTweakerAPI.logError(Tags.MOD_ID + " can't remove elements from registry " + registerClass.getCanonicalName() + ". Please report to " + Tags.MOD_ID + " author");
-		 }
+         }
+      } catch (Exception e) {
+         CraftTweakerAPI.logError(Tags.MOD_ID + " can't remove elements from registry " + registerClass.getCanonicalName() + ". Please report to " + Tags.MOD_ID + " author");
       }
    }
 

@@ -1,16 +1,16 @@
 package moretweaker.aoa;
 
-import crafttweaker.IAction;
+import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.tslat.aoa3.crafting.recipes.UpgradeKitRecipe;
+import roidrole.roidtweaker.utils.DeferredLoader;
+import roidrole.roidtweaker.utils.EnumLoadStage;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -19,46 +19,30 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ModOnly("aoa3")
 @SuppressWarnings("unused")
 public class DivineStation {
-   @ZenMethod
-   public static void addRecipe(IItemStack input, IItemStack upgradeKit, IItemStack output) {
-      final ItemStack in = CraftTweakerMC.getItemStack(input);
-      final ItemStack kit = CraftTweakerMC.getItemStack(upgradeKit);
-      final ItemStack out = CraftTweakerMC.getItemStack(output);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            MoreTweaker.forgeAdd(IRecipe.class, new UpgradeKitRecipe("", in, kit, out));
-         }
+	@ZenMethod
+	public static void addRecipe(IItemStack input, IItemStack upgradeKit, IItemStack output) {
+		UpgradeKitRecipe recipe = new UpgradeKitRecipe(
+			"",
+			CraftTweakerMC.getItemStack(input),
+			CraftTweakerMC.getItemStack(upgradeKit),
+			CraftTweakerMC.getItemStack(output)
+		);
 
-         public String describe() {
-            return "Adds an upgrade kit recipe.";
-         }
-      });
-   }
+		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> MoreTweaker.forgeAdd(IRecipe.class, recipe));
+	}
 
-   @ZenMethod
-   public static void removeRecipe(IIngredient output) {
-      final Object out = Inputs.getObject(output);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            MoreTweaker.forgeRemove(IRecipe.class, (r) -> r instanceof UpgradeKitRecipe && Inputs.matchesForRemoval(out, r.getRecipeOutput()));
-         }
+	@ZenMethod
+	public static void removeRecipe(IIngredient output) {
+		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> MoreTweaker.forgeRemove(IRecipe.class, (recipe) ->
+			recipe instanceof UpgradeKitRecipe && output.matches(CraftTweakerMC.getIItemStackForMatching(recipe.getRecipeOutput()))
+		));
+	}
 
-         public String describe() {
-            return "Removes some upgrade kit recipes.";
-         }
-      });
-   }
-
-   @ZenMethod
-   public static void removeAll() {
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            MoreTweaker.forgeRemove(IRecipe.class, (r) -> r instanceof UpgradeKitRecipe);
-         }
-
-         public String describe() {
-            return "Removes all upgrade kit recipes.";
-         }
-      });
-   }
+	@ZenMethod
+	public static void removeAll() {
+		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> {
+			CraftTweakerAPI.logInfo("Removing all upgrade kit recipes.");
+			MoreTweaker.forgeRemove(IRecipe.class, (r) -> r instanceof UpgradeKitRecipe);
+		});
+	}
 }
