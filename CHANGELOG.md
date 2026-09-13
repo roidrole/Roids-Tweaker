@@ -1,3 +1,7 @@
+## Unreleased
+**Improved :**
+- DeferredLoader uses a better data structure
+
 ## 1.3.2
 **Added :**
 - IFacing.getFacings and IFacing.getHorizontals
