@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mixin(PurifierRecipe.class)
 public interface PurifierRecipeAccessor {
-	@Accessor
+	@Accessor(remap = false)
 	static List<IPurifierRecipe> getRECIPES(){
 		throw new MixinException("Mixin "+ PurifierRecipeAccessor.class.getCanonicalName() + " didn't apply");
 	}

@@ -9,15 +9,19 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.tslat.aoa3.crafting.recipes.InfusionTableRecipe;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.EnumLoadStage;
+import roidrole.roidtweaker.utils.Utils;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.util.function.Predicate;
 
 @ZenClass("moretweaker.aoa.InfusionTable")
 @ZenRegister
@@ -76,18 +80,19 @@ public class InfusionTable {
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
+		Predicate<ItemStack> outputMatcher = Utils.getStackMatcher(output);
 		DeferredLoader.load(EnumLoadStage.POST_INIT, () ->
 			MoreTweaker.forgeRemove(IRecipe.class,recipe ->
 				recipe instanceof InfusionTableRecipe &&
 				!((InfusionTableRecipe)recipe).isEnchanting() &&
-				output.matches(CraftTweakerMC.getIItemStackForMatching(recipe.getRecipeOutput()))
+					outputMatcher.test(recipe.getRecipeOutput())
 		));
 	}
 
 	@ZenMethod
 	public static void removeRecipe(final String enchantmentId) {
+		Enchantment ench = Enchantment.getEnchantmentByLocation(enchantmentId);
 		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> {
-			Enchantment ench = Enchantment.getEnchantmentByLocation(enchantmentId);
 			MoreTweaker.forgeRemove(IRecipe.class, recipe ->
 					recipe instanceof InfusionTableRecipe &&
 						((InfusionTableRecipe) recipe).isEnchanting() &&

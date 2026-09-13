@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mixin(PestleAndMortarRecipe.class)
 public interface PestleAndMortarRecipeAccessor {
-	@Accessor
+	@Accessor(remap = false)
 	static List<IPestleAndMortarRecipe> getRecipes(){
 		throw new MixinException("Mixin "+ PestleAndMortarRecipeAccessor.class.getCanonicalName() + " didn't apply");
 	}

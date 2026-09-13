@@ -10,11 +10,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import roidrole.roidtweaker.utils.Utils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import thebetweenlands.api.recipes.IAnimatorRecipe;
 import thebetweenlands.common.BetweenlandsAPI;
 import thebetweenlands.common.recipe.misc.AnimatorRecipe;
+
+import java.util.function.Predicate;
 
 @ZenClass("moretweaker.betweenlands.Animator")
 @ZenRegister
@@ -47,8 +50,9 @@ public class Animator {
 
    @ZenMethod
    public static void removeRecipe(IIngredient output) {
+      Predicate<ItemStack> outputMatcher = Utils.getStackMatcher(output);
       AnimatorRecipe.getRecipes().removeIf(recipe ->
-          output.matches(CraftTweakerMC.getIItemStackForMatching(recipe.getResult(Animator.guessInput(recipe))))
+          outputMatcher.test(recipe.getResult(Animator.guessInput(recipe)))
       );
    }
 

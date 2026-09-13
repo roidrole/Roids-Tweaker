@@ -1,8 +1,6 @@
 package roidrole.roidtweaker.mixins.thermalexpansion;
 
 import cofh.thermalexpansion.util.managers.machine.FurnaceManager;
-import crafttweaker.api.item.IItemStack;
-import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,12 +20,10 @@ public abstract class MixinFurnaceManager {
         remap = false
     )
     private static void roidTweaker_foodOverride(ItemStack input, CallbackInfoReturnable<Boolean> cir){
-        if(RedstoneFurnace.foodOverrideMap.isEmpty()){return;}
-        IItemStack iinput = CraftTweakerMC.getIItemStack(input);
-        RedstoneFurnace.foodOverrideMap.entrySet().stream()
-            .filter(entry -> entry.getKey().matches(iinput))
-            .findFirst()
-            .ifPresent(entry -> cir.setReturnValue(entry.getValue()));
+        Boolean override = RedstoneFurnace.foodOverrides.getOverride(input);
+        if(override != null){
+            cir.setReturnValue(override);
+        }
     }
 
 
@@ -37,12 +33,10 @@ public abstract class MixinFurnaceManager {
         cancellable = true,
         remap = false
     )
-    private static void roidTweaker_oreOverride(ItemStack input, CallbackInfoReturnable<Boolean> cir){
-        if(RedstoneFurnace.oreOverrideMap.isEmpty()){return;}
-        IItemStack iinput = CraftTweakerMC.getIItemStack(input);
-        RedstoneFurnace.oreOverrideMap.entrySet().stream()
-            .filter(entry -> entry.getKey().matches(iinput))
-            .findFirst()
-            .ifPresent(entry -> cir.setReturnValue(entry.getValue()));
+    private static void roidTweaker_oreOverride(ItemStack stack, CallbackInfoReturnable<Boolean> cir){
+        Boolean override = RedstoneFurnace.oreOverrides.getOverride(stack);
+        if(override != null){
+            cir.setReturnValue(override);
+        }
     }
 }

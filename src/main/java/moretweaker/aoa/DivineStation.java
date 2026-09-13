@@ -7,12 +7,16 @@ import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.MoreTweaker;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.tslat.aoa3.crafting.recipes.UpgradeKitRecipe;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.EnumLoadStage;
+import roidrole.roidtweaker.utils.Utils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.util.function.Predicate;
 
 @ZenClass("moretweaker.aoa.DivineStation")
 @ZenRegister
@@ -33,8 +37,9 @@ public class DivineStation {
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
+		Predicate<ItemStack> outputMatcher = Utils.getStackMatcher(output);
 		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> MoreTweaker.forgeRemove(IRecipe.class, (recipe) ->
-			recipe instanceof UpgradeKitRecipe && output.matches(CraftTweakerMC.getIItemStackForMatching(recipe.getRecipeOutput()))
+			recipe instanceof UpgradeKitRecipe && outputMatcher.test(recipe.getRecipeOutput())
 		));
 	}
 

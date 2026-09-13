@@ -2,7 +2,10 @@ package roidrole.roidtweaker.utils;
 
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.AbstractCollection;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 
 public class BucketedLinkedCollection<T> extends AbstractCollection<T> {
 	private int size;

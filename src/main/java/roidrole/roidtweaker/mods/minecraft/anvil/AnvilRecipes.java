@@ -29,7 +29,7 @@ public class AnvilRecipes {
 
         @Override
         public boolean matches(AnvilUpdateEvent event){
-            return output.matches(CraftTweakerMC.getIItemStack(event.getOutput()));
+            return output.matches(CraftTweakerMC.getIItemStackForMatching(event.getOutput()));
         }
     }
 
@@ -71,14 +71,14 @@ public class AnvilRecipes {
     public static class Shapeless extends AnvilRecipes {
         @Override
         public boolean matches(AnvilUpdateEvent event){
-            IItemStack leftInput = CraftTweakerMC.getIItemStack(event.getLeft());
-            IItemStack rightInput = CraftTweakerMC.getIItemStack(event.getRight());
+            IItemStack leftInput = CraftTweakerMC.getIItemStackForMatching(event.getLeft());
+            IItemStack rightInput = CraftTweakerMC.getIItemStackForMatching(event.getRight());
             return (left.matches(leftInput) && right.matches(rightInput)) || (left.matches(rightInput) && right.matches(leftInput));
         }
         @Override
         public boolean matches(AnvilRepairEvent event){
-            IItemStack leftInput = CraftTweakerMC.getIItemStack(event.getItemInput());
-            IItemStack rightInput = CraftTweakerMC.getIItemStack(event.getIngredientInput());
+            IItemStack leftInput = CraftTweakerMC.getIItemStackForMatching(event.getItemInput());
+            IItemStack rightInput = CraftTweakerMC.getIItemStackForMatching(event.getIngredientInput());
             return (left.matches(leftInput) && right.matches(rightInput)) || (left.matches(rightInput) && right.matches(leftInput));
         }
     }
@@ -95,9 +95,13 @@ public class AnvilRecipes {
     }
 
     public boolean matches(AnvilUpdateEvent event){
-        return left.matches(CraftTweakerMC.getIItemStack(event.getLeft())) && right.matches(CraftTweakerMC.getIItemStack(event.getRight()));
+        IItemStack leftInput = CraftTweakerMC.getIItemStackForMatching(event.getLeft());
+        IItemStack rightInput = CraftTweakerMC.getIItemStackForMatching(event.getRight());
+        return left.matches(leftInput) && right.matches(rightInput);
     }
     public boolean matches(AnvilRepairEvent event){
-        return left.matches(CraftTweakerMC.getIItemStack(event.getItemInput())) && right.matches(CraftTweakerMC.getIItemStack(event.getIngredientInput()));
+        IItemStack leftInput = CraftTweakerMC.getIItemStackForMatching(event.getItemInput());
+        IItemStack rightInput = CraftTweakerMC.getIItemStackForMatching(event.getIngredientInput());
+        return left.matches(leftInput) && right.matches(rightInput);
     }
 }

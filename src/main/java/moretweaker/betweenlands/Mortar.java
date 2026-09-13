@@ -7,12 +7,14 @@ import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import roidrole.roidtweaker.mixins.thebetweenlands.PestleAndMortarRecipeAccessor;
+import roidrole.roidtweaker.utils.Utils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import thebetweenlands.common.BetweenlandsAPI;
 import thebetweenlands.common.recipe.mortar.PestleAndMortarRecipe;
+
+import java.util.function.Predicate;
 
 @ZenClass("moretweaker.betweenlands.Mortar")
 @ZenRegister
@@ -30,10 +32,10 @@ public class Mortar {
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
-		final Ingredient outFilter = CraftTweakerMC.getIngredient(output);
+		final Predicate<ItemStack> outFilter = Utils.getStackMatcher(output);
 
 		PestleAndMortarRecipeAccessor.getRecipes().removeIf(
-			recipe -> outFilter.apply(recipe.getOutput(recipe.getInputs()))
+			recipe -> outFilter.test(recipe.getOutput(recipe.getInputs()))
 		);
 	}
 

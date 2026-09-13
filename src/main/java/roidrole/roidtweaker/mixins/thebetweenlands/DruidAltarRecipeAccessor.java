@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 @Mixin(DruidAltarRecipe.class)
 public interface DruidAltarRecipeAccessor {
-	@Accessor
+	@Accessor(remap = false)
 	static ArrayList<IDruidAltarRecipe> getDruidAltarRecipes(){
 		throw new MixinException("Mixin "+ DruidAltarRecipeAccessor.class.getCanonicalName() + " didn't apply");
 	}

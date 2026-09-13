@@ -11,8 +11,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.EnumLoadStage;
+import roidrole.roidtweaker.utils.Utils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.util.function.Predicate;
 
 @ZenClass("moretweaker.bedrockcraft.BedrockRitual")
 @ZenRegister
@@ -23,18 +26,18 @@ public class BedrockRitual {
 	public static void addRecipe(IItemStack output, IIngredient center, int bedrockAmount, IIngredient[] inputs) {
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		final Ingredient c = CraftTweakerMC.getIngredient(center);
-		final Ingredient[] in = new Ingredient[inputs.length];
-		for (int i = 0; i < inputs.length; i++) {
-			in[i] = CraftTweakerMC.getIngredient(inputs[i]);
-		}
+		Ingredient[] in = Utils.getIngredients(inputs);
 		final int amount = Math.max(0, Math.min(bedrockAmount, 320));
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> RitualManager.addRecipe(out, c, amount, (Object[]) in));
+		DeferredLoader.load(EnumLoadStage.POST_INIT,
+			() -> RitualManager.addRecipe(out, c, amount, (Object[]) in)
+		);
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
+		Predicate<ItemStack> outputMatcher = Utils.getStackMatcher(output);
 		DeferredLoader.load(EnumLoadStage.POST_INIT, () ->
-			RitualManager.removeRecipes(recipe -> output.matches(CraftTweakerMC.getIItemStackForMatching(recipe.output())))
+			RitualManager.removeRecipes(recipe -> outputMatcher.test(recipe.output()))
 		);
 	}
 

@@ -1,6 +1,10 @@
 ## Unreleased
-**Improved :**
+**Added :**
+- MoreTweaker
+
+**Changed :**
 - DeferredLoader uses a better data structure
+- Improved some internals. Should slightly increase performance for select functions
 
 ## 1.3.2
 **Added :**

@@ -30,7 +30,7 @@ public class OreData {
     @ZenMethod
     public IItemStack getStack(@Optional int amount){
         if(amount == 0){amount = 1;}
-        return CraftTweakerMC.getIItemStack(this.internal.createOreItem(amount));
+        return CraftTweakerMC.getIItemStackMutable(this.internal.createOreItem(amount));
     }
 
     @ZenMethod

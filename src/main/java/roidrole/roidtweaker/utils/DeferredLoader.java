@@ -1,6 +1,8 @@
 package roidrole.roidtweaker.utils;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.Map;
 
 public abstract class DeferredLoader {
     public static Map<EnumLoadStage, Collection<IAction>> toLoad = new EnumMap<EnumLoadStage, Collection<IAction>>(EnumLoadStage.class){{

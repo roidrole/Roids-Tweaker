@@ -8,6 +8,7 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.mixins.thebetweenlands.PurifierRecipeAccessor;
+import roidrole.roidtweaker.utils.Utils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import thebetweenlands.api.recipes.IPurifierRecipe;
@@ -18,6 +19,7 @@ import thebetweenlands.common.recipe.purifier.PurifierRecipeStandard;
 import thebetweenlands.common.registries.ItemRegistry;
 
 import javax.annotation.Nonnull;
+import java.util.function.Predicate;
 
 @ZenClass("moretweaker.betweenlands.Purifier")
 @ZenRegister
@@ -31,8 +33,9 @@ public class Purifier {
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
+		Predicate<ItemStack> outputMatcher = Utils.getStackMatcher(output);
 		PurifierRecipeAccessor.getRECIPES().removeIf(
-			recipe -> output.matches(CraftTweakerMC.getIItemStackForMatching(Purifier.guessOutput(recipe)))
+			recipe -> outputMatcher.test(Purifier.guessOutput(recipe))
 		);
 	}
 
@@ -55,11 +58,11 @@ public class Purifier {
 	}
 
 	public static class PurifierRecipeCT extends PurifierRecipe {
-		private final IIngredient input;
+		private final Predicate<ItemStack> input;
 		private final ItemStack output;
 
 		public PurifierRecipeCT(IIngredient input, ItemStack output) {
-			this.input = input;
+			this.input = Utils.getStackMatcher(input);
 			this.output = output;
 		}
 
@@ -70,7 +73,7 @@ public class Purifier {
 
 		@Override
 		public boolean matchesInput(ItemStack itemStack) {
-			return input.matches(CraftTweakerMC.getIItemStackForMatching(itemStack));
+			return input.test(itemStack);
 		}
 	}
 }

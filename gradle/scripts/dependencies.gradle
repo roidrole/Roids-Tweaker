@@ -112,8 +112,8 @@ dependencies {
     compileOnly('curse.maven:serene-seasons-291874:2799213')
     compileOnly('curse.maven:thaumcraft-223628:2629023')
     compileOnly('curse.maven:mekanism-ce-unofficial-840735:6550161')
-    compileOnly('curse.maven:immersive-engineering-231951:2974106')
-    compileOnly('curse.maven:immersive-petroleum-268250:3382321')
+    implementation('curse.maven:immersive-engineering-231951:2974106')
+    implementation('curse.maven:immersive-petroleum-268250:3382321')
     compileOnly('curse.maven:wanionlib-253043:4623135')
     compileOnly('curse.maven:unidict-244258:3553627')
     compileOnly('curse.maven:misty-world-unveiled-1104150:6987174')
@@ -125,10 +125,10 @@ dependencies {
     compileOnly('curse.maven:random-things-59816:2905241')
 
     //It's hard, to play Thermal Expansion...
-    compileOnly('curse.maven:thermal-expansion-69163:2926431')
-    compileOnly('curse.maven:cofh-core-69162:2920433')
-    compileOnly('curse.maven:thermal-foundation-222880:2926428')
-    compileOnly('curse.maven:cofh-world-271384:2920434')
+    implementation('curse.maven:thermal-expansion-69163:2926431')
+    implementation('curse.maven:cofh-core-69162:2920433')
+    implementation('curse.maven:thermal-foundation-222880:2926428')
+    implementation('curse.maven:cofh-world-271384:2920434')
 
     //runtimeOnly('curse.maven:mantle-74924:2713386')
     //runtimeOnly('curse.maven:tinkers-antique-1242239:7339332')
