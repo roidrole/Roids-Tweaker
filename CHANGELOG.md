@@ -6,6 +6,11 @@
 - DeferredLoader uses a better data structure
 - Improved some internals. Should slightly increase performance for select functions
 
+## 1.3.3
+**Fixed :**
+- DataUtils.write writing everything as string by default (for example, writing `"3.0"` instead of `3`)
+- DataUtils.getRawString generally behaving weird
+
 ## 1.3.2
 **Added :**
 - IFacing.getFacings and IFacing.getHorizontals

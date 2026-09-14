@@ -1,1 +1,25 @@
-{"I AM":"HERE","This is null":null,"what_about":"these_keys"}
+{
+	"I AM": "HERE",
+	"This is null": null,
+	"number_int": 3,
+	"map": {
+		"byteArray": [
+			10,
+			20,
+			30
+		],
+		"dataList": [
+			{
+				"key": "value"
+			},
+			"word",
+			6.4
+		],
+		"intArray": [
+			1,
+			2,
+			3
+		]
+	},
+	"number_double": 3.0
+}

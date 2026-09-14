@@ -48,7 +48,6 @@ public class DataConverterRawString implements IDataConverter<String> {
         return value;
     }
 
-    //Starting here, reimplementation of the toString method of the original to preserve compat
     @Override
     public String fromList(List<IData> values) {
         StringBuilder output = new StringBuilder();
@@ -60,7 +59,7 @@ public class DataConverterRawString implements IDataConverter<String> {
             } else {
                 output.append(", ");
             }
-            output.append(value);
+            output.append(value.convert(this));
         }
         output.append(']');
         return output.toString();
@@ -85,7 +84,7 @@ public class DataConverterRawString implements IDataConverter<String> {
             }
 
             result.append(": ");
-            result.append(entry.getValue());
+            result.append(entry.getValue().convert(this));
         }
         result.append('}');
         return result.toString();

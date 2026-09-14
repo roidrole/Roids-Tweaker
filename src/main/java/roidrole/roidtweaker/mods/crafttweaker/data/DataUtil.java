@@ -76,8 +76,20 @@ public class DataUtil {
 
     @ZenMethod
     public static String toJson(IData data) {
-        return DataTypeAdapter.INSTANCE.toJson(data);
-    }
+        try {
+            if(data == null){
+                return "null";
+            }
+            StringWriter string = new StringWriter();
+            JsonWriter writer = new JsonWriter(string);
+            writer.setLenient(true);
+			data.convert(new DataConverterJson(writer));
+			writer.close();
+            return string.toString();
+        } catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
     @ZenMethod
     public static IData read(String file){
@@ -113,7 +125,12 @@ public class DataUtil {
             Files.createDirectories(Paths.get(file).getParent());
             JsonWriter writer = new JsonWriter(new BufferedWriter(new FileWriter(file)));
             writer.setLenient(true);
-            DataTypeAdapter.INSTANCE.write(writer, data);
+            writer.setIndent("\t");
+            if(data == null){
+                writer.nullValue();
+            } else {
+                data.convert(new DataConverterJson(writer));
+            }
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException("An unexpected problem happened when writing to file " + file);
