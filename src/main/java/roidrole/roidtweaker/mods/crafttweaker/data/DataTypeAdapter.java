@@ -1,8 +1,6 @@
 package roidrole.roidtweaker.mods.crafttweaker.data;
 
-import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import com.google.gson.stream.MalformedJsonException;
 import crafttweaker.api.data.*;
 
@@ -10,34 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class DataTypeAdapter extends TypeAdapter<IData> {
-    public static final TypeAdapter<IData> INSTANCE = new DataTypeAdapter().nullSafe();
-    @Override
-    public void write(JsonWriter out, IData data) throws IOException {
-        if(data == null){
-            out.nullValue();
-        }
-        else if(data instanceof DataMap){
-            out.beginObject();
-            for (Map.Entry<String, IData> entry : data.asMap().entrySet()) {
-                out.name(entry.getKey());
-                write(out, entry.getValue());
-            }
-            out.endObject();
-        } else if(data instanceof DataList){
-            out.beginArray();
-            for (IData element : data.asList()) {
-                write(out, element);
-            }
-            out.endArray();
-        } else {
-            out.value(data.convert(DataConverterRawString.INSTANCE));
-        }
-    }
+public class DataTypeAdapter {
+    public static final DataTypeAdapter INSTANCE = new DataTypeAdapter();
 
-    @Override
     public IData read(JsonReader in) throws IOException {
         switch(in.peek()){
             case NULL: {

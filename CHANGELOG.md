@@ -1,3 +1,8 @@
+## 1.3.3
+**Fixed :**
+- DataUtils.write writing everything as string by default (for example, writing `"3.0"` instead of `3`)
+- DataUtils.getRawString generally behaving weird
+
 ## 1.3.2
 **Added :**
 - IFacing.getFacings and IFacing.getHorizontals
