@@ -65,4 +65,33 @@ public abstract class Utils {
             return new IIngredientMatching(ingredient);
         }
     }
+
+    public static boolean anyMatch(Predicate<ItemStack> predicate, Iterable<ItemStack> stacks){
+        for (ItemStack stack : stacks){
+            if(predicate.test(stack)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean anyMatch(Predicate<ItemStack> predicate, ItemStack[] stacks){
+        for (ItemStack stack : stacks){
+            if(predicate.test(stack)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean anyMatchIngredient(Predicate<ItemStack> predicate, Iterable<Ingredient> ingredients){
+        for (Ingredient ingredient : ingredients){
+            for(ItemStack stack : ingredient.getMatchingStacks()) {
+                if (predicate.test(stack)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

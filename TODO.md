@@ -1,6 +1,8 @@
 # TODO
-- Rewrite all mods past the betweenlands
+- Rewrite all mods past the bewitchement
   - Standardize, notably, everything to DeferredLoader
+  - Make a second pass using stuff from Utils and MoreTweaker (added functions)
+  - Make sure that Inputs is never used
 - Check which mods have built-in CT support and remove duplicate support (Buildcraft and fossils (broken?), at least)
 - Figure out what to do with mod-specific CT addons (RailcraftTweaker, GalacticraftTweaker): include or delegate
 - Test everything:

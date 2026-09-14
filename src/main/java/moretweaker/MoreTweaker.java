@@ -25,6 +25,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
 import org.apache.logging.log4j.Logger;
 import roidrole.roidtweaker.Tags;
+import roidrole.roidtweaker.utils.DeferredLoader;
 import therealfarfetchd.quacklib.common.api.autoconf.DefaultFeatures;
 import therealfarfetchd.quacklib.common.api.autoconf.FeatureManager;
 
@@ -32,175 +33,203 @@ import java.util.*;
 import java.util.function.Predicate;
 
 @Mod(
-   modid = "moretweaker",
-   name = "MoreTweaker",
-   version = "1.0.19",
-   dependencies = "required-after:crafttweaker;after:railcraft;after:draconicevolution@[2.3.17,);after:buildcraftcore@[7.99.24,);after:buildcraftsilicon@[7.99.24,);after:enderfuge;after:voidcraft;after:bloodarsenal@[1.12.2-2.1.0-25,);after:erebus@[1.0.20,);after:bedrockcraft@[1.0.1,);after:fossil@[8.0.1,);after:matteroverdrive;after:quacklib;after:infinitycraft;after:thebetweenlands;after:aoa3;after:bewitchment@[0.21.11,);after:hwell",
-   acceptedMinecraftVersions = "[1.12.2]"
+	modid = "moretweaker",
+	name = "MoreTweaker",
+	version = "1.0.19",
+	dependencies = "required-after:crafttweaker;after:railcraft;after:draconicevolution@[2.3.17,);after:buildcraftcore@[7.99.24,);after:buildcraftsilicon@[7.99.24,);after:enderfuge;after:voidcraft;after:bloodarsenal@[1.12.2-2.1.0-25,);after:erebus@[1.0.20,);after:bedrockcraft@[1.0.1,);after:fossil@[8.0.1,);after:matteroverdrive;after:quacklib;after:infinitycraft;after:thebetweenlands;after:aoa3;after:bewitchment@[0.21.11,);after:hwell",
+	acceptedMinecraftVersions = "[1.12.2]"
 )
 public class MoreTweaker {
-   private static int next_id = 0;
-   @Instance
-   public static MoreTweaker instance;
-   public static Logger logger;
+	private static int next_id = 0;
+	@Instance
+	public static MoreTweaker instance;
+	public static Logger logger;
 
-   private static final Queue<IAction> postQueue = new LinkedList<>();
+	private static final Queue<IAction> postQueue = new LinkedList<>();
 
-   @EventHandler
-   public void preInit(FMLPreInitializationEvent event) {
-      logger = event.getModLog();
-      if (Loader.isModLoaded("quacklib")) {
-         CraftTweakerAPI.logInfo("Enabling QuackLib alloy smelter");
-         FeatureManager.INSTANCE.depend(DefaultFeatures.INSTANCE.getAlloyFurnace(), Tags.MOD_ID);
-      }
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent event) {
+		logger = event.getModLog();
+		if (Loader.isModLoaded("quacklib")) {
+			CraftTweakerAPI.logInfo("Enabling QuackLib alloy smelter");
+			FeatureManager.INSTANCE.depend(DefaultFeatures.INSTANCE.getAlloyFurnace(), Tags.MOD_ID);
+		}
 
-   }
+	}
 
-   @EventHandler
-   public void init(FMLInitializationEvent event) {
-      if (Loader.isModLoaded("mob_grinding_utils")) {
-         MinecraftForge.EVENT_BUS.register(SpawnEggHandler.INSTANCE);
-      }
-   }
+	@EventHandler
+	public void init(FMLInitializationEvent event) {
+		if (Loader.isModLoaded("mob_grinding_utils")) {
+			MinecraftForge.EVENT_BUS.register(SpawnEggHandler.INSTANCE);
+		}
+	}
 
-   @EventHandler
-   public void postInit(FMLPostInitializationEvent event) {
-      for(IAction action : postQueue) {
-         CraftTweakerAPI.apply(action);
-      }
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
+		for(IAction action : postQueue) {
+			CraftTweakerAPI.apply(action);
+		}
 
-      postQueue.clear();
-      if (Loader.isModLoaded("gadgetrycore")) {
-         CraftTweakerAPI.logInfo("Cleaning up Gadgetry-Core recipes");
-         AlloyRecipe.metals.clear();
-         AlloyRecipe.additives1.clear();
-         AlloyRecipe.additives2.clear();
+		postQueue.clear();
+		if (Loader.isModLoaded("gadgetrycore")) {
+			CraftTweakerAPI.logInfo("Cleaning up Gadgetry-Core recipes");
+			AlloyRecipe.metals.clear();
+			AlloyRecipe.additives1.clear();
+			AlloyRecipe.additives2.clear();
 
-         for(AlloyRecipe alloyRecipe : AlloyRecipe.recipes) {
-            AlloyRecipe.metals.add(alloyRecipe.inputs.get(0));
-            AlloyRecipe.additives1.add(alloyRecipe.inputs.get(1));
-            AlloyRecipe.additives2.add(alloyRecipe.inputs.get(2));
-         }
-      }
+			for(AlloyRecipe alloyRecipe : AlloyRecipe.recipes) {
+				AlloyRecipe.metals.add(alloyRecipe.inputs.get(0));
+				AlloyRecipe.additives1.add(alloyRecipe.inputs.get(1));
+				AlloyRecipe.additives2.add(alloyRecipe.inputs.get(2));
+			}
+		}
 
-      if (Loader.isModLoaded("gadgetrymachines")) {
-         CraftTweakerAPI.logInfo("Cleaning up Gadgetry-Machines recipes");
-         DistillingRecipe.distillable_items.clear();
-         DistillingRecipe.distillable_fluids.clear();
+		if (Loader.isModLoaded("gadgetrymachines")) {
+			CraftTweakerAPI.logInfo("Cleaning up Gadgetry-Machines recipes");
+			DistillingRecipe.distillable_items.clear();
+			DistillingRecipe.distillable_fluids.clear();
 
-         for(DistillingRecipe distillingRecipe : DistillingRecipe.recipes) {
-            DistillingRecipe.distillable_items.add(distillingRecipe.inputs.get(0));
-            DistillingRecipe.distillable_fluids.add(distillingRecipe.fluid_in.getFluid());
-         }
+			for(DistillingRecipe distillingRecipe : DistillingRecipe.recipes) {
+				DistillingRecipe.distillable_items.add(distillingRecipe.inputs.get(0));
+				DistillingRecipe.distillable_fluids.add(distillingRecipe.fluid_in.getFluid());
+			}
 
-         GrindingRecipe.grindables.clear();
+			GrindingRecipe.grindables.clear();
 
-         for(GrindingRecipe grindingRecipe : GrindingRecipe.recipes) {
-            GrindingRecipe.grindables.add(grindingRecipe.inputs.get(0));
-         }
-      }
+			for(GrindingRecipe grindingRecipe : GrindingRecipe.recipes) {
+				GrindingRecipe.grindables.add(grindingRecipe.inputs.get(0));
+			}
+		}
 
-      if (Loader.isModLoaded("fossil")) {
-         CraftTweakerAPI.logInfo("Cleaning up Fossils Weights");
-         Set<RecipeAnalyzer> newRecipes = new HashSet<>();
-         Iterator<RecipeAnalyzer> itr = FAMachineRecipeRegistry.analyzerRecipes.iterator();
+		if (Loader.isModLoaded("fossil")) {
+			CraftTweakerAPI.logInfo("Cleaning up Fossils Weights");
+			Set<RecipeAnalyzer> newRecipes = new HashSet<>();
+			Iterator<RecipeAnalyzer> itr = FAMachineRecipeRegistry.analyzerRecipes.iterator();
 
-         while(itr.hasNext()) {
-            RecipeAnalyzer recipe = itr.next();
-            if (recipe.getTotalWeight() != 100.0F) {
-               itr.remove();
-               float factor = 100.0F / recipe.getTotalWeight();
-               RecipeAnalyzer r = new RecipeAnalyzer(recipe.getInput());
-               float weight = 0.0F;
+			while(itr.hasNext()) {
+				RecipeAnalyzer recipe = itr.next();
+				if (recipe.getTotalWeight() != 100.0F) {
+					itr.remove();
+					float factor = 100.0F / recipe.getTotalWeight();
+					RecipeAnalyzer r = new RecipeAnalyzer(recipe.getInput());
+					float weight = 0.0F;
 
-               while(weight <= recipe.getTotalWeight()) {
-                  Map.Entry<Float, ItemStack> entry = recipe.getDisplayMap().higherEntry(weight);
-                  if (entry == null) {
-                     break;
-                  }
+					while(weight <= recipe.getTotalWeight()) {
+						Map.Entry<Float, ItemStack> entry = recipe.getDisplayMap().higherEntry(weight);
+						if (entry == null) {
+							break;
+						}
 
-                  float chance = entry.getKey() - weight;
-                  weight = entry.getKey();
-                  r.addOutput(entry.getValue(), chance * factor);
-               }
+						float chance = entry.getKey() - weight;
+						weight = entry.getKey();
+						r.addOutput(entry.getValue(), chance * factor);
+					}
 
-               newRecipes.add(r);
-            }
-         }
+					newRecipes.add(r);
+				}
+			}
 
-         FAMachineRecipeRegistry.analyzerRecipes.addAll(newRecipes);
-         newRecipes = new HashSet<>();
-         itr = FAMachineRecipeRegistry.sifterRecipes.iterator();
+			FAMachineRecipeRegistry.analyzerRecipes.addAll(newRecipes);
+			newRecipes = new HashSet<>();
+			itr = FAMachineRecipeRegistry.sifterRecipes.iterator();
 
-         while(itr.hasNext()) {
-            RecipeAnalyzer recipe = itr.next();
-            if (recipe.getTotalWeight() != 100.0F) {
-               itr.remove();
-               float factor = 100.0F / recipe.getTotalWeight();
-               RecipeAnalyzer r = new RecipeAnalyzer(recipe.getInput());
-               float weight = 0.0F;
+			while(itr.hasNext()) {
+				RecipeAnalyzer recipe = itr.next();
+				if (recipe.getTotalWeight() != 100.0F) {
+					itr.remove();
+					float factor = 100.0F / recipe.getTotalWeight();
+					RecipeAnalyzer r = new RecipeAnalyzer(recipe.getInput());
+					float weight = 0.0F;
 
-               while(weight <= recipe.getTotalWeight()) {
-                  Map.Entry<Float, ItemStack> entry = recipe.getDisplayMap().higherEntry(weight);
-                  if (entry == null) {
-                     break;
-                  }
+					while(weight <= recipe.getTotalWeight()) {
+						Map.Entry<Float, ItemStack> entry = recipe.getDisplayMap().higherEntry(weight);
+						if (entry == null) {
+							break;
+						}
 
-                  float chance = entry.getKey() - weight;
-                  weight = entry.getKey();
-                  r.addOutput(entry.getValue(), chance * factor);
-               }
+						float chance = entry.getKey() - weight;
+						weight = entry.getKey();
+						r.addOutput(entry.getValue(), chance * factor);
+					}
 
-               newRecipes.add(r);
-            }
-         }
+					newRecipes.add(r);
+				}
+			}
 
-         FAMachineRecipeRegistry.sifterRecipes.addAll(newRecipes);
-      }
+			FAMachineRecipeRegistry.sifterRecipes.addAll(newRecipes);
+		}
 
-   }
+	}
 
-   public static void queuePostInitAction(final IAction action) {
-      postQueue.add(action);
-   }
+	public static void queuePostInitAction(final IAction action) {
+		postQueue.add(action);
+	}
 
-   public static ResourceLocation newRL() {
-      return new ResourceLocation("moretweaker", "moretweakerrecipe" + next_id++);
-   }
+	public static ResourceLocation newRL() {
+		return new ResourceLocation("moretweaker", "moretweakerrecipe" + next_id++);
+	}
 
-   public static <T extends IForgeRegistryEntry<T>> void forgeAdd(final Class<T> registerClass, final T entry) {
-      IForgeRegistry<T> registry = GameRegistry.findRegistry(registerClass);
-      if (entry.getRegistryName() == null) {
-         entry.setRegistryName(newRL());
-      }
+	public static <T extends IForgeRegistryEntry<T>> void forgeAdd(final Class<T> registerClass, final T entry) {
+		IForgeRegistry<T> registry = GameRegistry.findRegistry(registerClass);
+		if (entry.getRegistryName() == null) {
+			entry.setRegistryName(newRL());
+		}
 
-      registry.register(entry);
-   }
+		registry.register(entry);
+	}
 
-   public static <T extends IForgeRegistryEntry<T>> void forgeRemove(final Class<T> registerClass, final Predicate<T> removePredicate) {
-      IForgeRegistry<T> registry = GameRegistry.findRegistry(registerClass);
-      if(!(registry instanceof IForgeRegistryModifiable)){
-         return;
-      }
+	public static <T extends IForgeRegistryEntry<T>> void forgeRemove(final Class<T> registerClass, final Predicate<T> removePredicate) {
+		IForgeRegistry<T> registry = GameRegistry.findRegistry(registerClass);
+		if(!(registry instanceof IForgeRegistryModifiable)){
+			return;
+		}
 
-      List<ResourceLocation> removes = new ArrayList<>();
+		List<ResourceLocation> removes = new ArrayList<>();
 
-      for(T entry : registry.getValuesCollection()) {
-          if (removePredicate.test(entry)) {
-             removes.add(entry.getRegistryName());
-          }
-      }
+		for(T entry : registry.getValuesCollection()) {
+			if (removePredicate.test(entry)) {
+				removes.add(entry.getRegistryName());
+			}
+		}
 
-      try {
-         for(ResourceLocation remove : removes){
-            ((IForgeRegistryModifiable<T>) registry).remove(remove);
-         }
-      } catch (Exception e) {
-         CraftTweakerAPI.logError(Tags.MOD_ID + " can't remove elements from registry " + registerClass.getCanonicalName() + ". Please report to " + Tags.MOD_ID + " author");
-      }
-   }
+		try {
+			for(ResourceLocation remove : removes){
+				((IForgeRegistryModifiable<T>) registry).remove(remove);
+			}
+		} catch (Exception e) {
+			CraftTweakerAPI.logError(Tags.MOD_ID + " can't remove elements from registry " + registerClass.getCanonicalName() + ". Please report to " + Tags.MOD_ID + " author");
+		}
+	}
 
-   public static void injectTranslation(String key, String value) {
-      CraftTweakerAPI.apply(new ActionSetTranslation(null, key, value));
-   }
+	public static <T extends IForgeRegistryEntry<T>> void forgeClear(final Class<T> registerClass) {
+		IForgeRegistry<T> registry = GameRegistry.findRegistry(registerClass);
+		if(!(registry instanceof IForgeRegistryModifiable)){
+			return;
+		}
+
+		try {
+			((IForgeRegistryModifiable<T>) registry).clear();
+		} catch (Exception e) {
+			CraftTweakerAPI.logError(Tags.MOD_ID + " can't remove elements from registry " + registerClass.getCanonicalName() + ". Please report to " + Tags.MOD_ID + " author");
+		}
+	}
+
+	public static <T extends IForgeRegistryEntry<T>> DeferredLoader.IAction forgeAddLambda(final Class<T> registerClass, final T entry){
+		return () -> forgeAdd(registerClass, entry);
+	}
+
+	public static <T extends IForgeRegistryEntry<T>> DeferredLoader.IAction forgeRemoveLambda(final Class<T> registerClass, final Predicate<T> removePredicate){
+		return () -> forgeRemove(registerClass, removePredicate);
+	}
+
+	public static <T extends IForgeRegistryEntry<T>> DeferredLoader.IAction forgeClearLambda(final Class<T> registerClass, final String message){
+		return () -> {
+			CraftTweakerAPI.logInfo("Clearing all " + message + " recipes");
+			forgeClear(registerClass);
+		};
+	}
+
+	public static void injectTranslation(String key, String value) {
+		CraftTweakerAPI.apply(new ActionSetTranslation(null, key, value));
+	}
 }

@@ -2,108 +2,82 @@ package moretweaker.bewitchment;
 
 import com.bewitchment.api.registry.Ritual;
 import crafttweaker.CraftTweakerAPI;
-import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import roidrole.roidtweaker.utils.DeferredLoader;
+import roidrole.roidtweaker.utils.EnumLoadStage;
+import roidrole.roidtweaker.utils.Utils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenProperty;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
 @ZenClass("moretweaker.bewitchment.WitchesRitual")
 @ZenRegister
 @ModOnly("bewitchment")
 @SuppressWarnings("unused")
 public class WitchesRitual {
-   @ZenProperty
-   public static final int NONE = -1;
-   @ZenProperty
-   public static final int GOLDEN = 0;
-   @ZenProperty
-   public static final int RITUAL = 1;
-   @ZenProperty
-   public static final int FIERY = 2;
-   @ZenProperty
-   public static final int PHASING = 3;
-   @ZenProperty
-   public static final int ANY = 4;
+	@ZenProperty
+	public static final int NONE = -1;
+	@ZenProperty
+	public static final int GOLDEN = 0;
+	@ZenProperty
+	public static final int RITUAL = 1;
+	@ZenProperty
+	public static final int FIERY = 2;
+	@ZenProperty
+	public static final int PHASING = 3;
+	@ZenProperty
+	public static final int ANY = 4;
 
-   @ZenMethod
-   public static void addRecipe(String name, IItemStack[] outputs, IIngredient[] inputs, final String entityOutput, final String entityInput, final int power, final int ringSmall, final int ringMedium, final int ringLarge) {
-      if (outputs.length > 5) {
-         CraftTweakerAPI.logError("Witches rituals may not have more than 5 outputs.");
-      }
+	@ZenMethod
+	public static void addRecipe(String name, IItemStack[] outputs, IIngredient[] inputs, final String entityOutput, final String entityInput, final int power, final int ringSmall, final int ringMedium, final int ringLarge) {
+		if (outputs.length > 5) {
+			CraftTweakerAPI.logError("Witches rituals may not have more than 5 outputs.");
+		}
 
-      if (inputs.length > 10) {
-         CraftTweakerAPI.logError("Witches rituals may not have more than 10 inputs.");
-      }
+		if (inputs.length > 10) {
+			CraftTweakerAPI.logError("Witches rituals may not have more than 10 inputs.");
+		}
 
-      if (outputs.length <= 5 && inputs.length <= 10) {
-         final List<ItemStack> out = Arrays.asList(CraftTweakerMC.getItemStacks(outputs));
-         final List<Ingredient> in = Arrays.stream(Inputs.getParts(inputs)).map((c) -> c.ingredient).collect(Collectors.toList());
-         final ResourceLocation rl = MoreTweaker.newRL();
-         MoreTweaker.injectTranslation("ritual." + rl.getNamespace() + "." + rl.getPath(), name);
-         MoreTweaker.queuePostInitAction(new IAction() {
-            public void apply() {
-               MoreTweaker.forgeAdd(Ritual.class, new MoreRitual(rl, in, out, entityInput, entityOutput, power, ringSmall, ringMedium, ringLarge));
-            }
+		if (outputs.length <= 5 && inputs.length <= 10) {
+			final List<ItemStack> out = Arrays.asList(CraftTweakerMC.getItemStacks(outputs));
+			final List<Ingredient> in = Arrays.asList(Utils.getIngredients(inputs));
+			final ResourceLocation rl = MoreTweaker.newRL();
 
-            public String describe() {
-               return "Adds a recipe to the witches ritual list.";
-            }
-         });
-      }
-   }
+			final MoreRitual ritual = new MoreRitual(rl, in, out, entityInput, entityOutput, power, ringSmall, ringMedium, ringLarge);
+			MoreTweaker.injectTranslation("ritual." + rl.getNamespace() + "." + rl.getPath(), name);
 
-   @ZenMethod
-   public static void removeByOutput(IIngredient output) {
-      final Object out = Inputs.getObject(output);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            MoreTweaker.forgeRemove(Ritual.class, (r) -> Inputs.matchesForRemoval(out, r.output));
-         }
+			DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeAddLambda(Ritual.class, ritual));
+		}
+	}
 
-         public String describe() {
-            return "Removes some recipes from the witches ritual list by item output.";
-         }
-      });
-   }
+	@ZenMethod
+	public static void removeByOutput(IIngredient output) {
+		final Predicate<ItemStack> out = Utils.getStackMatcher(output);
+		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeRemoveLambda(Ritual.class, recipe -> Utils.anyMatch(out, recipe.output)));
+	}
 
-   @ZenMethod
-   public static void removeByInput(IIngredient input) {
-      final Object in = Inputs.getObject(input);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            MoreTweaker.forgeRemove(Ritual.class, (r) -> Inputs.matchesForRemovalArray(in, r.input, Ingredient::getMatchingStacks));
-         }
+	@ZenMethod
+	public static void removeByInput(IIngredient input) {
+		final Predicate<ItemStack> inputFilter = Utils.getStackMatcher(input);
+		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeRemoveLambda(Ritual.class, recipe ->
+			Utils.anyMatchIngredient(inputFilter, recipe.input)
+		));
+	}
 
-         public String describe() {
-            return "Removes some recipes from the witches ritual list by item input.";
-         }
-      });
-   }
-
-   @ZenMethod
-   public static void removeAll() {
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            MoreTweaker.forgeRemove(Ritual.class, (r) -> true);
-         }
-
-         public String describe() {
-            return "Removes all recipes from the witches ritual list.";
-         }
-      });
-   }
+	@ZenMethod
+	public static void removeAll() {
+		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeClearLambda(Ritual.class, "witches ritual"));
+	}
 }

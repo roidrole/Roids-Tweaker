@@ -32,13 +32,13 @@ public class DivineStation {
 			CraftTweakerMC.getItemStack(output)
 		);
 
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> MoreTweaker.forgeAdd(IRecipe.class, recipe));
+		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeAddLambda(IRecipe.class, recipe));
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		Predicate<ItemStack> outputMatcher = Utils.getStackMatcher(output);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> MoreTweaker.forgeRemove(IRecipe.class, (recipe) ->
+		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeRemoveLambda(IRecipe.class, (recipe) ->
 			recipe instanceof UpgradeKitRecipe && outputMatcher.test(recipe.getRecipeOutput())
 		));
 	}

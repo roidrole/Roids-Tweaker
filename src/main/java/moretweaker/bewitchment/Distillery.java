@@ -2,13 +2,11 @@ package moretweaker.bewitchment;
 
 import com.bewitchment.api.registry.DistilleryRecipe;
 import crafttweaker.CraftTweakerAPI;
-import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -20,6 +18,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 @ZenClass("moretweaker.bewitchment.Distillery")
 @ZenRegister
@@ -41,34 +40,20 @@ public class Distillery {
 		final List<Ingredient> in = Arrays.asList(Utils.getIngredients(inputs));
 
 		DeferredLoader.load(EnumLoadStage.POST_INIT,
-			() -> MoreTweaker.forgeAdd(DistilleryRecipe.class, new DistilleryRecipe(MoreTweaker.newRL(), in, out))
+			MoreTweaker.forgeAddLambda(DistilleryRecipe.class, new DistilleryRecipe(MoreTweaker.newRL(), in, out))
 		);
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
-		final Object out = Inputs.getObject(output);
-		MoreTweaker.queuePostInitAction(new IAction() {
-			public void apply() {
-				MoreTweaker.forgeRemove(DistilleryRecipe.class, (r) -> Inputs.matchesForRemoval(out, r.output));
-			}
-
-			public String describe() {
-				return "Removes some recipes from the witches distillery.";
-			}
-		});
+		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
+		DeferredLoader.load(EnumLoadStage.POST_INIT,
+			MoreTweaker.forgeRemoveLambda(DistilleryRecipe.class, recipe -> Utils.anyMatch(outputFilter, recipe.output))
+		);
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		MoreTweaker.queuePostInitAction(new IAction() {
-			public void apply() {
-				MoreTweaker.forgeRemove(DistilleryRecipe.class, (r) -> true);
-			}
-
-			public String describe() {
-				return "Removes all recipes from the witches distillery.";
-			}
-		});
+		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeClearLambda(DistilleryRecipe.class, "witches distillery"));
 	}
 }

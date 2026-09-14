@@ -15,16 +15,16 @@ import thebetweenlands.common.recipe.misc.CompostRecipe;
 @ModOnly("thebetweenlands")
 @SuppressWarnings("unused")
 public class Composter {
-   @ZenMethod
-   public static void addRecipe(IIngredient input) {
-      addRecipe(input, 12, 8000);
-   }
+	@ZenMethod
+	public static void addRecipe(IIngredient input) {
+		addRecipe(input, 12, 8000);
+	}
 
-   @ZenMethod
-   public static void addRecipe(IIngredient input, final int compostValue, final int compostTime) {
-      ItemStack[] inputs = CraftTweakerMC.getExamples(input);
-      for (ItemStack stack : inputs){
-         BetweenlandsAPI.getInstance().registerCompostBinRecipe(new CompostRecipe(compostValue, compostTime, stack));
-      }
-   }
+	@ZenMethod
+	public static void addRecipe(IIngredient input, final int compostValue, final int compostTime) {
+		ItemStack[] inputs = CraftTweakerMC.getExamples(input);
+		for (ItemStack stack : inputs){
+			BetweenlandsAPI.getInstance().registerCompostBinRecipe(new CompostRecipe(compostValue, compostTime, stack));
+		}
+	}
 }

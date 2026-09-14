@@ -49,7 +49,7 @@ public class InfusionTable {
 			xpMax
 		);
 
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> MoreTweaker.forgeAdd(IRecipe.class, recipe));
+		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeAddLambda(IRecipe.class, recipe));
 	}
 
 	@ZenMethod
@@ -64,48 +64,44 @@ public class InfusionTable {
 			in2.add(Inputs.getPart(ingredient).ingredient);
 		}
 
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> {
-			InfusionTableRecipe recipe = new InfusionTableRecipe(
-				"",
-				Enchantment.getEnchantmentByLocation(enchantmentId),
-				enchantmentLevel,
-				in2,
-				infusionLevel,
-				xpMin,
-				xpMax
-			);
-			MoreTweaker.forgeAdd(IRecipe.class, recipe);
-		});
+		InfusionTableRecipe recipe = new InfusionTableRecipe(
+			"",
+			Enchantment.getEnchantmentByLocation(enchantmentId),
+			enchantmentLevel,
+			in2,
+			infusionLevel,
+			xpMin,
+			xpMax
+		);
+
+		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeAddLambda(IRecipe.class, recipe));
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		Predicate<ItemStack> outputMatcher = Utils.getStackMatcher(output);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () ->
-			MoreTweaker.forgeRemove(IRecipe.class,recipe ->
-				recipe instanceof InfusionTableRecipe &&
-				!((InfusionTableRecipe)recipe).isEnchanting() &&
-					outputMatcher.test(recipe.getRecipeOutput())
+		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeRemoveLambda(IRecipe.class,recipe ->
+			recipe instanceof InfusionTableRecipe &&
+			!((InfusionTableRecipe)recipe).isEnchanting() &&
+			outputMatcher.test(recipe.getRecipeOutput())
 		));
 	}
 
 	@ZenMethod
 	public static void removeRecipe(final String enchantmentId) {
 		Enchantment ench = Enchantment.getEnchantmentByLocation(enchantmentId);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> {
-			MoreTweaker.forgeRemove(IRecipe.class, recipe ->
-					recipe instanceof InfusionTableRecipe &&
-						((InfusionTableRecipe) recipe).isEnchanting() &&
-						((InfusionTableRecipe) recipe).getEnchantment() != null &&
-						((InfusionTableRecipe) recipe).getEnchantment().enchantment == ench);
-			}
+		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeRemoveLambda(IRecipe.class, recipe ->
+				recipe instanceof InfusionTableRecipe &&
+					((InfusionTableRecipe) recipe).isEnchanting() &&
+					((InfusionTableRecipe) recipe).getEnchantment() != null &&
+					((InfusionTableRecipe) recipe).getEnchantment().enchantment == ench)
 		);
 	}
 
 	@ZenMethod
 	public static void removeAll() {
 		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> {
-			CraftTweakerAPI.logInfo("Removing all recipes for the AOA InfusionTable");
+			CraftTweakerAPI.logInfo("Removing all AOA InfusionTable recipes");
 			MoreTweaker.forgeRemove(IRecipe.class, (r) -> r instanceof InfusionTableRecipe);
 		});
 	}
