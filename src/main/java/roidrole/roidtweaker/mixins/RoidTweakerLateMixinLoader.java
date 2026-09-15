@@ -11,6 +11,7 @@ public class RoidTweakerLateMixinLoader implements ILateMixinLoader {
     @Override
     public List<String> getMixinConfigs() {
         return Arrays.asList(
+            "mixins.roidtweaker.bloodarsenal.json",
             "mixins.roidtweaker.buildcraft.json",
             "mixins.roidtweaker.cookingforblockheads.json",
             "mixins.roidtweaker.crafttweaker.json",

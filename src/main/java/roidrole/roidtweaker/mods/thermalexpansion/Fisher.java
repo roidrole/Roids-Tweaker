@@ -35,8 +35,8 @@ public class Fisher {
     @ZenMethod
     public static void clearFish(){
         DeferredLoader.load(EnumLoadStage.LOAD_COMPLETE, () -> {
-            IFisherManagerAccessor.getFishList().removeIf(item -> true);
-            IFisherManagerAccessor.getWeightList().removeIf(integer -> true);
+            IFisherManagerAccessor.getFishList().clear();
+            IFisherManagerAccessor.getWeightList().clear();
             IFisherManagerAccessor.setTotalWeight(0);
         });
     }

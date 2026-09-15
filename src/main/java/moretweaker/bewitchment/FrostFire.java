@@ -27,17 +27,17 @@ public class FrostFire {
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		final Ingredient in = CraftTweakerMC.getIngredient(input);
 		FrostfireRecipe recipe = new FrostfireRecipe(MoreTweaker.newRL(), in, out);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> MoreTweaker.forgeAdd(FrostfireRecipe.class, recipe));
+		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeAddLambda(FrostfireRecipe.class, recipe));
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<ItemStack> out = Utils.getStackMatcher(output);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> MoreTweaker.forgeRemove(FrostfireRecipe.class, (r) -> out.test(r.output)));
+		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeRemoveLambda(FrostfireRecipe.class, (r) -> out.test(r.output)));
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> MoreTweaker.forgeClear(FrostfireRecipe.class));
+		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeClearLambda(FrostfireRecipe.class, "witches frostfire"));
 	}
 }

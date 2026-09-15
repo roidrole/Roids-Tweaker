@@ -2,7 +2,6 @@ package roidrole.roidtweaker.utils;
 
 import net.minecraft.item.ItemStack;
 
-import java.util.*;
 import java.util.function.Predicate;
 
 public class IngredientOverrides {

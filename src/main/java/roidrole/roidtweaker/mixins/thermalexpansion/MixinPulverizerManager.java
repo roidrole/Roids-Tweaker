@@ -7,7 +7,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import roidrole.roidtweaker.mods.thermalexpansion.Pulverizer;
-import roidrole.roidtweaker.mods.thermalexpansion.RedstoneFurnace;
 
 @Mixin(PulverizerManager.class)
 public abstract class MixinPulverizerManager {

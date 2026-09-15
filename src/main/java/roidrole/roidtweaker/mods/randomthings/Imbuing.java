@@ -9,6 +9,8 @@ import crafttweaker.mc1120.item.MCItemStack;
 import lumien.randomthings.recipes.imbuing.ImbuingRecipeHandler;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.EnumLoadStage;
+import roidrole.roidtweaker.utils.actions.ListAdd;
+import roidrole.roidtweaker.utils.actions.ListClear;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -20,9 +22,8 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class Imbuing {
     @ZenMethod
     public static void addRecipe(IItemStack output, IIngredient input, IIngredient[] ingredients){
-        DeferredLoader.load(EnumLoadStage.POST_INIT, () ->
-            ImbuingRecipeHandler.imbuingRecipes.add(new CTImbuingRecipe(output, input, ingredients))
-        );
+        CTImbuingRecipe recipe = new CTImbuingRecipe(output, input, ingredients);
+        DeferredLoader.load(EnumLoadStage.POST_INIT, new ListAdd<>(ImbuingRecipeHandler.imbuingRecipes, recipe));
     }
 
     @ZenMethod
@@ -46,6 +47,6 @@ public class Imbuing {
 
     @ZenMethod
     public static void clearRecipes(){
-        DeferredLoader.load(EnumLoadStage.POST_INIT, () -> ImbuingRecipeHandler.imbuingRecipes.clear());
+        DeferredLoader.load(EnumLoadStage.POST_INIT, new ListClear(ImbuingRecipeHandler.imbuingRecipes));
     }
 }
