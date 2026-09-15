@@ -44,7 +44,6 @@ public class BucketedLinkedCollection<T> extends AbstractCollection<T> {
 
 			@Override
 			public boolean hasNext() {
-				System.out.println("hasNext called. currentIndex is "+currentIndex+" total index is " + totalIndex + " size is " + size + " elements are "+ Arrays.toString(currentNode.elements));
 				return totalIndex < size;
 			}
 
