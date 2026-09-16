@@ -1,23 +1,23 @@
 package moretweaker.buildcraft;
 
 import buildcraft.api.recipes.IngredientStack;
-import com.google.common.collect.ImmutableSet;
 import crafttweaker.api.item.IIngredient;
-import moretweaker.CraftingPart;
-import moretweaker.Inputs;
+import crafttweaker.api.minecraft.CraftTweakerMC;
+import net.minecraft.item.crafting.Ingredient;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class BuildUtil {
-   private BuildUtil() {
-   }
+   public static List<IngredientStack> getIngredients(IIngredient[] ingredients) {
+      List<IngredientStack> list = Arrays.asList(new IngredientStack[ingredients.length]);
 
-   public static ImmutableSet<IngredientStack> getIngredients(IIngredient[] ingredients) {
-      IngredientStack[] in2 = new IngredientStack[ingredients.length];
-
-      for(int i = 0; i < in2.length; ++i) {
-         CraftingPart part = Inputs.getPart(ingredients[i]);
-         in2[i] = new IngredientStack(part.ingredient, part.amount);
+      for(int i = 0; i < ingredients.length; ++i) {
+         IIngredient ingredientCT = ingredients[i];
+         Ingredient ingredient = CraftTweakerMC.getIngredient(ingredientCT);
+         list.set(i, new IngredientStack(ingredient, ingredientCT.getAmount()));
       }
 
-      return ImmutableSet.copyOf(in2);
+      return list;
    }
 }

@@ -1,226 +1,144 @@
 package moretweaker.cfb;
 
-import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import moretweaker.CraftingPart;
-import moretweaker.Inputs;
+import crafttweaker.mc1120.recipes.MCRecipeShaped;
 import moretweaker.MoreTweaker;
 import net.blay09.mods.cookingforblockheads.api.SinkHandler;
 import net.blay09.mods.cookingforblockheads.api.ToastOutputHandler;
 import net.blay09.mods.cookingforblockheads.registry.CookingRegistry;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import roidrole.roidtweaker.mixins.cookingforblockheads.CookingRegistryAccessor;
+import roidrole.roidtweaker.utils.DeferredLoader;
+import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
+import roidrole.roidtweaker.utils.predicates.OutputMatching;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.util.function.Predicate;
 
 @ZenClass("moretweaker.cfb.KitchenAppliances")
 @ZenRegister
 @ModOnly("cookingforblockheads")
 @SuppressWarnings("unused")
 public class KitchenAppliances {
-   @ZenMethod
-   public static void addToasterRecipe(IItemStack output, IIngredient input) {
-      final ItemStack out = CraftTweakerMC.getItemStack(output);
-      final CraftingPart in = Inputs.getPart(input);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            ToastOutputHandler handler = (stackx) -> out.copy();
+	@ZenMethod
+	@SuppressWarnings("deprecation")
+	public static void addToasterRecipe(IItemStack output, IIngredient input) {
+		final ItemStack out = CraftTweakerMC.getItemStack(output);
+		final ItemStack[] in = CraftTweakerMC.getExamples(input);
+		ToastOutputHandler handler = (stack) -> out;
 
-            for(ItemStack stack : in.toStackList()) {
-               CookingRegistry.addToastHandler(stack, handler);
-            }
+		DeferredLoader.postInit(() -> {
+			for(ItemStack stack : in) {
+				CookingRegistry.addToastHandler(stack, handler);
+			}
+		});
+	}
 
-         }
+	@ZenMethod
+	@SuppressWarnings("deprecation")
+	public static void removeToasterRecipe(IIngredient output) {
+		Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
+		DeferredLoader.postInit(() ->
+			CookingRegistryAccessor.getToastHandlers().entrySet().removeIf(
+				(entry) ->
+					entry.getValue() instanceof ToastOutputHandler &&
+					outputFilter.test(((ToastOutputHandler)entry.getValue()).getToasterOutput(entry.getKey()))
+			)
+		);
+	}
 
-         public String describe() {
-            return "Adds some toaster recipes.";
-         }
-      });
-   }
+	@ZenMethod
+	public static void removeAllToasterRecipes() {
+		DeferredLoader.postInit(new ListClear(CookingRegistryAccessor.getToastHandlers(), "toaster"));
+	}
 
-   @ZenMethod
-   public static void removeToasterRecipe(IIngredient output) {
-      final Object out = Inputs.getObject(output);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            CookingRegistryAccessor.getToastHandlers().entrySet().removeIf((th) -> th.getValue() instanceof ToastOutputHandler && Inputs.matchesForRemoval(out, ((ToastOutputHandler)th.getValue()).getToasterOutput(th.getKey().copy())));
-         }
+	@ZenMethod
+	public static void addSinkRecipe(IItemStack output, IIngredient input) {
+		final ItemStack out = CraftTweakerMC.getItemStack(output);
+		final ItemStack[] in = CraftTweakerMC.getExamples(input);
+		SinkHandler handler = (stack) -> out;
 
-         public String describe() {
-            return "Removes some toaster recipes.";
-         }
-      });
-   }
+		DeferredLoader.postInit(() -> {
+			for(ItemStack stack : in) {
+				CookingRegistry.addSinkHandler(stack, handler);
+			}
+		});
+	}
 
-   @ZenMethod
-   public static void removeAllToasterRecipes() {
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            CookingRegistryAccessor.getToastHandlers().clear();
-         }
+	@ZenMethod
+	public static void removeSinkRecipe(IIngredient output) {
+		final Predicate<ItemStack> out = Utils.getStackMatcher(output);
+		DeferredLoader.postInit(() ->
+			CookingRegistryAccessor.getSinkHandlers()
+				.entrySet()
+				.removeIf(entry ->
+					out.test(entry.getValue().getSinkOutput(entry.getKey()))
+				)
+		);
+	}
 
-         public String describe() {
-            return "Removes all toaster recipes.";
-         }
-      });
-   }
+	@ZenMethod
+	public static void removeAllSinkRecipes() {
+		DeferredLoader.postInit(new ListClear(CookingRegistryAccessor.getSinkHandlers(), "sink"));
+	}
 
-   @ZenMethod
-   public static void addSinkRecipe(IItemStack output, IIngredient input) {
-      final ItemStack out = CraftTweakerMC.getItemStack(output);
-      final CraftingPart in = Inputs.getPart(input);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            SinkHandler handler = (stackx) -> out.copy();
+	@ZenMethod
+	public static void addOvenRecipe(IItemStack output, IIngredient input) {
+		final ItemStack out = CraftTweakerMC.getItemStack(output);
+		final ItemStack[] in = CraftTweakerMC.getExamples(input);
+		DeferredLoader.postInit(() -> {
+			for (ItemStack stack : in) {
+				CookingRegistry.addSmeltingItem(stack, out);
+			}
+		});
+	}
 
-            for(ItemStack stack : in.toStackList()) {
-               CookingRegistry.addSinkHandler(stack, handler);
-            }
+	@ZenMethod
+	public static void removeOvenRecipe(IIngredient output) {
+		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
+		DeferredLoader.postInit(new ListRemove<>(CookingRegistryAccessor.getOvenRecipes().values(), outputFilter));
+	}
 
-         }
+	@ZenMethod
+	public static void removeAllOvenRecipes() {
+		DeferredLoader.postInit(new ListClear(CookingRegistryAccessor.getOvenRecipes(), "oven"));
+	}
 
-         public String describe() {
-            return "Adds some sink recipes.";
-         }
-      });
-   }
+	@ZenMethod
+	public static void addFoodShapeless(IItemStack output, IIngredient[] inputs) {
+		final ItemStack out = CraftTweakerMC.getItemStack(output);
+		final NonNullList<Ingredient> in = NonNullList.from(Ingredient.EMPTY, Utils.getIngredients(inputs));
+		final IRecipe recipe = new ShapelessOreRecipe(MoreTweaker.newRL(), out, in);
+		DeferredLoader.postInit(() -> CookingRegistry.addFoodRecipe(recipe));
+	}
 
-   @ZenMethod
-   public static void removeSinkRecipe(IIngredient output) {
-      final Object out = Inputs.getObject(output);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            CookingRegistryAccessor.getSinkHandlers()
-                .entrySet()
-                .removeIf((th) ->
-                    Inputs.matchesForRemoval(out, th.getValue().getSinkOutput(th.getKey().copy()))
-                );
-         }
+	@ZenMethod
+	public static void addFoodShaped(IItemStack output, IIngredient[][] inputs) {
+		final ItemStack out = CraftTweakerMC.getItemStack(output);
+		final Ingredient[][] in = Utils.getIngredients(inputs);
+		final IRecipe recipe = new MCRecipeShaped(inputs, output, null, null, false, false);
+		DeferredLoader.postInit(() -> CookingRegistry.addFoodRecipe(recipe));
+	}
 
-         public String describe() {
-            return "Removes some sink recipes.";
-         }
-      });
-   }
+	@ZenMethod
+	public static void removeFoodRecipe(IIngredient output) {
+		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
+		DeferredLoader.postInit(new ListRemove<>(CookingRegistryAccessor.getRecipeList(), new OutputMatching(outputFilter)));
+	}
 
-   @ZenMethod
-   public static void removeAllSinkRecipes() {
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            CookingRegistryAccessor.getSinkHandlers().clear();
-         }
-
-         public String describe() {
-            return "Removes all sink recipes.";
-         }
-      });
-   }
-
-   @ZenMethod
-   public static void addOvenRecipe(IItemStack output, IIngredient input) {
-      final ItemStack out = CraftTweakerMC.getItemStack(output);
-      final CraftingPart in = Inputs.getPart(input);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            for(ItemStack stack : in.toStackList()) {
-               CookingRegistry.addSmeltingItem(stack, out.copy());
-            }
-
-         }
-
-         public String describe() {
-            return "Adds some oven recipes.";
-         }
-      });
-   }
-
-   @ZenMethod
-   public static void removeOvenRecipe(IIngredient output) {
-      final Object out = Inputs.getObject(output);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            CookingRegistryAccessor.getOvenRecipes().values().removeIf((stack) -> Inputs.matchesForRemoval(out, stack));
-         }
-
-         public String describe() {
-            return "Removes some oven recipes.";
-         }
-      });
-   }
-
-   @ZenMethod
-   public static void removeAllOvenRecipes() {
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            CookingRegistryAccessor.getOvenRecipes().clear();
-         }
-
-         public String describe() {
-            return "Removes all oven recipes.";
-         }
-      });
-   }
-
-   @ZenMethod
-   public static void addFoodShapeless(IItemStack output, IIngredient[] inputs) {
-      final ItemStack out = CraftTweakerMC.getItemStack(output);
-      final Object[] in = Inputs.getObjects(inputs);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            CookingRegistry.addFoodRecipe(new ShapelessOreRecipe(MoreTweaker.newRL(), out, in));
-         }
-
-         public String describe() {
-            return "Adds a food recipe.";
-         }
-      });
-   }
-
-   @ZenMethod
-   public static void addFoodShaped(IItemStack output, IIngredient[][] inputs) {
-      final ItemStack out = CraftTweakerMC.getItemStack(output);
-      final Object[] in = Inputs.getShapedObjects(inputs);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            CookingRegistry.addFoodRecipe(new ShapedOreRecipe(MoreTweaker.newRL(), out, in));
-         }
-
-         public String describe() {
-            return "Adds a food recipe.";
-         }
-      });
-   }
-
-   @ZenMethod
-   public static void removeFoodRecipe(IIngredient output) {
-      final Object out = Inputs.getObject(output);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            CookingRegistryAccessor.getRecipeList().removeIf((r) -> Inputs.matchesForRemoval(out, r.getRecipeOutput()));
-         }
-
-         public String describe() {
-            return "Removes some food recipes.";
-         }
-      });
-   }
-
-   @ZenMethod
-   public static void removeAllFoodRecipes() {
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            CookingRegistryAccessor.getRecipeList().clear();
-         }
-
-         public String describe() {
-            return "Removes all food recipes.";
-         }
-      });
-   }
+	@ZenMethod
+	public static void removeAllFoodRecipes() {
+		DeferredLoader.postInit(new ListClear(CookingRegistryAccessor.getRecipeList(), "food"));
+	}
 }

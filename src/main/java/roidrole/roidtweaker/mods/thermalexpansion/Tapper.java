@@ -10,7 +10,6 @@ import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import roidrole.roidtweaker.mixins.thermalexpansion.ITapperManagerAccessor;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.EnumLoadStage;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -37,11 +36,11 @@ public class Tapper {
     }
     @ZenMethod
     public static void removeFertilizer(IItemStack fertilizer){
-        DeferredLoader.load(EnumLoadStage.LOAD_COMPLETE, () -> ITapperManagerAccessor.getFertilizerMap().remove(CraftTweakerMC.getItemStack(fertilizer)));
+        DeferredLoader.loadComplete(() -> ITapperManagerAccessor.getFertilizerMap().remove(CraftTweakerMC.getItemStack(fertilizer)));
     }
     @ZenMethod
     public static void removeRecipe(IBlockState log){
-        DeferredLoader.load(EnumLoadStage.LOAD_COMPLETE, () -> {
+        DeferredLoader.loadComplete(() -> {
             BlockWrapper wrapper = new BlockWrapper(CraftTweakerMC.getBlockState(log));
             ITapperManagerAccessor.getLeafMap().removeAll(wrapper);
             ITapperManagerAccessor.getBlockMap().remove(wrapper);

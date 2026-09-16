@@ -11,8 +11,8 @@ import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.EnumLoadStage;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.RegistryClear;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -39,7 +39,7 @@ public class Distillery {
 		final List<ItemStack> out = Arrays.asList(CraftTweakerMC.getItemStacks(outputs));
 		final List<Ingredient> in = Arrays.asList(Utils.getIngredients(inputs));
 
-		DeferredLoader.load(EnumLoadStage.POST_INIT,
+		DeferredLoader.postInit(
 			MoreTweaker.forgeAddLambda(DistilleryRecipe.class, new DistilleryRecipe(MoreTweaker.newRL(), in, out))
 		);
 	}
@@ -47,13 +47,13 @@ public class Distillery {
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
-		DeferredLoader.load(EnumLoadStage.POST_INIT,
+		DeferredLoader.postInit(
 			MoreTweaker.forgeRemoveLambda(DistilleryRecipe.class, recipe -> Utils.anyMatch(outputFilter, recipe.output))
 		);
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeClearLambda(DistilleryRecipe.class, "witches distillery"));
+		DeferredLoader.postInit(new RegistryClear(DistilleryRecipe.class, "witches distillery"));
 	}
 }

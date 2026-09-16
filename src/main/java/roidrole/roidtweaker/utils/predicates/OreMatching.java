@@ -11,7 +11,6 @@ public class OreMatching implements Predicate<ItemStack> {
 
 	public OreMatching(String oreName){
 		this.items = OreDictionary.getOres(oreName);
-
 	}
 
 	@Override

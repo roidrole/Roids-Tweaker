@@ -9,8 +9,8 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.EnumLoadStage;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.RegistryClear;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -27,7 +27,7 @@ public class WitchesOven {
 		final ItemStack[] in = CraftTweakerMC.getExamples(input);
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		final ItemStack by = CraftTweakerMC.getItemStack(byproduct);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> {
+		DeferredLoader.postInit(() -> {
 			for(ItemStack stack : in) {
 				MoreTweaker.forgeAdd(OvenRecipe.class, new OvenRecipe(MoreTweaker.newRL(), stack, out, by, chance, requiresJar));
 			}
@@ -37,11 +37,11 @@ public class WitchesOven {
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<ItemStack> out = Utils.getStackMatcher(output);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeRemoveLambda(OvenRecipe.class, recipe -> out.test(recipe.output)));
+		DeferredLoader.postInit(MoreTweaker.forgeRemoveLambda(OvenRecipe.class, recipe -> out.test(recipe.output)));
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeClearLambda(OvenRecipe.class, "witches oven"));
+		DeferredLoader.postInit(new RegistryClear(OvenRecipe.class, "witches oven"));
 	}
 }

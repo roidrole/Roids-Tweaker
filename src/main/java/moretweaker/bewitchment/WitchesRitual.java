@@ -12,8 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.EnumLoadStage;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.RegistryClear;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenProperty;
@@ -58,26 +58,26 @@ public class WitchesRitual {
 			final MoreRitual ritual = new MoreRitual(rl, in, out, entityInput, entityOutput, power, ringSmall, ringMedium, ringLarge);
 			MoreTweaker.injectTranslation("ritual." + rl.getNamespace() + "." + rl.getPath(), name);
 
-			DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeAddLambda(Ritual.class, ritual));
+			DeferredLoader.postInit(MoreTweaker.forgeAddLambda(Ritual.class, ritual));
 		}
 	}
 
 	@ZenMethod
 	public static void removeByOutput(IIngredient output) {
 		final Predicate<ItemStack> out = Utils.getStackMatcher(output);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeRemoveLambda(Ritual.class, recipe -> Utils.anyMatch(out, recipe.output)));
+		DeferredLoader.postInit(MoreTweaker.forgeRemoveLambda(Ritual.class, recipe -> Utils.anyMatch(out, recipe.output)));
 	}
 
 	@ZenMethod
 	public static void removeByInput(IIngredient input) {
 		final Predicate<ItemStack> inputFilter = Utils.getStackMatcher(input);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeRemoveLambda(Ritual.class, recipe ->
+		DeferredLoader.postInit(MoreTweaker.forgeRemoveLambda(Ritual.class, recipe ->
 			Utils.anyMatchIngredient(inputFilter, recipe.input)
 		));
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeClearLambda(Ritual.class, "witches ritual"));
+		DeferredLoader.postInit(new RegistryClear(Ritual.class, "witches ritual"));
 	}
 }

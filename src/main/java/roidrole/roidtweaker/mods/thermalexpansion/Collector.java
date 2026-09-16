@@ -6,7 +6,6 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import roidrole.roidtweaker.mixins.thermalexpansion.ICollectorManagerAccessor;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.EnumLoadStage;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -22,6 +21,6 @@ public class Collector {
 
     @ZenMethod
     public static void removeCatalyst(IItemStack catalyst){
-        DeferredLoader.load(EnumLoadStage.LOAD_COMPLETE, () -> ICollectorManagerAccessor.invokeRemoveCatalyst(CraftTweakerMC.getItemStack(catalyst)));
+        DeferredLoader.loadComplete(() -> ICollectorManagerAccessor.invokeRemoveCatalyst(CraftTweakerMC.getItemStack(catalyst)));
     }
 }

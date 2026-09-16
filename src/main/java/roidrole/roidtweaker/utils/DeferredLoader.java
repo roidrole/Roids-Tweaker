@@ -5,7 +5,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public abstract class DeferredLoader {
-    public static Map<EnumLoadStage, Collection<IAction>> toLoad = new EnumMap<EnumLoadStage, Collection<IAction>>(EnumLoadStage.class){{
+    public static final Map<EnumLoadStage, Collection<IAction>> toLoad = new EnumMap<EnumLoadStage, Collection<IAction>>(EnumLoadStage.class){{
         this.put(EnumLoadStage.POST_INIT, new BucketedLinkedCollection<>(8));
         this.put(EnumLoadStage.LOAD_COMPLETE, new BucketedLinkedCollection<>(0));
     }};
@@ -14,12 +14,12 @@ public abstract class DeferredLoader {
         void load();
     }
 
-    //Adds in the load queue
-    public static void load(IAction action, EnumLoadStage stage){
-        toLoad.get(stage).add(action);
+    //Stage-specific functions
+    public static void postInit(IAction action){
+        toLoad.get(EnumLoadStage.POST_INIT).add(action);
     }
-    public static void load(EnumLoadStage stage, IAction action){
-        load(action, stage);
+    public static void loadComplete(IAction action){
+        toLoad.get(EnumLoadStage.LOAD_COMPLETE).add(action);
     }
 
     //Loads the postInit queue

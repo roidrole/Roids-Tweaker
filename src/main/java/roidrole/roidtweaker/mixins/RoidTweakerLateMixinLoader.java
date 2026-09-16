@@ -15,6 +15,7 @@ public class RoidTweakerLateMixinLoader implements ILateMixinLoader {
             "mixins.roidtweaker.buildcraft.json",
             "mixins.roidtweaker.cookingforblockheads.json",
             "mixins.roidtweaker.crafttweaker.json",
+            "mixins.roidtweaker.draconicevolution.json",
             "mixins.roidtweaker.erebus.json",
             "mixins.roidtweaker.immersiveengineering.json",
             "mixins.roidtweaker.jei.json",

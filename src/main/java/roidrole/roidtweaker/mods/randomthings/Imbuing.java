@@ -8,7 +8,6 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.mc1120.item.MCItemStack;
 import lumien.randomthings.recipes.imbuing.ImbuingRecipeHandler;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.EnumLoadStage;
 import roidrole.roidtweaker.utils.actions.ListAdd;
 import roidrole.roidtweaker.utils.actions.ListClear;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -23,7 +22,7 @@ public class Imbuing {
     @ZenMethod
     public static void addRecipe(IItemStack output, IIngredient input, IIngredient[] ingredients){
         CTImbuingRecipe recipe = new CTImbuingRecipe(output, input, ingredients);
-        DeferredLoader.load(EnumLoadStage.POST_INIT, new ListAdd<>(ImbuingRecipeHandler.imbuingRecipes, recipe));
+        DeferredLoader.postInit(new ListAdd<>(ImbuingRecipeHandler.imbuingRecipes, recipe));
     }
 
     @ZenMethod
@@ -32,7 +31,7 @@ public class Imbuing {
             CraftTweakerAPI.logError("Output can't be null", new AssertionError());
             return;
         }
-        DeferredLoader.load(EnumLoadStage.POST_INIT, () ->
+        DeferredLoader.postInit(() ->
             ImbuingRecipeHandler.imbuingRecipes.removeIf(recipe ->
                 output.matches(MCItemStack.createNonCopy(recipe.getResult()))
             )
@@ -40,13 +39,13 @@ public class Imbuing {
     }
     @ZenMethod
     public static void removeRecipe(int index){
-        DeferredLoader.load(EnumLoadStage.POST_INIT, () ->
+        DeferredLoader.postInit(() ->
             ImbuingRecipeHandler.imbuingRecipes.remove(index)
         );
     }
 
     @ZenMethod
     public static void clearRecipes(){
-        DeferredLoader.load(EnumLoadStage.POST_INIT, new ListClear(ImbuingRecipeHandler.imbuingRecipes));
+        DeferredLoader.postInit(new ListClear(ImbuingRecipeHandler.imbuingRecipes, "imbuing recipe"));
     }
 }

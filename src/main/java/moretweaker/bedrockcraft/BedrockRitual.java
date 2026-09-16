@@ -10,7 +10,6 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.EnumLoadStage;
 import roidrole.roidtweaker.utils.Utils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -28,7 +27,7 @@ public class BedrockRitual {
 		final Ingredient c = CraftTweakerMC.getIngredient(center);
 		Ingredient[] in = Utils.getIngredients(inputs);
 		final int amount = Math.max(0, Math.min(bedrockAmount, 320));
-		DeferredLoader.load(EnumLoadStage.POST_INIT,
+		DeferredLoader.postInit(
 			() -> RitualManager.addRecipe(out, c, amount, (Object[]) in)
 		);
 	}
@@ -36,14 +35,14 @@ public class BedrockRitual {
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		Predicate<ItemStack> outputMatcher = Utils.getStackMatcher(output);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () ->
+		DeferredLoader.postInit(() ->
 			RitualManager.removeRecipes(recipe -> outputMatcher.test(recipe.output()))
 		);
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> {
+		DeferredLoader.postInit(() -> {
 			CraftTweakerAPI.logInfo("Removing all recipes for the Bedrock Ritual");
 			RitualManager.removeRecipes((r) -> true);
 		});

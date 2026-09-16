@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import roidrole.roidtweaker.mixins.thermalexpansion.IFisherManagerAccessor;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.EnumLoadStage;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -26,7 +25,7 @@ public class Fisher {
     @ZenMethod
     public static void addFish(IItemStack fish, int weight){
         //Since fish is a list in the base mod, we must add and remove sequentially
-        DeferredLoader.load(EnumLoadStage.LOAD_COMPLETE,  () -> FisherManager.addFish(CraftTweakerMC.getItemStack(fish), weight));
+        DeferredLoader.loadComplete(() -> FisherManager.addFish(CraftTweakerMC.getItemStack(fish), weight));
     }
     @ZenMethod
     public static void removeFish(IItemStack fish){
@@ -34,7 +33,7 @@ public class Fisher {
     }
     @ZenMethod
     public static void clearFish(){
-        DeferredLoader.load(EnumLoadStage.LOAD_COMPLETE, () -> {
+        DeferredLoader.loadComplete(() -> {
             IFisherManagerAccessor.getFishList().clear();
             IFisherManagerAccessor.getWeightList().clear();
             IFisherManagerAccessor.setTotalWeight(0);
@@ -47,17 +46,17 @@ public class Fisher {
     }
     @ZenMethod
     public static void removeBait(IItemStack bait){
-        DeferredLoader.load(EnumLoadStage.LOAD_COMPLETE, () -> IFisherManagerAccessor.getBaitMap().remove(CraftTweakerMC.getItemStack(bait)));
+        DeferredLoader.loadComplete(() -> IFisherManagerAccessor.getBaitMap().remove(CraftTweakerMC.getItemStack(bait)));
     }
     @ZenMethod
     public static void clearBait(){
-        DeferredLoader.load(EnumLoadStage.LOAD_COMPLETE, () -> IFisherManagerAccessor.getBaitMap().clear());
+        DeferredLoader.loadComplete(() -> IFisherManagerAccessor.getBaitMap().clear());
     }
 
     public static class FishRemoval implements DeferredLoader.IAction {
         public List<ItemStack> removedFishes = new ArrayList<>(1);
         public FishRemoval(){
-            DeferredLoader.load(EnumLoadStage.LOAD_COMPLETE, this);
+            DeferredLoader.loadComplete(this);
         }
 
         @Override

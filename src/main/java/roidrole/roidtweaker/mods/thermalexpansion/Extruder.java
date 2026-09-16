@@ -10,7 +10,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import roidrole.roidtweaker.mixins.thermalexpansion.IExtruderManagerAccessor;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.EnumLoadStage;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -29,10 +28,10 @@ public class Extruder {
     }
     @ZenMethod
     public static void removeRecipeIgneous(IItemStack output){
-        DeferredLoader.load(EnumLoadStage.LOAD_COMPLETE, () -> IExtruderManagerAccessor.getRecipeMapIgneous().remove(new ItemWrapper(CraftTweakerMC.getItemStack(output))));
+        DeferredLoader.loadComplete(() -> IExtruderManagerAccessor.getRecipeMapIgneous().remove(new ItemWrapper(CraftTweakerMC.getItemStack(output))));
     }
     @ZenMethod
     public static void removeRecipeSedimentary(IItemStack output){
-        DeferredLoader.load(EnumLoadStage.LOAD_COMPLETE, () -> IExtruderManagerAccessor.getRecipeMapSedimentary().remove(new ItemWrapper(CraftTweakerMC.getItemStack(output))));
+        DeferredLoader.loadComplete(() -> IExtruderManagerAccessor.getRecipeMapSedimentary().remove(new ItemWrapper(CraftTweakerMC.getItemStack(output))));
     }
 }

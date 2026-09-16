@@ -35,7 +35,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import org.apache.commons.lang3.tuple.Pair;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.EnumLoadStage;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -87,7 +86,7 @@ public class IEGuns {
         CraftTweakerAPI.logInfo("Adding a chemical thrower effect for "+liquid.toCommandString());
         String fluidName = liquid.getName();
         boolean isGaseous = liquid.isGaseous();
-        DeferredLoader.load(EnumLoadStage.POST_INIT, () -> {
+        DeferredLoader.postInit(() -> {
             ChemthrowerHandler.effectMap.put(fluidName, effect);
             if(isGaseous){
                 if(isGas) {

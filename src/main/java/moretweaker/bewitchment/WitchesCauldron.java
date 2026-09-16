@@ -14,8 +14,8 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.EnumLoadStage;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.RegistryClear;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -45,26 +45,26 @@ public class WitchesCauldron {
 			Arrays.asList(Utils.getIngredients(inputs)),
 			Arrays.asList(CraftTweakerMC.getItemStacks(outputs))
 		);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeAddLambda(CauldronRecipe.class, recipe));
+		DeferredLoader.postInit(MoreTweaker.forgeAddLambda(CauldronRecipe.class, recipe));
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
-		DeferredLoader.load(EnumLoadStage.POST_INIT,
+		DeferredLoader.postInit(
 			MoreTweaker.forgeRemoveLambda(CauldronRecipe.class, recipe -> Utils.anyMatch(outputFilter, recipe.output))
 		);
 	}
 
 	@ZenMethod
 	public static void removeAllRecipes() {
-		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeClearLambda(CauldronRecipe.class, "witches cauldron"));
+		DeferredLoader.postInit(new RegistryClear(CauldronRecipe.class, "witches cauldron"));
 	}
 
 	@ZenMethod
 	public static void addBrew(IIngredient trigger, final String potion, @Optional(valueLong = 600L) final int duration, @Optional final int amplifier) {
 		final Ingredient in = CraftTweakerMC.getIngredient(trigger);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> {
+		DeferredLoader.postInit(() -> {
 			Potion p = Potion.getPotionFromResourceLocation(potion);
 			if (p == null) {
 				CraftTweakerAPI.logError("Could not find potion while trying to add a brew to the witches cauldron: " + potion);
@@ -78,13 +78,13 @@ public class WitchesCauldron {
 	@ZenMethod
 	public static void removeBrew(IIngredient trigger) {
 		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(trigger);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeRemoveLambda(Brew.class,
+		DeferredLoader.postInit(MoreTweaker.forgeRemoveLambda(Brew.class,
 			recipe -> Utils.anyMatch(outputFilter, recipe.input.getMatchingStacks())
 		));
 	}
 
 	@ZenMethod
 	public static void removeAllBrews() {
-		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeClearLambda(Brew.class, "witches cauldron brew"));
+		DeferredLoader.postInit(new RegistryClear(Brew.class, "witches cauldron brew"));
 	}
 }

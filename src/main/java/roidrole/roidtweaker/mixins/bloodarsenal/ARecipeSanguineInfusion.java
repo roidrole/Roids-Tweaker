@@ -10,6 +10,6 @@ import java.util.List;
 
 @Mixin(RecipeSanguineInfusion.class)
 public interface ARecipeSanguineInfusion {
-	@Accessor
+	@Accessor(remap = false)
 	List<Pair<Ingredient, Integer>> getInputs();
 }

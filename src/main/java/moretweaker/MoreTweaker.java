@@ -201,32 +201,12 @@ public class MoreTweaker {
 		}
 	}
 
-	public static <T extends IForgeRegistryEntry<T>> void forgeClear(final Class<T> registerClass) {
-		IForgeRegistry<T> registry = GameRegistry.findRegistry(registerClass);
-		if(!(registry instanceof IForgeRegistryModifiable)){
-			return;
-		}
-
-		try {
-			((IForgeRegistryModifiable<T>) registry).clear();
-		} catch (Exception e) {
-			CraftTweakerAPI.logError(Tags.MOD_ID + " can't remove elements from registry " + registerClass.getCanonicalName() + ". Please report to " + Tags.MOD_ID + " author");
-		}
-	}
-
 	public static <T extends IForgeRegistryEntry<T>> DeferredLoader.IAction forgeAddLambda(final Class<T> registerClass, final T entry){
 		return () -> forgeAdd(registerClass, entry);
 	}
 
 	public static <T extends IForgeRegistryEntry<T>> DeferredLoader.IAction forgeRemoveLambda(final Class<T> registerClass, final Predicate<T> removePredicate){
 		return () -> forgeRemove(registerClass, removePredicate);
-	}
-
-	public static <T extends IForgeRegistryEntry<T>> DeferredLoader.IAction forgeClearLambda(final Class<T> registerClass, final String message){
-		return () -> {
-			CraftTweakerAPI.logInfo("Clearing all " + message + " recipes");
-			forgeClear(registerClass);
-		};
 	}
 
 	public static void injectTranslation(String key, String value) {

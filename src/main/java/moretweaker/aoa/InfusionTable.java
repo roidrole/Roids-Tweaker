@@ -15,7 +15,6 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.tslat.aoa3.crafting.recipes.InfusionTableRecipe;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.EnumLoadStage;
 import roidrole.roidtweaker.utils.Utils;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -49,7 +48,7 @@ public class InfusionTable {
 			xpMax
 		);
 
-		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeAddLambda(IRecipe.class, recipe));
+		DeferredLoader.postInit(MoreTweaker.forgeAddLambda(IRecipe.class, recipe));
 	}
 
 	@ZenMethod
@@ -74,13 +73,13 @@ public class InfusionTable {
 			xpMax
 		);
 
-		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeAddLambda(IRecipe.class, recipe));
+		DeferredLoader.postInit(MoreTweaker.forgeAddLambda(IRecipe.class, recipe));
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		Predicate<ItemStack> outputMatcher = Utils.getStackMatcher(output);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeRemoveLambda(IRecipe.class,recipe ->
+		DeferredLoader.postInit(MoreTweaker.forgeRemoveLambda(IRecipe.class,recipe ->
 			recipe instanceof InfusionTableRecipe &&
 			!((InfusionTableRecipe)recipe).isEnchanting() &&
 			outputMatcher.test(recipe.getRecipeOutput())
@@ -90,7 +89,7 @@ public class InfusionTable {
 	@ZenMethod
 	public static void removeRecipe(final String enchantmentId) {
 		Enchantment ench = Enchantment.getEnchantmentByLocation(enchantmentId);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, MoreTweaker.forgeRemoveLambda(IRecipe.class, recipe ->
+		DeferredLoader.postInit(MoreTweaker.forgeRemoveLambda(IRecipe.class, recipe ->
 				recipe instanceof InfusionTableRecipe &&
 					((InfusionTableRecipe) recipe).isEnchanting() &&
 					((InfusionTableRecipe) recipe).getEnchantment() != null &&
@@ -100,7 +99,7 @@ public class InfusionTable {
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> {
+		DeferredLoader.postInit(() -> {
 			CraftTweakerAPI.logInfo("Removing all AOA InfusionTable recipes");
 			MoreTweaker.forgeRemove(IRecipe.class, (r) -> r instanceof InfusionTableRecipe);
 		});

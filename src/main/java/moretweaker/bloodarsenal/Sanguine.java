@@ -14,9 +14,9 @@ import org.apache.commons.lang3.tuple.Pair;
 import roidrole.roidtweaker.mixins.bloodarsenal.ARecipeSanguineInfusion;
 import roidrole.roidtweaker.mixins.bloodarsenal.ASanguineInfusionRecipeRegistry;
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.EnumLoadStage;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListAdd;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenProperty;
@@ -75,17 +75,16 @@ public class Sanguine {
 		//Loads the ingredients directly into in. Zero-copy, keeping final fields final.
 		Sanguine.getBAIngredients(inputs, in);
 
-		DeferredLoader.load(EnumLoadStage.POST_INIT, new ListAdd<>(ASanguineInfusionRecipeRegistry.getInfusionRecipes(), recipe));
+		DeferredLoader.postInit(new ListAdd<>(ASanguineInfusionRecipeRegistry.getInfusionRecipes(), recipe));
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () ->
-			SanguineInfusionRecipeRegistry.getInfusionRecipes().removeIf(
-				recipe -> !recipe.isModifier() && outputFilter.test(recipe.getOutput())
-			)
-		);
+		DeferredLoader.postInit(new ListRemove<>(
+			SanguineInfusionRecipeRegistry.getInfusionRecipes(),
+			recipe -> !recipe.isModifier() && outputFilter.test(recipe.getOutput())
+		));
 	}
 
 	@ZenMethod
@@ -97,19 +96,19 @@ public class Sanguine {
 		RecipeSanguineInfusion recipe = new RecipeSanguineInfusion(lpCost, modifier).setLevelMultiplier(1);
 		Sanguine.getBAIngredients(inputs, ((ARecipeSanguineInfusion)recipe).getInputs());
 
-		DeferredLoader.load(EnumLoadStage.POST_INIT, new ListAdd<>(ASanguineInfusionRecipeRegistry.getInfusionRecipes(), recipe));
+		DeferredLoader.postInit(new ListAdd<>(ASanguineInfusionRecipeRegistry.getInfusionRecipes(), recipe));
 	}
 
 	@ZenMethod
 	public static void removeModifier(final String modifier) {
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () ->
+		DeferredLoader.postInit(() ->
 			SanguineInfusionRecipeRegistry.getInfusionRecipes().removeIf((r) -> r.isModifier() && r.getModifierKey().equalsIgnoreCase(modifier))
 		);
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.load(EnumLoadStage.POST_INIT, () -> {
+		DeferredLoader.postInit(() -> {
 			CraftTweakerAPI.logInfo("Removing all Sanguine recipes");
 			SanguineInfusionRecipeRegistry.getInfusionRecipes().clear();
 		});

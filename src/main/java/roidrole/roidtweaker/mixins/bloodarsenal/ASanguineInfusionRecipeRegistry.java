@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mixin(SanguineInfusionRecipeRegistry.class)
 public interface ASanguineInfusionRecipeRegistry {
-	@Accessor
+	@Accessor(remap = false)
 	static List<RecipeSanguineInfusion> getInfusionRecipes(){
 		throw new MixinException("Mixin "+ ASanguineInfusionRecipeRegistry.class.getCanonicalName() + " didn't apply");
 	}
