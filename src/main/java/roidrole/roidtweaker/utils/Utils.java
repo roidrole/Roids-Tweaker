@@ -12,6 +12,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.oredict.OreDictionary;
 import roidrole.roidtweaker.utils.predicates.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
@@ -81,7 +82,6 @@ public abstract class Utils {
         }
         return false;
     }
-
     public static boolean anyMatch(Predicate<ItemStack> predicate, ItemStack[] stacks){
         for (ItemStack stack : stacks){
             if(predicate.test(stack)){
@@ -89,6 +89,13 @@ public abstract class Utils {
             }
         }
         return false;
+    }
+    public static Predicate<ItemStack> anyMatch(ItemStack[] stacks){
+        final List<Predicate<ItemStack>> predicates = new ArrayList<>(stacks.length);
+        for (ItemStack stack : stacks) {
+            predicates.add(new StackMatching(stack));
+        }
+        return new PredicateOr<>(predicates);
     }
 
     public static boolean anyMatchIngredient(Predicate<ItemStack> predicate, Iterable<Ingredient> ingredients){

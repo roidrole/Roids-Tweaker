@@ -27,6 +27,6 @@ public class ListClear implements DeferredLoader.IAction{
 	}
 
 	public static String getMessage(String recipeType){
-		return "Cleanring all" + recipeType + "recipes";
+		return "Clearing all" + recipeType + "recipes";
 	}
 }

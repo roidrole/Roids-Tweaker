@@ -9,6 +9,11 @@ public class StackMatching implements Predicate<ItemStack> {
 	Item item;
 	int meta;
 
+
+	public StackMatching(ItemStack stack){
+		this.item = stack.getItem();
+		this.meta = stack.getItemDamage();
+	}
 	public StackMatching(Item item, int meta){
 		this.item = item;
 		this.meta = meta;

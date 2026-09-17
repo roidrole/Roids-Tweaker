@@ -1,19 +1,19 @@
 package moretweaker.erebus;
 
-import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.mixins.erebus.ComposterRegistryAccessor;
+import roidrole.roidtweaker.utils.DeferredLoader;
+import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.ListAdd;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.function.Predicate;
 
 @ZenClass("moretweaker.erebus.Composter")
 @ZenRegister
@@ -24,82 +24,38 @@ public class Composter {
 	@ZenMethod
 	public static void add(IItemStack compostable) {
 		final ItemStack c = CraftTweakerMC.getItemStack(compostable);
+		final Predicate<ItemStack> blackListFilter = Utils.getStackMatcher(compostable.withTag(null, false));
 		c.setCount(1);
-		MoreTweaker.queuePostInitAction(new IAction() {
-			public void apply() {
-				ComposterRegistryAccessor.getRegistry().add(c);
-				ComposterRegistryAccessor.getBlacklist().removeIf((stack) -> Composter.isMatching(stack, c));
-			}
-
-			public String describe() {
-				return "Adds an item to the composter.";
-			}
-		});
+		DeferredLoader.postInit(new ListAdd<>(ComposterRegistryAccessor.getRegistry(), c));
+		DeferredLoader.postInit(new ListRemove<>(ComposterRegistryAccessor.getBlacklist(), blackListFilter));
 	}
 
 	@ZenMethod
 	public static void addAll(IItemStack[] compostables) {
-		ItemStack[] c = CraftTweakerMC.getItemStacks(compostables);
-		final ArrayList<ItemStack> all = new ArrayList<>();
-		Collections.addAll(all, c);
-		all.forEach((stack) -> stack.setCount(1));
-		MoreTweaker.queuePostInitAction(new IAction() {
-			public void apply() {
-				ComposterRegistryAccessor.getRegistry().addAll(all);
-				ComposterRegistryAccessor.getBlacklist().removeIf((stack) -> Composter.hasOneMatching(stack, all));
-			}
-
-			public String describe() {
-				return "Adds some items to the composter.";
-			}
-		});
+		final ItemStack[] list = CraftTweakerMC.getItemStacks(compostables);
+		for (ItemStack stack : list){
+			stack.setCount(1);
+		}
+		DeferredLoader.postInit(new ListAdd<>(ComposterRegistryAccessor.getRegistry(), list));
+		DeferredLoader.postInit(new ListRemove<>(ComposterRegistryAccessor.getRegistry(), Utils.anyMatch(list)));
 	}
 
 	@ZenMethod
 	public static void remove(IItemStack nonCompostable) {
+		final Predicate<ItemStack> registryFilter = Utils.getStackMatcher(nonCompostable.withTag(null, false));
 		final ItemStack c = CraftTweakerMC.getItemStack(nonCompostable);
 		c.setCount(1);
-		MoreTweaker.queuePostInitAction(new IAction() {
-			public void apply() {
-				ComposterRegistryAccessor.getBlacklist().add(c);
-				ComposterRegistryAccessor.getRegistry().removeIf((stack) -> Composter.isMatching(stack, c));
-			}
-
-			public String describe() {
-				return "Removes an item from the composter.";
-			}
-		});
+		DeferredLoader.postInit(new ListAdd<>(ComposterRegistryAccessor.getBlacklist(), c));
+		DeferredLoader.postInit(new ListRemove<>(ComposterRegistryAccessor.getRegistry(), registryFilter));
 	}
 
 	@ZenMethod
 	public static void removeAll(IItemStack[] nonCompostables) {
-		ItemStack[] c = CraftTweakerMC.getItemStacks(nonCompostables);
-		final ArrayList<ItemStack> all = new ArrayList<>();
-		Collections.addAll(all, c);
-		all.forEach((stack) -> stack.setCount(1));
-		MoreTweaker.queuePostInitAction(new IAction() {
-			public void apply() {
-				ComposterRegistryAccessor.getBlacklist().addAll(all);
-				ComposterRegistryAccessor.getRegistry().removeIf((stack) -> Composter.hasOneMatching(stack, all));
-			}
-
-			public String describe() {
-				return "Removes some items from the composter.";
-			}
-		});
-	}
-
-	private static boolean hasOneMatching(ItemStack in, List<ItemStack> matcher) {
-		for(ItemStack stack : matcher) {
-			if (isMatching(in, stack)) {
-				return true;
-			}
+		final ItemStack[] list = CraftTweakerMC.getItemStacks(nonCompostables);
+		for (ItemStack stack : list){
+			stack.setCount(1);
 		}
-
-		return false;
-	}
-
-	private static boolean isMatching(ItemStack in, ItemStack matcher) {
-		return ItemStack.areItemsEqual(in, matcher) && (in.getMetadata() == matcher.getMetadata() || 32767 == matcher.getMetadata());
+		DeferredLoader.postInit(new ListAdd<>(ComposterRegistryAccessor.getBlacklist(), list));
+		DeferredLoader.postInit(new ListRemove<>(ComposterRegistryAccessor.getRegistry(), Utils.anyMatch(list)));
 	}
 }

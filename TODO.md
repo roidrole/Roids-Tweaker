@@ -1,5 +1,5 @@
 # TODO
-- Rewrite all mods past the cfb
+- Rewrite all mods past the erebus
   - Standardize, notably, everything to DeferredLoader
   - Make a second pass using stuff to Utils and MoreTweaker (added functions)
   - Make sure that Inputs is never used
