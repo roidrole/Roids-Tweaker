@@ -13,11 +13,6 @@ public class RegistryClear implements DeferredLoader.IAction {
 	private final IForgeRegistryModifiable<?> registry;
 	private final String recipeType;
 
-	public RegistryClear(IForgeRegistryModifiable<?> collection, String recipeType) {
-		this.registry = collection;
-		this.recipeType = recipeType;
-	}
-
 	public <K extends IForgeRegistryEntry<K>> RegistryClear(final Class<K> registerClass, String recipeType) {
 		IForgeRegistry<?> registry = GameRegistry.findRegistry(registerClass);
 		if(registry instanceof IForgeRegistryModifiable){

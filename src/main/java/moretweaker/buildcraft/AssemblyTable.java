@@ -8,6 +8,7 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.predicates.PredicateAnyOfIterable;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -22,8 +23,8 @@ public class AssemblyTable {
 	public static void remove(IIngredient output) {
 		CraftTweakerAPI.apply(new IAction() {
 			public void apply() {
-				final Predicate<ItemStack> out = Utils.getStackMatcher(output);
-				AssemblyRecipeRegistry.REGISTRY.values().removeIf((r) -> Utils.anyMatch(out, r.getOutputPreviews()));
+				final Predicate<Iterable<ItemStack>> out = new PredicateAnyOfIterable<>(Utils.getStackMatcher(output));
+				AssemblyRecipeRegistry.REGISTRY.values().removeIf(recipe -> out.test(recipe.getOutputPreviews()));
 			}
 
 			public String describe() {

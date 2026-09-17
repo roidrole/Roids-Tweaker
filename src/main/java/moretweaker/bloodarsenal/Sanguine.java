@@ -75,7 +75,7 @@ public class Sanguine {
 		//Loads the ingredients directly into in. Zero-copy, keeping final fields final.
 		Sanguine.getBAIngredients(inputs, in);
 
-		DeferredLoader.postInit(new ListAdd<>(ASanguineInfusionRecipeRegistry.getInfusionRecipes(), recipe));
+		DeferredLoader.postInit(ListAdd.from(ASanguineInfusionRecipeRegistry.getInfusionRecipes(), recipe));
 	}
 
 	@ZenMethod
@@ -97,7 +97,7 @@ public class Sanguine {
 		RecipeSanguineInfusion recipe = new RecipeSanguineInfusion(lpCost, modifier).setLevelMultiplier(1);
 		Sanguine.getBAIngredients(inputs, ((ARecipeSanguineInfusion)recipe).getInputs());
 
-		DeferredLoader.postInit(new ListAdd<>(ASanguineInfusionRecipeRegistry.getInfusionRecipes(), recipe));
+		DeferredLoader.postInit(ListAdd.from(ASanguineInfusionRecipeRegistry.getInfusionRecipes(), recipe));
 	}
 
 	@ZenMethod

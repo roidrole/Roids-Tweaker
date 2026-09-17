@@ -14,6 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.RegistryClear;
+import roidrole.roidtweaker.utils.predicates.PredicateAnyOfIterable;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenProperty;
@@ -64,8 +65,8 @@ public class WitchesRitual {
 
 	@ZenMethod
 	public static void removeByOutput(IIngredient output) {
-		final Predicate<ItemStack> out = Utils.getStackMatcher(output);
-		DeferredLoader.postInit(MoreTweaker.forgeRemoveLambda(Ritual.class, recipe -> Utils.anyMatch(out, recipe.output)));
+		final Predicate<Iterable<ItemStack>> out = new PredicateAnyOfIterable<>(Utils.getStackMatcher(output));
+		DeferredLoader.postInit(MoreTweaker.forgeRemoveLambda(Ritual.class, recipe -> out.test(recipe.output)));
 	}
 
 	@ZenMethod

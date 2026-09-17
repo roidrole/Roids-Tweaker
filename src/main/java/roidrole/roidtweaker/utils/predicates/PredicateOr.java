@@ -1,5 +1,9 @@
 package roidrole.roidtweaker.utils.predicates;
 
+import net.minecraft.item.ItemStack;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 public class PredicateOr<T> implements Predicate<T> {
@@ -17,5 +21,13 @@ public class PredicateOr<T> implements Predicate<T> {
 			}
 		}
 		return false;
+	}
+
+	public static Predicate<ItemStack> of(ItemStack[] stacks){
+		final List<Predicate<ItemStack>> predicates = new ArrayList<>(stacks.length);
+		for (ItemStack stack : stacks) {
+			predicates.add(new StackMatching(stack));
+		}
+		return new PredicateOr<>(predicates);
 	}
 }

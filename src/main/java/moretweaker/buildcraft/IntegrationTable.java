@@ -14,6 +14,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.predicates.PredicateAnyOfArray;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -42,7 +43,7 @@ public class IntegrationTable {
 		Iterator<IntegrationRecipe> iterator = BuildcraftRecipeRegistry.integrationRecipes.getAllRecipes().iterator();
 		while (iterator.hasNext()){
 			IntegrationRecipe recipe = iterator.next();
-			if(Utils.anyMatch(catalystFilter, recipe.getCenterStack().ingredient.matchingStacks)){
+			if(PredicateAnyOfArray.test(catalystFilter, recipe.getCenterStack().ingredient.matchingStacks)){
 				iterator.remove();
 			}
 		}

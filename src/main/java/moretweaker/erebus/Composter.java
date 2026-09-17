@@ -10,6 +10,7 @@ import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListAdd;
 import roidrole.roidtweaker.utils.actions.ListRemove;
+import roidrole.roidtweaker.utils.predicates.PredicateOr;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -26,7 +27,7 @@ public class Composter {
 		final ItemStack c = CraftTweakerMC.getItemStack(compostable);
 		final Predicate<ItemStack> blackListFilter = Utils.getStackMatcher(compostable.withTag(null, false));
 		c.setCount(1);
-		DeferredLoader.postInit(new ListAdd<>(ComposterRegistryAccessor.getRegistry(), c));
+		DeferredLoader.postInit(ListAdd.from(ComposterRegistryAccessor.getRegistry(), c));
 		DeferredLoader.postInit(new ListRemove<>(ComposterRegistryAccessor.getBlacklist(), blackListFilter));
 	}
 
@@ -36,8 +37,8 @@ public class Composter {
 		for (ItemStack stack : list){
 			stack.setCount(1);
 		}
-		DeferredLoader.postInit(new ListAdd<>(ComposterRegistryAccessor.getRegistry(), list));
-		DeferredLoader.postInit(new ListRemove<>(ComposterRegistryAccessor.getRegistry(), Utils.anyMatch(list)));
+		DeferredLoader.postInit(ListAdd.from(ComposterRegistryAccessor.getRegistry(), list));
+		DeferredLoader.postInit(new ListRemove<>(ComposterRegistryAccessor.getRegistry(), PredicateOr.of(list)));
 	}
 
 	@ZenMethod
@@ -45,7 +46,7 @@ public class Composter {
 		final Predicate<ItemStack> registryFilter = Utils.getStackMatcher(nonCompostable.withTag(null, false));
 		final ItemStack c = CraftTweakerMC.getItemStack(nonCompostable);
 		c.setCount(1);
-		DeferredLoader.postInit(new ListAdd<>(ComposterRegistryAccessor.getBlacklist(), c));
+		DeferredLoader.postInit(ListAdd.from(ComposterRegistryAccessor.getBlacklist(), c));
 		DeferredLoader.postInit(new ListRemove<>(ComposterRegistryAccessor.getRegistry(), registryFilter));
 	}
 
@@ -55,7 +56,7 @@ public class Composter {
 		for (ItemStack stack : list){
 			stack.setCount(1);
 		}
-		DeferredLoader.postInit(new ListAdd<>(ComposterRegistryAccessor.getBlacklist(), list));
-		DeferredLoader.postInit(new ListRemove<>(ComposterRegistryAccessor.getRegistry(), Utils.anyMatch(list)));
+		DeferredLoader.postInit(ListAdd.from(ComposterRegistryAccessor.getBlacklist(), list));
+		DeferredLoader.postInit(new ListRemove<>(ComposterRegistryAccessor.getRegistry(), PredicateOr.of(list)));
 	}
 }

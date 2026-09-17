@@ -74,36 +74,10 @@ public abstract class Utils {
         }
     }
 
-    public static boolean anyMatch(Predicate<ItemStack> predicate, Iterable<ItemStack> stacks){
-        for (ItemStack stack : stacks){
-            if(predicate.test(stack)){
-                return true;
-            }
-        }
-        return false;
-    }
-    public static boolean anyMatch(Predicate<ItemStack> predicate, ItemStack[] stacks){
-        for (ItemStack stack : stacks){
-            if(predicate.test(stack)){
-                return true;
-            }
-        }
-        return false;
-    }
-    public static Predicate<ItemStack> anyMatch(ItemStack[] stacks){
-        final List<Predicate<ItemStack>> predicates = new ArrayList<>(stacks.length);
-        for (ItemStack stack : stacks) {
-            predicates.add(new StackMatching(stack));
-        }
-        return new PredicateOr<>(predicates);
-    }
-
     public static boolean anyMatchIngredient(Predicate<ItemStack> predicate, Iterable<Ingredient> ingredients){
         for (Ingredient ingredient : ingredients){
-            for(ItemStack stack : ingredient.getMatchingStacks()) {
-                if (predicate.test(stack)) {
-                    return true;
-                }
+            if(PredicateAnyOfIterable.test(predicate, ingredient.getMatchingStacks())){
+                return true;
             }
         }
         return false;

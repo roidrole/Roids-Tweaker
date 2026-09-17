@@ -22,7 +22,7 @@ public class Imbuing {
     @ZenMethod
     public static void addRecipe(IItemStack output, IIngredient input, IIngredient[] ingredients){
         CTImbuingRecipe recipe = new CTImbuingRecipe(output, input, ingredients);
-        DeferredLoader.postInit(new ListAdd<>(ImbuingRecipeHandler.imbuingRecipes, recipe));
+        DeferredLoader.postInit(ListAdd.from(ImbuingRecipeHandler.imbuingRecipes, recipe));
     }
 
     @ZenMethod

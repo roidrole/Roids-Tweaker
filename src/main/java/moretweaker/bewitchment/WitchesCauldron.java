@@ -16,6 +16,8 @@ import net.minecraft.potion.PotionEffect;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.RegistryClear;
+import roidrole.roidtweaker.utils.predicates.PredicateAnyOfArray;
+import roidrole.roidtweaker.utils.predicates.PredicateAnyOfIterable;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -50,9 +52,9 @@ public class WitchesCauldron {
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
-		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
+		final Predicate<Iterable<ItemStack>> outputFilter = new PredicateAnyOfIterable<>(Utils.getStackMatcher(output));
 		DeferredLoader.postInit(
-			MoreTweaker.forgeRemoveLambda(CauldronRecipe.class, recipe -> Utils.anyMatch(outputFilter, recipe.output))
+			MoreTweaker.forgeRemoveLambda(CauldronRecipe.class, recipe -> outputFilter.test(recipe.output))
 		);
 	}
 
@@ -77,9 +79,9 @@ public class WitchesCauldron {
 
 	@ZenMethod
 	public static void removeBrew(IIngredient trigger) {
-		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(trigger);
+		final Predicate<ItemStack[]> outputFilter = new PredicateAnyOfArray<>(Utils.getStackMatcher(trigger));
 		DeferredLoader.postInit(MoreTweaker.forgeRemoveLambda(Brew.class,
-			recipe -> Utils.anyMatch(outputFilter, recipe.input.getMatchingStacks())
+			recipe -> outputFilter.test(recipe.input.getMatchingStacks())
 		));
 	}
 

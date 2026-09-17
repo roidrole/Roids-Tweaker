@@ -13,6 +13,7 @@ import net.minecraft.item.crafting.Ingredient;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.RegistryClear;
+import roidrole.roidtweaker.utils.predicates.PredicateAnyOfIterable;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -46,9 +47,9 @@ public class Distillery {
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
-		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
+		final Predicate<Iterable<ItemStack>> outputFilter = new PredicateAnyOfIterable<>(Utils.getStackMatcher(output));
 		DeferredLoader.postInit(
-			MoreTweaker.forgeRemoveLambda(DistilleryRecipe.class, recipe -> Utils.anyMatch(outputFilter, recipe.output))
+			MoreTweaker.forgeRemoveLambda(DistilleryRecipe.class, recipe -> outputFilter.test(recipe.output))
 		);
 	}
 
