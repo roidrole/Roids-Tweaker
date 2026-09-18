@@ -12,7 +12,6 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.oredict.OreDictionary;
 import roidrole.roidtweaker.utils.predicates.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
@@ -36,6 +35,7 @@ public abstract class Utils {
         }
         return CraftTweakerMC.getItemStack(input.getItems().get(0));
     }
+
     public static Ingredient[] getIngredients(IIngredient[] ingredients){
         final Ingredient[] out = new Ingredient[ingredients.length];
         for (int i = 0; i < ingredients.length; i++) {

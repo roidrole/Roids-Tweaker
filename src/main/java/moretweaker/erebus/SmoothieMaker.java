@@ -14,8 +14,9 @@ import net.minecraftforge.fluids.FluidStack;
 import roidrole.roidtweaker.mixins.erebus.SmoothieMakerRecipeAccessor;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.FunctionInvoke;
 import roidrole.roidtweaker.utils.actions.ListClear;
-import roidrole.roidtweaker.utils.actions.ListRemoveComplex;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -44,13 +45,13 @@ public class SmoothieMaker {
 			CraftTweakerAPI.logError("For SmoothieMaker.addRecipe: Not more than 4 ingredients and 4 fluids are allowed.");
 			return;
 		}
-		DeferredLoader.postInit(() -> SmoothieMakerRecipe.addRecipe(out, c, fl, in));
+		DeferredLoader.postInit(FunctionInvoke.from(SmoothieMakerRecipe::addRecipe, out, c, fl, in));
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
-		DeferredLoader.postInit(new ListRemoveComplex<>(
+		DeferredLoader.postInit(ListRemove.from(
 			SmoothieMakerRecipeAccessor.getRecipes(),
 			outputFilter,
 			SmoothieMakerRecipe::getOutput
@@ -59,6 +60,6 @@ public class SmoothieMaker {
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.postInit(new ListClear(SmoothieMakerRecipeAccessor.getRecipes(), "smoothie maker"));
+		DeferredLoader.postInit(ListClear.from(SmoothieMakerRecipeAccessor.getRecipes(), "smoothie maker"));
 	}
 }

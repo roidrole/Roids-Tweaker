@@ -18,6 +18,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import roidrole.roidtweaker.mixins.cookingforblockheads.CookingRegistryAccessor;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.FunctionInvoke;
 import roidrole.roidtweaker.utils.actions.ListClear;
 import roidrole.roidtweaker.utils.actions.ListRemove;
 import roidrole.roidtweaker.utils.predicates.OutputMatching;
@@ -60,7 +61,7 @@ public class KitchenAppliances {
 
 	@ZenMethod
 	public static void removeAllToasterRecipes() {
-		DeferredLoader.postInit(new ListClear(CookingRegistryAccessor.getToastHandlers(), "toaster"));
+		DeferredLoader.postInit(ListClear.from(CookingRegistryAccessor.getToastHandlers(), "toaster"));
 	}
 
 	@ZenMethod
@@ -90,7 +91,7 @@ public class KitchenAppliances {
 
 	@ZenMethod
 	public static void removeAllSinkRecipes() {
-		DeferredLoader.postInit(new ListClear(CookingRegistryAccessor.getSinkHandlers(), "sink"));
+		DeferredLoader.postInit(ListClear.from(CookingRegistryAccessor.getSinkHandlers(), "sink"));
 	}
 
 	@ZenMethod
@@ -107,12 +108,12 @@ public class KitchenAppliances {
 	@ZenMethod
 	public static void removeOvenRecipe(IIngredient output) {
 		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
-		DeferredLoader.postInit(new ListRemove<>(CookingRegistryAccessor.getOvenRecipes().values(), outputFilter));
+		DeferredLoader.postInit(ListRemove.from(CookingRegistryAccessor.getOvenRecipes().values(), outputFilter));
 	}
 
 	@ZenMethod
 	public static void removeAllOvenRecipes() {
-		DeferredLoader.postInit(new ListClear(CookingRegistryAccessor.getOvenRecipes(), "oven"));
+		DeferredLoader.postInit(ListClear.from(CookingRegistryAccessor.getOvenRecipes(), "oven"));
 	}
 
 	@ZenMethod
@@ -120,7 +121,7 @@ public class KitchenAppliances {
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		final NonNullList<Ingredient> in = NonNullList.from(Ingredient.EMPTY, Utils.getIngredients(inputs));
 		final IRecipe recipe = new ShapelessOreRecipe(MoreTweaker.newRL(), out, in);
-		DeferredLoader.postInit(() -> CookingRegistry.addFoodRecipe(recipe));
+		DeferredLoader.postInit(FunctionInvoke.from(CookingRegistry::addFoodRecipe, recipe));
 	}
 
 	@ZenMethod
@@ -128,17 +129,17 @@ public class KitchenAppliances {
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		final Ingredient[][] in = Utils.getIngredients(inputs);
 		final IRecipe recipe = new MCRecipeShaped(inputs, output, null, null, false, false);
-		DeferredLoader.postInit(() -> CookingRegistry.addFoodRecipe(recipe));
+		DeferredLoader.postInit(FunctionInvoke.from(CookingRegistry::addFoodRecipe, recipe));
 	}
 
 	@ZenMethod
 	public static void removeFoodRecipe(IIngredient output) {
 		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
-		DeferredLoader.postInit(new ListRemove<>(CookingRegistryAccessor.getRecipeList(), new OutputMatching(outputFilter)));
+		DeferredLoader.postInit(ListRemove.from(CookingRegistryAccessor.getRecipeList(), new OutputMatching(outputFilter)));
 	}
 
 	@ZenMethod
 	public static void removeAllFoodRecipes() {
-		DeferredLoader.postInit(new ListClear(CookingRegistryAccessor.getRecipeList(), "food"));
+		DeferredLoader.postInit(ListClear.from(CookingRegistryAccessor.getRecipeList(), "food"));
 	}
 }

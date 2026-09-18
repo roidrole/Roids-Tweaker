@@ -201,10 +201,6 @@ public class MoreTweaker {
 		}
 	}
 
-	public static <T extends IForgeRegistryEntry<T>> DeferredLoader.IAction forgeAddLambda(final Class<T> registerClass, final T entry){
-		return () -> forgeAdd(registerClass, entry);
-	}
-
 	public static <T extends IForgeRegistryEntry<T>> DeferredLoader.IAction forgeRemoveLambda(final Class<T> registerClass, final Predicate<T> removePredicate){
 		return () -> forgeRemove(registerClass, removePredicate);
 	}

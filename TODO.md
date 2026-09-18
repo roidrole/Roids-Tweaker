@@ -1,5 +1,5 @@
 # TODO
-- Rewrite all mods past the erebus
+- Rewrite all mods past erebus
   - Standardize, notably, everything to DeferredLoader
   - Make a second pass using stuff to Utils and MoreTweaker (added functions)
   - Make sure that Inputs is never used
@@ -10,3 +10,4 @@
   - Draconic Evolution support is broken
 - Make the JEI module compatible with CT's, ideally merge the package
 - Write the wiki once the features stabilize
+- Fix thermal expansion fisher (and other machine) `Map.remove()` calls

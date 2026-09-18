@@ -6,13 +6,13 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
-import roidrole.roidtweaker.utils.FunctionalInterfaces;
+import roidrole.roidtweaker.utils.functions.FloatTriFunction;
 
 import javax.annotation.Nullable;
 
 public class CTFertilizerHandler implements BelljarHandler.ItemFertilizerHandler, BelljarHandler.FluidFertilizerHandler {
     IIngredient fertilizer;
-    FunctionalInterfaces.FloatTriFunction<Object, ItemStack, ItemStack> multiplier;
+    FloatTriFunction<Object, ItemStack, ItemStack> multiplier;
 
     public CTFertilizerHandler(IIngredient fertilizer, float multiplier){
         this.fertilizer = fertilizer;

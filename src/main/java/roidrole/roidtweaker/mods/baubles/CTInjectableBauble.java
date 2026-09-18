@@ -11,13 +11,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import roidrole.roidtweaker.utils.FunctionalInterfaces;
+import roidrole.roidtweaker.utils.functions.BooleanBiFunction;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenProperty;
 import stanhebben.zenscript.annotations.ZenSetter;
 
 import javax.annotation.Nullable;
+import java.util.function.BiConsumer;
 
 @ZenClass("mods.ctintegration.baubles.InjectableBauble")
 @SuppressWarnings("unused")
@@ -26,12 +27,12 @@ public class CTInjectableBauble implements IBauble {
     public CTInjectableBauble(BaubleType type){
         this.type = type;
     }
-    public FunctionalInterfaces.VoidBiFunction<ItemStack, EntityLivingBase> onWornTick = null;
-    public FunctionalInterfaces.VoidBiFunction<ItemStack, EntityLivingBase> onEquipped = (stack, entity) -> {};
-    public FunctionalInterfaces.VoidBiFunction<ItemStack, EntityLivingBase> onUnequipped = (stack, entity) -> {};
-    public FunctionalInterfaces.BooleanBiFunction<ItemStack, EntityLivingBase> canEquip = (stack, entity) -> true;
-    public FunctionalInterfaces.BooleanBiFunction<ItemStack, EntityLivingBase> canUnequip = (stack, entity) -> true;
-    public FunctionalInterfaces.BooleanBiFunction<ItemStack, EntityLivingBase> willAutoSync = (stack, entity) -> false;
+    public BiConsumer<ItemStack, EntityLivingBase> onWornTick = null;
+    public BiConsumer<ItemStack, EntityLivingBase> onEquipped = (stack, entity) -> {};
+    public BiConsumer<ItemStack, EntityLivingBase> onUnequipped = (stack, entity) -> {};
+    public BooleanBiFunction<ItemStack, EntityLivingBase> canEquip = (stack, entity) -> true;
+    public BooleanBiFunction<ItemStack, EntityLivingBase> canUnequip = (stack, entity) -> true;
+    public BooleanBiFunction<ItemStack, EntityLivingBase> willAutoSync = (stack, entity) -> false;
     public OnDeathFunction<ItemStack, EntityLivingBase, DeathResult> onDeath = (slotIndex, stack, living) -> DeathResult.DEFAULT;
 
     @ZenProperty
@@ -47,17 +48,17 @@ public class CTInjectableBauble implements IBauble {
 
     @Override
     public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
-        this.onWornTick.apply(itemstack, player);
+        this.onWornTick.accept(itemstack, player);
     }
 
     @Override
     public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
-        this.onEquipped.apply(itemstack, player);
+        this.onEquipped.accept(itemstack, player);
     }
 
     @Override
     public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
-        this.onUnequipped.apply(itemstack, player);
+        this.onUnequipped.accept(itemstack, player);
     }
 
     @Override
@@ -83,32 +84,32 @@ public class CTInjectableBauble implements IBauble {
     //CT Methods
     @ZenMethod
     @ZenSetter("onWornTick")
-    public void setOnWornTick(FunctionalInterfaces.VoidBiFunction<IItemStack, IEntityLivingBase> function){
-        this.onWornTick = (stack, entity) -> function.apply(CraftTweakerMC.getIItemStack(stack), CraftTweakerMC.getIEntityLivingBase(entity));
+    public void setOnWornTick(BiConsumer<IItemStack, IEntityLivingBase> function){
+        this.onWornTick = (stack, entity) -> function.accept(CraftTweakerMC.getIItemStack(stack), CraftTweakerMC.getIEntityLivingBase(entity));
     }
     @ZenMethod
     @ZenSetter("onEquipped")
-    public void setOnEquipped(FunctionalInterfaces.VoidBiFunction<IItemStack, IEntityLivingBase> function){
-        this.onEquipped = (stack, entity) -> function.apply(CraftTweakerMC.getIItemStack(stack), CraftTweakerMC.getIEntityLivingBase(entity));
+    public void setOnEquipped(BiConsumer<IItemStack, IEntityLivingBase> function){
+        this.onEquipped = (stack, entity) -> function.accept(CraftTweakerMC.getIItemStack(stack), CraftTweakerMC.getIEntityLivingBase(entity));
     }
     @ZenMethod
     @ZenSetter("onUnequipped")
-    public void setOnUnequipped(FunctionalInterfaces.VoidBiFunction<IItemStack, IEntityLivingBase> function){
-        this.onUnequipped = (stack, entity) -> function.apply(CraftTweakerMC.getIItemStack(stack), CraftTweakerMC.getIEntityLivingBase(entity));
+    public void setOnUnequipped(BiConsumer<IItemStack, IEntityLivingBase> function){
+        this.onUnequipped = (stack, entity) -> function.accept(CraftTweakerMC.getIItemStack(stack), CraftTweakerMC.getIEntityLivingBase(entity));
     }
     @ZenMethod
     @ZenSetter("canEquip")
-    public void setCanEquip(FunctionalInterfaces.BooleanBiFunction<IItemStack, IEntityLivingBase> function){
+    public void setCanEquip(BooleanBiFunction<IItemStack, IEntityLivingBase> function){
         this.canEquip = (stack, entity) -> function.apply(CraftTweakerMC.getIItemStack(stack), CraftTweakerMC.getIEntityLivingBase(entity));
     }
     @ZenMethod
     @ZenSetter("canUnequip")
-    public void setCanUnequip(FunctionalInterfaces.BooleanBiFunction<IItemStack, IEntityLivingBase> function){
+    public void setCanUnequip(BooleanBiFunction<IItemStack, IEntityLivingBase> function){
         this.canUnequip = (stack, entity) -> function.apply(CraftTweakerMC.getIItemStack(stack), CraftTweakerMC.getIEntityLivingBase(entity));
     }
     @ZenMethod
     @ZenSetter("willAutoSync")
-    public void setWillAutoSync(FunctionalInterfaces.BooleanBiFunction<IItemStack, IEntityLivingBase> function){
+    public void setWillAutoSync(BooleanBiFunction<IItemStack, IEntityLivingBase> function){
         this.willAutoSync = (stack, entity) -> function.apply(CraftTweakerMC.getIItemStack(stack), CraftTweakerMC.getIEntityLivingBase(entity));
     }
     @ZenMethod

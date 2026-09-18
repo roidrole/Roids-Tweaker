@@ -46,6 +46,6 @@ public class Imbuing {
 
     @ZenMethod
     public static void clearRecipes(){
-        DeferredLoader.postInit(new ListClear(ImbuingRecipeHandler.imbuingRecipes, "imbuing recipe"));
+        DeferredLoader.postInit(ListClear.from(ImbuingRecipeHandler.imbuingRecipes, "imbuing recipe"));
     }
 }

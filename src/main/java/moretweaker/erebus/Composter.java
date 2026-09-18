@@ -28,7 +28,7 @@ public class Composter {
 		final Predicate<ItemStack> blackListFilter = Utils.getStackMatcher(compostable.withTag(null, false));
 		c.setCount(1);
 		DeferredLoader.postInit(ListAdd.from(ComposterRegistryAccessor.getRegistry(), c));
-		DeferredLoader.postInit(new ListRemove<>(ComposterRegistryAccessor.getBlacklist(), blackListFilter));
+		DeferredLoader.postInit(ListRemove.from(ComposterRegistryAccessor.getBlacklist(), blackListFilter));
 	}
 
 	@ZenMethod
@@ -38,7 +38,7 @@ public class Composter {
 			stack.setCount(1);
 		}
 		DeferredLoader.postInit(ListAdd.from(ComposterRegistryAccessor.getRegistry(), list));
-		DeferredLoader.postInit(new ListRemove<>(ComposterRegistryAccessor.getRegistry(), PredicateOr.of(list)));
+		DeferredLoader.postInit(ListRemove.from(ComposterRegistryAccessor.getRegistry(), PredicateOr.of(list)));
 	}
 
 	@ZenMethod
@@ -47,7 +47,7 @@ public class Composter {
 		final ItemStack c = CraftTweakerMC.getItemStack(nonCompostable);
 		c.setCount(1);
 		DeferredLoader.postInit(ListAdd.from(ComposterRegistryAccessor.getBlacklist(), c));
-		DeferredLoader.postInit(new ListRemove<>(ComposterRegistryAccessor.getRegistry(), registryFilter));
+		DeferredLoader.postInit(ListRemove.from(ComposterRegistryAccessor.getRegistry(), registryFilter));
 	}
 
 	@ZenMethod
@@ -57,6 +57,6 @@ public class Composter {
 			stack.setCount(1);
 		}
 		DeferredLoader.postInit(ListAdd.from(ComposterRegistryAccessor.getBlacklist(), list));
-		DeferredLoader.postInit(new ListRemove<>(ComposterRegistryAccessor.getRegistry(), PredicateOr.of(list)));
+		DeferredLoader.postInit(ListRemove.from(ComposterRegistryAccessor.getRegistry(), PredicateOr.of(list)));
 	}
 }

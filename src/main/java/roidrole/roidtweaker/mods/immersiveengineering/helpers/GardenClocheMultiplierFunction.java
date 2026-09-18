@@ -3,13 +3,13 @@ package roidrole.roidtweaker.mods.immersiveengineering.helpers;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import roidrole.roidtweaker.utils.FunctionalInterfaces;
+import roidrole.roidtweaker.utils.functions.FloatTriFunction;
 import stanhebben.zenscript.annotations.ZenClass;
 
 @ZenRegister
 @ZenClass("mods.roidtweaker.immersiveengineering.GardenClocheMultiplierFunction")
 @FunctionalInterface
-public interface GardenClocheMultiplierFunction extends FunctionalInterfaces.FloatTriFunction<IIngredient, IItemStack, IItemStack> {
+public interface GardenClocheMultiplierFunction extends FloatTriFunction<IIngredient, IItemStack, IItemStack> {
     default float returnFloat(IIngredient a, IItemStack b, IItemStack c){
         return this.apply(a, b, c);
     }

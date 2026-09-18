@@ -10,7 +10,8 @@ import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
-import roidrole.roidtweaker.utils.actions.RegistryClear;
+import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -37,11 +38,11 @@ public class WitchesOven {
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<ItemStack> out = Utils.getStackMatcher(output);
-		DeferredLoader.postInit(MoreTweaker.forgeRemoveLambda(OvenRecipe.class, recipe -> out.test(recipe.output)));
+		DeferredLoader.postInit(ListRemove.from(OvenRecipe.class, recipe -> out.test(recipe.output)));
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.postInit(new RegistryClear(OvenRecipe.class, "witches oven"));
+		DeferredLoader.postInit(ListClear.from(OvenRecipe.class, "witches oven"));
 	}
 }

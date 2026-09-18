@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.FunctionInvoke;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -27,9 +28,7 @@ public class BedrockRitual {
 		final Ingredient c = CraftTweakerMC.getIngredient(center);
 		Ingredient[] in = Utils.getIngredients(inputs);
 		final int amount = Math.max(0, Math.min(bedrockAmount, 320));
-		DeferredLoader.postInit(
-			() -> RitualManager.addRecipe(out, c, amount, (Object[]) in)
-		);
+		DeferredLoader.postInit(FunctionInvoke.from(RitualManager::addRecipe, out, c, amount, in));
 	}
 
 	@ZenMethod

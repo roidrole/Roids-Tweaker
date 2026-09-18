@@ -9,6 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import roidrole.roidtweaker.mixins.thermalexpansion.IFisherManagerAccessor;
 import roidrole.roidtweaker.utils.DeferredLoader;
+import roidrole.roidtweaker.utils.actions.FunctionInvoke;
+import roidrole.roidtweaker.utils.actions.ListClear;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -25,7 +27,8 @@ public class Fisher {
     @ZenMethod
     public static void addFish(IItemStack fish, int weight){
         //Since fish is a list in the base mod, we must add and remove sequentially
-        DeferredLoader.loadComplete(() -> FisherManager.addFish(CraftTweakerMC.getItemStack(fish), weight));
+        ItemStack fishStack = CraftTweakerMC.getItemStack(fish);
+        DeferredLoader.loadComplete(FunctionInvoke.from(FisherManager::addFish, fishStack, weight));
     }
     @ZenMethod
     public static void removeFish(IItemStack fish){
@@ -33,11 +36,9 @@ public class Fisher {
     }
     @ZenMethod
     public static void clearFish(){
-        DeferredLoader.loadComplete(() -> {
-            IFisherManagerAccessor.getFishList().clear();
-            IFisherManagerAccessor.getWeightList().clear();
-            IFisherManagerAccessor.setTotalWeight(0);
-        });
+        DeferredLoader.loadComplete(ListClear.from(IFisherManagerAccessor.getFishList(), "fisher"));
+        DeferredLoader.loadComplete(ListClear.from(IFisherManagerAccessor.getWeightList()));
+        DeferredLoader.loadComplete(FunctionInvoke.from(IFisherManagerAccessor::setTotalWeight, 0));
     }
 
     @ZenMethod

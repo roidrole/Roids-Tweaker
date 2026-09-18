@@ -16,7 +16,7 @@ import roidrole.roidtweaker.mixins.bloodarsenal.ASanguineInfusionRecipeRegistry;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListAdd;
-import roidrole.roidtweaker.utils.actions.ListRemoveComplex;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenProperty;
@@ -81,7 +81,7 @@ public class Sanguine {
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
-		DeferredLoader.postInit(new ListRemoveComplex<>(
+		DeferredLoader.postInit(ListRemove.from(
 			SanguineInfusionRecipeRegistry.getInfusionRecipes(),
 			outputFilter,
 			RecipeSanguineInfusion::getOutput
@@ -103,7 +103,7 @@ public class Sanguine {
 	@ZenMethod
 	public static void removeModifier(final String modifier) {
 		Predicate<String> modifierFilter = Predicate.isEqual(modifier);
-		DeferredLoader.postInit(new ListRemoveComplex<>(
+		DeferredLoader.postInit(ListRemove.from(
 			SanguineInfusionRecipeRegistry.getInfusionRecipes(),
 			modifierFilter,
 			RecipeSanguineInfusion::getModifierKey

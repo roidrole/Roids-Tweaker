@@ -11,7 +11,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
-import roidrole.roidtweaker.utils.actions.RegistryClear;
+import roidrole.roidtweaker.utils.actions.ListAdd;
+import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -27,17 +29,17 @@ public class FrostFire {
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		final Ingredient in = CraftTweakerMC.getIngredient(input);
 		FrostfireRecipe recipe = new FrostfireRecipe(MoreTweaker.newRL(), in, out);
-		DeferredLoader.postInit(MoreTweaker.forgeAddLambda(FrostfireRecipe.class, recipe));
+		DeferredLoader.postInit(ListAdd.from(FrostfireRecipe.class, recipe));
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<ItemStack> out = Utils.getStackMatcher(output);
-		DeferredLoader.postInit(MoreTweaker.forgeRemoveLambda(FrostfireRecipe.class, (r) -> out.test(r.output)));
+		DeferredLoader.postInit(ListRemove.from(FrostfireRecipe.class, (r) -> out.test(r.output)));
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.postInit(new RegistryClear(FrostfireRecipe.class, "witches frostfire"));
+		DeferredLoader.postInit(ListClear.from(FrostfireRecipe.class, "witches frostfire"));
 	}
 }

@@ -4,8 +4,10 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
+import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.mixins.thermalexpansion.ICollectorManagerAccessor;
 import roidrole.roidtweaker.utils.DeferredLoader;
+import roidrole.roidtweaker.utils.actions.FunctionInvoke;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -21,6 +23,7 @@ public class Collector {
 
     @ZenMethod
     public static void removeCatalyst(IItemStack catalyst){
-        DeferredLoader.loadComplete(() -> ICollectorManagerAccessor.invokeRemoveCatalyst(CraftTweakerMC.getItemStack(catalyst)));
+        ItemStack stack = CraftTweakerMC.getItemStack(catalyst);
+        DeferredLoader.loadComplete(FunctionInvoke.from(ICollectorManagerAccessor::invokeRemoveCatalyst, stack));
     }
 }
