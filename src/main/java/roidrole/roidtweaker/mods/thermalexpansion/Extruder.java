@@ -30,11 +30,11 @@ public class Extruder {
     @ZenMethod
     public static void removeRecipeIgneous(IItemStack output){
         ItemWrapper wrapper = new ItemWrapper(CraftTweakerMC.getItemStack(output));
-        DeferredLoader.loadComplete(ListRemove.from(IExtruderManagerAccessor.getRecipeMapIgneous(), wrapper));
+        DeferredLoader.loadComplete(ListRemove.fromKey(IExtruderManagerAccessor.getRecipeMapIgneous(), wrapper));
     }
     @ZenMethod
     public static void removeRecipeSedimentary(IItemStack output){
         ItemWrapper wrapper = new ItemWrapper(CraftTweakerMC.getItemStack(output));
-        DeferredLoader.loadComplete(ListRemove.from(IExtruderManagerAccessor.getRecipeMapSedimentary(), wrapper));
+        DeferredLoader.loadComplete(ListRemove.fromKey(IExtruderManagerAccessor.getRecipeMapSedimentary(), wrapper));
     }
 }

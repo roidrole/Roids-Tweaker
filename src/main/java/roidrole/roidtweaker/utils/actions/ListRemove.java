@@ -19,8 +19,11 @@ public abstract class ListRemove<T> implements DeferredLoader.IAction {
 	public static <T> ListRemove<T> from(Collection<T> collection, Predicate<T> condition){
 		return new ListRemoveSimple<>(collection, condition);
 	}
-	public static <T> ListRemove<T> from(Map<T, ?> collection, T element){
+	public static <T> ListRemove<T> fromKey(Map<T, ?> collection, T element){
 		return new ListRemoveSimple<>(collection.keySet(), Predicate.isEqual(element));
+	}
+	public static <T> ListRemove<T> fromValue(Map<?, T> collection, Predicate<T> element){
+		return new ListRemoveSimple<>(collection.values(), element);
 	}
 	public static <T, U> ListRemove<T> from(Collection<U> collection, Predicate<T> condition, Function<U, T> extractor){
 		return new ListRemoveExtract<>(collection, condition, extractor);

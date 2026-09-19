@@ -1,64 +1,44 @@
 package moretweaker.gadgetry;
 
-import crafttweaker.CraftTweakerAPI;
-import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import epicsquid.gadgetry.machines.recipe.GrindingRecipe;
-import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
+import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.ListClear;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.util.function.Predicate;
 
 @ZenClass("moretweaker.gadgetry.Grinder")
 @ZenRegister
 @ModOnly("gadgetrymachines")
 @SuppressWarnings("unused")
 public class Grinder {
-   @ZenMethod
-   public static void add(IItemStack output, IIngredient input) {
-      final ItemStack out = CraftTweakerMC.getItemStack(output);
-      final Object in = Inputs.getObject(input);
-      CraftTweakerAPI.apply(new IAction() {
-         public void apply() {
-            GrindingRecipe recipe = new GrindingRecipe(out, in);
-            GrindingRecipe.recipes.add(recipe);
-            GrindingRecipe.grindables.add(recipe.inputs.get(0));
-         }
+	@ZenMethod
+	public static void add(IItemStack output, IIngredient input) {
+		final ItemStack out = CraftTweakerMC.getItemStack(output);
+		final Object in = Utils.getObjectOreStack(input);
 
-         public String describe() {
-            return "Adds a Grinder-Recipe";
-         }
-      });
-   }
+		GrindingRecipe recipe = new GrindingRecipe(out, in);
+		GrindingRecipe.recipes.add(recipe);
+		GrindingRecipe.grindables.add(recipe.inputs.get(0));
+	}
 
-   @ZenMethod
-   public static void remove(IIngredient output) {
-      final Object obj = Inputs.getObject(output);
-      CraftTweakerAPI.apply(new IAction() {
-         public void apply() {
-            GrindingRecipe.recipes.removeIf((recipe) -> Inputs.matchesForRemoval(obj, recipe.getOutput()));
-         }
+	@ZenMethod
+	public static void remove(IIngredient output) {
+		final Predicate<ItemStack> outFilter = Utils.getStackMatcher(output);
 
-         public String describe() {
-            return "Removes Grinder-Recipes";
-         }
-      });
-   }
+		GrindingRecipe.recipes.removeIf(recipe -> outFilter.test(recipe.getOutput()));
+	}
 
-   @ZenMethod
-   public static void removeAll() {
-      CraftTweakerAPI.apply(new IAction() {
-         public void apply() {
-            GrindingRecipe.recipes.clear();
-         }
-
-         public String describe() {
-            return "Removes all recipes for the Grinder";
-         }
-      });
-   }
+	@ZenMethod
+	public static void removeAll() {
+		GrindingRecipe.recipes.clear();
+		ListClear.logMessage("Grinder");
+	}
 }

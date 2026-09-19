@@ -1,42 +1,32 @@
 package moretweaker.quacklib;
 
-import moretweaker.CraftingPart;
+import crafttweaker.api.item.IIngredient;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
+import roidrole.roidtweaker.utils.Utils;
 import therealfarfetchd.quacklib.common.api.recipe.ItemTemplate;
 
 import javax.annotation.Nonnull;
-import java.util.List;
+import java.util.function.Predicate;
 
 public class IngredientTemplate implements ItemTemplate {
-   private final ItemStack outStack;
-   private final CraftingPart part;
+	private final Predicate<ItemStack> matcher;
+	private final ItemStack outStack;
 
-   public IngredientTemplate(CraftingPart part) {
-      this.part = part;
-      List<ItemStack> stacks = part.toStackList();
-      if (stacks.isEmpty()) {
-         this.outStack = ItemStack.EMPTY;
-      } else {
-         this.outStack = stacks.get(0);
-      }
 
-   }
+	public IngredientTemplate(IIngredient ingredient) {
+		this.matcher = Utils.getStackMatcher(ingredient);
+		this.outStack = Utils.getFirstStack(ingredient);
+	}
 
-   public IngredientTemplate(ItemStack stack) {
-      this.part = new CraftingPart(Ingredient.fromStacks(stack), stack.getCount());
-      this.outStack = stack.copy();
-   }
+	public boolean isSameItem(@Nonnull ItemStack itemStack) {
+		return this.matcher.test(itemStack);
+	}
 
-   public boolean isSameItem(@Nonnull ItemStack itemStack) {
-      return this.part.ingredient.apply(itemStack);
-   }
+	public boolean isValid() {
+		return !outStack.isEmpty();
+	}
 
-   public boolean isValid() {
-      return !this.part.toStackList().isEmpty();
-   }
-
-   public @Nonnull ItemStack makeStack() {
-      return this.outStack.copy();
-   }
+	public @Nonnull ItemStack makeStack() {
+		return this.outStack.copy();
+	}
 }

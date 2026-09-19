@@ -36,7 +36,7 @@ public class FusionRecipeRT implements IFusionRecipe {
 		this.catalystDisplay.setCount(catalyst.getAmount());
 		this.catalyst = Utils.getStackMatcher(catalyst);
 		this.ingredients = Utils.getIngredients(ingredients);
-		this.ingredientsDisplay = Arrays.asList(Utils.getObjects(ingredients));
+		this.ingredientsDisplay = Arrays.asList(Utils.getObjects(ingredients, Utils::getObjectOreStack));
 		this.energyCost = energyCost;
 		this.craftingTier = craftingTier;
 		long maxCost = Long.MAX_VALUE / (long)ingredients.length;

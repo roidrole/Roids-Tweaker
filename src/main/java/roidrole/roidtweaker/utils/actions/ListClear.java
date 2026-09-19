@@ -14,8 +14,8 @@ import java.util.Map;
 
 public abstract class ListClear implements DeferredLoader.IAction{
 
-	public static String getMessage(String recipeType){
-		return "Clearing all" + recipeType + "recipes";
+	public static void logMessage(String recipeType){
+		CraftTweakerAPI.logInfo("Clearing all" + recipeType + "recipes");
 	}
 
 	public static ListClear from(Collection<?> collection){
@@ -56,7 +56,7 @@ public abstract class ListClear implements DeferredLoader.IAction{
 		@Override
 		public void load() {
 			this.collection.clear();
-			CraftTweakerAPI.logInfo(ListClear.getMessage(recipeType));
+			ListClear.logMessage(recipeType);
 		}
 	}
 
@@ -79,7 +79,7 @@ public abstract class ListClear implements DeferredLoader.IAction{
 		@Override
 		public void load() {
 			this.registry.clear();
-			CraftTweakerAPI.logInfo("Clearing all" + recipeType + "recipes");
+			ListClear.logMessage(recipeType);
 		}
 	}
 }

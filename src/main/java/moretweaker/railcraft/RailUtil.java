@@ -1,13 +1,14 @@
 package moretweaker.railcraft;
 
+import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import mods.railcraft.api.core.IIngredientSource;
-import moretweaker.CraftingPart;
 
 public class RailUtil {
    private RailUtil() {
    }
 
-   public static IIngredientSource toInput(CraftingPart part) {
-      return () -> part.ingredient;
+   public static IIngredientSource toInput(IIngredient ingredient) {
+      return () -> CraftTweakerMC.getIngredient(ingredient);
    }
 }

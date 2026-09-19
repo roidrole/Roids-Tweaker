@@ -30,15 +30,6 @@ public final class CraftingPart {
       return Collections.unmodifiableList(list);
    }
 
-   public boolean matchesWithAmount(ItemStack stack) {
-      return this.ingredient.apply(stack) && stack.getCount() == this.amount;
-   }
-
-   public ItemStack getAStack() {
-      List<ItemStack> stacks = this.toStackList();
-      return stacks.isEmpty() ? ItemStack.EMPTY : stacks.get(0);
-   }
-
    static {
       EMPTY = new CraftingPart(Ingredient.EMPTY, 1);
    }

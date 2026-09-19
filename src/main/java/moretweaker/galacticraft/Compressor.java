@@ -1,73 +1,55 @@
 package moretweaker.galacticraft;
 
-import crafttweaker.CraftTweakerAPI;
-import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
+import crafttweaker.mc1120.recipes.MCRecipeShaped;
+import crafttweaker.mc1120.recipes.MCRecipeShapeless;
 import micdoodle8.mods.galacticraft.api.recipe.CompressorRecipes;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import roidrole.roidtweaker.mixins.galacticraft.ACompressorRecipes;
+import roidrole.roidtweaker.utils.Utils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.util.Arrays;
+import java.util.function.Predicate;
 
 @ZenClass("moretweaker.galacticraft.Compressor")
 @ZenRegister
 @ModOnly("galacticraftcore")
 @SuppressWarnings("unused")
 public class Compressor {
-   @ZenMethod
-   public static void addShaped(IItemStack output, IItemStack[][] inputs) {
-      final ItemStack out = CraftTweakerMC.getItemStack(output);
-      if (!out.isEmpty()) {
-         final Object[] in = Inputs.getShapedObjects(inputs);
-         CraftTweakerAPI.logInfo(Arrays.toString(in));
-         CraftTweakerAPI.apply(new IAction() {
-            public void apply() {
-               CompressorRecipes.addRecipe(out, in);
-            }
+	@ZenMethod
+	public static void addShaped(IItemStack output, IItemStack[][] inputs) {
+		final IRecipe recipe = new MCRecipeShaped(inputs, output, null, null, false, false);
+		ACompressorRecipes.getRecipes().add(recipe);
+	}
 
-            public String describe() {
-               return "Adds a Shaped Compressor-Recipe";
-            }
-         });
-      }
-   }
+	@ZenMethod
+	public static void addShapeless(IItemStack output, IIngredient[] inputs) {
+		final IRecipe recipe = new MCRecipeShapeless(inputs, output, null, null, false);
+		ACompressorRecipes.getRecipes().add(recipe);
+		final ItemStack out = CraftTweakerMC.getItemStack(output);
+		if (!out.isEmpty()) {
+			final Object[] in = Inputs.getObjects(inputs);
+			CompressorRecipes.addShapelessRecipe(out, in);
+		}
+	}
 
-   @ZenMethod
-   public static void addShapeless(IItemStack output, IIngredient[] inputs) {
-      final ItemStack out = CraftTweakerMC.getItemStack(output);
-      if (!out.isEmpty()) {
-         final Object[] in = Inputs.getObjects(inputs);
-         CraftTweakerAPI.apply(new IAction() {
-            public void apply() {
-               CompressorRecipes.addShapelessRecipe(out, in);
-            }
+	@ZenMethod
+	public static void remove(IIngredient output) {
+		final Predicate<ItemStack> outFilter = Utils.getStackMatcher(output);
+		ACompressorRecipes.getRecipes().removeIf(recipe -> outFilter.test(recipe.getRecipeOutput()));
+		ACompressorRecipes.getRecipesAdventure().removeIf(recipe -> outFilter.test(recipe.getRecipeOutput()));
+	}
 
-            public String describe() {
-               return "Adds a Shapeless Compressor-Recipe";
-            }
-         });
-      }
-   }
-
-   @ZenMethod
-   public static void remove(IItemStack output) {
-      final ItemStack out = CraftTweakerMC.getItemStack(output);
-      if (!out.isEmpty()) {
-         CraftTweakerAPI.apply(new IAction() {
-            public void apply() {
-               CompressorRecipes.removeRecipe(out);
-            }
-
-            public String describe() {
-               return "Removes a Compressor-Recipe";
-            }
-         });
-      }
-   }
+	@ZenMethod
+	public static void removeAll() {
+		ACompressorRecipes.getRecipes().clear();
+		ACompressorRecipes.getRecipesAdventure().clear();
+	}
 }

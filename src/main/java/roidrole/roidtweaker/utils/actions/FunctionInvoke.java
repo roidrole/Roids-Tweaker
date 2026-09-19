@@ -4,6 +4,7 @@ import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.functions.ABintDConsumer;
 import roidrole.roidtweaker.utils.functions.QuadConsumer;
 
+import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.ObjIntConsumer;
@@ -15,6 +16,9 @@ public abstract class FunctionInvoke implements DeferredLoader.IAction {
 	}
 	public static <T> FunctionInvoke from(Consumer<T> function, T argument){
 		return new ConsumerInvoke<>(function, argument);
+	}
+	public static <T> FunctionInvoke from(Consumer<T> function, Collection<T> argument){
+		return new ConsumerIterateInvoke<>(function, argument);
 	}
 	public static <T> FunctionInvoke from(ObjIntConsumer<T> function, T argument1, int argument2){
 		return new ObjIntConsumerInvoke<>(function, argument1, argument2);
@@ -52,6 +56,22 @@ public abstract class FunctionInvoke implements DeferredLoader.IAction {
 		@Override
 		public void load() {
 			function.accept(argument);
+		}
+	}
+	private static class ConsumerIterateInvoke<T> extends FunctionInvoke {
+		private final Consumer<T> function;
+		private final Collection<T> argument;
+
+		private ConsumerIterateInvoke(Consumer<T> function, Collection<T> argument) {
+			this.function = function;
+			this.argument = argument;
+		}
+
+		@Override
+		public void load() {
+			for (T  t: argument){
+				function.accept(t);
+			}
 		}
 	}
 	private static class ObjIntConsumerInvoke<T> extends FunctionInvoke {

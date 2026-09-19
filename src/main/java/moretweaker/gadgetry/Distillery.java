@@ -1,7 +1,5 @@
 package moretweaker.gadgetry;
 
-import crafttweaker.CraftTweakerAPI;
-import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
@@ -12,58 +10,40 @@ import epicsquid.gadgetry.machines.recipe.DistillingRecipe;
 import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.ListClear;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.util.function.Predicate;
 
 @ZenClass("moretweaker.gadgetry.Distillery")
 @ZenRegister
 @ModOnly("gadgetrymachines")
 @SuppressWarnings("unused")
 public class Distillery {
-   @ZenMethod
-   public static void add(IItemStack output, ILiquidStack fluidOutput, IIngredient input, ILiquidStack fluidInput) {
-      final ItemStack out = CraftTweakerMC.getItemStack(output);
-      final Object in = Inputs.getObject(input);
-      final FluidStack fluidOut = CraftTweakerMC.getLiquidStack(fluidOutput);
-      final FluidStack fluidIn = CraftTweakerMC.getLiquidStack(fluidInput);
-      CraftTweakerAPI.apply(new IAction() {
-         public void apply() {
-            DistillingRecipe recipe = new DistillingRecipe(fluidIn, fluidOut, in, out);
-            DistillingRecipe.recipes.add(recipe);
-            DistillingRecipe.distillable_items.add(recipe.inputs.get(0));
-            DistillingRecipe.distillable_fluids.add(recipe.fluid_in.getFluid());
-         }
+	@ZenMethod
+	public static void add(IItemStack output, ILiquidStack fluidOutput, IIngredient input, ILiquidStack fluidInput) {
+		final ItemStack out = CraftTweakerMC.getItemStack(output);
+		final Object in = Inputs.getObject(input);
+		final FluidStack fluidOut = CraftTweakerMC.getLiquidStack(fluidOutput);
+		final FluidStack fluidIn = CraftTweakerMC.getLiquidStack(fluidInput);
 
-         public String describe() {
-            return "Adds a Distillery-Recipe";
-         }
-      });
-   }
+		DistillingRecipe recipe = new DistillingRecipe(fluidIn, fluidOut, in, out);
+		DistillingRecipe.recipes.add(recipe);
+		DistillingRecipe.distillable_items.add(recipe.inputs.get(0));
+		DistillingRecipe.distillable_fluids.add(recipe.fluid_in.getFluid());
+	}
 
-   @ZenMethod
-   public static void remove(IIngredient output) {
-      final Object obj = Inputs.getObject(output);
-      CraftTweakerAPI.apply(new IAction() {
-         public void apply() {
-            DistillingRecipe.recipes.removeIf((recipe) -> Inputs.matchesForRemoval(obj, recipe.getOutput()));
-         }
+	@ZenMethod
+	public static void remove(IIngredient output) {
+		final Predicate<ItemStack> outFilter = Utils.getStackMatcher(output);
+		DistillingRecipe.recipes.removeIf(recipe -> outFilter.test(recipe.getOutput()));
+	}
 
-         public String describe() {
-            return "Removes Distillery-Recipes by Item-Output";
-         }
-      });
-   }
-
-   @ZenMethod
-   public static void removeAll() {
-      CraftTweakerAPI.apply(new IAction() {
-         public void apply() {
-            DistillingRecipe.recipes.clear();
-         }
-
-         public String describe() {
-            return "Removes all recipes for the distillery";
-         }
-      });
-   }
+	@ZenMethod
+	public static void removeAll() {
+		DistillingRecipe.recipes.clear();
+		ListClear.logMessage("distillery");
+	}
 }

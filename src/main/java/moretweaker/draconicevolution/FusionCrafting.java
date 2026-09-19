@@ -1,7 +1,6 @@
 package moretweaker.draconicevolution;
 
 import com.brandon3055.draconicevolution.api.fusioncrafting.FusionRecipeAPI;
-import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
@@ -51,7 +50,7 @@ public class FusionCrafting {
 
 	@ZenMethod
 	public static void removeAll() {
-		CraftTweakerAPI.logInfo(ListClear.getMessage("fusion crafting"));
+		ListClear.logMessage("fusion crafting");
 		((AFusionRecipeRegistry)FusionRecipeAPI.registry).getREGISTRY().clear();
 	}
 }

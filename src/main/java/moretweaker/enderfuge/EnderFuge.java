@@ -2,7 +2,6 @@ package moretweaker.enderfuge;
 
 import com.themastergeneral.enderfuge.common.processing.EnderfugeFuel;
 import com.themastergeneral.enderfuge.common.processing.EnderfugeRecipes;
-import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
@@ -53,13 +52,13 @@ public class EnderFuge {
 
 	@ZenMethod
 	public static void removeAllRecipes() {
-		CraftTweakerAPI.logInfo(ListClear.getMessage("EnderFuge"));
+		ListClear.logMessage("EnderFuge");
 		EnderfugeRecipes.instance().getSmeltingList().clear();
 	}
 
 	@ZenMethod
 	public static void removeAllFuels() {
-		CraftTweakerAPI.logInfo(ListClear.getMessage("EnderFuge fuel"));
+		ListClear.logMessage("EnderFuge fuel");
 		EnderfugeFuel.instance().getSmeltingList().clear();
 	}
 }

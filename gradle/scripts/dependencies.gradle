@@ -158,7 +158,7 @@ dependencies {
     implementation('curse.maven:infinitycraft-238239:2509257')
     implementation('curse.maven:lightningcraft-237422:2872478')
     implementation('curse.maven:matter-overdrive-refitted-1522080:8161752')
-    implementation('curse.maven:mob-grinding-utils-254241:6804869')
+    implementation(rfg.deobf('curse.maven:mob-grinding-utils-254241:2656683'))
     implementation('curse.maven:quacklib-276915:2619757')
     //Note: RailcraftTweaker exists
     implementation('curse.maven:railcraft-51195:3853491')

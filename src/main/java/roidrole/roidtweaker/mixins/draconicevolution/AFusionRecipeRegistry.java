@@ -9,6 +9,6 @@ import java.util.List;
 
 @Mixin(FusionRecipeRegistry.class)
 public interface AFusionRecipeRegistry {
-	@Accessor
+	@Accessor(remap = false)
 	List<IFusionRecipe> getREGISTRY();
 }

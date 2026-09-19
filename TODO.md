@@ -9,5 +9,6 @@
   - Buildcraft support is broken
   - Draconic Evolution support is broken
 - Make the JEI module compatible with CT's, ideally merge the package
+  - Might not be possible because scheduling. CT's JEI plugin doesn't happen after other mods'...
 - Write the wiki once the features stabilize
 - Fix thermal expansion fisher (and other machine) `Map.remove()` calls

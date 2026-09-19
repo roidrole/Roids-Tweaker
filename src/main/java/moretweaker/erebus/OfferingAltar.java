@@ -28,9 +28,9 @@ public class OfferingAltar {
 	public static void addRecipe(IItemStack output, IIngredient input1, IIngredient input2, IIngredient input3) {
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 
-		final Object in1 = Utils.getObject(input1);
-		final Object in2 = Utils.getObject(input2);
-		final Object in3 = Utils.getObject(input3);
+		final Object in1 = Utils.getObjectOreStack(input1);
+		final Object in2 = Utils.getObjectOreStack(input2);
+		final Object in3 = Utils.getObjectOreStack(input3);
 
 		DeferredLoader.postInit(FunctionInvoke.from(OfferingAltarRecipe::addRecipe, out, in1, in2, in3));
 	}

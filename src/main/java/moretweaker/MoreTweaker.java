@@ -1,22 +1,18 @@
 package moretweaker;
 
 import crafttweaker.CraftTweakerAPI;
-import crafttweaker.IAction;
 import crafttweaker.mc1120.actions.ActionSetTranslation;
 import epicsquid.gadgetry.core.recipe.AlloyRecipe;
 import epicsquid.gadgetry.machines.recipe.DistillingRecipe;
 import epicsquid.gadgetry.machines.recipe.GrindingRecipe;
 import fossilsarcheology.server.recipe.FAMachineRecipeRegistry;
 import fossilsarcheology.server.recipe.RecipeAnalyzer;
-import moretweaker.mob_grinding_utils.SpawnEggHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -25,7 +21,6 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
 import org.apache.logging.log4j.Logger;
 import roidrole.roidtweaker.Tags;
-import roidrole.roidtweaker.utils.DeferredLoader;
 import therealfarfetchd.quacklib.common.api.autoconf.DefaultFeatures;
 import therealfarfetchd.quacklib.common.api.autoconf.FeatureManager;
 
@@ -45,8 +40,6 @@ public class MoreTweaker {
 	public static MoreTweaker instance;
 	public static Logger logger;
 
-	private static final Queue<IAction> postQueue = new LinkedList<>();
-
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
@@ -58,19 +51,7 @@ public class MoreTweaker {
 	}
 
 	@EventHandler
-	public void init(FMLInitializationEvent event) {
-		if (Loader.isModLoaded("mob_grinding_utils")) {
-			MinecraftForge.EVENT_BUS.register(SpawnEggHandler.INSTANCE);
-		}
-	}
-
-	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		for(IAction action : postQueue) {
-			CraftTweakerAPI.apply(action);
-		}
-
-		postQueue.clear();
 		if (Loader.isModLoaded("gadgetrycore")) {
 			CraftTweakerAPI.logInfo("Cleaning up Gadgetry-Core recipes");
 			AlloyRecipe.metals.clear();
@@ -161,10 +142,6 @@ public class MoreTweaker {
 
 	}
 
-	public static void queuePostInitAction(final IAction action) {
-		postQueue.add(action);
-	}
-
 	public static ResourceLocation newRL() {
 		return new ResourceLocation("moretweaker", "moretweakerrecipe" + next_id++);
 	}
@@ -199,10 +176,6 @@ public class MoreTweaker {
 		} catch (Exception e) {
 			CraftTweakerAPI.logError(Tags.MOD_ID + " can't remove elements from registry " + registerClass.getCanonicalName() + ". Please report to " + Tags.MOD_ID + " author");
 		}
-	}
-
-	public static <T extends IForgeRegistryEntry<T>> DeferredLoader.IAction forgeRemoveLambda(final Class<T> registerClass, final Predicate<T> removePredicate){
-		return () -> forgeRemove(registerClass, removePredicate);
 	}
 
 	public static void injectTranslation(String key, String value) {

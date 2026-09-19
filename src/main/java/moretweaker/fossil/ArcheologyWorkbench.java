@@ -1,6 +1,5 @@
 package moretweaker.fossil;
 
-import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
@@ -9,68 +8,52 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import fossilsarcheology.server.item.FAItemRegistry;
 import fossilsarcheology.server.recipe.FAMachineRecipeRegistry;
 import fossilsarcheology.server.recipe.RecipeWorktable;
-import moretweaker.CraftingPart;
-import moretweaker.Inputs;
-import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
+import roidrole.roidtweaker.utils.DeferredLoader;
+import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import java.util.function.Predicate;
 
 @ZenClass("moretweaker.fossil.ArcheologyWorkbench")
 @ZenRegister
 @ModOnly("fossil")
 @SuppressWarnings("unused")
 public class ArcheologyWorkbench {
-   @ZenMethod
-   public static void addRecipe(IIngredient input, IItemStack output) {
-      addRecipe(input, output, CraftTweakerMC.getIItemStack(new ItemStack(FAItemRegistry.RELIC_SCRAP)));
-   }
+	@ZenMethod
+	public static void addRecipe(IIngredient input, IItemStack output) {
+		addRecipe(input, output, CraftTweakerMC.getIItemStack(new ItemStack(FAItemRegistry.RELIC_SCRAP)));
+	}
 
-   @ZenMethod
-   public static void addRecipe(IIngredient input, IItemStack output, IIngredient fuel) {
-      final CraftingPart in = Inputs.getPart(input);
-      final ItemStack out = CraftTweakerMC.getItemStack(output);
-      final CraftingPart f = Inputs.getPart(fuel);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            for(ItemStack stack : in.toStackList()) {
-               for(ItemStack theFuel : f.toStackList()) {
-                  FAMachineRecipeRegistry.worktableRecipes.add(new RecipeWorktable(stack, out, theFuel));
-               }
-            }
+	@ZenMethod
+	public static void addRecipe(IIngredient input, IItemStack output, IIngredient fuel) {
+		final ItemStack[] in = CraftTweakerMC.getExamples(input);
+		final ItemStack out = CraftTweakerMC.getItemStack(output);
+		final ItemStack[] f = CraftTweakerMC.getExamples(fuel);
+		DeferredLoader.postInit(() -> {
+			for(ItemStack stack : in) {
+				for(ItemStack theFuel : f) {
+					FAMachineRecipeRegistry.worktableRecipes.add(new RecipeWorktable(stack, out, theFuel));
+				}
+			}
+		});
+	}
 
-         }
+	@ZenMethod
+	public static void removeRecipe(IIngredient output) {
+		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
+		DeferredLoader.postInit(ListRemove.from(
+			FAMachineRecipeRegistry.worktableRecipes,
+			outputFilter,
+			RecipeWorktable::getOutput
+		));
+	}
 
-         public String describe() {
-            return "Adds some ArcheologyWorkbench recipes";
-         }
-      });
-   }
-
-   @ZenMethod
-   public static void removeRecipe(IIngredient output) {
-      final Object out = Inputs.getObject(output);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            FAMachineRecipeRegistry.worktableRecipes.removeIf((r) -> Inputs.matchesForRemoval(out, r.getOutput()));
-         }
-
-         public String describe() {
-            return "Removes some ArcheologyWorkbench recipes";
-         }
-      });
-   }
-
-   @ZenMethod
-   public static void removeAll() {
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            FAMachineRecipeRegistry.worktableRecipes.clear();
-         }
-
-         public String describe() {
-            return "Removes all f&a workbench recipes";
-         }
-      });
-   }
+	@ZenMethod
+	public static void removeAll() {
+		DeferredLoader.postInit(ListClear.from(FAMachineRecipeRegistry.worktableRecipes, "f&a workbench"));
+	}
 }

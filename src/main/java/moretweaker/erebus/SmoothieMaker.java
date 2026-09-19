@@ -37,7 +37,7 @@ public class SmoothieMaker {
 	public static void addRecipe(IItemStack output, IItemStack container, IIngredient[] inputs, ILiquidStack[] fluids) {
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		final ItemStack c = CraftTweakerMC.getItemStack(container);
-		final Object[] in = Utils.getObjects(inputs);
+		final Object[] in = Utils.getObjects(inputs, Utils::getObjectOreStack);
 
 		final FluidStack[] fl = CraftTweakerMC.getLiquidStacks(fluids);
 

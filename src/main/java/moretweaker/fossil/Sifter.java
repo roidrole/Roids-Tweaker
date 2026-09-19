@@ -1,7 +1,5 @@
 package moretweaker.fossil;
 
-import com.google.common.collect.Iterables;
-import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
@@ -9,116 +7,63 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import fossilsarcheology.server.recipe.FAMachineRecipeRegistry;
 import fossilsarcheology.server.recipe.RecipeAnalyzer;
-import moretweaker.CraftingPart;
-import moretweaker.Inputs;
-import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
+import roidrole.roidtweaker.mixins.fossils.ARecipeAnalyser;
+import roidrole.roidtweaker.utils.DeferredLoader;
+import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.function.Predicate;
 
 @ZenClass("moretweaker.fossil.Sifter")
 @ZenRegister
 @ModOnly("fossil")
 @SuppressWarnings("unused")
 public class Sifter {
-   @ZenMethod
-   public static void addOutput(IIngredient input, IItemStack output, final double weight) {
-      final CraftingPart in = Inputs.getPart(input);
-      final ItemStack out = CraftTweakerMC.getItemStack(output);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            for(ItemStack stack : in.toStackList()) {
-               RecipeAnalyzer recipe = FAMachineRecipeRegistry.getSifterRecipeForItem(stack);
-               if (recipe == null) {
-                  recipe = new RecipeAnalyzer(stack);
-                  FAMachineRecipeRegistry.sifterRecipes.add(recipe);
-               }
+	@ZenMethod
+	public static void addOutput(IIngredient input, IItemStack output, final double weight) {
+		final ItemStack[] in = CraftTweakerMC.getExamples(input);
+		final ItemStack out = CraftTweakerMC.getItemStack(output);
+		DeferredLoader.postInit(() -> {
+			for(ItemStack stack : in) {
+				RecipeAnalyzer recipe = FAMachineRecipeRegistry.getSifterRecipeForItem(stack);
+				if (recipe == null) {
+					recipe = new RecipeAnalyzer(stack);
+					FAMachineRecipeRegistry.sifterRecipes.add(recipe);
+				}
 
-               recipe.addOutput(out.copy(), (float)weight);
-            }
+				recipe.addOutput(out, (float)weight);
+			}
+		});
+	}
 
-         }
+	@ZenMethod
+	public static void removeByInput(IIngredient input) {
+		final Predicate<ItemStack> in = Utils.getStackMatcher(input);
+		DeferredLoader.postInit(ListRemove.from(
+			FAMachineRecipeRegistry.sifterRecipes,
+			in,
+			RecipeAnalyzer::getInput
+		));
+	}
 
-         public String describe() {
-            return "Adds some sifter recipes";
-         }
-      });
-   }
+	@ZenMethod
+	public static void removeByOutput(IIngredient output) {
+		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
+		DeferredLoader.postInit(() -> {
+			for (RecipeAnalyzer recipe : FAMachineRecipeRegistry.sifterRecipes) {
+				if (recipe.getDisplayMap().values().removeIf(outputFilter)) {
+					((ARecipeAnalyser) recipe).setTotalWeight(recipe.getDisplayMap().keySet().stream().reduce(0.0F, Float::sum));
+				}
+			}
+		});
+	}
 
-   @ZenMethod
-   public static void removeByInput(IIngredient input) {
-      final Object in = Inputs.getObject(input);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            FAMachineRecipeRegistry.sifterRecipes.removeIf((r) -> Inputs.matchesForRemoval(in, r.getInput()));
-         }
-
-         public String describe() {
-            return "Removes some sifter recipes by input";
-         }
-      });
-   }
-
-   @ZenMethod
-   public static void removeByOutput(IIngredient output) {
-      final Object out = Inputs.getObject(output);
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            Set<RecipeAnalyzer> newRecipes = new HashSet<>();
-            Iterator<RecipeAnalyzer> itr = FAMachineRecipeRegistry.sifterRecipes.iterator();
-
-            while(itr.hasNext()) {
-               RecipeAnalyzer recipe = itr.next();
-               if (Iterables.tryFind(recipe.getDisplayMap().values(), (s) -> Inputs.matchesForRemoval(out, s)).isPresent()) {
-                  itr.remove();
-                  RecipeAnalyzer r = new RecipeAnalyzer(recipe.getInput());
-                  float weight = 0.0F;
-                  boolean outputAdded = false;
-
-                  while(weight <= recipe.getTotalWeight()) {
-                     Map.Entry<Float, ItemStack> entry = recipe.getDisplayMap().higherEntry(weight);
-                     if (entry == null) {
-                        break;
-                     }
-
-                     float chance = entry.getKey() - weight;
-                     weight = entry.getKey();
-                     if (!Inputs.matchesForRemoval(out, entry.getValue())) {
-                        r.addOutput(entry.getValue(), chance);
-                        outputAdded = true;
-                     }
-                  }
-
-                  if (outputAdded) {
-                     newRecipes.add(r);
-                  }
-               }
-            }
-
-            FAMachineRecipeRegistry.sifterRecipes.addAll(newRecipes);
-         }
-
-         public String describe() {
-            return "Removes some sifter recipes by output";
-         }
-      });
-   }
-
-   @ZenMethod
-   public static void removeAll() {
-      MoreTweaker.queuePostInitAction(new IAction() {
-         public void apply() {
-            FAMachineRecipeRegistry.sifterRecipes.clear();
-         }
-
-         public String describe() {
-            return "Removes all f&a sifter recipes";
-         }
-      });
-   }
+	@ZenMethod
+	public static void removeAll() {
+		DeferredLoader.postInit(ListClear.from(FAMachineRecipeRegistry.sifterRecipes, "f&a sifter"));
+	}
 }

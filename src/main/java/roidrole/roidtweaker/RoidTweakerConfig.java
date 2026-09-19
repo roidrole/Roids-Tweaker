@@ -23,6 +23,9 @@ public class RoidTweakerConfig {
 
         @Config.Comment("Also required for modded villager profession disabling")
         public boolean allowRemovingRegistries = false;
+
+        @Config.Comment("Allows setting custom spawn eggs for Mob Grinding Utils mob swabs")
+        public boolean allowCustomMobSwabEgg = false;
     }
 
     @Config.Comment("Configs for event handlers from the mod. They each add a little performance loss, so here is your option to disable them")
