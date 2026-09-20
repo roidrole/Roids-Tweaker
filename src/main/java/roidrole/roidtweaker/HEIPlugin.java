@@ -59,7 +59,7 @@ public class HEIPlugin implements IModPlugin {
 
         @Override
         //Copy of AnvilRecipeWrapper, modified to use our xpCost instead of scanning
-        public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
+        public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
             int cost;
             if(this.xpCost != 0) {
                 cost = this.xpCost;

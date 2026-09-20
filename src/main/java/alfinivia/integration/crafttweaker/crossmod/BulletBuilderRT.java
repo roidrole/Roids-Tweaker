@@ -178,11 +178,11 @@ public class BulletBuilderRT {
 	}
 
 	public static class CustomBullet implements BulletHandler.IBullet {
-		ResourceLocation[] textures;
+		final ResourceLocation[] textures;
 		boolean isProperCartridge = true;
 		boolean isValidForTurret = false;
 		int projectileCount;
-		ItemStack casing;
+		final ItemStack casing;
 		IItemColor color;
 		IBulletEntityImpact entityImpact;
 		IBulletBlockImpact blockImpact;

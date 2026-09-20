@@ -7,7 +7,7 @@ import stanhebben.zenscript.ZenRuntimeException;
 
 public class MCGameRules implements IGameRules {
 
-	private GameRules rules;
+	private final GameRules rules;
 
 	public MCGameRules(GameRules rules)
 	{

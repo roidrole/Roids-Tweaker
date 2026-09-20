@@ -10,7 +10,7 @@ public class OnSidePreprocessor extends PreprocessorActionBase {
 
 	private static final String PREPROCESSOR_NAME = "onside";
 
-	private Side side;
+	private final Side side;
 
 	public OnSidePreprocessor(String fileName, String preprocessorLine, int lineIndex)
 	{

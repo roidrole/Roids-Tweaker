@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import java.util.function.Predicate;
 
 public class IIngredientMatching implements Predicate<ItemStack> {
-	IIngredient target;
+	final IIngredient target;
 
 	public IIngredientMatching(IIngredient target){
 		this.target = target;

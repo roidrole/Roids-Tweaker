@@ -55,9 +55,7 @@ public class CalendarDate implements IDate {
     @Override
     public IDate add(IDate with) {
         long newTime = this.getTimeInMillis() + with.getTimeInMillis();
-        Calendar ret = Calendar.getInstance();
-        ret.setTimeInMillis(newTime);
-        return new CalendarDate(ret);
+		return DateUtil.fromTimeInMillis(newTime);
     }
 
     @Override

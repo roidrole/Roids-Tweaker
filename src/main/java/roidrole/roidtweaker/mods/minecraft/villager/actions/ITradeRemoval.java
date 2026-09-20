@@ -16,7 +16,7 @@ public interface ITradeRemoval {
     }
 
     class ClearLevel implements ITradeRemoval{
-        int level;
+        final int level;
 
         public ClearLevel(int level){
             this.level = level;
@@ -29,8 +29,8 @@ public interface ITradeRemoval {
     }
 
     class RemoveTrade implements ITradeRemoval{
-        int level;
-        int tradeIndex;
+        final int level;
+        final int tradeIndex;
 
         public RemoveTrade(int level, int index){
             this.level = level;

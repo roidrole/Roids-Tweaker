@@ -11,8 +11,8 @@ import roidrole.roidtweaker.utils.functions.FloatTriFunction;
 import javax.annotation.Nullable;
 
 public class CTFertilizerHandler implements BelljarHandler.ItemFertilizerHandler, BelljarHandler.FluidFertilizerHandler {
-    IIngredient fertilizer;
-    FloatTriFunction<Object, ItemStack, ItemStack> multiplier;
+    final IIngredient fertilizer;
+    final FloatTriFunction<Object, ItemStack, ItemStack> multiplier;
 
     public CTFertilizerHandler(IIngredient fertilizer, float multiplier){
         this.fertilizer = fertilizer;

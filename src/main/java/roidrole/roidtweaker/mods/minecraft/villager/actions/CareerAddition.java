@@ -11,8 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class CareerAddition implements DeferredLoader.IAction {
-    ResourceLocation profession;
-    List<String> careers;
+    final ResourceLocation profession;
+    final List<String> careers;
 
     public CareerAddition(String profession, String career) {
         this.profession = new ResourceLocation(profession);

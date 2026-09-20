@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class IECTHelper {
-    public static Map<String, BelljarHandler.DefaultPlantHandler> HandlerMap = new HashMap<String, BelljarHandler.DefaultPlantHandler>(4){{
+    public static final Map<String, BelljarHandler.DefaultPlantHandler> HandlerMap = new HashMap<String, BelljarHandler.DefaultPlantHandler>(4){{
         put("crop", BelljarHandler.cropHandler);
         put("stem", BelljarHandler.stemHandler);
         put("stacking", BelljarHandler.stackingHandler);

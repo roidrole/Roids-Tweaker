@@ -12,7 +12,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("mods.ctintegration.bubbles.IBubbleInventory")
 @SuppressWarnings("unused")
 public class CTBubbleInventory extends CTBaubleInventory{
-    BaublesContainer internal;
+    final BaublesContainer internal;
     public CTBubbleInventory(BaublesContainer internal) {
         super(internal);
         this.internal = internal;

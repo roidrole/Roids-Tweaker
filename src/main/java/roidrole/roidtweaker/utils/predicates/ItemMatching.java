@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import java.util.function.Predicate;
 
 public class ItemMatching implements Predicate<ItemStack> {
-	Item item;
+	final Item item;
 
 	public ItemMatching(Item item){
 		this.item = item;

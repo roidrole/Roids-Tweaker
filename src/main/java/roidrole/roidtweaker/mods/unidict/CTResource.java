@@ -14,7 +14,7 @@ import wanion.unidict.resource.UniResourceContainer;
 @ZenRegister
 @ModOnly("unidict")
 public class CTResource {
-	Resource internal;
+	final Resource internal;
 
 	public CTResource(Resource internal){
 		this.internal = internal;

@@ -10,6 +10,8 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 @SideOnly(Side.CLIENT)
 public class FluidStateMapper extends StateMapperBase implements ItemMeshDefinition {
 
@@ -23,12 +25,12 @@ public class FluidStateMapper extends StateMapperBase implements ItemMeshDefinit
     }
 
     @Override
-    protected ModelResourceLocation getModelResourceLocation(IBlockState state){
+    protected @Nonnull ModelResourceLocation getModelResourceLocation(@Nonnull IBlockState state){
         return this.location;
     }
 
     @Override
-    public ModelResourceLocation getModelLocation(ItemStack stack){
+    public @Nonnull ModelResourceLocation getModelLocation(@Nonnull ItemStack stack){
         return this.location;
     }
 }

@@ -13,7 +13,7 @@ import stanhebben.zenscript.annotations.ZenMethodStatic;
 @ZenExpansion("mods.thermalexpansion.Pulverizer")
 @SuppressWarnings("unused")
 public class Pulverizer {
-    public static IngredientOverrides oreOverrides = new IngredientOverrides();
+    public static final IngredientOverrides oreOverrides = new IngredientOverrides();
 
     @ZenMethodStatic
     public static void addOreOverride(IIngredient input, boolean value) {

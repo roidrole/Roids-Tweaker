@@ -25,7 +25,7 @@ import java.util.function.Predicate;
 @ZenRegister
 @ZenClass("mods.roidtweaker.immersiveengineering.SlagReplacer")
 public class SlagReplacer {
-    public static List<SlagFilter> filters = new ArrayList<>();
+    public static final List<SlagFilter> filters = new ArrayList<>();
 
     @ZenMethod
     @SuppressWarnings("unused")
@@ -34,14 +34,16 @@ public class SlagReplacer {
     }
 
     public static class SlagFilter{
-        ItemStack slag;
-        EnumFilter type = EnumFilter.OUTPUT;
-        Predicate<ItemStack> ingredient;
+        final ItemStack slag;
+        final EnumFilter type;
+        final Predicate<ItemStack> ingredient;
 
         public SlagFilter(ItemStack slag, String type, IIngredient ingredient){
             this.slag = slag;
             if(type != null){
                 this.type = EnumFilter.valueOf(type);
+            } else {
+                this.type = EnumFilter.OUTPUT;
             }
             this.ingredient = ingredient != null?
                 Utils.getStackMatcher(ingredient):

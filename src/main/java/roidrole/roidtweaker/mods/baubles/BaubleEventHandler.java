@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class BaubleEventHandler {
 	private static final ResourceLocation capabilityResourceLocation = new ResourceLocation(Baubles.MODID, "bauble_cap");
-	public static Map<Item, IBauble> additionalBaubles = new HashMap<>();
+	public static final Map<Item, IBauble> additionalBaubles = new HashMap<>();
 
 	@SubscribeEvent
 	public void baubleCreation(AttachCapabilitiesEvent<ItemStack> event){

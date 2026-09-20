@@ -8,7 +8,7 @@ import roidrole.roidtweaker.utils.DeferredLoader;
 import java.util.ArrayList;
 
 public class CareerOverride implements DeferredLoader.IAction {
-    String profession;
+    final String profession;
 
     public CareerOverride(String profession){
         this.profession = profession;

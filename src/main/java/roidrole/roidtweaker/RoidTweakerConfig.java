@@ -7,7 +7,7 @@ import net.minecraftforge.common.config.Config;
 public class RoidTweakerConfig {
     @Config.Comment("Configs for enabling mixins from the mod. They can cause incompatibilities, so you should only enable the ones you are using.")
     @Config.Name("Mixin Category")
-    public static MixinCategory mixinCategory = new MixinCategory();
+    public static final MixinCategory mixinCategory = new MixinCategory();
     public static class MixinCategory {
 
         @Config.Name("Villager Category")
@@ -30,7 +30,7 @@ public class RoidTweakerConfig {
 
     @Config.Comment("Configs for event handlers from the mod. They each add a little performance loss, so here is your option to disable them")
     @Config.Name("Event Category")
-    public static EventCategory eventCategory = new EventCategory();
+    public static final EventCategory eventCategory = new EventCategory();
     public static class EventCategory {
         @Config.Comment("Allows making any existing item into a bauble.\nWill crash on startup if not using bubbles!")
         public boolean allowCustomBaubles = false;
@@ -43,7 +43,7 @@ public class RoidTweakerConfig {
     }
 
     @Config.Name("Mekanism Category")
-    public static MekanismCategory mekanismCategory = new MekanismCategory();
+    public static final MekanismCategory mekanismCategory = new MekanismCategory();
     public static class MekanismCategory {
         @Config.Comment(
             "The default texture domain to use if unspecified.\n" +
@@ -54,7 +54,7 @@ public class RoidTweakerConfig {
     }
 
     @Config.Name("General")
-    public static General general = new General();
+    public static final General general = new General();
     public static class General {
         @Config.Comment("If QuackLib is loaded, enables the alloy smelter")
         public boolean forceAlloySmelter = true;

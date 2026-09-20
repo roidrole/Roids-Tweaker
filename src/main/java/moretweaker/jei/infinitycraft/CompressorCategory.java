@@ -18,7 +18,7 @@ public class CompressorCategory implements IRecipeCategory<CompressorWrapper> {
 
    public CompressorCategory(IGuiHelper guiHelper) {
       this.background = guiHelper.createDrawable(MoreJei.GUI_VANILLA, 49, 168, 76, 18);
-      this.localizedName = I18n.format("tile.block_compressor.name", new Object[0]);
+      this.localizedName = I18n.format("tile.block_compressor.name");
    }
 
    public @Nonnull IDrawable getBackground() {

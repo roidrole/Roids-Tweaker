@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DataConverterRawString implements IDataConverter<String> {
-    public static DataConverterRawString INSTANCE = new DataConverterRawString();
+    public static final DataConverterRawString INSTANCE = new DataConverterRawString();
     @Override
     public String fromBool(boolean value) {
         return String.valueOf(value);

@@ -25,6 +25,7 @@ import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -36,12 +37,12 @@ import java.util.function.Function;
 @ZenClass("mods.roidtweaker.minecraft.villager.IVillagerCareer")
 @SuppressWarnings("unused")
 public class IVillagerCareer implements DeferredLoader.IAction {
-    public ResourceLocation profession;
+    public final ResourceLocation profession;
     public int careerI = -1;
     public String careerS;
-    public List<List<EntityVillager.ITradeList>> addedTrades = new ArrayList<>(3);
-    public List<ITradeRemoval> removedTrades = new ArrayList<>();
-    public static Collection<PotionType> potionCollection = ForgeRegistries.POTION_TYPES.getValuesCollection();
+    public final List<List<EntityVillager.ITradeList>> addedTrades = new ArrayList<>(3);
+    public final List<ITradeRemoval> removedTrades = new ArrayList<>();
+    public static final Collection<PotionType> potionCollection = ForgeRegistries.POTION_TYPES.getValuesCollection();
 
     public IVillagerCareer(ResourceLocation profession, int career) {
         this.profession = profession;
@@ -146,10 +147,10 @@ public class IVillagerCareer implements DeferredLoader.IAction {
     }
 
     public static class CTVillagerTrade implements EntityVillager.ITradeList{
-        IIngredient sell;
-        IIngredient buy1;
-        IIngredient buy2;
-        BiFunction<Random, ItemStack, ItemStack> getOutput;
+        final IIngredient sell;
+        final IIngredient buy1;
+        final IIngredient buy2;
+        final BiFunction<Random, ItemStack, ItemStack> getOutput;
 
         CTVillagerTrade(IIngredient sell, IIngredient buy1, IIngredient buy2, BiFunction<Random, ItemStack, ItemStack> getOutput){
             this.sell = sell;
@@ -158,7 +159,7 @@ public class IVillagerCareer implements DeferredLoader.IAction {
             this.getOutput = getOutput;
         }
         @Override
-        public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random) {
+        public void addMerchantRecipe(@Nonnull IMerchant merchant, MerchantRecipeList recipeList, @Nonnull Random random) {
             recipeList.add(new MerchantRecipe(
                 Utils.getRandomStack(buy1, random),
                 Utils.getRandomStack(buy2, random),

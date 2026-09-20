@@ -13,8 +13,8 @@ import stanhebben.zenscript.annotations.ZenMethodStatic;
 @ZenExpansion("mods.thermalexpansion.RedstoneFurnace")
 @SuppressWarnings("unused")
 public class RedstoneFurnace {
-    public static IngredientOverrides foodOverrides = new IngredientOverrides();
-    public static IngredientOverrides oreOverrides = new IngredientOverrides();
+    public static final IngredientOverrides foodOverrides = new IngredientOverrides();
+    public static final IngredientOverrides oreOverrides = new IngredientOverrides();
 
     @ZenMethodStatic
     public static void addFoodOverride(IIngredient input, boolean value){

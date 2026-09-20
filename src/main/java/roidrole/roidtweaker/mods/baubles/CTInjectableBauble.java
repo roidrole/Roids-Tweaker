@@ -17,13 +17,14 @@ import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenProperty;
 import stanhebben.zenscript.annotations.ZenSetter;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.BiConsumer;
 
 @ZenClass("mods.ctintegration.baubles.InjectableBauble")
 @SuppressWarnings("unused")
 public class CTInjectableBauble implements IBauble {
-    BaubleType type;
+    final BaubleType type;
     public CTInjectableBauble(BaubleType type){
         this.type = type;
     }
@@ -42,7 +43,7 @@ public class CTInjectableBauble implements IBauble {
 
     @Override
     @SuppressWarnings("deprecation")
-    public BaubleType getBaubleType(ItemStack stack){
+    public BaubleType getBaubleType(@Nonnull ItemStack stack){
         return type;
     }
 

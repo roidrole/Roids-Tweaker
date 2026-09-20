@@ -7,3 +7,7 @@
 - Make the JEI module compatible with CT's, ideally merge the package
   - Might not be possible because scheduling. CT's JEI plugin doesn't happen after other mods'...
 - Write the wiki once the features stabilize
+
+Make lazy actions:
+- Unidict (cleanup API held, too)
+- Event handler (instead of action, the handler itself)

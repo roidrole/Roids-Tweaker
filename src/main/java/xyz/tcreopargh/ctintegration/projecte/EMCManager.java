@@ -70,8 +70,7 @@ public class EMCManager {
     public static void setIngredientEMC(IIngredient ingredient, long value) {
         List<IItemStack> items = ingredient.getItems();
         for (IItemStack item : items) {
-            ItemStack stack = CraftTweakerMC.getItemStack(item);
-            ProjectEAPI.getEMCProxy().registerCustomEMC(stack, value);
+			EMCManager.setEMC(item, value);
         }
     }
 

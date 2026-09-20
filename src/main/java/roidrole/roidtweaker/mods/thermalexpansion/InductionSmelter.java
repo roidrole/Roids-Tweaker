@@ -13,7 +13,7 @@ import stanhebben.zenscript.annotations.ZenMethodStatic;
 @ZenExpansion("mods.thermalexpansion.InductionSmelter")
 @SuppressWarnings("unused")
 public class InductionSmelter {
-    public static IngredientOverrides oreOverrides = new IngredientOverrides();
+    public static final IngredientOverrides oreOverrides = new IngredientOverrides();
 
     @ZenMethodStatic
     public static void addOreOverride(IIngredient input, boolean value) {

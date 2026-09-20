@@ -22,8 +22,8 @@ import java.util.List;
 @ZenClass("mods.roidtweaker.minecraft.villager.Villager")
 @SuppressWarnings("unused")
 public class Villager {
-    public static List<String> disabledCareers = new ArrayList<>(1);
-    public static List<ResourceLocation> removedProfessions = new ArrayList<>(1);
+    public static final List<String> disabledCareers = new ArrayList<>(1);
+    public static final List<ResourceLocation> removedProfessions = new ArrayList<>(1);
     public static VillagerRegistry.VillagerProfession[] allowedProfessions;
 
     @ZenMethod

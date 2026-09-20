@@ -13,7 +13,7 @@ import java.util.Set;
 @ZenClass("mods.roidtweaker.forge.Registries")
 @SuppressWarnings("unused")
 public class Registries {
-    public static Set<ResourceLocation> disabledRegistryKeys = new ObjectOpenHashSet<>();
+    public static final Set<ResourceLocation> disabledRegistryKeys = new ObjectOpenHashSet<>();
 
     @ZenMethod
     public static void disable(String registryName){

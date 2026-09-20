@@ -16,8 +16,8 @@ import java.util.BitSet;
 import java.util.stream.Collectors;
 
 public class CTImbuingRecipe extends ImbuingRecipe {
-    IIngredient center;
-    IIngredient[] ingredients;
+    final IIngredient center;
+    final IIngredient[] ingredients;
 
     public CTImbuingRecipe(IItemStack output, IIngredient input, IIngredient[] ingredients) {
         super(

@@ -6,8 +6,8 @@ import net.minecraft.item.ItemStack;
 import java.util.function.Predicate;
 
 public class StackMatching implements Predicate<ItemStack> {
-	Item item;
-	int meta;
+	final Item item;
+	final int meta;
 
 
 	public StackMatching(ItemStack stack){

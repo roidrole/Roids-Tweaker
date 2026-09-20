@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 
 public class PlayerKnowledgeImpl implements IPlayerKnowledge {
 
-    thaumcraft.api.capabilities.IPlayerKnowledge internal;
+    final thaumcraft.api.capabilities.IPlayerKnowledge internal;
 
     public PlayerKnowledgeImpl(thaumcraft.api.capabilities.IPlayerKnowledge knowledge) {
         this.internal = knowledge;

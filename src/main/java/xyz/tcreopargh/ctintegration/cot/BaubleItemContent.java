@@ -7,6 +7,8 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 public class BaubleItemContent extends ItemContent implements IBauble {
 
     private final BaubleType baubleType;
@@ -80,7 +82,7 @@ public class BaubleItemContent extends ItemContent implements IBauble {
     }
 
     @Override
-    public BaubleType getBaubleType(ItemStack itemStack) {
+    public BaubleType getBaubleType(@Nonnull ItemStack itemStack) {
         if (getBaubleType != null) {
             return BaubleType.valueOf(getBaubleType.handle(CraftTweakerMC.getIItemStack(itemStack)));
         } else if (baubleType != null) {

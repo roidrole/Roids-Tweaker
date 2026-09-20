@@ -68,7 +68,7 @@ public class Fisher {
             return instance;
         }
 
-        public List<ItemStack> removedFishes = new ArrayList<>();
+        public final List<ItemStack> removedFishes = new ArrayList<>();
 
         @Override
         public void load() {

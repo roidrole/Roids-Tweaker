@@ -13,7 +13,7 @@ import net.minecraft.util.text.TextComponentString;
 
 public class ServerCommandSender implements ICommandSender {
 
-	private MinecraftServer sender;
+	private final MinecraftServer sender;
 
 	public static final ServerCommandSender INSTANCE = new ServerCommandSender();
 

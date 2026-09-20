@@ -18,7 +18,7 @@ import java.util.List;
 @ZenRegister
 @SuppressWarnings("unused")
 public class CTAnvil {
-    public static List<AnvilRecipes> recipes = new ArrayList<>(0);
+    public static final List<AnvilRecipes> recipes = new ArrayList<>(0);
 
     @ZenMethod
     public static void addRecipe(IIngredient left, IIngredient right, IItemStack output, int xpCost) {

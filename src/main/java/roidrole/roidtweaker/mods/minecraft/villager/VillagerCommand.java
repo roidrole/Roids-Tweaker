@@ -124,7 +124,7 @@ public class VillagerCommand extends CraftTweakerCommand {
     
     //Helpers
     public static class VillagerLogBuilder extends StrBuilder{
-        int maxIndent;
+        final int maxIndent;
         public VillagerLogBuilder(int initialSize, int maxIndent) {
             super(initialSize);
             this.maxIndent = maxIndent;

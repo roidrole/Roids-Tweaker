@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class OreMatching implements Predicate<ItemStack> {
-	List<ItemStack> items;
+	final List<ItemStack> items;
 
 	public OreMatching(String oreName){
 		this.items = OreDictionary.getOres(oreName);

@@ -22,13 +22,13 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class FusionRecipeRT implements IFusionRecipe {
-	protected ItemStack result;
-	protected ItemStack catalystDisplay;
-	protected Predicate<ItemStack> catalyst;
-	protected List<Object> ingredientsDisplay;
-	protected Ingredient[] ingredients;
-	protected long energyCost;
-	protected int craftingTier;
+	protected final ItemStack result;
+	protected final ItemStack catalystDisplay;
+	protected final Predicate<ItemStack> catalyst;
+	protected final List<Object> ingredientsDisplay;
+	protected final Ingredient[] ingredients;
+	protected final long energyCost;
+	protected final int craftingTier;
 
 	public FusionRecipeRT(IItemStack result, IIngredient catalyst, long energyCost, int craftingTier, IIngredient[] ingredients) {
 		this.result = CraftTweakerMC.getItemStack(result);

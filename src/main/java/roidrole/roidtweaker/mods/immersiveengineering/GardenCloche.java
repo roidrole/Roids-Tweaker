@@ -120,7 +120,7 @@ public class GardenCloche {
     @ZenMethod
     public static void addPlantHandler(String type){
         BelljarHandler.DefaultPlantHandler temp = new BelljarHandler.DefaultPlantHandler() {
-            HashSet<ComparableItemStack> seedSet = new HashSet<>();
+            final HashSet<ComparableItemStack> seedSet = new HashSet<>();
             @Override
             protected HashSet<ComparableItemStack> getSeedSet() {
                 return seedSet;

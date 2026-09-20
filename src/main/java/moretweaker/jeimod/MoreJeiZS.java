@@ -57,7 +57,6 @@ public class MoreJeiZS {
 	public static void addDescription(IIngredient input, final String[] description) {
 		final List<ItemStack> stacks = Arrays.asList(CraftTweakerMC.getExamples(input));
 		DeferredLoader.jeiRuntime(runtime -> {
-			IRecipeCategory<IngredientInfoRecipe> category = runtime.getRecipeRegistry().getRecipeCategory("jei.information");
 			List<IngredientInfoRecipe<ItemStack>> wrappers = IngredientInfoRecipe.create(MoreJei.getHelpers().getGuiHelper(), stacks, VanillaTypes.ITEM, description);
 			wrappers.forEach((wrapper) -> runtime.getRecipeRegistry().addRecipe(wrapper, "jei.information"));
 		});

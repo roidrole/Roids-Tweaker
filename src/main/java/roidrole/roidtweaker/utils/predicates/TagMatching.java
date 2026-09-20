@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import java.util.function.Predicate;
 
 public class TagMatching implements Predicate<ItemStack> {
-	ItemStack stack;
+	final ItemStack stack;
 
 	public TagMatching(ItemStack stack){
 		this.stack = stack;

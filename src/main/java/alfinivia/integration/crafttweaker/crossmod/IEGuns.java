@@ -124,8 +124,8 @@ public class IEGuns {
     }
 
     public static class CustomChemEffect extends ChemthrowerEffect {
-        IChemEntityEffect entityEffect;
-        IChemBlockEffect blockEffect;
+        final IChemEntityEffect entityEffect;
+        final IChemBlockEffect blockEffect;
 
         public CustomChemEffect(IChemEntityEffect entityEffect, IChemBlockEffect blockEffect) {
             this.entityEffect = entityEffect;
@@ -182,7 +182,7 @@ public class IEGuns {
     }
 
     public static class CustomRailgunProperties extends RailgunHandler.RailgunProjectileProperties {
-        IRailgunImpact impact;
+        final IRailgunImpact impact;
 
         public CustomRailgunProperties(double damage, double gravity, IRailgunImpact impact) {
             super(damage, gravity);
