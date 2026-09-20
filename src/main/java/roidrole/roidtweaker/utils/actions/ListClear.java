@@ -1,6 +1,7 @@
 package roidrole.roidtweaker.utils.actions;
 
 import crafttweaker.CraftTweakerAPI;
+import moretweaker.MoreTweaker;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -8,6 +9,7 @@ import net.minecraftforge.registries.IForgeRegistryModifiable;
 import net.minecraftforge.registries.RegistryBuilder;
 import roidrole.roidtweaker.Tags;
 import roidrole.roidtweaker.utils.DeferredLoader;
+import roidrole.roidtweaker.utils.Utils;
 
 import java.util.Collection;
 import java.util.Map;
@@ -16,6 +18,11 @@ public abstract class ListClear implements DeferredLoader.IAction{
 
 	public static void logMessage(String recipeType){
 		CraftTweakerAPI.logInfo("Clearing all" + recipeType + "recipes");
+	}
+
+	public static void clear(Collection<?> collection, String recipeType){
+		collection.clear();
+		ListClear.logMessage(recipeType);
 	}
 
 	public static ListClear from(Collection<?> collection){
@@ -29,6 +36,9 @@ public abstract class ListClear implements DeferredLoader.IAction{
 	}
 	public static <K extends IForgeRegistryEntry<K>> ListClear from(final Class<K> registerClass, String recipeType){
 		return new RegistryClear(registerClass, recipeType);
+	}
+	public static <K extends IForgeRegistryEntry<K>> ListClear from(final Class<K> registerClass, String recipeType, final Class<? extends K> filter){
+		return new RegistryClearFilter<>(registerClass, recipeType, filter);
 	}
 
 	private static class listClearSimple extends ListClear {
@@ -79,6 +89,25 @@ public abstract class ListClear implements DeferredLoader.IAction{
 		@Override
 		public void load() {
 			this.registry.clear();
+			ListClear.logMessage(recipeType);
+		}
+	}
+
+	private static class RegistryClearFilter<K extends IForgeRegistryEntry<K>> extends ListClear {
+
+		private final IForgeRegistryModifiable<K> registry;
+		private final String recipeType;
+		private final Class<? extends K> filter;
+
+		public RegistryClearFilter(final Class<K> registerClass, String recipeType, Class<? extends K> filter) {
+			this.registry = Utils.getRegistry(registerClass);
+			this.recipeType = recipeType;
+			this.filter = filter;
+		}
+
+		@Override
+		public void load() {
+			MoreTweaker.forgeRemove(registry, element -> element.getClass().isAssignableFrom(filter));
 			ListClear.logMessage(recipeType);
 		}
 	}

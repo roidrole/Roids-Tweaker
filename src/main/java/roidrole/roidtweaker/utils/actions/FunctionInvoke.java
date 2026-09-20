@@ -1,7 +1,6 @@
 package roidrole.roidtweaker.utils.actions;
 
 import roidrole.roidtweaker.utils.DeferredLoader;
-import roidrole.roidtweaker.utils.functions.ABintDConsumer;
 import roidrole.roidtweaker.utils.functions.QuadConsumer;
 
 import java.util.Collection;
@@ -24,14 +23,14 @@ public abstract class FunctionInvoke implements DeferredLoader.IAction {
 	public static <T, U> FunctionInvoke from(BiConsumer<T, U> function, T[] argument, U argument2){
 		return new BiConsumerIterateInvoke<>(function, argument, argument2);
 	}
+	public static <T, U> FunctionInvoke from(BiConsumer<T, U> function, T argument, U argument2){
+		return new BiConsumerInvoke<>(function, argument, argument2);
+	}
 	public static <T> FunctionInvoke from(ObjIntConsumer<T> function, T argument1, int argument2){
 		return new ObjIntConsumerInvoke<>(function, argument1, argument2);
 	}
 	public static <A, B, C, D> FunctionInvoke from(QuadConsumer<A, B, C, D> function, A argument1, B argument2, C argument3, D argument4){
 		return new QuadConsumerInvoke<>(function, argument1, argument2, argument3, argument4);
-	}
-	public static <A, B, D> FunctionInvoke from(ABintDConsumer<A, B, D> function, A argument1, B argument2, int argument3, D argument4){
-		return new ABintDConsumerInvoke<>(function, argument1, argument2, argument3, argument4);
 	}
 
 	private static class IntConsumerInvoke extends FunctionInvoke {
@@ -78,6 +77,22 @@ public abstract class FunctionInvoke implements DeferredLoader.IAction {
 			}
 		}
 	}
+	private static class BiConsumerInvoke<T, U> extends FunctionInvoke {
+		private final BiConsumer<T, U> function;
+		private final T argument;
+		private final U argument2;
+
+		private BiConsumerInvoke(BiConsumer<T, U> function, T argument, U argument2) {
+			this.function = function;
+			this.argument = argument;
+			this.argument2 = argument2;
+		}
+
+		@Override
+		public void load() {
+			function.accept(argument, argument2);
+		}
+	}
 	private static class BiConsumerIterateInvoke<T, U> extends FunctionInvoke {
 		private final BiConsumer<T, U> function;
 		private final T[] argument;
@@ -120,26 +135,6 @@ public abstract class FunctionInvoke implements DeferredLoader.IAction {
 		private final D argument4;
 
 		private QuadConsumerInvoke(QuadConsumer<A, B, C, D> function, A argument1, B argument2, C argument3, D argument4) {
-			this.function = function;
-			this.argument1 = argument1;
-			this.argument2 = argument2;
-			this.argument3 = argument3;
-			this.argument4 = argument4;
-		}
-
-		@Override
-		public void load() {
-			function.accept(argument1, argument2, argument3, argument4);
-		}
-	}
-	private static class ABintDConsumerInvoke<A, B, D> extends FunctionInvoke {
-		private final ABintDConsumer<A, B, D> function;
-		private final A argument1;
-		private final B argument2;
-		private final int argument3;
-		private final D argument4;
-
-		private ABintDConsumerInvoke(ABintDConsumer<A, B, D> function, A argument1, B argument2, int argument3, D argument4) {
 			this.function = function;
 			this.argument1 = argument1;
 			this.argument2 = argument2;

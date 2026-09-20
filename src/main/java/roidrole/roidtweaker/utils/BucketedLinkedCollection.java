@@ -16,7 +16,7 @@ public class BucketedLinkedCollection<T> extends AbstractCollection<T> {
 
 	public BucketedLinkedCollection(int capacity){
 		//By filling the bitwise representation with 1, we can ensure that the result is 2^n - 1
-		//Subtracting 1 just so an initial size of 16 doesn't allocate the 16 array. We know the initial size is imprecise.
+		//Subtracting 1 just so an initial size of 16 doesn't allocate the 31 array. We know the initial size is imprecise.
 		//In the option with a List<Node<T>> for O(1) findNodeAtIndex, initialSize should be ignored.
 		//In this mod, findNodeAtIndex should never be called anyway.
 		if(capacity <= 1){

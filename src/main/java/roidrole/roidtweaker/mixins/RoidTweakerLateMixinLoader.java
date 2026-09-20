@@ -13,6 +13,7 @@ public class RoidTweakerLateMixinLoader implements ILateMixinLoader {
     public List<String> getMixinConfigs() {
         List<String> configs = Arrays.asList(
             null,
+            "mixins.roidtweaker.bedrockcraft.json",
             "mixins.roidtweaker.bloodarsenal.json",
             "mixins.roidtweaker.buildcraft.json",
             "mixins.roidtweaker.cookingforblockheads.json",

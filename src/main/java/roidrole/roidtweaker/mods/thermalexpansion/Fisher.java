@@ -1,5 +1,6 @@
 package roidrole.roidtweaker.mods.thermalexpansion;
 
+import cofh.core.inventory.ComparableItemStack;
 import cofh.thermalexpansion.util.managers.device.FisherManager;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
@@ -11,6 +12,7 @@ import roidrole.roidtweaker.mixins.thermalexpansion.IFisherManagerAccessor;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.actions.FunctionInvoke;
 import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -36,7 +38,7 @@ public class Fisher {
     }
     @ZenMethod
     public static void clearFish(){
-        DeferredLoader.loadComplete(ListClear.from(IFisherManagerAccessor.getFishList(), "fisher"));
+        DeferredLoader.loadComplete(ListClear.from(IFisherManagerAccessor.getFishList(), "Fisher"));
         DeferredLoader.loadComplete(ListClear.from(IFisherManagerAccessor.getWeightList()));
         DeferredLoader.loadComplete(FunctionInvoke.from(IFisherManagerAccessor::setTotalWeight, 0));
     }
@@ -47,11 +49,12 @@ public class Fisher {
     }
     @ZenMethod
     public static void removeBait(IItemStack bait){
-        DeferredLoader.loadComplete(() -> IFisherManagerAccessor.getBaitMap().remove(CraftTweakerMC.getItemStack(bait)));
+        ComparableItemStack stack = new ComparableItemStack(CraftTweakerMC.getItemStack(bait));
+        DeferredLoader.loadComplete(ListRemove.from(IFisherManagerAccessor.getBaitMap().keySet(), stack));
     }
     @ZenMethod
     public static void clearBait(){
-        DeferredLoader.loadComplete(() -> IFisherManagerAccessor.getBaitMap().clear());
+        DeferredLoader.loadComplete(IFisherManagerAccessor.getBaitMap()::clear);
     }
 
     public static class FishRemoval implements DeferredLoader.IAction {

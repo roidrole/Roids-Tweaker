@@ -1,18 +1,17 @@
 package moretweaker.aoa;
 
-import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.tslat.aoa3.crafting.recipes.UpgradeKitRecipe;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListAdd;
+import roidrole.roidtweaker.utils.actions.ListClear;
 import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -46,9 +45,6 @@ public class DivineStation {
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.postInit(() -> {
-			CraftTweakerAPI.logInfo("Removing all upgrade kit recipes.");
-			MoreTweaker.forgeRemove(IRecipe.class, (r) -> r instanceof UpgradeKitRecipe);
-		});
+		DeferredLoader.postInit(ListClear.from(IRecipe.class, "Upgrade Kit", UpgradeKitRecipe.class));
 	}
 }

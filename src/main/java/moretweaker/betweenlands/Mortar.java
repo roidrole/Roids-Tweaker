@@ -1,6 +1,5 @@
 package moretweaker.betweenlands;
 
-import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
@@ -9,6 +8,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.mixins.thebetweenlands.PestleAndMortarRecipeAccessor;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.ListClear;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import thebetweenlands.common.BetweenlandsAPI;
@@ -41,7 +41,6 @@ public class Mortar {
 
 	@ZenMethod
 	public static void removeAll() {
-		CraftTweakerAPI.logInfo("Removing all recipes for Pestle&Mortar");
-		PestleAndMortarRecipeAccessor.getRecipes().clear();
+		ListClear.clear(PestleAndMortarRecipeAccessor.getRecipes(), "Pestle&Mortar");
 	}
 }

@@ -50,9 +50,10 @@ public class Distillery {
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<Iterable<ItemStack>> outputFilter = new PredicateAnyOfIterable<>(Utils.getStackMatcher(output));
-		DeferredLoader.postInit(
-			ListRemove.from(DistilleryRecipe.class, recipe -> outputFilter.test(recipe.output))
-		);
+		DeferredLoader.postInit(ListRemove.from(
+			DistilleryRecipe.class,
+			recipe -> outputFilter.test(recipe.output)
+		));
 	}
 
 	@ZenMethod

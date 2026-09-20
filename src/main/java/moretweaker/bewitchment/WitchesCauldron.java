@@ -80,7 +80,8 @@ public class WitchesCauldron {
 	@ZenMethod
 	public static void removeBrew(IIngredient trigger) {
 		final Predicate<ItemStack[]> outputFilter = new PredicateAnyOfArray<>(Utils.getStackMatcher(trigger));
-		DeferredLoader.postInit(ListRemove.from(Brew.class,
+		DeferredLoader.postInit(ListRemove.from(
+			Brew.class,
 			recipe -> outputFilter.test(recipe.input.getMatchingStacks())
 		));
 	}

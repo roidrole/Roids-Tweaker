@@ -6,7 +6,6 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import moretweaker.MoreTweaker;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -16,6 +15,7 @@ import net.tslat.aoa3.crafting.recipes.InfusionTableRecipe;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListAdd;
+import roidrole.roidtweaker.utils.actions.ListClear;
 import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -92,17 +92,14 @@ public class InfusionTable {
 		Enchantment ench = Enchantment.getEnchantmentByLocation(enchantmentId);
 		DeferredLoader.postInit(ListRemove.from(IRecipe.class, recipe ->
 				recipe instanceof InfusionTableRecipe &&
-					((InfusionTableRecipe) recipe).isEnchanting() &&
-					((InfusionTableRecipe) recipe).getEnchantment() != null &&
-					((InfusionTableRecipe) recipe).getEnchantment().enchantment == ench)
+				((InfusionTableRecipe) recipe).isEnchanting() &&
+				((InfusionTableRecipe) recipe).getEnchantment() != null &&
+				((InfusionTableRecipe) recipe).getEnchantment().enchantment == ench)
 		);
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.postInit(() -> {
-			CraftTweakerAPI.logInfo("Removing all AOA InfusionTable recipes");
-			MoreTweaker.forgeRemove(IRecipe.class, (r) -> r instanceof InfusionTableRecipe);
-		});
+		DeferredLoader.postInit(ListClear.from(IRecipe.class, "InfusionTable", InfusionTableRecipe.class));
 	}
 }

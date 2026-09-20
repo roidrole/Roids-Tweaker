@@ -12,17 +12,16 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
 import org.apache.logging.log4j.Logger;
 import roidrole.roidtweaker.Tags;
+import roidrole.roidtweaker.utils.BucketedLinkedCollection;
 import therealfarfetchd.quacklib.common.api.autoconf.DefaultFeatures;
 import therealfarfetchd.quacklib.common.api.autoconf.FeatureManager;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import java.util.function.Predicate;
 
 @Mod(
@@ -85,22 +84,25 @@ public class MoreTweaker {
 		return new ResourceLocation("moretweaker", "moretweakerrecipe" + next_id++);
 	}
 
-	public static <T extends IForgeRegistryEntry<T>> void forgeAdd(final Class<T> registerClass, final T entry) {
-		IForgeRegistry<T> registry = GameRegistry.findRegistry(registerClass);
+	public static <T extends IForgeRegistryEntry<T>> void forgeAdd(IForgeRegistry<T> registry, final T entry) {
 		if (entry.getRegistryName() == null) {
 			entry.setRegistryName(newRL());
 		}
 
 		registry.register(entry);
 	}
+	public static <T extends IForgeRegistryEntry<T>> void forgeAdd(IForgeRegistry<T> registry, final Collection<T> entries) {
+		for(T entry: entries){
+			if (entry.getRegistryName() == null) {
+				entry.setRegistryName(newRL());
+			}
 
-	public static <T extends IForgeRegistryEntry<T>> void forgeRemove(final Class<T> registerClass, final Predicate<T> removePredicate) {
-		IForgeRegistry<T> registry = GameRegistry.findRegistry(registerClass);
-		if(!(registry instanceof IForgeRegistryModifiable)){
-			return;
+			registry.register(entry);
 		}
+	}
 
-		List<ResourceLocation> removes = new ArrayList<>();
+	public static <T extends IForgeRegistryEntry<T>> void forgeRemove(final IForgeRegistryModifiable<T> registry, final Predicate<T> removePredicate) {
+		Collection<ResourceLocation> removes = new BucketedLinkedCollection<>(8);
 
 		for(T entry : registry.getValuesCollection()) {
 			if (removePredicate.test(entry)) {
@@ -110,10 +112,10 @@ public class MoreTweaker {
 
 		try {
 			for(ResourceLocation remove : removes){
-				((IForgeRegistryModifiable<T>) registry).remove(remove);
+				registry.remove(remove);
 			}
 		} catch (Exception e) {
-			CraftTweakerAPI.logError(Tags.MOD_ID + " can't remove elements from registry " + registerClass.getCanonicalName() + ". Please report to " + Tags.MOD_ID + " author");
+			CraftTweakerAPI.logError(Tags.MOD_ID + " can't remove elements from registry " + registry.getRegistrySuperType().getCanonicalName() + ". Please report to " + Tags.MOD_ID + " author");
 		}
 	}
 

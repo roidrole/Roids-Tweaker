@@ -11,6 +11,7 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.ListClear;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import thebetweenlands.api.recipes.IAnimatorRecipe;
@@ -72,8 +73,7 @@ public class Animator {
 
 	@ZenMethod
 	public static void removeAll() {
-		CraftTweakerAPI.logInfo("Removing all recipes for the Animator");
-		AnimatorRecipe.getRecipes().clear();
+		ListClear.clear(AnimatorRecipe.getRecipes(), "Animator");
 	}
 
 	private static ItemStack guessInput(IAnimatorRecipe recipe) {

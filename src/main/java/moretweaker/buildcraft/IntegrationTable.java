@@ -5,7 +5,6 @@ import buildcraft.api.recipes.BuildcraftRecipeRegistry;
 import buildcraft.api.recipes.IngredientStack;
 import buildcraft.api.recipes.IntegrationRecipe;
 import buildcraft.lib.recipe.IntegrationRecipeBasic;
-import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
@@ -14,6 +13,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.ListClear;
 import roidrole.roidtweaker.utils.predicates.PredicateAnyOfArray;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -56,6 +56,6 @@ public class IntegrationTable {
 			itr.next();
 			itr.remove();
 		}
-		CraftTweakerAPI.logInfo("Clearing all integration table recipes");
+		ListClear.logMessage("Integration Table");
 	}
 }

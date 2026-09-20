@@ -1,5 +1,6 @@
 package roidrole.roidtweaker.mods.thermalexpansion;
 
+import cofh.core.inventory.ComparableItemStack;
 import cofh.core.util.BlockWrapper;
 import cofh.thermalexpansion.util.managers.device.TapperManager;
 import crafttweaker.annotations.ModOnly;
@@ -10,6 +11,7 @@ import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import roidrole.roidtweaker.mixins.thermalexpansion.ITapperManagerAccessor;
 import roidrole.roidtweaker.utils.DeferredLoader;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -36,7 +38,8 @@ public class Tapper {
     }
     @ZenMethod
     public static void removeFertilizer(IItemStack fertilizer){
-        DeferredLoader.loadComplete(() -> ITapperManagerAccessor.getFertilizerMap().remove(CraftTweakerMC.getItemStack(fertilizer)));
+        ComparableItemStack stack = new ComparableItemStack(CraftTweakerMC.getItemStack(fertilizer));
+        DeferredLoader.loadComplete(ListRemove.from(ITapperManagerAccessor.getFertilizerMap().keySet(), stack));
     }
     @ZenMethod
     public static void removeRecipe(IBlockState log){

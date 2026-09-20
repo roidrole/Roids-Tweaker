@@ -13,11 +13,13 @@ import roidrole.roidtweaker.mixins.matteroverdrive.InscriberRecipeAccessor;
 import roidrole.roidtweaker.mixins.matteroverdrive.RecipeManagerAccessor;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.FunctionInvoke;
 import roidrole.roidtweaker.utils.actions.ListClear;
 import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -32,13 +34,13 @@ public class Inscriber {
 		final ItemStack[] in1 = CraftTweakerMC.getExamples(input1);
 		final ItemStack[] in2 = CraftTweakerMC.getExamples(input2);
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
-		DeferredLoader.postInit(() -> {
-			for(ItemStack stack1 : in1) {
-				for(ItemStack stack2 : in2) {
-					MatterOverdriveRecipes.INSCRIBER.register(Inscriber.createRecipe(stack1, stack2, out, energy, time));
-				}
+		List<InscriberRecipe> recipes = new ArrayList<>(in1.length * in2.length);
+		for(ItemStack stack1 : in1) {
+			for(ItemStack stack2 : in2) {
+				recipes.add(Inscriber.createRecipe(stack1, stack2, out, energy, time));
 			}
-		});
+		}
+		DeferredLoader.postInit(FunctionInvoke.from(MatterOverdriveRecipes.INSCRIBER::register, recipes));
 	}
 
 	@ZenMethod

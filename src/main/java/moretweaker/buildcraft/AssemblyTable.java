@@ -1,13 +1,12 @@
 package moretweaker.buildcraft;
 
 import buildcraft.lib.recipe.AssemblyRecipeRegistry;
-import crafttweaker.CraftTweakerAPI;
-import crafttweaker.IAction;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.ListClear;
 import roidrole.roidtweaker.utils.predicates.PredicateAnyOfIterable;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -21,28 +20,12 @@ import java.util.function.Predicate;
 public class AssemblyTable {
 	@ZenMethod
 	public static void remove(IIngredient output) {
-		CraftTweakerAPI.apply(new IAction() {
-			public void apply() {
-				final Predicate<Iterable<ItemStack>> out = new PredicateAnyOfIterable<>(Utils.getStackMatcher(output));
-				AssemblyRecipeRegistry.REGISTRY.values().removeIf(recipe -> out.test(recipe.getOutputPreviews()));
-			}
-
-			public String describe() {
-				return "Removing assembly table recipes for " + output.toCommandString();
-			}
-		});
+		final Predicate<Iterable<ItemStack>> out = new PredicateAnyOfIterable<>(Utils.getStackMatcher(output));
+		AssemblyRecipeRegistry.REGISTRY.values().removeIf(recipe -> out.test(recipe.getOutputPreviews()));
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		CraftTweakerAPI.apply(new IAction() {
-			public void apply() {
-				AssemblyRecipeRegistry.REGISTRY.clear();
-			}
-
-			public String describe() {
-				return "Removing all assembly table recipes";
-			}
-		});
+		ListClear.clear(AssemblyRecipeRegistry.REGISTRY.entrySet(), "Assembly Table");
 	}
 }

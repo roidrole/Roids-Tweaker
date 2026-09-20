@@ -10,12 +10,15 @@ import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.ListAdd;
 import roidrole.roidtweaker.utils.actions.ListClear;
 import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 @ZenClass("moretweaker.bewitchment.WitchesOven")
@@ -28,17 +31,23 @@ public class WitchesOven {
 		final ItemStack[] in = CraftTweakerMC.getExamples(input);
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		final ItemStack by = CraftTweakerMC.getItemStack(byproduct);
-		DeferredLoader.postInit(() -> {
-			for(ItemStack stack : in) {
-				MoreTweaker.forgeAdd(OvenRecipe.class, new OvenRecipe(MoreTweaker.newRL(), stack, out, by, chance, requiresJar));
-			}
-		});
+		final List<OvenRecipe> recipes = new ArrayList<>(in.length);
+		for(ItemStack stack : in) {
+			recipes.add(new OvenRecipe(MoreTweaker.newRL(), stack, out, by, chance, requiresJar));
+		}
+		DeferredLoader.postInit(ListAdd.from(
+			OvenRecipe.class,
+			recipes
+		));
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<ItemStack> out = Utils.getStackMatcher(output);
-		DeferredLoader.postInit(ListRemove.from(OvenRecipe.class, recipe -> out.test(recipe.output)));
+		DeferredLoader.postInit(ListRemove.from(
+			OvenRecipe.class,
+			recipe -> out.test(recipe.output)
+		));
 	}
 
 	@ZenMethod

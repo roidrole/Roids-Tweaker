@@ -1,6 +1,7 @@
 package roidrole.roidtweaker.utils;
 
 import com.google.common.base.Predicates;
+import crafttweaker.CraftTweakerAPI;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.item.IngredientAny;
@@ -10,7 +11,13 @@ import crafttweaker.api.oredict.IOreDictEntry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.registries.IForgeRegistryModifiable;
+import net.minecraftforge.registries.RegistryBuilder;
+import roidrole.roidtweaker.Tags;
 import roidrole.roidtweaker.utils.predicates.*;
 
 import java.util.*;
@@ -136,6 +143,17 @@ public abstract class Utils {
 				items.add(CraftTweakerMC.getItemStack(itr.next()).getItem());
 			}
 			return items;
+		}
+	}
+
+	public static <T extends IForgeRegistryEntry<T>> IForgeRegistryModifiable<T> getRegistry(Class<T> registryClass){
+		IForgeRegistry<T> registry = GameRegistry.findRegistry(registryClass);
+		if(registry instanceof IForgeRegistryModifiable){
+			return (IForgeRegistryModifiable<T>) registry;
+		} else {
+			CraftTweakerAPI.logError("Trying to clear an invalid registry: " + registryClass.getCanonicalName() + ". Please report to " + Tags.MOD_NAME+" dev");
+			//Setting a dummy registry just to avoid crashing/other actions not being applied.
+			return (IForgeRegistryModifiable<T>) new RegistryBuilder<T>().allowModification().create();
 		}
 	}
 }

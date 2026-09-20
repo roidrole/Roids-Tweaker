@@ -8,6 +8,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.mc1120.recipes.MCRecipeShaped;
 import moretweaker.MoreTweaker;
 import net.blay09.mods.cookingforblockheads.api.SinkHandler;
+import net.blay09.mods.cookingforblockheads.api.ToastHandler;
 import net.blay09.mods.cookingforblockheads.api.ToastOutputHandler;
 import net.blay09.mods.cookingforblockheads.registry.CookingRegistry;
 import net.minecraft.item.ItemStack;
@@ -25,6 +26,7 @@ import roidrole.roidtweaker.utils.predicates.OutputMatching;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
+import java.util.Map;
 import java.util.function.Predicate;
 
 @ZenClass("moretweaker.cfb.KitchenAppliances")
@@ -39,24 +41,19 @@ public class KitchenAppliances {
 		final ItemStack[] in = CraftTweakerMC.getExamples(input);
 		ToastOutputHandler handler = (stack) -> out;
 
-		DeferredLoader.postInit(() -> {
-			for(ItemStack stack : in) {
-				CookingRegistry.addToastHandler(stack, handler);
-			}
-		});
+		DeferredLoader.postInit(FunctionInvoke.from(CookingRegistry::addToastHandler, in, handler));
 	}
 
 	@ZenMethod
 	@SuppressWarnings("deprecation")
 	public static void removeToasterRecipe(IIngredient output) {
 		Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
-		DeferredLoader.postInit(() ->
-			CookingRegistryAccessor.getToastHandlers().entrySet().removeIf(
-				(entry) ->
-					entry.getValue() instanceof ToastOutputHandler &&
-					outputFilter.test(((ToastOutputHandler)entry.getValue()).getToasterOutput(entry.getKey()))
-			)
-		);
+		DeferredLoader.postInit(ListRemove.from(
+			CookingRegistryAccessor.getToastHandlers().entrySet(),
+			(Predicate<Map.Entry<ItemStack, ToastHandler>>) entry ->
+				entry.getValue() instanceof ToastOutputHandler &&
+				outputFilter.test(((ToastOutputHandler)entry.getValue()).getToasterOutput(entry.getKey()))
+		));
 	}
 
 	@ZenMethod
@@ -70,23 +67,19 @@ public class KitchenAppliances {
 		final ItemStack[] in = CraftTweakerMC.getExamples(input);
 		SinkHandler handler = (stack) -> out;
 
-		DeferredLoader.postInit(() -> {
-			for(ItemStack stack : in) {
-				CookingRegistry.addSinkHandler(stack, handler);
-			}
-		});
+		DeferredLoader.postInit(FunctionInvoke.from(
+			CookingRegistry::addSinkHandler, in, handler
+		));
 	}
 
 	@ZenMethod
 	public static void removeSinkRecipe(IIngredient output) {
 		final Predicate<ItemStack> out = Utils.getStackMatcher(output);
-		DeferredLoader.postInit(() ->
-			CookingRegistryAccessor.getSinkHandlers()
-				.entrySet()
-				.removeIf(entry ->
-					out.test(entry.getValue().getSinkOutput(entry.getKey()))
-				)
-		);
+		DeferredLoader.postInit(ListRemove.from(
+			CookingRegistryAccessor.getSinkHandlers().entrySet(),
+			out,
+			entry -> entry.getValue().getSinkOutput(entry.getKey())
+		));
 	}
 
 	@ZenMethod
@@ -98,11 +91,7 @@ public class KitchenAppliances {
 	public static void addOvenRecipe(IItemStack output, IIngredient input) {
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		final ItemStack[] in = CraftTweakerMC.getExamples(input);
-		DeferredLoader.postInit(() -> {
-			for (ItemStack stack : in) {
-				CookingRegistry.addSmeltingItem(stack, out);
-			}
-		});
+		DeferredLoader.postInit(FunctionInvoke.from(CookingRegistry::addSmeltingItem, in, out));
 	}
 
 	@ZenMethod

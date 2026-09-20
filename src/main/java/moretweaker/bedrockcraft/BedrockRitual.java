@@ -1,7 +1,7 @@
 package moretweaker.bedrockcraft;
 
 import bedrockcraft.ritual.RitualManager;
-import com.google.common.base.Predicates;
+import bedrockcraft.ritual.RitualRecipe;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
@@ -9,10 +9,12 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import roidrole.roidtweaker.mixins.bedrockcraft.ARitualManager;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.FunctionInvoke;
 import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -35,16 +37,18 @@ public class BedrockRitual {
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		Predicate<ItemStack> outputMatcher = Utils.getStackMatcher(output);
-		DeferredLoader.postInit(() ->
-			RitualManager.removeRecipes(recipe -> outputMatcher.test(recipe.output()))
-		);
+		DeferredLoader.postInit(ListRemove.from(
+			ARitualManager.getRecipes(),
+			outputMatcher,
+			RitualRecipe::output
+		));
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.postInit(() -> {
-			ListClear.logMessage("Bedrock Ritual");
-			RitualManager.removeRecipes(Predicates.alwaysTrue());
-		});
+		DeferredLoader.postInit(ListClear.from(
+			ARitualManager.getRecipes(),
+			"Bedrock Ritual"
+		));
 	}
 }

@@ -11,6 +11,7 @@ import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import roidrole.roidtweaker.utils.actions.ListClear;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -44,6 +45,6 @@ public class Refinery {
 	@ZenMethod
 	public static void removeAll() {
 		BuildcraftRecipeRegistry.refineryRecipes.getDistillationRegistry().removeRecipes(Predicates.alwaysTrue());
-		CraftTweakerAPI.logInfo("Clearing all BC refinery distillation recipes");
+		ListClear.logMessage("BC refinery distillation");
 	}
 }

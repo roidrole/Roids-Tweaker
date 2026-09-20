@@ -1,25 +1,30 @@
 package roidrole.roidtweaker.utils.actions;
 
 import moretweaker.MoreTweaker;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import roidrole.roidtweaker.utils.DeferredLoader;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-public abstract class ListAdd<T> implements DeferredLoader.IAction {
+public abstract class ListAdd implements DeferredLoader.IAction {
 
-	public static <T> ListAdd<T> from(Collection<T> collection, T element){
+	public static <T> ListAdd from(Collection<T> collection, T element){
 		return new ListAddElement<>(collection, element);
 	}
-	public static <T> ListAdd<T> from(Collection<T> collection, T[] element){
+	public static <T> ListAdd from(Collection<T> collection, T[] element){
 		return new ListAddCollection<>(collection, Arrays.asList(element));
 	}
-	public static <T extends IForgeRegistryEntry<T>> ListAdd<T> from(Class<T> registryClass, T element){
+	public static <T extends IForgeRegistryEntry<T>> ListAdd from(Class<T> registryClass, T element){
 		return new RegistryAdd<>(registryClass, element);
 	}
+	public static <T extends IForgeRegistryEntry<T>> ListAdd from(Class<T> registryClass, Collection<T> element){
+		return new RegistryAddCollection<>(registryClass, element);
+	}
 
-	private static class ListAddElement<T> extends ListAdd<T> {
+	private static class ListAddElement<T> extends ListAdd {
 		protected final Collection<T> collection;
 		private final T element;
 
@@ -33,7 +38,7 @@ public abstract class ListAdd<T> implements DeferredLoader.IAction {
 			collection.add(element);
 		}
 	}
-	private static class ListAddCollection<T> extends ListAdd<T> {
+	private static class ListAddCollection<T> extends ListAdd {
 		protected final Collection<T> collection;
 		private final Collection<T> element;
 
@@ -48,7 +53,7 @@ public abstract class ListAdd<T> implements DeferredLoader.IAction {
 		}
 	}
 
-	private static class RegistryAdd<T extends IForgeRegistryEntry<T>> extends ListAdd<T> {
+	private static class RegistryAdd<T extends IForgeRegistryEntry<T>> extends ListAdd {
 		protected final Class<T> registryClass;
 		private final T element;
 
@@ -59,7 +64,24 @@ public abstract class ListAdd<T> implements DeferredLoader.IAction {
 
 		@Override
 		public void load() {
-			MoreTweaker.forgeAdd(registryClass, element);
+			IForgeRegistry<T> registry = GameRegistry.findRegistry(registryClass);
+			MoreTweaker.forgeAdd(registry, element);
+		}
+	}
+
+	private static class RegistryAddCollection<T extends IForgeRegistryEntry<T>> extends ListAdd {
+		protected final Class<T> registryClass;
+		private final Collection<T> element;
+
+		public RegistryAddCollection(Class<T> registryClass, Collection<T> element) {
+			this.registryClass = registryClass;
+			this.element = element;
+		}
+
+		@Override
+		public void load() {
+			IForgeRegistry<T> registry = GameRegistry.findRegistry(registryClass);
+			MoreTweaker.forgeAdd(registry, element);
 		}
 	}
 }

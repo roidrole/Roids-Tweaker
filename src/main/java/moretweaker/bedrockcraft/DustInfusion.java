@@ -11,6 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.DeferredLoader;
+import roidrole.roidtweaker.utils.actions.FunctionInvoke;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -28,7 +29,7 @@ public class DustInfusion {
 			CraftTweakerAPI.logError("For bedrockcraft DustInfusion: block is required but item given");
 			return;
 		}
-		DeferredLoader.postInit(() -> BedrockDustRecipes.addRecipe(b, out));
+		DeferredLoader.postInit(FunctionInvoke.from(BedrockDustRecipes::addRecipe, b, out));
 	}
 
 	@ZenMethod
@@ -38,6 +39,6 @@ public class DustInfusion {
 			CraftTweakerAPI.logError("For bedrockcraft DustInfusion: block is required but item given");
 			return;
 		}
-		DeferredLoader.postInit(() -> BedrockDustRecipes.removeRecipe(b));
+		DeferredLoader.postInit(FunctionInvoke.from(BedrockDustRecipes::removeRecipe, b));
 	}
 }

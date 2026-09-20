@@ -16,6 +16,7 @@ import roidrole.roidtweaker.mixins.bloodarsenal.ASanguineInfusionRecipeRegistry;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListAdd;
+import roidrole.roidtweaker.utils.actions.ListClear;
 import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -112,10 +113,7 @@ public class Sanguine {
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.postInit(() -> {
-			CraftTweakerAPI.logInfo("Removing all Sanguine recipes");
-			SanguineInfusionRecipeRegistry.getInfusionRecipes().clear();
-		});
+		DeferredLoader.postInit(ListClear.from(SanguineInfusionRecipeRegistry.getInfusionRecipes(), "Sanguine"));
 	}
 
 	//Out is assumed to be empty

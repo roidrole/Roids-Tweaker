@@ -9,6 +9,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.mixins.thebetweenlands.DruidAltarRecipeAccessor;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.ListClear;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import thebetweenlands.common.BetweenlandsAPI;
@@ -52,7 +53,6 @@ public class DruidAltar {
 
 	@ZenMethod
 	public static void removeAll() {
-		CraftTweakerAPI.logInfo("Removing all recipes for the Druid Altar");
-		DruidAltarRecipeAccessor.getDruidAltarRecipes().clear();
+		ListClear.clear(DruidAltarRecipeAccessor.getDruidAltarRecipes(), "Druid Altar");
 	}
 }
