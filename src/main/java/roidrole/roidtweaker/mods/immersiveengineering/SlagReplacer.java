@@ -10,8 +10,8 @@ import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
-import roidrole.roidtweaker.mixins.immersiveengineering.IArcFurnaceRecipeAccessor;
-import roidrole.roidtweaker.mixins.immersiveengineering.IBlastFurnaceRecipeAccessor;
+import roidrole.roidtweaker.mixins.immersiveengineering.AccArcFurnaceRecipe;
+import roidrole.roidtweaker.mixins.immersiveengineering.AccBlastFurnaceRecipe;
 import roidrole.roidtweaker.utils.Utils;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -78,12 +78,12 @@ public class SlagReplacer {
         BlastFurnaceRecipe.recipeList.forEach(recipe -> filters.stream()
             .filter(filter -> filter.matches(recipe))
             .findFirst()
-            .ifPresent(slagFilter -> ((IBlastFurnaceRecipeAccessor) recipe).setSlag(slagFilter.slag)))
+            .ifPresent(slagFilter -> ((AccBlastFurnaceRecipe) recipe).setSlag(slagFilter.slag)))
         ;
         ArcFurnaceRecipe.recipeList.forEach(recipe -> filters.stream()
             .filter(filter -> filter.matches(recipe))
             .findFirst()
-            .ifPresent(slagFilter -> ((IArcFurnaceRecipeAccessor) recipe).setSlag(slagFilter.slag)))
+            .ifPresent(slagFilter -> ((AccArcFurnaceRecipe) recipe).setSlag(slagFilter.slag)))
         ;
     }
 }

@@ -8,7 +8,7 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import roidrole.roidtweaker.mixins.thermalexpansion.IFisherManagerAccessor;
+import roidrole.roidtweaker.mixins.thermalexpansion.AccFisherManager;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.actions.FunctionInvoke;
 import roidrole.roidtweaker.utils.actions.ListClear;
@@ -37,9 +37,9 @@ public class Fisher {
     }
     @ZenMethod
     public static void clearFish(){
-        DeferredLoader.loadComplete(ListClear.from(IFisherManagerAccessor.getFishList(), "Fisher"));
-        DeferredLoader.loadComplete(ListClear.from(IFisherManagerAccessor.getWeightList()));
-        DeferredLoader.loadComplete(FunctionInvoke.from(IFisherManagerAccessor::setTotalWeight, 0));
+        DeferredLoader.loadComplete(ListClear.from(AccFisherManager.getFishList(), "Fisher"));
+        DeferredLoader.loadComplete(ListClear.from(AccFisherManager.getWeightList()));
+        DeferredLoader.loadComplete(FunctionInvoke.from(AccFisherManager::setTotalWeight, 0));
     }
 
     @ZenMethod
@@ -49,11 +49,11 @@ public class Fisher {
     @ZenMethod
     public static void removeBait(IItemStack bait){
         ComparableItemStack stack = new ComparableItemStack(CraftTweakerMC.getItemStack(bait));
-        DeferredLoader.loadComplete(ListRemove.from(IFisherManagerAccessor.getBaitMap().keySet(), stack));
+        DeferredLoader.loadComplete(ListRemove.from(AccFisherManager.getBaitMap().keySet(), stack));
     }
     @ZenMethod
     public static void clearBait(){
-        DeferredLoader.loadComplete(IFisherManagerAccessor.getBaitMap()::clear);
+        DeferredLoader.loadComplete(AccFisherManager.getBaitMap()::clear);
     }
 
     public static class FishRemoval implements DeferredLoader.IAction {
@@ -72,7 +72,7 @@ public class Fisher {
 
         @Override
         public void load() {
-            List<ItemStack> fishList = IFisherManagerAccessor.getFishList();
+            List<ItemStack> fishList = AccFisherManager.getFishList();
 
             if(fishList.isEmpty()){
                 return;
@@ -92,7 +92,7 @@ public class Fisher {
             int weightToRemove = 0;
             for (int i = removeSet.previousSetBit(removeSet.length()); i != -1; i = removeSet.previousSetBit(i - 1)) { //Loops through the indexes of set bits
                 fishList.remove(i);
-                weightToRemove += IFisherManagerAccessor.getWeightList().remove(i);
+                weightToRemove += AccFisherManager.getWeightList().remove(i);
             }
 
             /* Equivalent code :
@@ -103,11 +103,11 @@ public class Fisher {
                     CraftTweakerAPI.logWarning("Couldn't remove fish " + fishList,get(i).toString() + " because it is not in the fish list");
                 }
                 fishList.remove(i);
-                weightToRemove += IFisherManagerAccessor.getWeightList().remove(i);
+                weightToRemove += AccFisherManager.getWeightList().remove(i);
             }
             */
 
-            IFisherManagerAccessor.setTotalWeight(IFisherManagerAccessor.getTotalWeight() - weightToRemove);
+            AccFisherManager.setTotalWeight(AccFisherManager.getTotalWeight() - weightToRemove);
             instance = null;
         }
     }

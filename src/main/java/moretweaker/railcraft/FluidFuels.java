@@ -6,7 +6,7 @@ import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import mods.railcraft.api.fuel.FluidFuelManager;
 import net.minecraftforge.fluids.FluidStack;
-import roidrole.roidtweaker.mixins.railcraft.FluidFuelManagerAccessor;
+import roidrole.roidtweaker.mixins.railcraft.AccFluidFuelManager;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.actions.FunctionInvoke;
 import roidrole.roidtweaker.utils.actions.ListClear;
@@ -37,13 +37,13 @@ public class FluidFuels {
 		final FluidStack fluid = CraftTweakerMC.getLiquidStack(fuel);
 		fluid.amount = 1;
 		DeferredLoader.postInit(ListRemove.from(
-			FluidFuelManagerAccessor.getBoilerFuel().keySet(),
+			AccFluidFuelManager.getBoilerFuel().keySet(),
 			Predicate.isEqual(fluid)
 		));
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.postInit(ListClear.from(FluidFuelManagerAccessor.getBoilerFuel(), "railcraft fluid fuel"));
+		DeferredLoader.postInit(ListClear.from(AccFluidFuelManager.getBoilerFuel(), "railcraft fluid fuel"));
 	}
 }

@@ -9,8 +9,8 @@ import matteroverdrive.data.recipes.InscriberRecipe;
 import matteroverdrive.init.MatterOverdriveRecipes;
 import matteroverdrive.tile.TileEntityInscriber;
 import net.minecraft.item.ItemStack;
-import roidrole.roidtweaker.mixins.matteroverdrive.InscriberRecipeAccessor;
-import roidrole.roidtweaker.mixins.matteroverdrive.RecipeManagerAccessor;
+import roidrole.roidtweaker.mixins.matteroverdrive.AccInscriberRecipe;
+import roidrole.roidtweaker.mixins.matteroverdrive.AccRecipeManager;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.FunctionInvoke;
@@ -60,7 +60,7 @@ public class Inscriber {
 
 	private static InscriberRecipe createRecipe(ItemStack main, ItemStack sec, ItemStack output, int energy, int ticks) {
 		InscriberRecipe recipeRaw = new InscriberRecipe();
-		InscriberRecipeAccessor recipe = (InscriberRecipeAccessor) recipeRaw;
+		AccInscriberRecipe recipe = (AccInscriberRecipe) recipeRaw;
 		recipe.setMain(main);
 		recipe.setSec(sec);
 		recipe.setOutput(output);
@@ -71,6 +71,6 @@ public class Inscriber {
 
 	@SuppressWarnings("unchecked")
 	private static List<InscriberRecipe> getMutableRecipeList() {
-		return ((RecipeManagerAccessor<TileEntityInscriber, InscriberRecipe>)MatterOverdriveRecipes.INSCRIBER).getRecipes();
+		return ((AccRecipeManager<TileEntityInscriber, InscriberRecipe>)MatterOverdriveRecipes.INSCRIBER).getRecipes();
 	}
 }

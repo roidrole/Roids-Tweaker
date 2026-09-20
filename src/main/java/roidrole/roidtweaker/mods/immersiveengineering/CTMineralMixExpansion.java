@@ -7,7 +7,7 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.oredict.WeightedOreDictEntry;
 import crafttweaker.mc1120.oredict.MCOreDictEntry;
-import roidrole.roidtweaker.mixins.immersiveengineering.IMTMineralMixAccessor;
+import roidrole.roidtweaker.mixins.immersiveengineering.AccMTMineralMix;
 import stanhebben.zenscript.annotations.*;
 
 @ZenRegister
@@ -21,7 +21,7 @@ public class CTMineralMixExpansion {
 		if(mix == null){
 			return null;
 		}
-		return ((IMTMineralMixAccessor)mix).getMix().name;
+		return ((AccMTMineralMix)mix).getMix().name;
 	}
 
 	@ZenMethodStatic
@@ -48,19 +48,19 @@ public class CTMineralMixExpansion {
 	@ZenMethod
 	@ZenGetter("weight")
 	public static int getWeight(Excavator.MTMineralMix mix){
-		return ((IMTMineralMixAccessor)mix).getWeight();
+		return ((AccMTMineralMix)mix).getWeight();
 	}
 	@ZenMethod
 	@ZenSetter("weight")
 	public static void setWeight(Excavator.MTMineralMix mix, int weight){
-		((IMTMineralMixAccessor) mix).setWeight(weight);
-		ExcavatorHandler.mineralList.put(((IMTMineralMixAccessor) mix).getMix(), weight);
+		((AccMTMineralMix) mix).setWeight(weight);
+		ExcavatorHandler.mineralList.put(((AccMTMineralMix) mix).getMix(), weight);
 	}
 	@ZenMethod
 	@ZenGetter("ores")
 	public static WeightedOreDictEntry[] getOres(Excavator.MTMineralMix mix){
-		String[] ores = ((IMTMineralMixAccessor)mix).getMix().ores;
-		float[] chances = ((IMTMineralMixAccessor)mix).getMix().chances;
+		String[] ores = ((AccMTMineralMix)mix).getMix().ores;
+		float[] chances = ((AccMTMineralMix)mix).getMix().chances;
 		WeightedOreDictEntry[] output = new WeightedOreDictEntry[ores.length];
 		for (int i = 0; i < ores.length; i++) {
 			output[i] = new WeightedOreDictEntry(new MCOreDictEntry(ores[i]), chances[i]);
@@ -71,22 +71,22 @@ public class CTMineralMixExpansion {
 	@ZenMethod
 	@ZenGetter("dimensionWhitelist")
 	public static int[] getDimensionWhitelist(Excavator.MTMineralMix mix){
-		return ((IMTMineralMixAccessor)mix).getMix().dimensionWhitelist;
+		return ((AccMTMineralMix)mix).getMix().dimensionWhitelist;
 	}
 	@ZenMethod
 	@ZenSetter("dimensionWhitelist")
 	public static void setDimensionWhitelist(Excavator.MTMineralMix mix, int[] whitelist){
-		((IMTMineralMixAccessor)mix).getMix().dimensionWhitelist = whitelist;
+		((AccMTMineralMix)mix).getMix().dimensionWhitelist = whitelist;
 	}
 
 	@ZenMethod
 	@ZenGetter("dimensionBlacklist")
 	public static int[] getDimensionBlacklist(Excavator.MTMineralMix mix){
-		return ((IMTMineralMixAccessor)mix).getMix().dimensionBlacklist;
+		return ((AccMTMineralMix)mix).getMix().dimensionBlacklist;
 	}
 	@ZenMethod
 	@ZenSetter("dimensionBlacklist")
 	public static void setDimensionBlacklist(Excavator.MTMineralMix mix, int[] blacklist){
-		((IMTMineralMixAccessor)mix).getMix().dimensionBlacklist = blacklist;
+		((AccMTMineralMix)mix).getMix().dimensionBlacklist = blacklist;
 	}
 }

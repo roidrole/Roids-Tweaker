@@ -8,7 +8,7 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.world.IBlockPos;
 import crafttweaker.api.world.IWorld;
 import crafttweaker.mc1120.world.MCBlockPos;
-import roidrole.roidtweaker.mixins.immersiveengineering.IMTMineralMixAccessor;
+import roidrole.roidtweaker.mixins.immersiveengineering.AccMTMineralMix;
 import roidrole.roidtweaker.mods.immersiveengineering.helpers.IECTHelper;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenGetter;
@@ -26,7 +26,7 @@ public class IWorldExpansion {
 	public static void setMineralMix(IWorld world, IBlockPos pos, Excavator.MTMineralMix mix){
 		DimensionChunkCoords dimPos = IECTHelper.getDimensionalChunkCoords(world, pos);
 		ExcavatorHandler.MineralWorldInfo info = ExcavatorHandler.mineralCache.computeIfAbsent(dimPos, (key) -> new ExcavatorHandler.MineralWorldInfo());
-		info.mineral = ((IMTMineralMixAccessor)mix).getMix();
+		info.mineral = ((AccMTMineralMix)mix).getMix();
 	}
 
 	@ZenMethod

@@ -7,7 +7,7 @@ import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
-import roidrole.roidtweaker.mixins.thebetweenlands.DruidAltarRecipeAccessor;
+import roidrole.roidtweaker.mixins.thebetweenlands.AccDruidAltarRecipe;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListClear;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -46,13 +46,13 @@ public class DruidAltar {
 	public static void removeRecipe(IIngredient output) {
 		Predicate<ItemStack> outFilter = Utils.getStackMatcher(output);
 
-		DruidAltarRecipeAccessor.getDruidAltarRecipes().removeIf(
+		AccDruidAltarRecipe.getDruidAltarRecipes().removeIf(
 			recipe -> outFilter.test(((DruidAltarRecipe)recipe).getDefaultOutput())
 		);
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		ListClear.clear(DruidAltarRecipeAccessor.getDruidAltarRecipes(), "Druid Altar");
+		ListClear.clear(AccDruidAltarRecipe.getDruidAltarRecipes(), "Druid Altar");
 	}
 }

@@ -18,8 +18,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import roidrole.roidtweaker.mixins.immersiveengineering.IBellJarHandlerAccessor;
-import roidrole.roidtweaker.mixins.immersiveengineering.IDefaultPlantHandlerAccessor;
+import roidrole.roidtweaker.mixins.immersiveengineering.AccBellJarHandler;
+import roidrole.roidtweaker.mixins.immersiveengineering.AccDefaultPlantHandler;
 import roidrole.roidtweaker.mods.immersiveengineering.helpers.CTFertilizerHandler;
 import roidrole.roidtweaker.mods.immersiveengineering.helpers.GardenClocheMultiplierFunction;
 import roidrole.roidtweaker.mods.immersiveengineering.helpers.IECTHelper;
@@ -53,21 +53,21 @@ public class GardenCloche {
     public static void removeFertilizer(IIngredient fertilizer){
         if(fertilizer.getLiquids().isEmpty()){
             for(ILiquidStack stack : fertilizer.getLiquids()){
-                IBellJarHandlerAccessor.getFluidFertilizers().remove(BelljarHandler.getFluidFertilizerHandler(CraftTweakerMC.getLiquidStack(stack)));
+                AccBellJarHandler.getFluidFertilizers().remove(BelljarHandler.getFluidFertilizerHandler(CraftTweakerMC.getLiquidStack(stack)));
             }
         } else {
             for(IItemStack stack : fertilizer.getItems()){
-                IBellJarHandlerAccessor.getItemFertilizers().remove(BelljarHandler.getItemFertilizerHandler(CraftTweakerMC.getItemStack(stack)));
+                AccBellJarHandler.getItemFertilizers().remove(BelljarHandler.getItemFertilizerHandler(CraftTweakerMC.getItemStack(stack)));
             }
         }
     }
     @ZenMethod
     public static void clearFertilizers(@Optional @Nullable Boolean restrictionReadWiki){
         if(Boolean.FALSE.equals(restrictionReadWiki)){
-            IBellJarHandlerAccessor.getFluidFertilizers().clear();
+            AccBellJarHandler.getFluidFertilizers().clear();
         }
         if(Boolean.TRUE.equals(restrictionReadWiki)){
-            IBellJarHandlerAccessor.getItemFertilizers().clear();
+            AccBellJarHandler.getItemFertilizers().clear();
         }
     }
     @ZenMethod
@@ -78,13 +78,13 @@ public class GardenCloche {
     }
     @ZenMethod
     public static List<String> listAllCrops(){
-        return IBellJarHandlerAccessor.getPlantHandlers().stream().flatMap(handler -> {
+        return AccBellJarHandler.getPlantHandlers().stream().flatMap(handler -> {
             if(handler instanceof BelljarHandler.DefaultPlantHandler){
-                return ((IDefaultPlantHandlerAccessor) handler).invokeGetSeedSet().stream().map(seed -> {
+                return ((AccDefaultPlantHandler) handler).invokeGetSeedSet().stream().map(seed -> {
                     //This part was entirely taken from ZenCloche, modified to use Accessor mixins instead of reflection
-                    IngredientStack soil = IBellJarHandlerAccessor.getSeedSoilMap().get(seed);
-                    ItemStack[] outputs = IBellJarHandlerAccessor.getSeedOutputMap().get(seed);
-                    net.minecraft.block.state.IBlockState[] display = IBellJarHandlerAccessor.getSeedRenderMap().get(seed);
+                    IngredientStack soil = AccBellJarHandler.getSeedSoilMap().get(seed);
+                    ItemStack[] outputs = AccBellJarHandler.getSeedOutputMap().get(seed);
+                    net.minecraft.block.state.IBlockState[] display = AccBellJarHandler.getSeedRenderMap().get(seed);
                     String soilStr;
                     ItemStack soilStack = soil.stack;
                     if (soilStack.getItem().getRegistryName().toString().equals("minecraft:air")) {
@@ -153,35 +153,35 @@ public class GardenCloche {
         }
         ComparableItemStack compSeed = IECTHelper.toComparableItemStack(seed);
         assert IECTHelper.HandlerMap.containsKey(type);
-        ((IDefaultPlantHandlerAccessor)IECTHelper.HandlerMap.get(type)).invokeGetSeedSet().add(compSeed);
-        IBellJarHandlerAccessor.getSeedSoilMap().put(compSeed, actualSoil);
-        IBellJarHandlerAccessor.getSeedOutputMap().put(compSeed, Arrays.stream(drops).map(CraftTweakerMC::getItemStack).toArray(ItemStack[]::new));
-        IBellJarHandlerAccessor.getSeedRenderMap().put(compSeed, toDisplay);
+        ((AccDefaultPlantHandler)IECTHelper.HandlerMap.get(type)).invokeGetSeedSet().add(compSeed);
+        AccBellJarHandler.getSeedSoilMap().put(compSeed, actualSoil);
+        AccBellJarHandler.getSeedOutputMap().put(compSeed, Arrays.stream(drops).map(CraftTweakerMC::getItemStack).toArray(ItemStack[]::new));
+        AccBellJarHandler.getSeedRenderMap().put(compSeed, toDisplay);
     }
     @ZenMethod
     public static void addCrop(String type, IIngredient seed, IItemStack[] drops, IIngredient soil, IBlockState display){
         ComparableItemStack compSeed = IECTHelper.toComparableItemStack(seed);
-        ((IDefaultPlantHandlerAccessor)IECTHelper.HandlerMap.get(type)).invokeGetSeedSet().add(compSeed);
-        IBellJarHandlerAccessor.getSeedSoilMap().put(compSeed, CraftTweakerHelper.toIEIngredientStack(soil));
-        IBellJarHandlerAccessor.getSeedOutputMap().put(compSeed, Arrays.stream(drops).map(CraftTweakerMC::getItemStack).toArray(ItemStack[]::new));
-        IBellJarHandlerAccessor.getSeedRenderMap().put(compSeed, new net.minecraft.block.state.IBlockState[]{CraftTweakerMC.getBlockState(display)});
+        ((AccDefaultPlantHandler)IECTHelper.HandlerMap.get(type)).invokeGetSeedSet().add(compSeed);
+        AccBellJarHandler.getSeedSoilMap().put(compSeed, CraftTweakerHelper.toIEIngredientStack(soil));
+        AccBellJarHandler.getSeedOutputMap().put(compSeed, Arrays.stream(drops).map(CraftTweakerMC::getItemStack).toArray(ItemStack[]::new));
+        AccBellJarHandler.getSeedRenderMap().put(compSeed, new net.minecraft.block.state.IBlockState[]{CraftTweakerMC.getBlockState(display)});
     }
     @ZenMethod
     public static void removeCrop(IIngredient crop, @Optional String type){
         ComparableItemStack cropComp = IECTHelper.toComparableItemStack(crop);
         if(type != null){
-            ((IDefaultPlantHandlerAccessor)IECTHelper.HandlerMap.get(type)).invokeGetSeedSet().remove(cropComp);
+            ((AccDefaultPlantHandler)IECTHelper.HandlerMap.get(type)).invokeGetSeedSet().remove(cropComp);
         } else {
             List<BelljarHandler.DefaultPlantHandler> handlers = new ArrayList<>(1);
             for (IItemStack cropIStack : crop.getItems()){
                 ItemStack cropStack = CraftTweakerMC.getItemStack(cropIStack);
                 handlers.add((BelljarHandler.DefaultPlantHandler) BelljarHandler.getHandler(cropStack));
             }
-            handlers.forEach(handler -> ((IDefaultPlantHandlerAccessor)handler).invokeGetSeedSet().remove(cropComp));
+            handlers.forEach(handler -> ((AccDefaultPlantHandler)handler).invokeGetSeedSet().remove(cropComp));
         }
     }
     @ZenMethod
     public static void setSoilTexture(IIngredient soil, String texture){
-        IBellJarHandlerAccessor.getSoilTextureMap().put(IECTHelper.toComparableItemStack(soil), new ResourceLocation(texture));
+        AccBellJarHandler.getSoilTextureMap().put(IECTHelper.toComparableItemStack(soil), new ResourceLocation(texture));
     }
 }

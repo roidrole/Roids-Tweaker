@@ -17,7 +17,7 @@ import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
-import roidrole.roidtweaker.mixins.forge.villager.IProfessionAccessor;
+import roidrole.roidtweaker.mixins.forge.villager.AccVillagerProfession;
 import roidrole.roidtweaker.mods.minecraft.villager.actions.ITradeRemoval;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
@@ -133,9 +133,9 @@ public class IVillagerCareer implements DeferredLoader.IAction {
     public void load() {
         VillagerRegistry.VillagerCareer career;
         if(careerI != -1) {
-            career = ((IProfessionAccessor) ForgeRegistries.VILLAGER_PROFESSIONS.getValue(profession)).getCareers().get(this.careerI);
+            career = ((AccVillagerProfession) ForgeRegistries.VILLAGER_PROFESSIONS.getValue(profession)).getCareers().get(this.careerI);
         }else{
-            career = ((IProfessionAccessor) ForgeRegistries.VILLAGER_PROFESSIONS.getValue(profession)).getCareers().stream().filter(prof -> prof.getName().equals(careerS)).findAny().get();
+            career = ((AccVillagerProfession) ForgeRegistries.VILLAGER_PROFESSIONS.getValue(profession)).getCareers().stream().filter(prof -> prof.getName().equals(careerS)).findAny().get();
         }
         this.removedTrades.forEach(trade -> trade.load(career));
         int level = 0;

@@ -6,11 +6,11 @@
 	"minVersion": "0.8.5",
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
-		"IArcFurnaceRecipeAccessor",
-		"IBellJarHandlerAccessor",
-		"IBlastFurnaceRecipeAccessor",
-		"IDefaultPlantHandlerAccessor",
-		"IMTMineralMixAccessor"
+		"AccArcFurnaceRecipe",
+		"AccBellJarHandler",
+		"AccBlastFurnaceRecipe",
+		"AccDefaultPlantHandler",
+		"AccMTMineralMix"
 	],
 	"server": [],
 	"client": []

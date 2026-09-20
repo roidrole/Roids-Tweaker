@@ -11,8 +11,8 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import org.apache.commons.lang3.tuple.Pair;
-import roidrole.roidtweaker.mixins.bloodarsenal.ARecipeSanguineInfusion;
-import roidrole.roidtweaker.mixins.bloodarsenal.ASanguineInfusionRecipeRegistry;
+import roidrole.roidtweaker.mixins.bloodarsenal.AccRecipeSanguineInfusion;
+import roidrole.roidtweaker.mixins.bloodarsenal.AccSanguineInfusionRecipeRegistry;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListAdd;
@@ -72,11 +72,11 @@ public class Sanguine {
 		final ItemStack c = CraftTweakerMC.getItemStack(catalyst);
 
 		final RecipeSanguineInfusion recipe = new RecipeSanguineInfusion(out, lpCost, c);
-		List<Pair<Ingredient, Integer>> in = ((ARecipeSanguineInfusion)recipe).getInputs();
+		List<Pair<Ingredient, Integer>> in = ((AccRecipeSanguineInfusion)recipe).getInputs();
 		//Loads the ingredients directly into in. Zero-copy, keeping final fields final.
 		Sanguine.getBAIngredients(inputs, in);
 
-		DeferredLoader.postInit(ListAdd.from(ASanguineInfusionRecipeRegistry.getInfusionRecipes(), recipe));
+		DeferredLoader.postInit(ListAdd.from(AccSanguineInfusionRecipeRegistry.getInfusionRecipes(), recipe));
 	}
 
 	@ZenMethod
@@ -96,9 +96,9 @@ public class Sanguine {
 			return;
 		}
 		RecipeSanguineInfusion recipe = new RecipeSanguineInfusion(lpCost, modifier).setLevelMultiplier(1);
-		Sanguine.getBAIngredients(inputs, ((ARecipeSanguineInfusion)recipe).getInputs());
+		Sanguine.getBAIngredients(inputs, ((AccRecipeSanguineInfusion)recipe).getInputs());
 
-		DeferredLoader.postInit(ListAdd.from(ASanguineInfusionRecipeRegistry.getInfusionRecipes(), recipe));
+		DeferredLoader.postInit(ListAdd.from(AccSanguineInfusionRecipeRegistry.getInfusionRecipes(), recipe));
 	}
 
 	@ZenMethod

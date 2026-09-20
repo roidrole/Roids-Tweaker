@@ -1,8 +1,8 @@
 package crafttweakerutils.world;
 
 import net.minecraft.world.GameRules;
-import roidrole.roidtweaker.mixins.minecraft.IGamerules$ValueAccessor;
-import roidrole.roidtweaker.mixins.minecraft.IGamerulesAccessor;
+import roidrole.roidtweaker.mixins.minecraft.AccGamerules$Value;
+import roidrole.roidtweaker.mixins.minecraft.AccGameRules;
 import stanhebben.zenscript.ZenRuntimeException;
 
 public class MCGameRules implements IGameRules {
@@ -31,11 +31,11 @@ public class MCGameRules implements IGameRules {
 
 	@Override
 	public double getDouble(String name){
-		GameRules.Value value = ((IGamerulesAccessor)rules).getRules().get(name);
+		GameRules.Value value = ((AccGameRules)rules).getRules().get(name);
 		if(value == null){
 			return 0;
 		}
-		return ((IGamerules$ValueAccessor)value).getValueDouble();
+		return ((AccGamerules$Value)value).getValueDouble();
 	}
 
 	@Override

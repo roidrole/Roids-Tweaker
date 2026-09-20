@@ -14,8 +14,8 @@ import net.minecraft.village.MerchantRecipeList;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import org.apache.commons.lang3.text.StrBuilder;
-import roidrole.roidtweaker.mixins.forge.villager.ICareerAccessor;
-import roidrole.roidtweaker.mixins.forge.villager.IProfessionAccessor;
+import roidrole.roidtweaker.mixins.forge.villager.AccVillagerCareer;
+import roidrole.roidtweaker.mixins.forge.villager.AccVillagerProfession;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -63,7 +63,7 @@ public class VillagerCommand extends CraftTweakerCommand {
                 }
                 professions.forEach(prof -> {
                     builder.showProfession(prof);
-                    List<VillagerRegistry.VillagerCareer> careers = ((IProfessionAccessor) prof).getCareers();
+                    List<VillagerRegistry.VillagerCareer> careers = ((AccVillagerProfession) prof).getCareers();
                     careers.forEach(builder::showCareer);
                 });
                 break;
@@ -83,13 +83,13 @@ public class VillagerCommand extends CraftTweakerCommand {
                     }
                     case 2:{
                         VillagerRegistry.VillagerProfession prof = ForgeRegistries.VILLAGER_PROFESSIONS.getValue(new ResourceLocation(args[1]));
-                        careerMap = Collections.singletonMap(prof, ((IProfessionAccessor)prof).getCareers());
+                        careerMap = Collections.singletonMap(prof, ((AccVillagerProfession)prof).getCareers());
                         break;
                     }
                     default:{
                         Map<VillagerRegistry.VillagerProfession, Collection<VillagerRegistry.VillagerCareer>> finalCareerMap = new HashMap<>();
                         ForgeRegistries.VILLAGER_PROFESSIONS.forEach(prof ->
-                            finalCareerMap.put(prof, ((IProfessionAccessor)prof).getCareers()));
+                            finalCareerMap.put(prof, ((AccVillagerProfession)prof).getCareers()));
                         careerMap = finalCareerMap;
                     }
                 }
@@ -99,7 +99,7 @@ public class VillagerCommand extends CraftTweakerCommand {
                     careers.forEach(career -> {
                         builder.showCareer(career);
                         int level = 0;
-                        for(List<EntityVillager.ITradeList> levelTrades : ((ICareerAccessor)career).getTrades()){
+                        for(List<EntityVillager.ITradeList> levelTrades : ((AccVillagerCareer)career).getTrades()){
                             builder.showLevel(++level);
                             levelTrades.forEach(trade -> {
                                 builder.showTrade(trade);

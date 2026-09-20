@@ -9,7 +9,7 @@ import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
-import roidrole.roidtweaker.mixins.buildcraft.IntegrationRecipeBasicAccessor;
+import roidrole.roidtweaker.mixins.buildcraft.AccIntegrationRecipeBasic;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -23,7 +23,7 @@ public class IntegrationWrapper implements IRecipeWrapper {
 	private final String mjString;
 
 	public IntegrationWrapper(IntegrationRecipeBasic recipe) {
-		this.output = ((IntegrationRecipeBasicAccessor)recipe).getOutput();
+		this.output = ((AccIntegrationRecipeBasic)recipe).getOutput();
 		List<ItemStack> catalyst = Arrays.asList(recipe.getCenterStack().ingredient.matchingStacks);
 		ImmutableList<IngredientStack> inputs = recipe.getRequirements(this.output);
 		this.inputs = new ArrayList<>(inputs.size() + 1);

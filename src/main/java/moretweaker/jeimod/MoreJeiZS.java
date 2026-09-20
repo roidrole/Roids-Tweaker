@@ -12,7 +12,7 @@ import mezz.jei.plugins.jei.info.IngredientInfoRecipe;
 import mezz.jei.plugins.jei.info.IngredientInfoRecipeCategory;
 import moretweaker.jei.MoreJei;
 import net.minecraft.item.ItemStack;
-import roidrole.roidtweaker.mixins.jei.IngredientInfoRecipeAccessor;
+import roidrole.roidtweaker.mixins.jei.AccIngredientInfoRecipe;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.predicates.PredicateAnyOfIterable;
@@ -40,7 +40,7 @@ public class MoreJeiZS {
 			}
 			List<IRecipeWrapper> removal = new ArrayList<>();
 			registry.getRecipeWrappers(category).forEach((wrapperRaw) -> {
-				IngredientInfoRecipeAccessor<?> wrapper = (IngredientInfoRecipeAccessor<?>)wrapperRaw;
+				AccIngredientInfoRecipe<?> wrapper = (AccIngredientInfoRecipe<?>)wrapperRaw;
 				if(wrapper.getIngredientType() != VanillaTypes.ITEM){
 					return;
 				}

@@ -9,7 +9,7 @@ import crafttweaker.api.block.IBlockState;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import roidrole.roidtweaker.mixins.thermalexpansion.ITapperManagerAccessor;
+import roidrole.roidtweaker.mixins.thermalexpansion.AccTapperManager;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -34,19 +34,19 @@ public class Tapper {
     }
     @ZenMethod
     public static void addFertilizer(IItemStack fertilizer, int multiplier){
-        ITapperManagerAccessor.invokeAddFertilizer(CraftTweakerMC.getItemStack(fertilizer), multiplier);
+        AccTapperManager.invokeAddFertilizer(CraftTweakerMC.getItemStack(fertilizer), multiplier);
     }
     @ZenMethod
     public static void removeFertilizer(IItemStack fertilizer){
         ComparableItemStack stack = new ComparableItemStack(CraftTweakerMC.getItemStack(fertilizer));
-        DeferredLoader.loadComplete(ListRemove.from(ITapperManagerAccessor.getFertilizerMap().keySet(), stack));
+        DeferredLoader.loadComplete(ListRemove.from(AccTapperManager.getFertilizerMap().keySet(), stack));
     }
     @ZenMethod
     public static void removeRecipe(IBlockState log){
         DeferredLoader.loadComplete(() -> {
             BlockWrapper wrapper = new BlockWrapper(CraftTweakerMC.getBlockState(log));
-            ITapperManagerAccessor.getLeafMap().removeAll(wrapper);
-            ITapperManagerAccessor.getBlockMap().remove(wrapper);
+            AccTapperManager.getLeafMap().removeAll(wrapper);
+            AccTapperManager.getBlockMap().remove(wrapper);
         });
     }
 }

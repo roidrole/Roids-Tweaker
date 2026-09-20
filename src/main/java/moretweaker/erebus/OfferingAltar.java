@@ -7,7 +7,7 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import erebus.recipes.OfferingAltarRecipe;
 import net.minecraft.item.ItemStack;
-import roidrole.roidtweaker.mixins.erebus.OfferingAltarRecipeAccessor;
+import roidrole.roidtweaker.mixins.erebus.AccOfferingAltarRecipe;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.FunctionInvoke;
@@ -39,7 +39,7 @@ public class OfferingAltar {
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
 		DeferredLoader.postInit(ListRemove.from(
-			OfferingAltarRecipeAccessor.getList(),
+			AccOfferingAltarRecipe.getList(),
 			outputFilter,
 			OfferingAltarRecipe::getOutput
 		));
@@ -47,6 +47,6 @@ public class OfferingAltar {
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.postInit(ListClear.from(OfferingAltarRecipeAccessor.getList(), "offering altar"));
+		DeferredLoader.postInit(ListClear.from(AccOfferingAltarRecipe.getList(), "offering altar"));
 	}
 }

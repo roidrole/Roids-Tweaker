@@ -11,7 +11,7 @@ import erebus.ModItems;
 import erebus.recipes.SmoothieMakerRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-import roidrole.roidtweaker.mixins.erebus.SmoothieMakerRecipeAccessor;
+import roidrole.roidtweaker.mixins.erebus.AccSmoothieMakerRecipe;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.FunctionInvoke;
@@ -52,7 +52,7 @@ public class SmoothieMaker {
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
 		DeferredLoader.postInit(ListRemove.from(
-			SmoothieMakerRecipeAccessor.getRecipes(),
+			AccSmoothieMakerRecipe.getRecipes(),
 			outputFilter,
 			SmoothieMakerRecipe::getOutput
 		));
@@ -60,6 +60,6 @@ public class SmoothieMaker {
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.postInit(ListClear.from(SmoothieMakerRecipeAccessor.getRecipes(), "smoothie maker"));
+		DeferredLoader.postInit(ListClear.from(AccSmoothieMakerRecipe.getRecipes(), "smoothie maker"));
 	}
 }

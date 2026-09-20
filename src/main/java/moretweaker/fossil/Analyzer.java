@@ -8,7 +8,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import fossilsarcheology.server.recipe.FAMachineRecipeRegistry;
 import fossilsarcheology.server.recipe.RecipeAnalyzer;
 import net.minecraft.item.ItemStack;
-import roidrole.roidtweaker.mixins.fossils.ARecipeAnalyser;
+import roidrole.roidtweaker.mixins.fossils.AccRecipeAnalyser;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListClear;
@@ -56,7 +56,7 @@ public class Analyzer {
 		DeferredLoader.postInit(() -> {
 			for (RecipeAnalyzer recipe : FAMachineRecipeRegistry.analyzerRecipes) {
 				if (recipe.getDisplayMap().values().removeIf(outputFilter)) {
-					((ARecipeAnalyser) recipe).setTotalWeight(recipe.getDisplayMap().keySet().stream().reduce(0.0F, Float::sum));
+					((AccRecipeAnalyser) recipe).setTotalWeight(recipe.getDisplayMap().keySet().stream().reduce(0.0F, Float::sum));
 				}
 			}
 		});

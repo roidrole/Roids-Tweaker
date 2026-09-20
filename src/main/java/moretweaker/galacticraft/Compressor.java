@@ -10,7 +10,7 @@ import crafttweaker.mc1120.recipes.MCRecipeShapeless;
 import micdoodle8.mods.galacticraft.api.recipe.CompressorRecipes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import roidrole.roidtweaker.mixins.galacticraft.ACompressorRecipes;
+import roidrole.roidtweaker.mixins.galacticraft.AccCompressorRecipes;
 import roidrole.roidtweaker.utils.Utils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -25,13 +25,13 @@ public class Compressor {
 	@ZenMethod
 	public static void addShaped(IItemStack output, IItemStack[][] inputs) {
 		final IRecipe recipe = new MCRecipeShaped(inputs, output, null, null, false, false);
-		ACompressorRecipes.getRecipes().add(recipe);
+		AccCompressorRecipes.getRecipes().add(recipe);
 	}
 
 	@ZenMethod
 	public static void addShapeless(IItemStack output, IIngredient[] inputs) {
 		final IRecipe recipe = new MCRecipeShapeless(inputs, output, null, null, false);
-		ACompressorRecipes.getRecipes().add(recipe);
+		AccCompressorRecipes.getRecipes().add(recipe);
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		if (!out.isEmpty()) {
 			final Object[] in = Utils.getObjects(inputs, Utils::getObjectOreStack);
@@ -42,13 +42,13 @@ public class Compressor {
 	@ZenMethod
 	public static void remove(IIngredient output) {
 		final Predicate<ItemStack> outFilter = Utils.getStackMatcher(output);
-		ACompressorRecipes.getRecipes().removeIf(recipe -> outFilter.test(recipe.getRecipeOutput()));
-		ACompressorRecipes.getRecipesAdventure().removeIf(recipe -> outFilter.test(recipe.getRecipeOutput()));
+		AccCompressorRecipes.getRecipes().removeIf(recipe -> outFilter.test(recipe.getRecipeOutput()));
+		AccCompressorRecipes.getRecipesAdventure().removeIf(recipe -> outFilter.test(recipe.getRecipeOutput()));
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		ACompressorRecipes.getRecipes().clear();
-		ACompressorRecipes.getRecipesAdventure().clear();
+		AccCompressorRecipes.getRecipes().clear();
+		AccCompressorRecipes.getRecipesAdventure().clear();
 	}
 }

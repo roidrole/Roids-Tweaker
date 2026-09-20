@@ -13,7 +13,10 @@ import static roidrole.roidtweaker.mods.minecraft.anvil.CTAnvil.recipes;
 public class AnvilListener {
     @SubscribeEvent
     public void onAnvilUpdate(AnvilUpdateEvent event) {
-        recipes.stream().filter(r -> r.matches(event)).max(Comparator.comparing(r -> r.right.getAmount())).ifPresent(r -> r.apply(event));
+        recipes.stream()
+            .filter(r -> r.matches(event))
+            .max(Comparator.comparing(r -> r.right.getAmount()))
+            .ifPresent(r -> r.apply(event));
     }
 
     //Returns the rest of the left input stack. Vanilla doesn't do this.

@@ -1,7 +1,7 @@
 package roidrole.roidtweaker.mods.minecraft.villager.actions;
 
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
-import roidrole.roidtweaker.mixins.forge.villager.ICareerAccessor;
+import roidrole.roidtweaker.mixins.forge.villager.AccVillagerCareer;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ public interface ITradeRemoval {
     class Clear implements ITradeRemoval{
         @Override
         public void load(VillagerRegistry.VillagerCareer career) {
-            ((ICareerAccessor)career).setTrades(new ArrayList<>(5));
+            ((AccVillagerCareer)career).setTrades(new ArrayList<>(5));
         }
     }
 
@@ -24,7 +24,7 @@ public interface ITradeRemoval {
 
         @Override
         public void load(VillagerRegistry.VillagerCareer career) {
-            ((ICareerAccessor)career).getTrades().set(level - 1, new ArrayList<>());
+            ((AccVillagerCareer)career).getTrades().set(level - 1, new ArrayList<>());
         }
     }
 
@@ -39,7 +39,7 @@ public interface ITradeRemoval {
 
         @Override
         public void load(VillagerRegistry.VillagerCareer career){
-            ((ICareerAccessor)career).getTrades().get(level - 1).remove(tradeIndex);
+            ((AccVillagerCareer)career).getTrades().get(level - 1).remove(tradeIndex);
         }
     }
 }

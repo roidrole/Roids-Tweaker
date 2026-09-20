@@ -9,7 +9,7 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import roidrole.roidtweaker.mixins.bedrockcraft.ARitualManager;
+import roidrole.roidtweaker.mixins.bedrockcraft.AccRitualManager;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.FunctionInvoke;
@@ -38,7 +38,7 @@ public class BedrockRitual {
 	public static void removeRecipe(IIngredient output) {
 		Predicate<ItemStack> outputMatcher = Utils.getStackMatcher(output);
 		DeferredLoader.postInit(ListRemove.from(
-			ARitualManager.getRecipes(),
+			AccRitualManager.getRecipes(),
 			outputMatcher,
 			RitualRecipe::output
 		));
@@ -47,7 +47,7 @@ public class BedrockRitual {
 	@ZenMethod
 	public static void removeAll() {
 		DeferredLoader.postInit(ListClear.from(
-			ARitualManager.getRecipes(),
+			AccRitualManager.getRecipes(),
 			"Bedrock Ritual"
 		));
 	}

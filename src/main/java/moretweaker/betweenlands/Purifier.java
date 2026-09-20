@@ -6,7 +6,7 @@ import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
-import roidrole.roidtweaker.mixins.thebetweenlands.PurifierRecipeAccessor;
+import roidrole.roidtweaker.mixins.thebetweenlands.AccPurifierRecipe;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListClear;
 import roidrole.roidtweaker.utils.predicates.PredicateExtract;
@@ -35,14 +35,14 @@ public class Purifier {
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		Predicate<ItemStack> outputMatcher = Utils.getStackMatcher(output);
-		PurifierRecipeAccessor.getRECIPES().removeIf(
+		AccPurifierRecipe.getRECIPES().removeIf(
 			new PredicateExtract<>(outputMatcher, Purifier::guessOutput)
 		);
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		ListClear.clear(PurifierRecipeAccessor.getRECIPES(), "Purifier");
+		ListClear.clear(AccPurifierRecipe.getRECIPES(), "Purifier");
 	}
 
 	private static ItemStack guessOutput(IPurifierRecipe recipe) {
