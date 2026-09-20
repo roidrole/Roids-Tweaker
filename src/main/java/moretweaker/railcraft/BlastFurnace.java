@@ -7,7 +7,6 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import mods.railcraft.api.crafting.Crafters;
 import mods.railcraft.api.crafting.IBlastFurnaceCrafter;
-import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.DeferredLoader;
@@ -40,7 +39,6 @@ public class BlastFurnace {
 
 	@ZenMethod
 	public static void remove(IIngredient output) {
-		final Object out = Inputs.getObject(output);
 		final Predicate<ItemStack> filter = Utils.getStackMatcher(output);
 
 		DeferredLoader.postInit(ListRemove.from(

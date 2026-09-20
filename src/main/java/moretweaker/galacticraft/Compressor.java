@@ -8,7 +8,6 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.mc1120.recipes.MCRecipeShaped;
 import crafttweaker.mc1120.recipes.MCRecipeShapeless;
 import micdoodle8.mods.galacticraft.api.recipe.CompressorRecipes;
-import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import roidrole.roidtweaker.mixins.galacticraft.ACompressorRecipes;
@@ -35,7 +34,7 @@ public class Compressor {
 		ACompressorRecipes.getRecipes().add(recipe);
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		if (!out.isEmpty()) {
-			final Object[] in = Inputs.getObjects(inputs);
+			final Object[] in = Utils.getObjects(inputs, Utils::getObjectOreStack);
 			CompressorRecipes.addShapelessRecipe(out, in);
 		}
 	}

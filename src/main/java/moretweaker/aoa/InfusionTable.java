@@ -6,7 +6,6 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import moretweaker.Inputs;
 import moretweaker.MoreTweaker;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
@@ -62,7 +61,7 @@ public class InfusionTable {
 		final NonNullList<Ingredient> in2 = NonNullList.create();
 
 		for(IIngredient ingredient : inputs) {
-			in2.add(Inputs.getPart(ingredient).ingredient);
+			in2.add(CraftTweakerMC.getIngredient(ingredient));
 		}
 
 		InfusionTableRecipe recipe = new InfusionTableRecipe(

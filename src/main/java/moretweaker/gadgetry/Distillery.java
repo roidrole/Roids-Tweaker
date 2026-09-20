@@ -7,7 +7,6 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import epicsquid.gadgetry.machines.recipe.DistillingRecipe;
-import moretweaker.Inputs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import roidrole.roidtweaker.utils.Utils;
@@ -25,7 +24,7 @@ public class Distillery {
 	@ZenMethod
 	public static void add(IItemStack output, ILiquidStack fluidOutput, IIngredient input, ILiquidStack fluidInput) {
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
-		final Object in = Inputs.getObject(input);
+		final Object in = Utils.getObjectOreStack(input);
 		final FluidStack fluidOut = CraftTweakerMC.getLiquidStack(fluidOutput);
 		final FluidStack fluidIn = CraftTweakerMC.getLiquidStack(fluidInput);
 
