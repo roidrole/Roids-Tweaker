@@ -23,7 +23,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class Villager {
     public static List<String> disabledCareers = new ArrayList<>(1);
-    public static List<String> removedProfessions = new ArrayList<>(1);
+    public static List<ResourceLocation> removedProfessions = new ArrayList<>(1);
     public static VillagerRegistry.VillagerProfession[] allowedProfessions;
 
     @ZenMethod
@@ -56,7 +56,7 @@ public class Villager {
         //Minecraft professions are registered too early to target them with the mixin.
         if(name.startsWith("minecraft")){
             if(RoidTweakerConfig.mixinCategory.villagerCategory.replaceProfessionSetter) {
-                removedProfessions.add(name);
+                removedProfessions.add(new ResourceLocation(name));
             } else {
                 CraftTweakerAPI.logError("Can't remove vanilla professions without setting replaceProfessionSetter=true!");
             }
@@ -87,7 +87,7 @@ public class Villager {
 
     public static void setAllowedProfessions(){
         allowedProfessions = ForgeRegistries.VILLAGER_PROFESSIONS.getValuesCollection().stream()
-            .filter(prof -> !removedProfessions.contains(prof.getRegistryName().toString()))
+            .filter(prof -> !removedProfessions.contains(prof.getRegistryName()))
             .toArray(VillagerRegistry.VillagerProfession[]::new)
         ;
     }

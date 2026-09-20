@@ -25,7 +25,6 @@ import java.util.List;
 @ZenClass("mods.thermalexpansion.Fisher")
 @SuppressWarnings("unused")
 public class Fisher {
-    static FishRemoval remove = new FishRemoval();
     @ZenMethod
     public static void addFish(IItemStack fish, int weight){
         //Since fish is a list in the base mod, we must add and remove sequentially
@@ -34,7 +33,7 @@ public class Fisher {
     }
     @ZenMethod
     public static void removeFish(IItemStack fish){
-        remove.removedFishes.add(CraftTweakerMC.getItemStack(fish));
+        FishRemoval.getRemove().removedFishes.add(CraftTweakerMC.getItemStack(fish));
     }
     @ZenMethod
     public static void clearFish(){
@@ -58,10 +57,18 @@ public class Fisher {
     }
 
     public static class FishRemoval implements DeferredLoader.IAction {
-        public List<ItemStack> removedFishes = new ArrayList<>(1);
-        public FishRemoval(){
-            DeferredLoader.loadComplete(this);
+        private static FishRemoval instance;
+
+
+        private static FishRemoval getRemove(){
+            if(instance == null){
+                instance = new FishRemoval();
+                DeferredLoader.loadComplete(instance);
+            }
+            return instance;
         }
+
+        public List<ItemStack> removedFishes = new ArrayList<>();
 
         @Override
         public void load() {
@@ -101,6 +108,7 @@ public class Fisher {
             */
 
             IFisherManagerAccessor.setTotalWeight(IFisherManagerAccessor.getTotalWeight() - weightToRemove);
+            instance = null;
         }
     }
 }
