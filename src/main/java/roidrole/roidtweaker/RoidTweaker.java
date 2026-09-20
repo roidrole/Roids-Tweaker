@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.apache.logging.log4j.Logger;
 import roidrole.roidtweaker.mods.baubles.BaubleEventHandler;
 import roidrole.roidtweaker.mods.baubles.CTBaubleExpansion;
 import roidrole.roidtweaker.mods.baubles.CTInjectableBauble;
@@ -21,6 +22,8 @@ import roidrole.roidtweaker.mods.minecraft.villager.Villager;
 import roidrole.roidtweaker.mods.minecraft.villager.VillagerCommand;
 import roidrole.roidtweaker.proxy.CommonProxy;
 import roidrole.roidtweaker.utils.DeferredLoader;
+import therealfarfetchd.quacklib.common.api.autoconf.DefaultFeatures;
+import therealfarfetchd.quacklib.common.api.autoconf.FeatureManager;
 import xyz.tcreopargh.ctintegration.cot.BaubleItemRepresentation;
 import xyz.tcreopargh.ctintegration.gamestages.events.EventsExpansion;
 
@@ -39,9 +42,11 @@ public class RoidTweaker {
 
     @SidedProxy(clientSide = "roidrole.roidtweaker.proxy.ClientProxy", serverSide = "roidrole.roidtweaker.proxy.CommonProxy")
     public static CommonProxy proxy;
+    public static Logger logger;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        logger = event.getModLog();
         if(RoidTweakerConfig.eventCategory.allowAnvilRecipes) {
             MinecraftForge.EVENT_BUS.register(new AnvilListener());
         }
@@ -61,6 +66,11 @@ public class RoidTweaker {
         if(RoidTweakerConfig.eventCategory.allowCustomBaubles){
             CraftTweakerAPI.registerClass(CTInjectableBauble.class);
             CraftTweakerAPI.registerClass(CTBaubleExpansion.class);
+        }
+
+        if (RoidTweakerConfig.general.forceAlloySmelter && Loader.isModLoaded("quacklib")) {
+            CraftTweakerAPI.logInfo("Enabling QuackLib alloy smelter");
+            FeatureManager.INSTANCE.depend(DefaultFeatures.INSTANCE.getAlloyFurnace(), Tags.MOD_ID);
         }
     }
 

@@ -9,7 +9,6 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import mods.railcraft.api.crafting.Crafters;
 import mods.railcraft.api.crafting.IOutputEntry;
 import mods.railcraft.api.crafting.IRockCrusherCrafter;
-import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
@@ -37,7 +36,7 @@ public class RockCrusher {
 		IRockCrusherCrafter.IRockCrusherRecipeBuilder builder = Crafters.rockCrusher()
 			.makeRecipe(RailUtil.toInput(input))
 			.time(ticks)
-			.name(MoreTweaker.newRL());
+			.name(Utils.newRL());
 		for(int i = 0; i < out.length; ++i) {
 			builder.addOutput(out[i], chances[i]);
 		}

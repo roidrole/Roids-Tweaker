@@ -7,7 +7,6 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
@@ -56,10 +55,10 @@ public class WitchesRitual {
 		if (outputs.length <= 5 && inputs.length <= 10) {
 			final List<ItemStack> out = Arrays.asList(CraftTweakerMC.getItemStacks(outputs));
 			final List<Ingredient> in = Arrays.asList(Utils.getIngredients(inputs));
-			final ResourceLocation rl = MoreTweaker.newRL();
+			final ResourceLocation rl = Utils.newRL();
 
 			final MoreRitual ritual = new MoreRitual(rl, in, out, entityInput, entityOutput, power, ringSmall, ringMedium, ringLarge);
-			MoreTweaker.injectTranslation("ritual." + rl.getNamespace() + "." + rl.getPath(), name);
+			Utils.injectTranslation("ritual." + rl.getNamespace() + "." + rl.getPath(), name);
 
 			DeferredLoader.postInit(ListAdd.from(Ritual.class, ritual));
 		}

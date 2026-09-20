@@ -8,7 +8,6 @@ import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import mods.railcraft.api.crafting.Crafters;
 import mods.railcraft.api.crafting.ICokeOvenCrafter;
-import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import roidrole.roidtweaker.utils.DeferredLoader;
@@ -35,7 +34,7 @@ public class CokeOven {
 			.output(out)
 			.fluid(fluid)
 			.time(ticks)
-			.name(MoreTweaker.newRL());
+			.name(Utils.newRL());
 
 		DeferredLoader.postInit(builder::register);
 	}

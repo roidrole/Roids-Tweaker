@@ -1,13 +1,14 @@
 package roidrole.roidtweaker.utils.actions;
 
 import crafttweaker.CraftTweakerAPI;
-import moretweaker.MoreTweaker;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
 import net.minecraftforge.registries.RegistryBuilder;
 import roidrole.roidtweaker.Tags;
+import roidrole.roidtweaker.utils.BucketedLinkedCollection;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 
@@ -107,7 +108,16 @@ public abstract class ListClear implements DeferredLoader.IAction{
 
 		@Override
 		public void load() {
-			MoreTweaker.forgeRemove(registry, element -> element.getClass().isAssignableFrom(filter));
+			Collection<ResourceLocation> removes = new BucketedLinkedCollection<>(8);
+
+			for(K entry : registry.getValuesCollection()) {
+				if (entry.getClass().isAssignableFrom(filter)) {
+					removes.add(entry.getRegistryName());
+				}
+			}
+			for(ResourceLocation remove : removes){
+				registry.remove(remove);
+			}
 			ListClear.logMessage(recipeType);
 		}
 	}

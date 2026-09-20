@@ -1,10 +1,10 @@
 package roidrole.roidtweaker.utils.actions;
 
-import moretweaker.MoreTweaker;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import roidrole.roidtweaker.utils.DeferredLoader;
+import roidrole.roidtweaker.utils.Utils;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -65,7 +65,11 @@ public abstract class ListAdd implements DeferredLoader.IAction {
 		@Override
 		public void load() {
 			IForgeRegistry<T> registry = GameRegistry.findRegistry(registryClass);
-			MoreTweaker.forgeAdd(registry, element);
+			if (element.getRegistryName() == null) {
+				element.setRegistryName(Utils.newRL());
+			}
+
+			registry.register(element);
 		}
 	}
 
@@ -81,7 +85,13 @@ public abstract class ListAdd implements DeferredLoader.IAction {
 		@Override
 		public void load() {
 			IForgeRegistry<T> registry = GameRegistry.findRegistry(registryClass);
-			MoreTweaker.forgeAdd(registry, element);
+			for(T entry: element){
+				if (entry.getRegistryName() == null) {
+					entry.setRegistryName(Utils.newRL());
+				}
+
+				registry.register(entry);
+			}
 		}
 	}
 }

@@ -6,7 +6,6 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import roidrole.roidtweaker.utils.DeferredLoader;
@@ -28,7 +27,7 @@ public class FrostFire {
 	public static void addRecipe(IItemStack output, IIngredient input) {
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		final Ingredient in = CraftTweakerMC.getIngredient(input);
-		FrostfireRecipe recipe = new FrostfireRecipe(MoreTweaker.newRL(), in, out);
+		FrostfireRecipe recipe = new FrostfireRecipe(Utils.newRL(), in, out);
 		DeferredLoader.postInit(ListAdd.from(FrostfireRecipe.class, recipe));
 	}
 

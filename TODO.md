@@ -1,7 +1,4 @@
 # TODO
-- Rewrite some moreTweaker load steps with lazy-loading Action
-- Rewrite all mods past erebus
-  - Make a second pass using stuff to Utils and MoreTweaker (added functions)
 - Check which mods have built-in CT support and remove duplicate support (Buildcraft and fossils (broken?), at least)
 - Figure out what to do with mod-specific CT addons (RailcraftTweaker, GalacticraftTweaker): include or delegate
 - Test everything:
@@ -10,4 +7,3 @@
 - Make the JEI module compatible with CT's, ideally merge the package
   - Might not be possible because scheduling. CT's JEI plugin doesn't happen after other mods'...
 - Write the wiki once the features stabilize
-- Fix thermal expansion fisher (and other machine) `Map.remove()` calls

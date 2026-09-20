@@ -8,9 +8,11 @@ import crafttweaker.api.item.IngredientAny;
 import crafttweaker.api.item.IngredientUnknown;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.api.oredict.IOreDictEntry;
+import crafttweaker.mc1120.actions.ActionSetTranslation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -155,5 +157,14 @@ public abstract class Utils {
 			//Setting a dummy registry just to avoid crashing/other actions not being applied.
 			return (IForgeRegistryModifiable<T>) new RegistryBuilder<T>().allowModification().create();
 		}
+	}
+
+	private static int next_id = 0;
+	public static ResourceLocation newRL() {
+		return new ResourceLocation("moretweaker", "moretweakerrecipe" + next_id++);
+	}
+
+	public static void injectTranslation(String key, String value) {
+		CraftTweakerAPI.apply(new ActionSetTranslation(null, key, value));
 	}
 }

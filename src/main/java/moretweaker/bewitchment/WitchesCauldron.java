@@ -8,7 +8,6 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.Potion;
@@ -45,7 +44,7 @@ public class WitchesCauldron {
 		}
 
 		final CauldronRecipe recipe = new CauldronRecipe(
-			MoreTweaker.newRL(),
+			Utils.newRL(),
 			Arrays.asList(Utils.getIngredients(inputs)),
 			Arrays.asList(CraftTweakerMC.getItemStacks(outputs))
 		);
@@ -73,7 +72,7 @@ public class WitchesCauldron {
 			CraftTweakerAPI.logError("Could not find potion while trying to add a brew to the witches cauldron: " + potion);
 			return;
 		}
-		Brew brew = new Brew(MoreTweaker.newRL(), in, new PotionEffect(p, duration, amplifier));
+		Brew brew = new Brew(Utils.newRL(), in, new PotionEffect(p, duration, amplifier));
 		DeferredLoader.postInit(ListAdd.from(Brew.class, brew));
 	}
 

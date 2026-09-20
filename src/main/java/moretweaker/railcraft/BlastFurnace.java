@@ -7,7 +7,6 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import mods.railcraft.api.crafting.Crafters;
 import mods.railcraft.api.crafting.IBlastFurnaceCrafter;
-import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
@@ -32,7 +31,7 @@ public class BlastFurnace {
 			.output(out)
 			.time(ticks)
 			.slagOutput(slag)
-			.name(MoreTweaker.newRL());
+			.name(Utils.newRL());
 
 		DeferredLoader.postInit(builder::register);
 	}

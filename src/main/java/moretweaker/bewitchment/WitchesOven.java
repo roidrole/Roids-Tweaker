@@ -6,7 +6,6 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
@@ -33,7 +32,7 @@ public class WitchesOven {
 		final ItemStack by = CraftTweakerMC.getItemStack(byproduct);
 		final List<OvenRecipe> recipes = new ArrayList<>(in.length);
 		for(ItemStack stack : in) {
-			recipes.add(new OvenRecipe(MoreTweaker.newRL(), stack, out, by, chance, requiresJar));
+			recipes.add(new OvenRecipe(Utils.newRL(), stack, out, by, chance, requiresJar));
 		}
 		DeferredLoader.postInit(ListAdd.from(
 			OvenRecipe.class,

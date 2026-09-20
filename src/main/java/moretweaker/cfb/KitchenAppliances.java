@@ -6,7 +6,6 @@ import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.mc1120.recipes.MCRecipeShaped;
-import moretweaker.MoreTweaker;
 import net.blay09.mods.cookingforblockheads.api.SinkHandler;
 import net.blay09.mods.cookingforblockheads.api.ToastHandler;
 import net.blay09.mods.cookingforblockheads.api.ToastOutputHandler;
@@ -109,7 +108,7 @@ public class KitchenAppliances {
 	public static void addFoodShapeless(IItemStack output, IIngredient[] inputs) {
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		final NonNullList<Ingredient> in = NonNullList.from(Ingredient.EMPTY, Utils.getIngredients(inputs));
-		final IRecipe recipe = new ShapelessOreRecipe(MoreTweaker.newRL(), out, in);
+		final IRecipe recipe = new ShapelessOreRecipe(Utils.newRL(), out, in);
 		DeferredLoader.postInit(FunctionInvoke.from(CookingRegistry::addFoodRecipe, recipe));
 	}
 

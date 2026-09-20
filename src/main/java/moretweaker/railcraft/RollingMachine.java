@@ -9,7 +9,6 @@ import crafttweaker.mc1120.recipes.MCRecipeShaped;
 import crafttweaker.mc1120.recipes.MCRecipeShapeless;
 import mods.railcraft.api.crafting.Crafters;
 import mods.railcraft.api.crafting.IRollingMachineCrafter;
-import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import roidrole.roidtweaker.utils.DeferredLoader;
@@ -35,7 +34,7 @@ public class RollingMachine {
 		final IRollingMachineCrafter.IRollingMachineRecipeBuilder builder = Crafters.rollingMachine()
 			.newRecipe(out)
 			.time(ticks)
-			.name(MoreTweaker.newRL());
+			.name(Utils.newRL());
 
 		DeferredLoader.postInit(FunctionInvoke.from(builder::recipe, recipe));
 	}
@@ -47,7 +46,7 @@ public class RollingMachine {
 		final IRollingMachineCrafter.IRollingMachineRecipeBuilder builder = Crafters.rollingMachine()
 			.newRecipe(out)
 			.time(ticks)
-			.name(MoreTweaker.newRL());
+			.name(Utils.newRL());
 
 		DeferredLoader.postInit(FunctionInvoke.from(builder::recipe, recipe));
 	}

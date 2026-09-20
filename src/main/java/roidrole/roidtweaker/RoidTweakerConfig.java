@@ -53,7 +53,12 @@ public class RoidTweakerConfig {
         public String defaultDomain = "mekatweaker";
     }
 
-
+    @Config.Name("General")
+    public static General general = new General();
+    public static class General {
+        @Config.Comment("If QuackLib is loaded, enables the alloy smelter")
+        public boolean forceAlloySmelter = true;
+    }
 
     static {
         ConfigAnytime.register(RoidTweakerConfig.class);

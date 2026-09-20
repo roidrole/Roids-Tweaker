@@ -7,7 +7,6 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import roidrole.roidtweaker.utils.DeferredLoader;
@@ -43,7 +42,7 @@ public class Distillery {
 		final List<Ingredient> in = Arrays.asList(Utils.getIngredients(inputs));
 
 		DeferredLoader.postInit(
-			ListAdd.from(DistilleryRecipe.class, new DistilleryRecipe(MoreTweaker.newRL(), in, out))
+			ListAdd.from(DistilleryRecipe.class, new DistilleryRecipe(Utils.newRL(), in, out))
 		);
 	}
 

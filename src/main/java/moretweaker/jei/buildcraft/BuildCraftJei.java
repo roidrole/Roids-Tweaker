@@ -6,9 +6,9 @@ import buildcraft.api.recipes.IntegrationRecipe;
 import buildcraft.lib.recipe.IntegrationRecipeBasic;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
-import moretweaker.MoreTweaker;
 import moretweaker.jei.MoreJeiPlugin;
 import net.minecraft.item.ItemStack;
+import roidrole.roidtweaker.RoidTweaker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class BuildCraftJei implements MoreJeiPlugin {
          if (recipe instanceof IntegrationRecipeBasic) {
             integration.add((IntegrationRecipeBasic)recipe);
          } else {
-            MoreTweaker.logger.warn("Could not add Integration-Table Recipe to JEI: Not an instance of IntegrationRecipeBasic");
+            RoidTweaker.logger.warn("Could not add Integration-Table Recipe to JEI: Not an instance of IntegrationRecipeBasic");
          }
       }
 

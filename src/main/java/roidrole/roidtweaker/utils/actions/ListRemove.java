@@ -1,8 +1,9 @@
 package roidrole.roidtweaker.utils.actions;
 
-import moretweaker.MoreTweaker;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
+import roidrole.roidtweaker.utils.BucketedLinkedCollection;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.predicates.PredicateExtract;
@@ -84,7 +85,16 @@ public abstract class ListRemove implements DeferredLoader.IAction {
 
 		@Override
 		public void load() {
-			MoreTweaker.forgeRemove(registry, condition);
+			Collection<ResourceLocation> removes = new BucketedLinkedCollection<>(8);
+
+			for(T entry : registry.getValuesCollection()) {
+				if (condition.test(entry)) {
+					removes.add(entry.getRegistryName());
+				}
+			}
+			for(ResourceLocation remove : removes){
+				registry.remove(remove);
+			}
 		}
 	}
 }

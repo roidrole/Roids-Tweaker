@@ -10,7 +10,6 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import moretweaker.MoreTweaker;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListClear;
@@ -32,7 +31,7 @@ public class IntegrationTable {
 		ItemStack out = CraftTweakerMC.getItemStack(output);
 		List<IngredientStack> in = BuildUtil.getIngredients(inputs);
 		IngredientStack c = new IngredientStack(CraftTweakerMC.getIngredient(catalyst));
-		final IntegrationRecipe recipe = new IntegrationRecipeBasic(MoreTweaker.newRL(), energyCost * MjAPI.MJ, c, in, out);
+		final IntegrationRecipe recipe = new IntegrationRecipeBasic(Utils.newRL(), energyCost * MjAPI.MJ, c, in, out);
 		BuildcraftRecipeRegistry.integrationRecipes.addRecipe(recipe);
 	}
 
