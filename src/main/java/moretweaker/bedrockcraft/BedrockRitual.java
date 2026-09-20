@@ -1,7 +1,7 @@
 package moretweaker.bedrockcraft;
 
 import bedrockcraft.ritual.RitualManager;
-import crafttweaker.CraftTweakerAPI;
+import com.google.common.base.Predicates;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
@@ -12,6 +12,7 @@ import net.minecraft.item.crafting.Ingredient;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.FunctionInvoke;
+import roidrole.roidtweaker.utils.actions.ListClear;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -42,8 +43,8 @@ public class BedrockRitual {
 	@ZenMethod
 	public static void removeAll() {
 		DeferredLoader.postInit(() -> {
-			CraftTweakerAPI.logInfo("Removing all recipes for the Bedrock Ritual");
-			RitualManager.removeRecipes((r) -> true);
+			ListClear.logMessage("Bedrock Ritual");
+			RitualManager.removeRecipes(Predicates.alwaysTrue());
 		});
 	}
 }

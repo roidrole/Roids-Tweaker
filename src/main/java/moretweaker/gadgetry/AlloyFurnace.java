@@ -28,7 +28,7 @@ public class AlloyFurnace {
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		final Object[] in = Utils.getObjects(inputs, Utils::getObjectOreStack);
 
-		AlloyRecipe.addRecipe(new AlloyRecipe(out, in));
+		AlloyRecipe.recipes.add(new AlloyRecipe(out, in));
 	}
 
 	@ZenMethod

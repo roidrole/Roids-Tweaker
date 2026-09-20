@@ -5,6 +5,7 @@ import roidrole.roidtweaker.utils.functions.ABintDConsumer;
 import roidrole.roidtweaker.utils.functions.QuadConsumer;
 
 import java.util.Collection;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.ObjIntConsumer;
@@ -19,6 +20,9 @@ public abstract class FunctionInvoke implements DeferredLoader.IAction {
 	}
 	public static <T> FunctionInvoke from(Consumer<T> function, Collection<T> argument){
 		return new ConsumerIterateInvoke<>(function, argument);
+	}
+	public static <T, U> FunctionInvoke from(BiConsumer<T, U> function, T[] argument, U argument2){
+		return new BiConsumerIterateInvoke<>(function, argument, argument2);
 	}
 	public static <T> FunctionInvoke from(ObjIntConsumer<T> function, T argument1, int argument2){
 		return new ObjIntConsumerInvoke<>(function, argument1, argument2);
@@ -71,6 +75,24 @@ public abstract class FunctionInvoke implements DeferredLoader.IAction {
 		public void load() {
 			for (T  t: argument){
 				function.accept(t);
+			}
+		}
+	}
+	private static class BiConsumerIterateInvoke<T, U> extends FunctionInvoke {
+		private final BiConsumer<T, U> function;
+		private final T[] argument;
+		private final U argument2;
+
+		private BiConsumerIterateInvoke(BiConsumer<T, U> function, T[] argument, U argument2) {
+			this.function = function;
+			this.argument = argument;
+			this.argument2 = argument2;
+		}
+
+		@Override
+		public void load() {
+			for (T  t: argument){
+				function.accept(t, argument2);
 			}
 		}
 	}

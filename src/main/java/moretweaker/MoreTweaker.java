@@ -5,9 +5,6 @@ import crafttweaker.mc1120.actions.ActionSetTranslation;
 import epicsquid.gadgetry.core.recipe.AlloyRecipe;
 import epicsquid.gadgetry.machines.recipe.DistillingRecipe;
 import epicsquid.gadgetry.machines.recipe.GrindingRecipe;
-import fossilsarcheology.server.recipe.FAMachineRecipeRegistry;
-import fossilsarcheology.server.recipe.RecipeAnalyzer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -24,7 +21,8 @@ import roidrole.roidtweaker.Tags;
 import therealfarfetchd.quacklib.common.api.autoconf.DefaultFeatures;
 import therealfarfetchd.quacklib.common.api.autoconf.FeatureManager;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 @Mod(
@@ -81,65 +79,6 @@ public class MoreTweaker {
 				GrindingRecipe.grindables.add(grindingRecipe.inputs.get(0));
 			}
 		}
-
-		if (Loader.isModLoaded("fossil")) {
-			CraftTweakerAPI.logInfo("Cleaning up Fossils Weights");
-			Set<RecipeAnalyzer> newRecipes = new HashSet<>();
-			Iterator<RecipeAnalyzer> itr = FAMachineRecipeRegistry.analyzerRecipes.iterator();
-
-			while(itr.hasNext()) {
-				RecipeAnalyzer recipe = itr.next();
-				if (recipe.getTotalWeight() != 100.0F) {
-					itr.remove();
-					float factor = 100.0F / recipe.getTotalWeight();
-					RecipeAnalyzer r = new RecipeAnalyzer(recipe.getInput());
-					float weight = 0.0F;
-
-					while(weight <= recipe.getTotalWeight()) {
-						Map.Entry<Float, ItemStack> entry = recipe.getDisplayMap().higherEntry(weight);
-						if (entry == null) {
-							break;
-						}
-
-						float chance = entry.getKey() - weight;
-						weight = entry.getKey();
-						r.addOutput(entry.getValue(), chance * factor);
-					}
-
-					newRecipes.add(r);
-				}
-			}
-
-			FAMachineRecipeRegistry.analyzerRecipes.addAll(newRecipes);
-			newRecipes = new HashSet<>();
-			itr = FAMachineRecipeRegistry.sifterRecipes.iterator();
-
-			while(itr.hasNext()) {
-				RecipeAnalyzer recipe = itr.next();
-				if (recipe.getTotalWeight() != 100.0F) {
-					itr.remove();
-					float factor = 100.0F / recipe.getTotalWeight();
-					RecipeAnalyzer r = new RecipeAnalyzer(recipe.getInput());
-					float weight = 0.0F;
-
-					while(weight <= recipe.getTotalWeight()) {
-						Map.Entry<Float, ItemStack> entry = recipe.getDisplayMap().higherEntry(weight);
-						if (entry == null) {
-							break;
-						}
-
-						float chance = entry.getKey() - weight;
-						weight = entry.getKey();
-						r.addOutput(entry.getValue(), chance * factor);
-					}
-
-					newRecipes.add(r);
-				}
-			}
-
-			FAMachineRecipeRegistry.sifterRecipes.addAll(newRecipes);
-		}
-
 	}
 
 	public static ResourceLocation newRL() {

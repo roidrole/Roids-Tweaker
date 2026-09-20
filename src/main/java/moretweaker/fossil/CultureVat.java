@@ -9,6 +9,7 @@ import fossilsarcheology.server.recipe.FAMachineRecipeRegistry;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.FunctionInvoke;
 import roidrole.roidtweaker.utils.actions.ListClear;
 import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -25,11 +26,7 @@ public class CultureVat {
 	public static void addRecipe(IIngredient input, IItemStack output) {
 		final ItemStack[] in = CraftTweakerMC.getExamples(input);
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
-		DeferredLoader.postInit(() -> {
-			for(ItemStack stack : in) {
-				FAMachineRecipeRegistry.cultivateRecipes.put(stack, out);
-			}
-		});
+		DeferredLoader.postInit(FunctionInvoke.from(FAMachineRecipeRegistry.cultivateRecipes::put, in, out));
 	}
 
 	@ZenMethod

@@ -68,15 +68,13 @@ public class WitchesCauldron {
 	@ZenMethod
 	public static void addBrew(IIngredient trigger, final String potion, @Optional(valueLong = 600L) final int duration, @Optional final int amplifier) {
 		final Ingredient in = CraftTweakerMC.getIngredient(trigger);
-		DeferredLoader.postInit(() -> {
-			Potion p = Potion.getPotionFromResourceLocation(potion);
-			if (p == null) {
-				CraftTweakerAPI.logError("Could not find potion while trying to add a brew to the witches cauldron: " + potion);
-			} else {
-				MoreTweaker.forgeAdd(Brew.class, new Brew(MoreTweaker.newRL(), in, new PotionEffect(p, duration, amplifier)));
-			}
-
-		});
+		Potion p = Potion.getPotionFromResourceLocation(potion);
+		if(p == null){
+			CraftTweakerAPI.logError("Could not find potion while trying to add a brew to the witches cauldron: " + potion);
+			return;
+		}
+		Brew brew = new Brew(MoreTweaker.newRL(), in, new PotionEffect(p, duration, amplifier));
+		DeferredLoader.postInit(ListAdd.from(Brew.class, brew));
 	}
 
 	@ZenMethod

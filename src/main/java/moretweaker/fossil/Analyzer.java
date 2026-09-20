@@ -35,7 +35,7 @@ public class Analyzer {
 					FAMachineRecipeRegistry.analyzerRecipes.add(recipe);
 				}
 
-				recipe.addOutput(out.copy(), (float)weight);
+				recipe.addOutput(out, (float)weight);
 			}
 		});
 	}

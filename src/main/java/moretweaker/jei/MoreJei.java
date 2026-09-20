@@ -1,7 +1,5 @@
 package moretweaker.jei;
 
-import crafttweaker.CraftTweakerAPI;
-import crafttweaker.IAction;
 import mezz.jei.api.*;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import moretweaker.jei.buildcraft.BuildCraftJei;
@@ -15,17 +13,13 @@ import roidrole.roidtweaker.utils.DeferredLoader;
 import javax.annotation.Nonnull;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 @JEIPlugin
 public class MoreJei implements IModPlugin {
-	private static IJeiRuntime runtime = null;
 	private static IJeiHelpers helpers = null;
 	private static final List<MoreJeiPlugin> plugins = new LinkedList<>();
 	public static final ResourceLocation GUI_VANILLA = new ResourceLocation("jei", "textures/gui/gui_vanilla.png");
-	private static final Queue<IAction> runtimeQueue = new LinkedList<>();
 
 	public MoreJei() {
 		register("buildcraftsilicon", BuildCraftJei::new);
@@ -59,22 +53,7 @@ public class MoreJei implements IModPlugin {
 	}
 
 	public void onRuntimeAvailable(@Nonnull IJeiRuntime jeiRuntime) {
-		runtime = jeiRuntime;
-
-		DeferredLoader.jeiRuntime(runtime);
-
-		for(IAction action : runtimeQueue) {
-			CraftTweakerAPI.apply(action);
-		}
-
-		runtimeQueue.clear();
-	}
-
-	public static void run(Consumer<IJeiRuntime> action) {
-		if (runtime != null) {
-			action.accept(runtime);
-		}
-
+		DeferredLoader.jeiRuntime(jeiRuntime);
 	}
 
 	public static IJeiHelpers getHelpers() {
@@ -83,9 +62,5 @@ public class MoreJei implements IModPlugin {
 		} else {
 			return helpers;
 		}
-	}
-
-	public static void queueJeiRuntimeAction(IAction action) {
-		runtimeQueue.add(action);
 	}
 }

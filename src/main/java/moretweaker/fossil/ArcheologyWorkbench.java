@@ -11,11 +11,16 @@ import fossilsarcheology.server.recipe.RecipeWorktable;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
+import roidrole.roidtweaker.utils.actions.FunctionInvoke;
 import roidrole.roidtweaker.utils.actions.ListClear;
 import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 @ZenClass("moretweaker.fossil.ArcheologyWorkbench")
@@ -33,13 +38,15 @@ public class ArcheologyWorkbench {
 		final ItemStack[] in = CraftTweakerMC.getExamples(input);
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		final ItemStack[] f = CraftTweakerMC.getExamples(fuel);
-		DeferredLoader.postInit(() -> {
-			for(ItemStack stack : in) {
-				for(ItemStack theFuel : f) {
-					FAMachineRecipeRegistry.worktableRecipes.add(new RecipeWorktable(stack, out, theFuel));
-				}
+		final List<RecipeWorktable> recipes = new ArrayList<>(in.length * f.length);
+		for(ItemStack stack : in) {
+			for(ItemStack theFuel : f) {
+				recipes.add(new RecipeWorktable(stack, out, theFuel));
 			}
-		});
+		}
+		DeferredLoader.postInit(FunctionInvoke.from(
+			(Consumer<Collection<RecipeWorktable>>) FAMachineRecipeRegistry.worktableRecipes::addAll, recipes
+		));
 	}
 
 	@ZenMethod
