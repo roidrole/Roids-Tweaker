@@ -67,7 +67,10 @@ recipes.addShapeless(<minecraft:carrot>, (<minecraft:diamond_sword> * 3).spread(
 );
 
 //Custom Baubles
-val newBauble as InjectableBauble = IBauble.createBauble("RING");
+//To generate a new custom type, create a file config/baubles/type/custom[type_name].json
+//See: https://github.com/CaliforniaDemise/Bubbles/wiki/Modifying-and-Creating-Bauble-Types#custom-slots
+
+val newBauble as InjectableBauble = IBauble.createBauble("custom_type_1");
     newBauble.setOnWornTick(function(stack as IItemStack, entity as IEntityLivingBase) as void{
         if(!entity.world.isRemote()){
             print("I'm Being Worn!");
