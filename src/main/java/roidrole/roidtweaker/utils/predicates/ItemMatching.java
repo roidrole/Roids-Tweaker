@@ -14,7 +14,7 @@ public class ItemMatching implements Predicate<ItemStack> {
 
 	@Override
 	public boolean test(ItemStack input) {
-		return item != input.getItem();
+		return item == input.getItem();
 	}
 
 	@Override

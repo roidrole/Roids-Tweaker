@@ -21,10 +21,7 @@ public class StackMatching implements Predicate<ItemStack> {
 
 	@Override
 	public boolean test(ItemStack input) {
-		if (item != input.getItem()) {
-			return false;
-		}
-		return meta == input.getMetadata();
+		return item == input.getItem() && meta == input.getMetadata();
 	}
 
 	@Override
