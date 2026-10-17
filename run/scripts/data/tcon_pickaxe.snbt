@@ -1,0 +1,45 @@
+{
+    id: "tconstruct:pickaxe",
+    Count: 1b,
+    tag: {
+        StatsOriginal: {
+            AttackSpeedMultiplier: 1.0f,
+            MiningSpeed: 4.0f,
+            FreeModifiers: 3,
+            Durability: 20,
+            HarvestLevel: 1,
+            Attack: 3.0f
+        },
+        Stats: {
+            AttackSpeedMultiplier: 1.0f,
+            MiningSpeed: 4.0f,
+            FreeModifiers: 3,
+            Durability: 16,
+            HarvestLevel: 1,
+            Attack: 3.0f
+        },Special: {
+            Categories: [
+                "tool",
+                "aoe",
+                "harvest"
+            ]
+        },
+        TinkerData: {
+            Materials: [
+                "stone",
+                "stone",
+                "stone"
+            ],
+            Modifiers: []
+        },
+        Modifiers: [
+            {identifier: "cheap",color: -6710887,level: 1},
+            {identifier: "cheapskate",color: -6710887,level: 1}
+        ],
+        Traits: [
+            "cheap",
+            "cheapskate"
+        ]
+    },
+    Damage: 0s
+}
