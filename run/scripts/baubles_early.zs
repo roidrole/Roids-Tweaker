@@ -24,5 +24,5 @@ baubleTest.onEquipped = function(bauble, wearer) {
     }
 };
 //If bubbles is installed, custom types are supported
-baubleTest.baubleType = "custom_type_1";
+baubleTest.baubleType = "TRINKET";
 baubleTest.register();
