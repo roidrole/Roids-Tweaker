@@ -3,6 +3,8 @@ package xyz.tcreopargh.ctintegration.cot;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.contenttweaker.ContentTweaker;
 import com.teamacronymcoders.contenttweaker.modules.vanilla.items.ItemRepresentation;
+import roidrole.roidtweaker.mods.baubles.BubbleItemContent;
+import roidrole.roidtweaker.mods.baubles.BubbleUtils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenProperty;
 
@@ -34,6 +36,12 @@ public class BaubleItemRepresentation extends ItemRepresentation {
 
     @Override
     public void register() {
-        ContentTweaker.instance.getRegistry(ItemRegistry.class, "ITEM").register(new BaubleItemContent(this));
+        BaubleItemContent content;
+        if(BubbleUtils.isBubblesInstalled()){
+            content = new BubbleItemContent(this);
+        } else {
+            content = new BaubleItemContent(this);
+        }
+        ContentTweaker.instance.getRegistry(ItemRegistry.class, "ITEM").register(content);
     }
 }

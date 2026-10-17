@@ -1,7 +1,7 @@
 package roidrole.roidtweaker.mods.baubles;
 
-import baubles.api.BaubleType;
 import baubles.api.IBauble;
+import baubles.api.IBaubleType;
 import crafttweaker.api.entity.IEntityLivingBase;
 import crafttweaker.api.item.IItemDefinition;
 import crafttweaker.api.item.IItemStack;
@@ -24,8 +24,8 @@ import java.util.function.BiConsumer;
 @ZenClass("mods.ctintegration.baubles.InjectableBauble")
 @SuppressWarnings("unused")
 public class CTInjectableBauble implements IBauble {
-    final BaubleType type;
-    public CTInjectableBauble(BaubleType type){
+    final IBaubleType type;
+    public CTInjectableBauble(IBaubleType type){
         this.type = type;
     }
     public BiConsumer<ItemStack, EntityLivingBase> onWornTick = null;
@@ -42,8 +42,7 @@ public class CTInjectableBauble implements IBauble {
     //IBauble
 
     @Override
-    @SuppressWarnings("deprecation")
-    public BaubleType getBaubleType(@Nonnull ItemStack stack){
+    public IBaubleType getType(@Nonnull ItemStack stack){
         return type;
     }
 

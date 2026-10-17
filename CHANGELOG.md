@@ -6,6 +6,11 @@
 - DeferredLoader uses a better data structure
 - Improved some internals. Should slightly increase performance for select functions
 
+## 1.3.4
+**Added** support for custom bubbles types if bubbles is installed
+
+**Changed** `allowCustomBaubles` config to be ignored (instead of crashing) if bubbles is not installed
+
 ## 1.3.3
 **Fixed :**
 - DataUtils.write writing everything as string by default (for example, writing `"3.0"` instead of `3`)

@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 
 public class BaubleItemContent extends ItemContent implements IBauble {
 
-    private final BaubleType baubleType;
+    protected final String baubleType;
 
     private final BaubleEventHandler.CanEquip canEquip;
     private final BaubleEventHandler.canUnequip canUneuip;
@@ -19,11 +19,11 @@ public class BaubleItemContent extends ItemContent implements IBauble {
     private final BaubleEventHandler.OnEquipped onEquipped;
     private final BaubleEventHandler.OnUnequipped onUnequipped;
     private final BaubleEventHandler.WillAutoSync willAutoSync;
-    private final BaubleEventHandler.GetBaubleType getBaubleType;
+    protected final BaubleEventHandler.GetBaubleType getBaubleType;
 
     public BaubleItemContent(BaubleItemRepresentation itemRepresentation) {
         super(itemRepresentation);
-        this.baubleType = BaubleType.valueOf(itemRepresentation.baubleType);
+        this.baubleType = itemRepresentation.baubleType;
         this.canEquip = itemRepresentation.canEquip;
         this.canUneuip = itemRepresentation.canUnequip;
         this.onWornTick = itemRepresentation.onWornTick;
@@ -86,7 +86,7 @@ public class BaubleItemContent extends ItemContent implements IBauble {
         if (getBaubleType != null) {
             return BaubleType.valueOf(getBaubleType.handle(CraftTweakerMC.getIItemStack(itemStack)));
         } else if (baubleType != null) {
-            return baubleType;
+            return BaubleType.valueOf(baubleType);
         }
         return BaubleType.TRINKET;
     }

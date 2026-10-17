@@ -23,5 +23,6 @@ baubleTest.onEquipped = function(bauble, wearer) {
         player.addExperience(10);
     }
 };
+//If bubbles is installed, custom types are supported
 baubleTest.baubleType = "TRINKET";
 baubleTest.register();

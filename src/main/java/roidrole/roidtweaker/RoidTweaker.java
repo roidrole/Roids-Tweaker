@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 import roidrole.roidtweaker.mods.baubles.BaubleEventHandler;
+import roidrole.roidtweaker.mods.baubles.BubbleUtils;
 import roidrole.roidtweaker.mods.baubles.CTBaubleExpansion;
 import roidrole.roidtweaker.mods.baubles.CTInjectableBauble;
 import roidrole.roidtweaker.mods.immersiveengineering.GardenClocheCommand;
@@ -50,7 +51,7 @@ public class RoidTweaker {
         if(RoidTweakerConfig.eventCategory.allowAnvilRecipes) {
             MinecraftForge.EVENT_BUS.register(new AnvilListener());
         }
-        if(RoidTweakerConfig.eventCategory.allowCustomBaubles) {
+        if(RoidTweakerConfig.eventCategory.allowCustomBaubles && BubbleUtils.isBubblesInstalled()) {
             MinecraftForge.EVENT_BUS.register(new BaubleEventHandler());
         }
         if (RoidTweakerConfig.eventCategory.allowGameStagesEvents) {
@@ -63,7 +64,7 @@ public class RoidTweaker {
         if(Loader.isModLoaded("baubles") && Loader.isModLoaded("contenttweaker")){
             CraftTweakerAPI.registerClass(BaubleItemRepresentation.class);
         }
-        if(RoidTweakerConfig.eventCategory.allowCustomBaubles){
+        if(RoidTweakerConfig.eventCategory.allowCustomBaubles && BubbleUtils.isBubblesInstalled()){
             CraftTweakerAPI.registerClass(CTInjectableBauble.class);
             CraftTweakerAPI.registerClass(CTBaubleExpansion.class);
         }
