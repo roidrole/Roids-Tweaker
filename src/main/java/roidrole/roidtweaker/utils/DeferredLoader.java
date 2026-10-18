@@ -1,6 +1,7 @@
 package roidrole.roidtweaker.utils;
 
 import mezz.jei.api.IJeiRuntime;
+import mezz.jei.api.IModRegistry;
 
 import java.util.Collection;
 import java.util.function.Consumer;
@@ -8,6 +9,7 @@ import java.util.function.Consumer;
 public abstract class DeferredLoader {
     private static final Collection<IAction> postInit = new BucketedLinkedCollection<>(8);
     private static final Collection<IAction> loadComplete = new BucketedLinkedCollection<>(0);
+    private static final Collection<IActionConsume<IModRegistry>> jeiRegistry = new BucketedLinkedCollection<>(0);
     private static final Collection<IActionConsume<IJeiRuntime>> jeiRuntime = new BucketedLinkedCollection<>(0);
 
     @FunctionalInterface
@@ -30,6 +32,9 @@ public abstract class DeferredLoader {
     public static void loadComplete(IAction action){
         loadComplete.add(action);
     }
+    public static void jeiRegister(IActionConsume<IModRegistry> action){
+        jeiRegistry.add(action);
+    }
     public static void jeiRuntime(IActionConsume<IJeiRuntime> action){
         jeiRuntime.add(action);
     }
@@ -48,5 +53,10 @@ public abstract class DeferredLoader {
     public static void jeiRuntime(IJeiRuntime runtime){
         jeiRuntime.forEach(action -> action.accept(runtime));
         jeiRuntime.clear();
+    }
+
+    public static void recipeRegister(IModRegistry registry){
+        jeiRegistry.forEach(action -> action.load(registry));
+        jeiRegistry.clear();
     }
 }

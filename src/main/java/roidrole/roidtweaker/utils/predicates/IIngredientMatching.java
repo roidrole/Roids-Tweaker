@@ -15,6 +15,9 @@ public class IIngredientMatching implements Predicate<ItemStack> {
 
 	@Override
 	public boolean test(ItemStack itemStack) {
+		if(itemStack == null || itemStack.isEmpty()){
+			return false;
+		}
 		return target.matches(CraftTweakerMC.getIItemStackForMatching(itemStack));
 	}
 

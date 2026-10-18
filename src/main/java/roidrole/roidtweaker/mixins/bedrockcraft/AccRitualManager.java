@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 @Mixin(RitualManager.class)
 public interface AccRitualManager {
-	@Accessor
+	@Accessor(remap = false)
 	static LinkedList<RitualRecipe> getRecipes(){
 		throw new MixinException("Mixin "+ AccRitualManager.class.getCanonicalName() + " didn't apply");
 	}

@@ -2,6 +2,7 @@ package moretweaker.bedrockcraft;
 
 import bedrockcraft.ritual.RitualManager;
 import bedrockcraft.ritual.RitualRecipe;
+import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
@@ -27,6 +28,19 @@ import java.util.function.Predicate;
 public class BedrockRitual {
 	@ZenMethod
 	public static void addRecipe(IItemStack output, IIngredient center, int bedrockAmount, IIngredient[] inputs) {
+		switch(inputs.length){
+			case 2:
+			case 3:
+			case 4:
+			case 6:
+			case 12:{
+				break;
+			}
+			default:{
+				CraftTweakerAPI.logError("Invalid input count for a bedrock ritual. Should be 2, 3, 4, 6 or 12. Amount received: "+ inputs.length);
+				return;
+			}
+		}
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 		final Ingredient c = CraftTweakerMC.getIngredient(center);
 		Ingredient[] in = Utils.getIngredients(inputs);

@@ -68,8 +68,8 @@ dependencies {
     // }
     implementation('curse.maven:crafttweaker-239197:8051578')
 
-    compileOnly('mezz:jei:4.25.5')
-    runtimeOnly('mezz:jei:4.25.5')
+    compileOnly('mezz:jei:4.36.1')
+    runtimeOnly('mezz:jei:4.36.1')
     implementation('com.cleanroommc:configanytime:3.0')
     //Required for scripts with #loader preinit
     runtimeOnly('curse.maven:zenutil-401178:6794785')
@@ -134,8 +134,8 @@ dependencies {
     //runtimeOnly('curse.maven:tinkers-antique-1242239:7339332')
 
     //MoreTweaker
-    implementation('curse.maven:advent-of-ascension-nevermine-311054:3054253')
-    implementation('curse.maven:bedrockcraft-363794:2929848')
+    compileOnly('curse.maven:advent-of-ascension-nevermine-311054:3054253')
+    compileOnly('curse.maven:bedrockcraft-363794:2929848')
     implementation(files("libs/TheBetweenlands-3.9.6-core.jar"))
     implementation('curse.maven:angry-pixel-the-betweenlands-mod-243363:4479688')
     implementation('curse.maven:bewitchment-legacy-285439:6379256')

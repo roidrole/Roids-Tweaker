@@ -8,17 +8,15 @@ import moretweaker.jei.infinitycraft.InfinityJei;
 import moretweaker.jei.railcraft.RailcraftJei;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
-import roidrole.roidtweaker.utils.DeferredLoader;
 
-import javax.annotation.Nonnull;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
 @JEIPlugin
 public class MoreJei implements IModPlugin {
 	private static IJeiHelpers helpers = null;
-	private static final List<MoreJeiPlugin> plugins = new LinkedList<>();
+	private static final List<MoreJeiPlugin> plugins = new ArrayList<>(4);
 	public static final ResourceLocation GUI_VANILLA = new ResourceLocation("jei", "textures/gui/gui_vanilla.png");
 
 	public MoreJei() {
@@ -49,11 +47,7 @@ public class MoreJei implements IModPlugin {
 		for(MoreJeiPlugin plugin : plugins) {
 			plugin.register(registry);
 		}
-
-	}
-
-	public void onRuntimeAvailable(@Nonnull IJeiRuntime jeiRuntime) {
-		DeferredLoader.jeiRuntime(jeiRuntime);
+		plugins.clear();
 	}
 
 	public static IJeiHelpers getHelpers() {

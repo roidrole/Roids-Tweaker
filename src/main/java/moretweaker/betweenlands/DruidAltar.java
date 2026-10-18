@@ -43,11 +43,22 @@ public class DruidAltar {
 	}
 
 	@ZenMethod
+	public static void removeByInput(IItemStack input){
+		ItemStack inputNative = CraftTweakerMC.getItemStack(input);
+		AccDruidAltarRecipe.getDruidAltarRecipes().removeIf(recipe -> recipe.containsInputItem(inputNative));
+	}
+
+	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		Predicate<ItemStack> outFilter = Utils.getStackMatcher(output);
 
 		AccDruidAltarRecipe.getDruidAltarRecipes().removeIf(
-			recipe -> outFilter.test(((DruidAltarRecipe)recipe).getDefaultOutput())
+			recipe -> {
+				if(recipe instanceof DruidAltarRecipe) {
+					return outFilter.test(((DruidAltarRecipe) recipe).getDefaultOutput());
+				}
+				return false;
+			}
 		);
 	}
 

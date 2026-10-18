@@ -1,10 +1,7 @@
 package roidrole.roidtweaker;
 
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import mezz.jei.api.IJeiHelpers;
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.IModRegistry;
-import mezz.jei.api.JEIPlugin;
+import mezz.jei.api.*;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.plugins.vanilla.anvil.AnvilRecipeWrapper;
 import net.minecraft.client.Minecraft;
@@ -13,6 +10,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.mods.minecraft.anvil.AnvilRecipes;
+import roidrole.roidtweaker.utils.DeferredLoader;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -45,6 +43,12 @@ public class HEIPlugin implements IModPlugin {
                 .collect(Collectors.toList()),
             VanillaRecipeCategoryUid.ANVIL
         );
+        DeferredLoader.recipeRegister(registry);
+    }
+
+    @Override
+    public void onRuntimeAvailable(@Nonnull IJeiRuntime jeiRuntime) {
+        DeferredLoader.jeiRuntime(jeiRuntime);
     }
 
 
