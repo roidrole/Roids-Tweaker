@@ -8,6 +8,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import sblectric.lightningcraft.recipes.LightningCrusherRecipes;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -29,12 +30,17 @@ public class LightningCrusher {
 	@ZenMethod
 	public static void remove(IIngredient output) {
 		final Predicate<ItemStack> filter = Utils.getStackMatcher(output);
-		LightningCrusherRecipes.instance().getRecipeList().removeIf(recipe -> filter.test(recipe.getOutput()));
+		ListRemove.remove(
+			LightningCrusherRecipes.instance().getRecipeList(),
+			recipe -> filter.test(recipe.getOutput())
+		);
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		LightningCrusherRecipes.instance().getRecipeList().clear();
-		ListClear.logMessage("Lightning Crusher");
+		ListClear.clear(
+			LightningCrusherRecipes.instance().getRecipeList(),
+			"lightning crusher"
+		);
 	}
 }

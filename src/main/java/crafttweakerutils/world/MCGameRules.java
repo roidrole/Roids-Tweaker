@@ -1,8 +1,8 @@
 package crafttweakerutils.world;
 
 import net.minecraft.world.GameRules;
-import roidrole.roidtweaker.mixins.minecraft.AccGamerules$Value;
 import roidrole.roidtweaker.mixins.minecraft.AccGameRules;
+import roidrole.roidtweaker.mixins.minecraft.AccGamerules$Value;
 import stanhebben.zenscript.ZenRuntimeException;
 
 public class MCGameRules implements IGameRules {

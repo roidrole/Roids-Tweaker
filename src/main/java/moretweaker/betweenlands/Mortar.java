@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.mixins.thebetweenlands.AccPestleAndMortarRecipe;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import thebetweenlands.common.BetweenlandsAPI;
@@ -33,8 +34,8 @@ public class Mortar {
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<ItemStack> outFilter = Utils.getStackMatcher(output);
-
-		AccPestleAndMortarRecipe.getRecipes().removeIf(
+		ListRemove.remove(
+			AccPestleAndMortarRecipe.getRecipes(),
 			recipe -> outFilter.test(recipe.getOutput(recipe.getInputs()))
 		);
 	}

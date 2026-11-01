@@ -13,11 +13,12 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import roidrole.roidtweaker.utils.predicates.PredicateAnyOfArray;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.util.Iterator;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -39,22 +40,19 @@ public class IntegrationTable {
 	public static void remove(IIngredient catalyst) {
 		final Predicate<ItemStack> catalystFilter = Utils.getStackMatcher(catalyst);
 
-		Iterator<IntegrationRecipe> iterator = BuildcraftRecipeRegistry.integrationRecipes.getAllRecipes().iterator();
-		while (iterator.hasNext()){
-			IntegrationRecipe recipe = iterator.next();
-			if(PredicateAnyOfArray.test(catalystFilter, recipe.getCenterStack().ingredient.matchingStacks)){
-				iterator.remove();
-			}
-		}
+		ListRemove.remove(
+			BuildcraftRecipeRegistry.integrationRecipes.getAllRecipes(),
+			recipe -> PredicateAnyOfArray.test(catalystFilter, recipe.getCenterStack().ingredient.matchingStacks)
+		);
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		Iterator<IntegrationRecipe> itr = BuildcraftRecipeRegistry.integrationRecipes.getAllRecipes().iterator();
-		while(itr.hasNext()) {
-			itr.next();
-			itr.remove();
+		Iterable<IntegrationRecipe> iterable = BuildcraftRecipeRegistry.integrationRecipes.getAllRecipes();
+		if(iterable instanceof Collection){
+			ListClear.clear((Collection<?>) iterable, "Integration Table");
+		} else {
+			ListClear.clear(iterable, "Integration Table");
 		}
-		ListClear.logMessage("Integration Table");
 	}
 }

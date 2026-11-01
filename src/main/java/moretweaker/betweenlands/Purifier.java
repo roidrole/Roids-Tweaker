@@ -17,6 +17,7 @@ import roidrole.roidtweaker.utils.BucketedLinkedCollection;
 import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import roidrole.roidtweaker.utils.predicates.PredicateExtract;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -51,7 +52,8 @@ public class Purifier {
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		Predicate<ItemStack> outputMatcher = Utils.getStackMatcher(output);
-		AccPurifierRecipe.getRECIPES().removeIf(
+		ListRemove.remove(
+			AccPurifierRecipe.getRECIPES(),
 			new PredicateExtract<>(outputMatcher, Purifier::guessOutput)
 		);
 	}

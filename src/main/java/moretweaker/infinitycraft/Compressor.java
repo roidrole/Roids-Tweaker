@@ -9,6 +9,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -32,12 +33,11 @@ public class Compressor {
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<ItemStack> out = Utils.getStackMatcher(output);
-		CompressorRecipes.instance().getCompressingList().values().removeIf(out);
+		ListRemove.remove(CompressorRecipes.instance().getCompressingList().values(), out);
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		CompressorRecipes.instance().getCompressingList().clear();
-		ListClear.logMessage("infinitycraft Compressor");
+		ListClear.clear(CompressorRecipes.instance().getCompressingList(), "infinitycraft Compressor");
 	}
 }

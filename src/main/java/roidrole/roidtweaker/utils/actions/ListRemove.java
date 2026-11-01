@@ -9,11 +9,31 @@ import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.predicates.PredicateExtract;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 public abstract class ListRemove implements DeferredLoader.IAction {
+
+	public static <T> void remove(Collection<T> collection, Predicate<T> predicate){
+		collection.removeIf(predicate);
+	}
+	public static <T> void removeKey(Map<T, ?> collection, T element){
+		collection.remove(element);
+	}
+	public static <T> void removeValues(Map<?, T> collection, Predicate<T> predicate){
+		collection.values().removeIf(predicate);
+	}
+	public static <T> void remove(Iterable<T> collection, Predicate<T> predicate){
+		Iterator<T> iterator = collection.iterator();
+		while (iterator.hasNext()){
+			T element = iterator.next();
+			if(predicate.test(element)){
+				iterator.remove();
+			}
+		}
+	}
 
 	public static <T> ListRemove from(Collection<T> collection, Predicate<T> condition){
 		return new ListRemoveSimple<>(collection, condition);

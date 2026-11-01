@@ -10,6 +10,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -33,7 +34,7 @@ public class EnderFuge {
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		final Predicate<ItemStack> outputFilter = Utils.getStackMatcher(output);
-		EnderfugeRecipes.instance().getSmeltingList().values().removeIf(outputFilter);
+		ListRemove.remove(EnderfugeRecipes.instance().getSmeltingList().values(), outputFilter);
 	}
 
 	@ZenMethod
@@ -47,18 +48,16 @@ public class EnderFuge {
 	@ZenMethod
 	public static void removeFuel(IIngredient fuel) {
 		final Predicate<ItemStack> out = Utils.getStackMatcher(fuel);
-		EnderfugeFuel.instance().getSmeltingList().keySet().removeIf(out);
+		ListRemove.remove(EnderfugeFuel.instance().getSmeltingList().keySet(), out);
 	}
 
 	@ZenMethod
 	public static void removeAllRecipes() {
-		ListClear.logMessage("EnderFuge");
-		EnderfugeRecipes.instance().getSmeltingList().clear();
+		ListClear.clear(EnderfugeRecipes.instance().getSmeltingList(), "EnderFuge");
 	}
 
 	@ZenMethod
 	public static void removeAllFuels() {
-		ListClear.logMessage("EnderFuge fuel");
-		EnderfugeFuel.instance().getSmeltingList().clear();
+		ListClear.clear(EnderfugeFuel.instance().getSmeltingList(), "EnderFuge fuel");
 	}
 }

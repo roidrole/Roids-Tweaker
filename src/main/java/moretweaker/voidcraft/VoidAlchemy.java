@@ -30,7 +30,7 @@ public class VoidAlchemy {
 	@ZenMethod
 	public static void add(IItemStack output, IIngredient[] inputs, @Optional(valueLong = 350L) final int voidicPower) {
 		if (inputs.length != 6) {
-			CraftTweakerAPI.logError("For VoidAlchemy: Less or more than  six ingredients specified");
+			CraftTweakerAPI.logError("For VoidAlchemy: Expected 6 ingredients");
 		}
 		final ItemStack out = CraftTweakerMC.getItemStack(output);
 

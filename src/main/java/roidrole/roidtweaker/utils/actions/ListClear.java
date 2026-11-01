@@ -13,6 +13,7 @@ import roidrole.roidtweaker.utils.DeferredLoader;
 import roidrole.roidtweaker.utils.Utils;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 
 public abstract class ListClear implements DeferredLoader.IAction{
@@ -23,6 +24,18 @@ public abstract class ListClear implements DeferredLoader.IAction{
 
 	public static void clear(Collection<?> collection, String recipeType){
 		collection.clear();
+		ListClear.logMessage(recipeType);
+	}
+	public static void clear(Map<?, ?> collection, String recipeType){
+		collection.clear();
+		ListClear.logMessage(recipeType);
+	}
+	public static void clear(Iterable<?> collection, String recipeType){
+		Iterator<?> itr = collection.iterator();
+		while (itr.hasNext()) {
+			itr.next();
+			itr.remove();
+		}
 		ListClear.logMessage(recipeType);
 	}
 

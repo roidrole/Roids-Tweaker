@@ -8,8 +8,15 @@ import roidrole.roidtweaker.utils.Utils;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Map;
 
 public abstract class ListAdd implements DeferredLoader.IAction {
+	public static <K, V> void add(Map<K, V> collection, K key, V value){
+		collection.put(key, value);
+	}
+	public static <T> void add(Collection<T> collection, T element){
+		collection.add(element);
+	}
 
 	public static <T> ListAdd from(Collection<T> collection, T element){
 		return new ListAddElement<>(collection, element);

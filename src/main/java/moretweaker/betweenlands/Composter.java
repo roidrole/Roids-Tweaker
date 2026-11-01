@@ -3,8 +3,11 @@ package moretweaker.betweenlands;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
+import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import thebetweenlands.common.BetweenlandsAPI;
@@ -26,5 +29,16 @@ public class Composter {
 		for (ItemStack stack : inputs){
 			BetweenlandsAPI.getInstance().registerCompostBinRecipe(new CompostRecipe(compostValue, compostTime, stack));
 		}
+	}
+
+	@ZenMethod
+	public static void removeRecipe(IItemStack output){
+		ItemStack outputNative = CraftTweakerMC.getItemStack(output);
+		ListRemove.remove(CompostRecipe.RECIPES, recipe -> recipe.matchesInput(outputNative));
+	}
+
+	@ZenMethod
+	public static void removeAll(){
+		ListClear.clear(CompostRecipe.RECIPES, "Betweelands Composter");
 	}
 }

@@ -63,6 +63,9 @@ public class RollingMachine {
 
 	@ZenMethod
 	public static void removeAll() {
-		DeferredLoader.postInit(ListClear.from(Crafters.rollingMachine().getRecipes(), "Rolling Machine"));
+		DeferredLoader.postInit(ListClear.from(
+			Crafters.rollingMachine().getRecipes(),
+			"Rolling Machine"
+		));
 	}
 }

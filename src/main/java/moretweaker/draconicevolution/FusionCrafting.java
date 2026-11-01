@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.mixins.draconicevolution.AccFusionRecipeRegistry;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenProperty;
@@ -45,12 +46,17 @@ public class FusionCrafting {
 	@ZenMethod
 	public static void remove(IIngredient catalyst) {
 		final Predicate<ItemStack> catalystFilter = Utils.getStackMatcher(catalyst);
-		((AccFusionRecipeRegistry)FusionRecipeAPI.registry).getREGISTRY().removeIf(recipe -> catalystFilter.test(recipe.getRecipeCatalyst()));
+		ListRemove.remove(
+			((AccFusionRecipeRegistry)FusionRecipeAPI.registry).getREGISTRY(),
+			recipe -> catalystFilter.test(recipe.getRecipeCatalyst())
+		);
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		ListClear.logMessage("fusion crafting");
-		((AccFusionRecipeRegistry)FusionRecipeAPI.registry).getREGISTRY().clear();
+		ListClear.clear(
+			((AccFusionRecipeRegistry)FusionRecipeAPI.registry).getREGISTRY(),
+			"fusion crafting"
+		);
 	}
 }

@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import thebetweenlands.api.recipes.IAnimatorRecipe;
@@ -52,8 +53,9 @@ public class Animator {
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		Predicate<ItemStack> outputMatcher = Utils.getStackMatcher(output);
-		AnimatorRecipe.getRecipes().removeIf(recipe ->
-			outputMatcher.test(recipe.getResult(Animator.guessInput(recipe)))
+		ListRemove.remove(
+			AnimatorRecipe.getRecipes(),
+			recipe -> outputMatcher.test(recipe.getResult(Animator.guessInput(recipe)))
 		);
 	}
 
@@ -65,8 +67,8 @@ public class Animator {
 			CraftTweakerAPI.logError("No entity found for id: " + entityOutput);
 			return;
 		}
-
-		AnimatorRecipe.getRecipes().removeIf(
+		ListRemove.remove(
+			AnimatorRecipe.getRecipes(),
 			recipe -> entityClass == recipe.getSpawnEntityClass(Animator.guessInput(recipe))
 		);
 	}

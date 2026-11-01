@@ -9,6 +9,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import sblectric.lightningcraft.recipes.LightningInfusionRecipes;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -35,12 +36,14 @@ public class LightningInfusion {
 	@ZenMethod
 	public static void remove(IIngredient output) {
 		final Predicate<ItemStack> obj = Utils.getStackMatcher(output);
-		LightningInfusionRecipes.instance().getRecipeList().removeIf(recipe -> obj.test(recipe.getOutput()));
+		ListRemove.remove(
+			LightningInfusionRecipes.instance().getRecipeList(),
+			recipe -> obj.test(recipe.getOutput())
+		);
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		LightningInfusionRecipes.instance().getRecipeList().clear();
-		ListClear.logMessage("Lightning Infusion");
+		ListClear.clear(LightningInfusionRecipes.instance().getRecipeList(), "lightning infusion");
 	}
 }

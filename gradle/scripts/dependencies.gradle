@@ -153,7 +153,7 @@ dependencies {
     implementation('curse.maven:gadgetry-core-282775:2633658')
     implementation('curse.maven:gadgetry-machines-282776:2634495')
     //Note: Galacticraft Tweaker exists
-    implementation('curse.maven:galacticraft-legacy-564236:6364107')
+    implementation(rfg.deobf('curse.maven:galacticraft-legacy-564236:6364107'))
     implementation('curse.maven:hearth-well-313368:2800056')
     implementation('curse.maven:infinitycraft-238239:2509257')
     implementation('curse.maven:lightningcraft-237422:2872478')

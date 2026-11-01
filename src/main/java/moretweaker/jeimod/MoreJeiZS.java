@@ -6,7 +6,6 @@ import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import mezz.jei.api.IRecipeRegistry;
 import mezz.jei.api.ingredients.VanillaTypes;
-import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.plugins.jei.info.IngredientInfoRecipe;
 import mezz.jei.plugins.jei.info.IngredientInfoRecipeCategory;

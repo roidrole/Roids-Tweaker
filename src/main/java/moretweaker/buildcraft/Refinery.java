@@ -3,7 +3,6 @@ package moretweaker.buildcraft;
 import buildcraft.api.mj.MjAPI;
 import buildcraft.api.recipes.BuildcraftRecipeRegistry;
 import buildcraft.lib.recipe.RefineryRecipeRegistry;
-import com.google.common.base.Predicates;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
@@ -12,6 +11,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -39,12 +39,17 @@ public class Refinery {
 			return;
 		}
 		final Fluid fluidIn = in.getFluid();
-		BuildcraftRecipeRegistry.refineryRecipes.getDistillationRegistry().removeRecipes((r) -> fluidIn == r.in().getFluid());
+		ListRemove.remove(
+			BuildcraftRecipeRegistry.refineryRecipes.getDistillationRegistry().getAllRecipes(),
+			recipe -> fluidIn == recipe.in().getFluid()
+		);
 	}
 
 	@ZenMethod
 	public static void removeAll() {
-		BuildcraftRecipeRegistry.refineryRecipes.getDistillationRegistry().removeRecipes(Predicates.alwaysTrue());
-		ListClear.logMessage("BC refinery distillation");
+		ListClear.clear(
+			BuildcraftRecipeRegistry.refineryRecipes.getDistillationRegistry().getAllRecipes(),
+			"BC refinery distillation"
+		);
 	}
 }

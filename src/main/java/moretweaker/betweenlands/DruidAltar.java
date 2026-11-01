@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import roidrole.roidtweaker.mixins.thebetweenlands.AccDruidAltarRecipe;
 import roidrole.roidtweaker.utils.Utils;
 import roidrole.roidtweaker.utils.actions.ListClear;
+import roidrole.roidtweaker.utils.actions.ListRemove;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import thebetweenlands.common.BetweenlandsAPI;
@@ -45,14 +46,17 @@ public class DruidAltar {
 	@ZenMethod
 	public static void removeByInput(IItemStack input){
 		ItemStack inputNative = CraftTweakerMC.getItemStack(input);
-		AccDruidAltarRecipe.getDruidAltarRecipes().removeIf(recipe -> recipe.containsInputItem(inputNative));
+		ListRemove.remove(
+			AccDruidAltarRecipe.getDruidAltarRecipes(),
+			recipe -> recipe.containsInputItem(inputNative)
+		);
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IIngredient output) {
 		Predicate<ItemStack> outFilter = Utils.getStackMatcher(output);
-
-		AccDruidAltarRecipe.getDruidAltarRecipes().removeIf(
+		ListRemove.remove(
+			AccDruidAltarRecipe.getDruidAltarRecipes(),
 			recipe -> {
 				if(recipe instanceof DruidAltarRecipe) {
 					return outFilter.test(((DruidAltarRecipe) recipe).getDefaultOutput());
