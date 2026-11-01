@@ -1,6 +1,5 @@
 package roidrole.roidtweaker.mods.minecraft.villager;
 
-import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ZenRegister;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
@@ -11,6 +10,7 @@ import roidrole.roidtweaker.mods.forge.Registries;
 import roidrole.roidtweaker.mods.minecraft.villager.actions.CareerAddition;
 import roidrole.roidtweaker.mods.minecraft.villager.actions.CareerOverride;
 import roidrole.roidtweaker.utils.DeferredLoader;
+import roidrole.roidtweaker.utils.Utils;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -58,7 +58,7 @@ public class Villager {
             if(RoidTweakerConfig.mixinCategory.villagerCategory.replaceProfessionSetter) {
                 removedProfessions.add(new ResourceLocation(name));
             } else {
-                CraftTweakerAPI.logError("Can't remove vanilla professions without setting replaceProfessionSetter=true!");
+                Utils.printMixinWarning("remove a vanilla villager profession", "replaceProfessionSetter");
             }
         } else {
             Registries.disable(name);

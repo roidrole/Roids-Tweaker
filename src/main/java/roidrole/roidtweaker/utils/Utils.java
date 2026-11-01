@@ -167,4 +167,11 @@ public abstract class Utils {
 	public static void injectTranslation(String key, String value) {
 		CraftTweakerAPI.apply(new ActionSetTranslation(null, key, value));
 	}
+
+	public static void printMixinWarning(String action, String option){
+		CraftTweakerAPI.logError(
+			"Attempting to "+ action + " while "+ option +" is false. \n" +
+			"Please enable it in Roid's Tweaker config (mixin category)"
+		);
+	}
 }

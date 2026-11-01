@@ -5,6 +5,8 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
+import roidrole.roidtweaker.RoidTweakerConfig;
+import roidrole.roidtweaker.utils.Utils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -20,6 +22,10 @@ public class ChickenFeed {
 
 	@ZenMethod
 	public static void setSpawnEgg(final String mobId, IItemStack spawnegg) {
+		if(!RoidTweakerConfig.mixinCategory.allowCustomMobSwabEgg){
+			Utils.printMixinWarning("edit mob swab spawn eggs", "allowCustomMobSwabEgg");
+			return;
+		}
 		spawnEggOverrides.put(mobId, CraftTweakerMC.getItemStack(spawnegg));
 	}
 
