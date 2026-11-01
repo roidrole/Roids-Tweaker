@@ -35,4 +35,4 @@ There are also a few original additions :
 - UniDict integration
 - Villager expansion
 
-You can find a list of all features in the [wiki](https://github.com/roidrole/Roids-Tweaker/wiki)
+You can find a list of all features in the [wiki](https://github.com/roidrole/Roids-Tweaker/wiki) along with a [migration guide](https://github.com/roidrole/Roids-Tweaker/wiki/migration-guide) from the mods mentionned here
